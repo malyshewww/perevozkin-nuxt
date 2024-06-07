@@ -1,0 +1,150 @@
+* {
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+}
+*,
+*:before,
+*:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+:focus,
+:active {
+	outline: none;
+}
+html,
+body {
+	height: 100%;
+	min-width: $minWidth + px;
+	background-color: $bg-primary;
+	scrollbar-gutter: stable;
+}
+body {
+	color: $mainColor;
+	font-size: $fontSize;
+	font-weight: $fontWeight;
+	font-family: $font-family;
+	background-color: $bg-primary;
+	line-height: 1;
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	scroll-behavior: smooth;
+}
+aside,
+nav,
+footer,
+header,
+section,
+main {
+	display: block;
+}
+button {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-moz-tap-highlight-color: rgba(0, 0, 0, 0);
+	-o-tap-highlight-color: rgba(0, 0, 0, 0);
+	-ms-tap-highlight-color: rgba(0, 0, 0, 0);
+	-tap-highlight-color: rgba(0, 0, 0, 0);
+	&:focus,
+	&:active {
+		outline: 0px solid transparent;
+	}
+	&::-moz-focus-inner {
+		padding: 0;
+		border: 0;
+	}
+}
+input:focus {
+	outline: 0px solid transparent;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}
+input::-ms-clear {
+	display: none;
+}
+button,
+input,
+textarea {
+	font-family: $font-family;
+	font-size: inherit;
+}
+button {
+	color: inherit;
+	background-color: inherit;
+}
+button,
+input[type="submit"] {
+	cursor: pointer;
+	@media (any-hover: hover) {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
+a {
+	color: inherit;
+	@media (any-hover: hover) {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
+input.error,
+input.form-item--error,
+textarea.error,
+textarea.form-item--error {
+	border-color: red;
+}
+a:link,
+a:visited {
+	text-decoration: none;
+}
+address {
+	font-style: none;
+}
+img {
+	border: none;
+	max-height: 100%;
+	vertical-align: top;
+	object-fit: cover;
+}
+img, picture, video, canvas, svg {
+	display: block;
+	max-width: 100%;
+}
+p, h1, h2, h3, h4, h5, h6 {
+	overflow-wrap: break-word;
+	hyphens: auto;
+}
+#root,
+#__next {
+	isolation: isolate;
+}
+[inert] > * {
+	opacity: 0.5;
+}
+// scroll-bar
+* {
+	scrollbar-width: thin;
+	scroll-behavior: smooth;
+}
+*::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+	background-color: white;
+}
+*::-webkit-scrollbar-thumb {
+	cursor: pointer;
+	background-color: rgba(#fff, .8);
+	border-radius: 5px;
+	transition: all .5s;
+}
+*::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(#fff, .5);
+}

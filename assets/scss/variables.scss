@@ -1,0 +1,130 @@
+@use "sass:math";
+// Минимальная ширина страницы
+$minWidth: 320;
+// Ширина полотна (макета)
+$maxWidth: 1920;
+// Ширина ограничивающего контейнера (0 = нет ограничения)
+$maxWidthContainer: 1752;
+
+// Общий отступ у контейнера
+// (30 = по 15px слева и справа, 0 = нет отступа)
+$containerPadding: 32;
+
+// Тип адаптива:
+// 1 = отзывчивость (у контейнера нет брейкпоинтов),
+// 2 = по брейк-поинтам (контейнер меняет свою ширину по брейк-поинтам)
+$responsiveType: 1;
+
+// Ширина страбатывания первого брейкпоинта
+$containerWidth: $maxWidthContainer + $containerPadding;
+// Брейкпоинты
+$pc: $containerWidth + px;
+$xs: 479.98px;
+$sm: 576px;
+$md: 767.98px;
+$lg: 991.98px;
+$xl: 1024px;
+$xxl: 1200px;
+$xxxl: 1400px;
+
+// (i) Стили будут применяться ко всем классам содержащим *__container. Например header__container, footer__container и т.д.
+@if ($responsiveType ==1) {
+	// Отзывчивая
+	.container {
+		@if ($maxWidthContainer > 0) {
+			max-width: $maxWidthContainer + px;
+			margin: 0 auto;
+		}
+		@if ($containerPadding > 0) {
+			padding: 0 math.div($containerPadding, 2) + px;
+		}
+	}
+}
+@else {
+	// По брейк-поинтам
+	.container {
+		margin: 0 auto;
+		@if ($maxWidthContainer > 0) {
+			max-width: $maxWidthContainer + px;
+		}
+		@if ($containerPadding > 0) {
+			padding: 0 math.div($containerPadding, 2) + px;
+		}
+		@media (max-width: $xxl) {
+			max-width: 980px;
+		}
+		@media (max-width: $lg) {
+			max-width: 750px;
+		}
+		@media (max-width: $md) {
+			max-width: 620px;
+		}
+		@media (max-width: $sm) {
+			max-width: 100%;
+		}
+	}
+}
+
+// размеры шрифтов
+$fontSize: 16px;
+// Основные Цвета
+$mainColor: #ffffff;
+$bg-primary: #22282f;
+// Шрифты
+$fontWeight: 400;
+$font-family: "Golos Text", sans-serif;
+$second-family: "Xolonium", sans-serif;
+$third-family: "Muller", sans-serif;
+
+$gray: #b1b5c0;
+$dark-gray: #616570;
+$graphite: #2a3038;
+$bg-anthracite: #22282f;
+$bg-graphite: #2a3038;
+$bg-asphalt: #363c46;
+$bg-dark-gray: #616570;
+$bg-white: #fff;
+$bg-green-lime: #6de754;
+$text-anthracite: #22282f;
+$text-asphalt: #363c46;
+$text-dark-gray: #616570;
+$text-gray: #b1b5c0;
+$text-white: #fff;
+$text-green-lime: #6de754;
+$icon-anthracite: #22282f;
+$icon-asphalt: #363c46;
+$icon-dark-gray: #616570;
+$icon-gray: #b1b5c0;
+$icon-white: #fff;
+$icon-green-lime: #6de754;
+$line-asphalt: #363c46;
+$line-dark-gray: #616570;
+$line-gray: #b1b5c0;
+$line-white: #fff;
+$line-green-lime: #6de754;
+$state-hover: #9aff85;
+$state-pressed: #58b445;
+$state-visited-link: #b163ff;
+$system-success: #53d0ab;
+$system-alert: #ff4949;
+$focus: #6e9bde;
+
+
+
+$greenGradient: linear-gradient(135deg, #6de754 0%, #129465 100%);
+// background-image: linear-gradient(to right, #fbc2eb 0%, #a6c1ee 51%, #fbc2eb 100%);
+// $greenGradientHover: linear-gradient(135deg, #129465 0%, #6de754 100%);
+$time: .25s;
+
+$linearDark: linear-gradient(162deg, #2f3740 0%, #264947 100%);
+$linearLight: linear-gradient(135deg, #6de754 0%, #129465 100%);
+$linearPromo: linear-gradient(135deg, #e77754 0%, #d3126f 100%);
+
+// @import "~bootstrap/scss/functions";
+// @import "~bootstrap/scss/variables";
+// @import "~bootstrap/scss/variables-dark";
+// @import "~bootstrap/scss/maps";
+// @import "~bootstrap/scss/mixins";
+// @import "~bootstrap/scss/utilities";
+
+// $navbar-dark-color: rgba($white, .7);
