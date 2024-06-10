@@ -8,10 +8,10 @@
          </UiTicker>
          <div class="main-services__body">
             <div class="main-services__top">
-               <SectionMainServicesCard :arr="serviceCardsTop" />
+               <Card :arr="serviceCardsTop"></Card>
             </div>
             <div class="main-services__bottom">
-               <SectionMainServicesCard :arr="serviceCardsBottom" />
+               <Card :arr="serviceCardsBottom"></Card>
             </div>
          </div>
       </div>
@@ -30,29 +30,29 @@ const tickerItems = [
 const serviceCardsTop = [
    {
       title: "Газель Next",
-      img: "service-1",
+      img: "/main-services/service-1",
       href: "/services",
    },
    {
       title: "Газель Next",
-      img: "service-2",
+      img: "/main-services/service-2",
       href: "/services",
    },
    {
       title: "Газель Next",
-      img: "service-3",
+      img: "/main-services/service-3",
       href: "/services",
    },
 ];
 const serviceCardsBottom = [
    {
       title: "Шиномонтаж",
-      img: "service-4",
+      img: "/main-services/service-4",
       href: "/services",
    },
    {
       title: "Техническое обслуживание ГАЗ",
-      img: "service-5",
+      img: "/main-services/service-5",
       href: "/services",
    },
 ];
@@ -73,12 +73,17 @@ const serviceCardsBottom = [
       & .service-item {
          min-height: 530px;
          transition: width $time, flex-grow $time;
+         flex-grow: 1;
+         width: 33.333%;
+         &__image {
+            position: relative;
+            z-index: 2;
+         }
          @media (any-hover: hover) {
             &:hover {
-               flex-grow: 2;
                width: 50%;
                & .service-item__image img {
-                  transform: scale(1.2);
+                  // transform: scale(1.01);
                }
             }
          }
@@ -111,6 +116,7 @@ const serviceCardsBottom = [
             position: absolute;
             right: 0;
             bottom: 0;
+            left: auto;
             max-height: 196px;
          }
          &__icon {

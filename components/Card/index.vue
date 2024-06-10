@@ -1,17 +1,17 @@
 <template>
-   <NuxtLink
-      :to="`${item.href}`"
-      v-for="item in props.arr"
-      class="service-item">
+   <NuxtLink :to="`${item.href}`" v-for="item in arr" class="service-item">
       <div class="service-item__body">
          <svg class="service-item__icon">
             <use xlink:href="/images/icons/sprite.svg#rotate-arrow-down"></use>
          </svg>
          <div class="service-item__header">
             <div class="service-item__title">{{ item.title }}</div>
+            <div class="service-item__price" v-if="item.price">
+               <span>от</span> {{ item.price }}
+            </div>
          </div>
          <div class="service-item__image">
-            <img :src="`/images/main-services/${item.img}.png`" alt="" />
+            <img :src="`/images/${item.img}.png`" :alt="item.title" />
          </div>
       </div>
    </NuxtLink>
@@ -27,6 +27,7 @@ const props = defineProps(["arr"]);
    padding: 40px;
    position: relative;
    @include transition(width $time, flex-grow $time);
+   min-height: 504px;
    &::before {
       content: "";
       position: absolute;
@@ -61,6 +62,9 @@ const props = defineProps(["arr"]);
       }
    }
    &__header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       align-self: flex-start;
    }
    &__icon {
@@ -81,9 +85,28 @@ const props = defineProps(["arr"]);
       text-transform: uppercase;
       color: $bg-white;
    }
+   &__price {
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 32px;
+      color: $bg-white;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      & span {
+         font-weight: 400;
+         color: $gray;
+      }
+   }
    &__image {
       margin-top: auto;
       max-height: 320px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      max-height: 340px;
+      @include transition(transform, $time);
       & img {
          width: 100%;
          @include transition(transform, $time);

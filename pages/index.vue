@@ -1,8 +1,10 @@
 <template>
-   <SectionMainServices />
-   <SectionMainAdvantages />
-   <SectionMainSale />
-   <SectionMainPartners />
+   <main class="main">
+      <SectionMainServices />
+      <SectionMainAdvantages />
+      <SectionMainSale />
+      <SectionMainPartners />
+   </main>
 </template>
 
 <script setup lang="ts">

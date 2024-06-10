@@ -105,6 +105,9 @@ onMounted(() => {
       flex-direction: row;
       align-items: flex-start;
       gap: 0 253px;
+      margin: 0;
+      padding: 0;
+      border: none;
       &__title {
          flex: 1 1 auto;
          max-width: 1000px;

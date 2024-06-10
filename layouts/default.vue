@@ -1,16 +1,10 @@
 <template>
    <div class="wrapper">
-      <Header />
+      <Header></Header>
       <slot />
-      <Footer />
+      <Footer></Footer>
    </div>
 </template>
 
 <script setup></script>
-
-<style>
-.wrapper {
-   display: grid;
-   grid-template-columns: 1fr;
-}
-</style>
+<style lang="scss"></style>

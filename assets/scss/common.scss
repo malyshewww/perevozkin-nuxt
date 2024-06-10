@@ -1,7 +1,23 @@
+body > div.__nuxt {
+	height: 100%;
+}
 .wrapper {
-	display: grid;
-	grid-template-rows: auto 1fr auto;
+	display: flex;
+	flex-direction: column;
 	overflow: clip;
+	height: 100%;
+}
+.main {
+	flex: 1 1 auto;
+	padding-bottom: 160px;
+	&-header {
+		margin-top: 32px;
+		margin-bottom: 80px;
+		&__body {
+			padding-bottom: 24px;
+			border-bottom: 1px solid $bg-asphalt;
+		}
+	}
 }
 .footer {
 	margin-top: auto;
@@ -53,6 +69,7 @@
 	color: $bg-anthracite;
 	background-color: $bg-green-lime;
 	position: relative;
+	cursor: pointer;
 	&::before,
 	&::after {
 		content: "";
@@ -83,5 +100,77 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
+	}
+}
+
+.page-title {
+	font-family: $second-family;
+	font-weight: 700;
+	font-size: 64px;
+	line-height: 80px;
+	letter-spacing: 0.01em;
+	text-transform: uppercase;
+	color: $gray;
+}
+
+.form-item {
+	position: relative;
+	& input {
+		border: 1px solid $bg-asphalt;
+		width: 100%;
+		padding: 10px 20px;
+		font-family: $font-family;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 24px;
+		color: $gray;
+		background-color: transparent;
+	}
+	& label {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		left: 20px;
+		font-weight: 400;
+		line-height: 24px;
+		color: $gray;
+	}
+}
+
+.content {
+	font-size: 16px;
+	line-height: 1.75;
+
+	h2, h3, h4, h5, h6 {
+		font-family: $font-family;
+		font-weight: 400;
+		margin-bottom: 24px;
+	}
+	p {
+		margin-bottom: 16px;
+		line-height: 24px;
+		color: $bg-white;
+		line-height: 1.75;
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	ol,
+	ul {
+		margin-top: 24px;
+		margin-bottom: 24px;
+		line-height: 1.75;
+		&:last-child {
+			margin-bottom: 0;
+		}
+		&:first-child {
+			margin-top: 0;
+		}
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+	*:last-child {
+		margin-bottom: 0;
 	}
 }
