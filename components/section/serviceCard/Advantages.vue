@@ -156,49 +156,8 @@ const serviceSlider = [
    &__image {
       padding-bottom: calc(380 / 580 * 100%);
    }
-}
-.slider-controls {
-   display: flex;
-   justify-content: flex-end;
-   align-items: center;
-   gap: 12px;
-   margin-top: 32px;
-}
-.slider-button {
-   width: 60px;
-   height: 60px;
-   border-radius: 50%;
-   flex-shrink: 0;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   border: 1px solid $bg-white;
-   @include transition(border-color $time);
-   &::before {
-      content: "";
-      display: block;
-      width: 20px;
-      height: 20px;
-      mask-repeat: no-repeat;
-      mask-position: center;
-      background-color: $bg-white;
-      @include transition(background-color $time);
-   }
-   &-prev {
-      &::before {
-         mask-image: url("/images/icons/icon-arrow-left.svg");
-      }
-   }
-   &-next {
-      &::before {
-         mask-image: url("/images/icons/icon-arrow-right.svg");
-      }
-   }
-   &.swiper-button-disabled {
-      border-color: $bg-asphalt;
-      &::before {
-         background-color: $dark-gray;
-      }
+   .slider-controls {
+      margin-top: 32px;
    }
 }
 </style>

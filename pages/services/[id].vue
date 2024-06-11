@@ -52,6 +52,7 @@ const breadcrumbs = [
       & .breadcrumbs {
          grid-area: crumbs;
          margin-top: 0;
+         margin-bottom: 24px;
          & .container {
             padding: 0;
          }
@@ -67,6 +68,7 @@ const breadcrumbs = [
       justify-content: space-between;
       gap: 36px;
       align-items: start;
+      position: relative;
    }
    &__title {
       grid-area: title;
@@ -86,6 +88,11 @@ const breadcrumbs = [
    &__image {
       grid-area: pic;
       padding-bottom: calc(504 / 705 * 100%);
+      position: absolute;
+      right: 0;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
    }
 }
 .page-title {
