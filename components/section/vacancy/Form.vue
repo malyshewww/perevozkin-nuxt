@@ -3,7 +3,7 @@
       <div class="form__items">
          <div class="form-item">
             <input type="text" id="form-name" name="name" />
-            <label for="form-name">Имя</label>
+            <label for="form-name">ФИО</label>
          </div>
          <div class="form-item">
             <input type="tel" id="form-phone" name="phone" />

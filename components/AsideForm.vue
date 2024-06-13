@@ -19,7 +19,11 @@ const props = defineProps(["formTitle", "formSubtitle"]);
 <style lang="scss">
 .aside-form {
    padding: 52px 60px 72px;
-   background-color: $graphite;
+   background: $graphite;
+   & .form__items {
+      grid-template-columns: 1fr;
+      margin: 0;
+   }
 }
 .form {
    &__header {
@@ -29,7 +33,7 @@ const props = defineProps(["formTitle", "formSubtitle"]);
       gap: 12px;
    }
    &__title {
-      font-family: $second-family;
+      font-family: $third-family;
       font-weight: 700;
       font-size: 28px;
       line-height: 36px;
@@ -38,6 +42,7 @@ const props = defineProps(["formTitle", "formSubtitle"]);
       position: relative;
       padding-bottom: 12px;
       text-align: left;
+      max-width: 80%;
       &::before {
          content: "";
          position: absolute;
@@ -51,6 +56,8 @@ const props = defineProps(["formTitle", "formSubtitle"]);
    &__sub-title {
       font-size: 16px;
       line-height: 24px;
+      font-family: $font-family;
+      text-align: left;
    }
    &__items {
       width: 100%;
@@ -76,6 +83,8 @@ const props = defineProps(["formTitle", "formSubtitle"]);
       font-size: 14px;
       line-height: 18px;
       color: $gray;
+      align-self: flex-start;
+      text-align: left;
       & a {
          color: $bg-white;
          box-shadow: 0 1px 0 0 $bg-white;

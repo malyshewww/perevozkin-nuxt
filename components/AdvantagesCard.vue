@@ -47,7 +47,7 @@ const advantages = [
    min-height: 316px;
    &:nth-child(1) {
       & .card-advantages__title {
-         max-width: 70%;
+         max-width: 73%;
       }
    }
    &__body {
@@ -59,17 +59,16 @@ const advantages = [
    &__icon {
       width: 80px;
       height: 80px;
-
       flex-shrink: 0;
    }
    &__content {
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 20px;
       margin-top: 20px;
    }
    &__title {
-      font-family: $second-family;
+      font-family: $third-family;
       font-weight: 700;
       font-size: 22px;
       line-height: 28px;

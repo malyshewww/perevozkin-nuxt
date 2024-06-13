@@ -1,6 +1,13 @@
 body > div.__nuxt {
 	height: 100%;
 }
+
+.container {
+	max-width: $maxWidthContainer + px;
+	margin: 0 auto;
+	padding: 0 16px;
+}
+
 .wrapper {
 	display: flex;
 	flex-direction: column;
@@ -28,7 +35,7 @@ body > div.__nuxt {
 	flex-direction: column;
 	gap: 28px;
 	&__sub-title {
-		font-family: $second-family;
+		font-family: $third-family;
 		font-weight: 700;
 		font-size: 16px;
 		text-transform: uppercase;
@@ -46,7 +53,7 @@ body > div.__nuxt {
 		}
 	}
 	&__title {
-		font-family: $second-family;
+		font-family: $third-family;
 		font-weight: 700;
 		font-size: 40px;
 		line-height: 52px;
@@ -69,32 +76,30 @@ body > div.__nuxt {
 	color: $bg-anthracite;
 	background-color: $bg-green-lime;
 	position: relative;
-	cursor: pointer;
-	&::before,
-	&::after {
-		content: "";
-		position: absolute;
-		width: 0;
-		height: 0;
-		border-style: solid;
+	transition: background-color $time;
+	clip-path: polygon(100% 0, calc(100% - 12px) 0%, 100% 12px, 100% 100%, 100% 100%, 15% 100%, 12px 100%, 0 calc(100% - 12px), 0 0, 0 0);
+	@media (any-hover: hover) {
+		&:hover {
+			cursor: pointer;
+			background-color: $state-hover;
+		}
 	}
-	&::before {
-		bottom: 0;
-		left: 0;
-		border-width: 12px 0 0 12px;
-		border-color: transparent transparent transparent $bg-asphalt;
+	&:active {
+		background-color: $state-pressed;
 	}
-	&::after {
-		top: 0;
-		right: 0;
-		border-width: 0 12px 12px 0;
-		border-color: transparent $bg-asphalt transparent transparent;
+	&:disabled,
+	&.disabled {
+		background-color: $bg-asphalt;
+		pointer-events: none;
+		color: $dark-gray;
 	}
 }
 
 .ibg {
 	position: relative;
-	& img {
+	& img,
+	& video,
+	& iframe {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -104,7 +109,7 @@ body > div.__nuxt {
 }
 
 .page-title {
-	font-family: $second-family;
+	font-family: $third-family;
 	font-weight: 700;
 	font-size: 64px;
 	line-height: 80px;
@@ -129,17 +134,18 @@ body > div.__nuxt {
 		line-height: 24px;
 		color: $bg-white;
 		background-color: transparent;
+		min-height: 48px;
 	}
 	& label {
 		font-family: $font-family;
 		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
+		top: 15px;
 		left: 20px;
 		font-weight: 400;
 		line-height: 24px;
 		color: $gray;
 		pointer-events: none;
+		display: block;
 		@media (any-hover: hover) {
 			&:hover {
 				cursor: pointer;
@@ -149,13 +155,24 @@ body > div.__nuxt {
 	& textarea {
 		height: 86px;
 		resize: none;
-		& ~ label {
-			top: 25px;
+		&::-webkit-scrollbar {
+			width: 3px;
+			background: $bg-asphalt;
+		}
+		&::-webkit-scrollbar-track {
+			width: 3px;
+			background: $bg-asphalt;
+		}
+		&::-webkit-scrollbar-thumb {
+			width: 3px;
+			background: $bg-white;
+			opacity: 1;
 		}
 	}
 }
 
 .form-item-file {
+	justify-self: start;
 	& input {
 		clip: rect(0 0 0 0);
 		clip-path: inset(50%);
@@ -171,7 +188,7 @@ body > div.__nuxt {
 		top: 0;
 		left: 0;
 		transform: none;
-		display: flex;
+		display: inline-flex;
 		align-items: center;
 		gap: 8px;
 		font-weight: 600;
@@ -179,6 +196,7 @@ body > div.__nuxt {
 		line-height: 22px;
 		color: $bg-white;
 		pointer-events: all;
+		transition: color $time;
 		&::after {
 			content: "";
 			display: block;
@@ -189,6 +207,11 @@ body > div.__nuxt {
 			mask-position: center;
 			background-color: $bg-green-lime;
 		}
+		@media (any-hover: hover) {
+			&:hover {
+				color: $state-hover;
+			}
+		}
 	}
 }
 
@@ -196,9 +219,8 @@ body > div.__nuxt {
 	font-size: 16px;
 	line-height: 1.75;
 	h1, h2, h3, h4, h5, h6 {
-		font-family: $second-family;
+		font-family: $third-family;
 		font-weight: 700;
-		letter-spacing: 0.01em;
 		text-transform: uppercase;
 		color: $bg-white;
 	}
@@ -206,6 +228,7 @@ body > div.__nuxt {
 		font-size: 64px;
 		line-height: 80px;
 		margin-bottom: 36px;
+		letter-spacing: 0.01em;
 	}
 	& h2 {
 		font-size: 48px;
@@ -236,7 +259,7 @@ body > div.__nuxt {
 		margin-bottom: 16px;
 		line-height: 24px;
 		color: $bg-white;
-		line-height: 1.75;
+		// line-height: 1.75;
 		&:last-child {
 			margin-bottom: 0;
 		}
@@ -260,7 +283,7 @@ body > div.__nuxt {
 		margin-bottom: 0;
 	}
 	& ul {
-		@include reset-list;
+		list-style: none;
 		margin-top: 24px;
 		display: flex;
 		flex-direction: column;
@@ -283,6 +306,7 @@ body > div.__nuxt {
 	}
 	& table {
 		border: 1px solid $bg-asphalt;
+		border-collapse: collapse;
 		& tr {
 			display: grid;
 			grid-template-columns: repeat(4, 1fr);
@@ -297,7 +321,7 @@ body > div.__nuxt {
 		}
 		& td,
 		& th {
-			padding: 11px 24px;
+			padding: 8px 24px;
 			text-align: left;
 			min-height: 48px;
 			display: grid;
@@ -310,6 +334,12 @@ body > div.__nuxt {
 			font-weight: 600;
 		}
 	}
+}
+
+.table-wrap {
+	max-width: 1720px;
+	margin: 0 auto;
+	padding: 0 16px;
 }
 
 .slider-controls {
@@ -352,6 +382,14 @@ body > div.__nuxt {
 		border-color: $bg-asphalt;
 		&::before {
 			background-color: $dark-gray;
+		}
+	}
+}
+
+.page--service {
+	& .breadcrumbs {
+		& .container {
+			padding: 0;
 		}
 	}
 }

@@ -102,12 +102,13 @@
    width: 60%;
    margin-left: auto;
    gap: 40px;
+   max-width: 995px;
    &__item {
       padding-bottom: 40px;
       border-bottom: 1px solid $bg-asphalt;
       display: grid;
       align-items: start;
-      grid-template-columns: 20% 1fr;
+      grid-template-columns: 27% 1fr;
       justify-content: space-between;
       gap: 20px;
    }
@@ -124,7 +125,7 @@
       color: $bg-white;
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 31px;
    }
    &__link {
       @include transition(color $time);

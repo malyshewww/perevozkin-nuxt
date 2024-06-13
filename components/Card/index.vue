@@ -78,7 +78,7 @@ const props = defineProps(["arr"]);
       @include transition(opacity $time, transform $time);
    }
    &__title {
-      font-family: $second-family;
+      font-family: $third-family;
       font-weight: 700;
       font-size: 28px;
       line-height: 36px;

@@ -8,10 +8,11 @@
 <script setup lang="ts"></script>
 
 <style lang="scss">
-// @import "~/assets/scss/app.scss";
+@import "~/assets/scss/base/nullstyle.scss";
+@import "~/assets/scss/base/extends.scss";
+@import "~/assets/scss/base/keyframes.scss";
 @import "~/assets/scss/fonts.scss";
 @import "~/assets/scss/common.scss";
-@import "~/assets/scss/base/keyframes.scss";
 // .page-enter-active,
 // .page-leave-active {
 //    transition: all 0.4s;

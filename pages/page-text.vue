@@ -42,7 +42,7 @@
                </p>
             </div>
             <Gallery />
-            <div class="content">
+            <div class="content container">
                <table>
                   <thead>
                      <tr>
@@ -72,6 +72,10 @@ const breadcrumbs = [
    {
       text: "Главная",
       href: "/",
+   },
+   {
+      text: "Текстовая",
+      href: "/page-text",
    },
    {
       text: "Текстовая",
@@ -112,12 +116,27 @@ const content = {
       },
    ],
 };
+const wrapTable = () => {
+   const tables = document.querySelectorAll("table");
+   [...tables].forEach((table) => {
+      let tableWrap = document.createElement("div");
+      tableWrap.setAttribute("class", "table-wrap");
+      table.parentNode.insertBefore(tableWrap, table);
+      tableWrap.appendChild(table);
+   });
+};
+onMounted(() => {
+   wrapTable();
+});
 </script>
 
 <style lang="scss">
 .page-content {
    & .content {
       max-width: 1280px;
+      &.container {
+         max-width: 1720px;
+      }
    }
 }
 </style>

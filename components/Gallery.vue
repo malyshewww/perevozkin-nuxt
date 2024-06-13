@@ -1,24 +1,31 @@
 <template>
    <div class="gallery">
-      <div class="heading">
-         <h2 class="heading__title">Фотогалерея</h2>
-         <div class="slider-controls">
-            <button
-               type="button"
-               class="slider-button slider-button-prev"
-               ref="buttonPrev"></button>
-            <button
-               type="button"
-               class="slider-button slider-button-next"
-               ref="buttonNext"></button>
+      <div class="container">
+         <div class="heading">
+            <h2 class="heading__title">Фотогалерея</h2>
+            <div class="slider-controls">
+               <button
+                  type="button"
+                  class="slider-button slider-button-prev"
+                  ref="buttonPrev"></button>
+               <button
+                  type="button"
+                  class="slider-button slider-button-next"
+                  ref="buttonNext"></button>
+            </div>
          </div>
-      </div>
-      <div class="gallery__body swiper" ref="slider">
-         <div class="gallery__wrapper swiper-wrapper">
-            <div class="gallery__item swiper-slide" v-for="item in gallery">
-               <a href="/" class="gallery__image">
-                  <img :src="`/images/gallery/${item.img}.jpg`" alt="" />
-               </a>
+         <div class="gallery__body swiper" ref="slider">
+            <div class="gallery__wrapper swiper-wrapper">
+               <div class="gallery__item swiper-slide" v-for="item in gallery">
+                  <a
+                     :href="`/images/gallery/${item.img}.jpg`"
+                     class="gallery__image"
+                     data-fancybox="gallery">
+                     <img
+                        :src="`/images/gallery/${item.img}.jpg`"
+                        alt="галерея" />
+                  </a>
+               </div>
             </div>
          </div>
       </div>
@@ -29,13 +36,27 @@
 import Swiper from "swiper";
 import "swiper/css";
 import { Navigation } from "swiper/modules";
+import { Fancybox } from "@fancyapps/ui";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
+
+const instanceFancybox = () => {
+   Fancybox.bind('[data-fancybox="gallery"]', {
+      Hash: false,
+      Thumbs: {
+         type: "modern",
+      },
+      Images: {
+         initialSize: "cover",
+      },
+   });
+};
 
 const slider = ref("");
 const buttonPrev = ref("");
 const buttonNext = ref("");
 const sliderInstance = ref(null);
 
-function initSlider() {
+const initSlider = () => {
    sliderInstance.value = new Swiper(slider.value, {
       modules: [Navigation],
       slidesPerView: 3,
@@ -46,10 +67,11 @@ function initSlider() {
          prevEl: buttonPrev.value,
       },
    });
-}
+};
 
 onMounted(() => {
    initSlider();
+   instanceFancybox();
 });
 
 const gallery = [
@@ -70,13 +92,30 @@ const gallery = [
 
 <style lang="scss">
 .gallery {
-   padding: 160px 0;
+   padding: 160px 0px;
+   & h2 {
+      margin: 0;
+   }
    & .heading {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       gap: 20px;
       margin-bottom: 60px;
+   }
+   &__image {
+      overflow: hidden;
+      display: block;
+      & img {
+         transition: transform 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.87);
+      }
+      @media (any-hover: hover) {
+         &:hover {
+            & img {
+               transform: scale(1.3);
+            }
+         }
+      }
    }
 }
 </style>

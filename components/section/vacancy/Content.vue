@@ -15,12 +15,13 @@
                      <div class="main-info__label">
                         Контакты отдела персонала:
                      </div>
-                     <div
-                        class="main-info__values"
-                        v-for="phone in vacancy.phones">
-                        <a :href="`tel:${phone}`" class="main-info__value">{{
-                           phone
-                        }}</a>
+                     <div class="main-info__values">
+                        <a
+                           v-for="phone in vacancy.phones"
+                           :href="`tel:${phone}`"
+                           class="main-info__value"
+                           >{{ phone }}</a
+                        >
                      </div>
                   </div>
                </div>
@@ -139,7 +140,7 @@ const vacancyList = [
    &__inner {
       display: inline-flex;
       align-items: center;
-      gap: 16px;
+      gap: 17px;
    }
    &__label {
       font-size: 20px;

@@ -9,7 +9,7 @@
                      Ремонт подвески ГАЗель Next в Нижнем Новгороде
                   </h1>
                   <div class="main__description">
-                     <p>Мы пециализируемся на ремонте автомобилей ГАЗ.</p>
+                     <p>Мы специализируемся на ремонте автомобилей ГАЗ.</p>
                      <p>Лучше других знаем все «болячки» подвески</p>
                   </div>
                   <div class="main__image ibg">
@@ -28,6 +28,12 @@
    </main>
 </template>
 <script setup>
+useHead({
+   bodyAttrs: {
+      class: "page--service",
+   },
+});
+
 const breadcrumbs = [
    {
       text: "Главная",
@@ -38,16 +44,20 @@ const breadcrumbs = [
       href: "/services",
    },
    {
+      text: "Газель NEXT",
+      href: "/services",
+   },
+   {
       text: "Ремонт подвески Газель NEXT в Нижнем Новгороде",
       href: "/services/1",
    },
 ];
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .main {
    &__top {
-      padding: 120px 0 140px;
+      padding: 120px 0 173px;
       background-color: $graphite;
       & .breadcrumbs {
          grid-area: crumbs;
@@ -64,7 +74,7 @@ const breadcrumbs = [
          "crumbs pic"
          "title pic"
          "descr pic";
-      grid-template-columns: 45% 41%;
+      grid-template-columns: 48% 41%;
       justify-content: space-between;
       gap: 36px;
       align-items: start;
@@ -72,7 +82,7 @@ const breadcrumbs = [
    }
    &__title {
       grid-area: title;
-      font-family: $second-family;
+      font-family: $third-family;
       font-weight: 700;
       font-size: 48px;
       line-height: 60px;
@@ -91,10 +101,8 @@ const breadcrumbs = [
       position: absolute;
       right: 0;
       width: 100%;
-      top: 50%;
+      top: 57%;
       transform: translateY(-50%);
    }
-}
-.page-title {
 }
 </style>

@@ -107,7 +107,11 @@ const serviceSlider = [
       grid-template-areas: "subtitle descr" "title descr";
       align-items: end;
       justify-content: space-between;
-      gap: 20px;
+      gap: 22px;
+      &__title {
+         font-size: 28px;
+         line-height: 36px;
+      }
    }
    &__cards {
       display: grid;
@@ -135,7 +139,7 @@ const serviceSlider = [
       line-height: 28px;
    }
    &__number {
-      font-family: $second-family;
+      font-family: $third-family;
       font-weight: 700;
       font-size: 28px;
       line-height: 36px;
@@ -154,7 +158,7 @@ const serviceSlider = [
    }
 
    &__image {
-      padding-bottom: calc(380 / 580 * 100%);
+      padding-bottom: calc(380 / 560 * 100%);
    }
    .slider-controls {
       margin-top: 32px;

@@ -28,42 +28,42 @@ $xxl: 1200px;
 $xxxl: 1400px;
 
 // (i) Стили будут применяться ко всем классам содержащим *__container. Например header__container, footer__container и т.д.
-@if ($responsiveType ==1) {
-	// Отзывчивая
-	.container {
-		@if ($maxWidthContainer > 0) {
-			max-width: $maxWidthContainer + px;
-			margin: 0 auto;
-		}
-		@if ($containerPadding > 0) {
-			padding: 0 math.div($containerPadding, 2) + px;
-		}
-	}
-}
-@else {
-	// По брейк-поинтам
-	.container {
-		margin: 0 auto;
-		@if ($maxWidthContainer > 0) {
-			max-width: $maxWidthContainer + px;
-		}
-		@if ($containerPadding > 0) {
-			padding: 0 math.div($containerPadding, 2) + px;
-		}
-		@media (max-width: $xxl) {
-			max-width: 980px;
-		}
-		@media (max-width: $lg) {
-			max-width: 750px;
-		}
-		@media (max-width: $md) {
-			max-width: 620px;
-		}
-		@media (max-width: $sm) {
-			max-width: 100%;
-		}
-	}
-}
+// @if ($responsiveType ==1) {
+// 	// Отзывчивая
+// 	.container {
+// 		@if ($maxWidthContainer > 0) {
+// 			max-width: $maxWidthContainer + px;
+// 			margin: 0 auto;
+// 		}
+// 		@if ($containerPadding > 0) {
+// 			padding: 0 math.div($containerPadding, 2) + px;
+// 		}
+// 	}
+// }
+// @else {
+// 	// По брейк-поинтам
+// 	.container {
+// 		margin: 0 auto;
+// 		@if ($maxWidthContainer > 0) {
+// 			max-width: $maxWidthContainer + px;
+// 		}
+// 		@if ($containerPadding > 0) {
+// 			padding: 0 math.div($containerPadding, 2) + px;
+// 		}
+// 		@media (max-width: $xxl) {
+// 			max-width: 980px;
+// 		}
+// 		@media (max-width: $lg) {
+// 			max-width: 750px;
+// 		}
+// 		@media (max-width: $md) {
+// 			max-width: 620px;
+// 		}
+// 		@media (max-width: $sm) {
+// 			max-width: 100%;
+// 		}
+// 	}
+// }
 
 // размеры шрифтов
 $fontSize: 16px;
@@ -73,8 +73,8 @@ $bg-primary: #22282f;
 // Шрифты
 $fontWeight: 400;
 $font-family: "Golos Text", sans-serif;
-$second-family: "Xolonium", sans-serif;
-$third-family: "Muller", sans-serif;
+$second-family: "Muller", sans-serif;
+$third-family: "Xolonium", sans-serif;
 
 $gray: #b1b5c0;
 $dark-gray: #616570;
@@ -109,11 +109,7 @@ $system-success: #53d0ab;
 $system-alert: #ff4949;
 $focus: #6e9bde;
 
-
-
 $greenGradient: linear-gradient(135deg, #6de754 0%, #129465 100%);
-// background-image: linear-gradient(to right, #fbc2eb 0%, #a6c1ee 51%, #fbc2eb 100%);
-// $greenGradientHover: linear-gradient(135deg, #129465 0%, #6de754 100%);
 $time: .25s;
 
 $linearDark: linear-gradient(162deg, #2f3740 0%, #264947 100%);

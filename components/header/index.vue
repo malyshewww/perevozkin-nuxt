@@ -58,6 +58,7 @@ const menu = [
       justify-content: space-between;
       align-items: center;
       padding: 12px 0;
+      gap: 20px;
    }
    &__logo {
       display: block;
@@ -133,12 +134,14 @@ const menu = [
 }
 .menu {
    &__body {
+      flex: 0 1 44.488372%;
    }
    &__list {
       @include reset-list;
       display: flex;
       align-items: center;
       gap: 52px;
+      flex-wrap: wrap;
    }
    &__item {
    }

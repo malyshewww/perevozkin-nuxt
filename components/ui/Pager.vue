@@ -38,9 +38,6 @@
          <!-- <li class="pager__item pager__item--ellipsis">
             <a href="" class="pager__link">...</a>
          </li> -->
-         <li class="pager__item">
-            <a href="" class="pager__link">5</a>
-         </li>
          <li class="pager__item pager__item--next">
             <a href="" class="pager__link">
                <svg

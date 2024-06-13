@@ -25,12 +25,14 @@ const props = defineProps(["navList"]);
 .breadcrumbs {
    margin-top: 72px;
    &__nav {
+      overflow: auto hidden;
    }
    &__list {
       @include reset-list;
       display: flex;
       align-items: center;
       gap: 8px;
+      white-space: nowrap;
    }
    &__item {
       & + & {
@@ -50,10 +52,17 @@ const props = defineProps(["navList"]);
       line-height: 18px;
       color: $gray;
       font-family: $font-family;
-      &.disabled {
+      transition: color $time;
+      &.disabled,
+      &:disabled {
          cursor: default;
          pointer-events: none;
          color: $bg-white;
+      }
+      @media (any-hover: hover) {
+         &:hover {
+            color: $state-hover;
+         }
       }
    }
 }

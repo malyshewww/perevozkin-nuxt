@@ -8,7 +8,7 @@
                </nuxt-link>
                <div class="footer__contacts contacts-footer">
                   <a href="tel:+78311380880" class="contacts-footer__phone"
-                     ><span>+7 (831)</span> 138-08-80</a
+                     ><span>+7 (831)</span>138-08-80</a
                   >
                   <a href="mailto:" class="contacts-footer__email"
                      >perevozov-service@mail.ru</a
@@ -77,16 +77,19 @@
                   © 2024 ООО «Перевозов-Сервис»
                </div>
                <div to="/page-text" class="bottom-footer__item">
-                  <NuxtLink class="bottom-footer__link"
-                     >Политика обработки конфиденциальных данных</NuxtLink
-                  >
+                  <button
+                     type="button"
+                     class="bottom-footer__link"
+                     @click="openPoliticPopup()">
+                     Политика обработки конфиденциальных данных
+                  </button>
                </div>
                <div class="bottom-footer__item">
                   <button type="button" class="button-up">
                      Наверх
                      <svg class="button-up__icon">
                         <use
-                           xlink:href="/images/icons/sprite.svg#rotate-arrow-down"></use>
+                           xlink:href="/images/icons/sprite.svg#rotate-arrow-up"></use>
                      </svg>
                   </button>
                </div>
@@ -105,6 +108,9 @@
          </div>
       </div>
    </footer>
+   <PopupPolitic
+      :isActive="isPoliticPopupActive"
+      @closePopup="closePoliticPopup()"></PopupPolitic>
 </template>
 <script setup>
 const menu = [
@@ -125,6 +131,15 @@ const menu = [
       href: "/contacts",
    },
 ];
+const isPoliticPopupActive = ref(false);
+const openPoliticPopup = () => {
+   isPoliticPopupActive.value = !isPoliticPopupActive.value;
+   document.body.classList.toggle("lock");
+};
+const closePoliticPopup = () => {
+   isPoliticPopupActive.value = !isPoliticPopupActive.value;
+   document.body.classList.toggle("lock");
+};
 </script>
 
 <style lang="scss">
@@ -136,7 +151,7 @@ const menu = [
       grid-template-columns: repeat(2, 1fr);
       justify-content: space-between;
       align-items: flex-start;
-      gap: 89px 40px;
+      gap: 90px 40px;
       padding: 59px 0 52px;
       border-top: 1px solid $bg-asphalt;
       border-bottom: 1px solid $bg-asphalt;
@@ -158,7 +173,7 @@ const menu = [
    display: grid;
    justify-content: end;
    gap: 16px;
-   font-family: $second-family;
+   font-family: $third-family;
    font-weight: 700;
    color: $bg-white;
    padding-top: 15px;
@@ -169,12 +184,26 @@ const menu = [
       text-align: right;
       & span {
          color: $gray;
+         transition: color $time;
+      }
+      @media (any-hover: hover) {
+         &:hover {
+            & span {
+               color: $bg-white;
+            }
+         }
       }
    }
    &__email {
       font-size: 24px;
       line-height: 22px;
       text-align: right;
+      transition: color $time;
+      @media (any-hover: hover) {
+         &:hover {
+            color: $state-hover;
+         }
+      }
    }
 }
 .menu-footer {
@@ -191,6 +220,12 @@ const menu = [
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
+      transition: color $time;
+      @media (any-hover: hover) {
+         &:hover {
+            color: $state-hover;
+         }
+      }
    }
 }
 .social-footer {
@@ -212,11 +247,36 @@ const menu = [
       height: 80px;
       flex-shrink: 0;
       border-radius: 50%;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      &::before {
+         content: "";
+         inset: 0;
+         position: absolute;
+         background: $greenGradient;
+         z-index: -1;
+         transform: scale(0);
+         clip-path: circle(50%);
+         transform-origin: center center;
+         transition: transform $time;
+      }
+      @media (any-hover: hover) {
+         &:hover {
+            &::before {
+               transform: scale(1);
+            }
+            & .social-footer__icon {
+               fill: $bg-white;
+            }
+         }
+      }
    }
    &__icon {
       width: 28px;
       height: 28px;
       fill: $gray;
+      transition: fill $time;
       & path {
          fill: inherit;
          stroke: inherit;
@@ -235,6 +295,12 @@ const menu = [
    &__item {
    }
    &__link {
+      transition: color $time;
+      @media (any-hover: hover) {
+         &:hover {
+            color: $bg-white;
+         }
+      }
    }
 }
 .button-up {
@@ -245,13 +311,17 @@ const menu = [
    display: flex;
    align-items: center;
    gap: 8px;
+   transition: color $time;
    &__icon {
       width: 16px;
       height: 16px;
       flex-shrink: 0;
       fill: $bg-green-lime;
-      & path {
-         fill: inherit;
+      transition: transform $time;
+   }
+   @media (any-hover: hover) {
+      &:hover {
+         color: $state-hover;
       }
    }
 }

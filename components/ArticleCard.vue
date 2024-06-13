@@ -32,6 +32,7 @@ const props = defineProps(["articleList"]);
    flex-direction: column;
    align-items: flex-start;
    gap: 28px;
+   min-height: 614px;
    @include transition(background-color $time);
    @media (any-hover: hover) {
       &:hover {
@@ -52,13 +53,13 @@ const props = defineProps(["articleList"]);
       gap: 12px;
    }
    &__title {
-      font-family: $second-family;
+      font-family: $third-family;
       font-weight: 700;
       font-size: 22px;
       line-height: 28px;
       text-transform: uppercase;
       color: $bg-white;
-      max-width: 80%;
+      max-width: 90%;
    }
    &__description {
       font-weight: 400;
@@ -82,7 +83,7 @@ const props = defineProps(["articleList"]);
       align-items: center;
       gap: 8px;
       @include transition(color $time);
-      margin-top: 12px;
+      margin-top: 18px;
       justify-self: start;
       &::after {
          content: "";

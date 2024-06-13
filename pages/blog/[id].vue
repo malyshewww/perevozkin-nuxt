@@ -42,6 +42,11 @@ const breadcrumbs = [
          border-bottom: 1px solid $bg-asphalt;
       }
    }
+   & .form {
+      &__bottom {
+         margin-top: 24px;
+      }
+   }
 }
 .article-page {
    &__wrapper {

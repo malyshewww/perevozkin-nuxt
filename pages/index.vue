@@ -1,5 +1,6 @@
 <template>
    <main class="main">
+      <SectionMainScreen />
       <SectionMainServices />
       <SectionMainAdvantages />
       <SectionMainSale />
@@ -12,6 +13,9 @@ useHead({
    bodyAttrs: {
       class: `page--home`,
    },
+});
+definePageMeta({
+   layout: "custom",
 });
 const productsStore = useProductsStore();
 productsStore.fetchProductsFromDB();

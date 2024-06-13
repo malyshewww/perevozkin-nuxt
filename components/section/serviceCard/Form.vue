@@ -62,21 +62,29 @@
          border-color: transparent $bg-anthracite transparent transparent;
       }
    }
+   & .form__title {
+      padding: 0;
+      text-align: center;
+      &::before {
+         content: none;
+      }
+   }
 }
 .form {
-   font-family: $second-family;
+   font-family: $third-family;
    font-weight: 700;
    text-align: center;
    display: grid;
    place-items: center;
-   max-width: 1140px;
+   max-width: 1085px;
    margin: 0 auto;
    &__sup-title {
+      font-family: $third-family;
       font-weight: 700;
       font-size: 16px;
       text-transform: uppercase;
       color: $dark-gray;
-      margin-bottom: 32px;
+      margin-bottom: 34px;
    }
    &__title {
       font-size: 28px;
@@ -84,7 +92,6 @@
       text-transform: uppercase;
       color: $bg-white;
    }
-
    &__items {
       display: grid;
       grid-template-columns: repeat(2, 1fr) 165px;
