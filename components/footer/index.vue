@@ -85,7 +85,10 @@
                   </button>
                </div>
                <div class="bottom-footer__item">
-                  <button type="button" class="button-up">
+                  <button
+                     type="button"
+                     class="button-up"
+                     @click="scrollTop($event)">
                      Наверх
                      <svg class="button-up__icon">
                         <use
@@ -113,6 +116,8 @@
       @closePopup="closePoliticPopup()"></PopupPolitic>
 </template>
 <script setup>
+import initCustomScrollbar from "../utils/customScrollbar.js";
+
 const menu = [
    {
       title: "Услуги",
@@ -131,6 +136,18 @@ const menu = [
       href: "/contacts",
    },
 ];
+const scrollTop = () => {
+   const { bodyScrollBar } = initCustomScrollbar();
+   if (window.innerWidth > 1024) {
+      bodyScrollBar.scrollIntoView(document.querySelector(".wrapper"));
+   } else {
+      window.scrollTo({
+         top: 0,
+         behavior: "smooth",
+      });
+   }
+};
+const btnUp = ref("");
 const isPoliticPopupActive = ref(false);
 const openPoliticPopup = () => {
    isPoliticPopupActive.value = !isPoliticPopupActive.value;
@@ -140,6 +157,10 @@ const closePoliticPopup = () => {
    isPoliticPopupActive.value = !isPoliticPopupActive.value;
    document.body.classList.toggle("lock");
 };
+
+onMounted(() => {
+   scrollTop();
+});
 </script>
 
 <style lang="scss">
@@ -155,10 +176,25 @@ const closePoliticPopup = () => {
       padding: 59px 0 52px;
       border-top: 1px solid $bg-asphalt;
       border-bottom: 1px solid $bg-asphalt;
+      @media screen and (max-width: $xxl) {
+         grid-template-columns: 41% 1fr;
+      }
+      @media screen and (max-width: $xl) {
+         grid-template-columns: 1fr;
+         gap: 32px;
+         justify-content: center;
+         padding: 20px 0 32px;
+      }
    }
    &__logo {
       width: 364px;
-      height: 84px;
+      @media screen and (max-width: $xl) {
+         order: 1;
+         margin: auto;
+      }
+      @media screen and (max-width: $md) {
+         width: 240px;
+      }
    }
    &__contacts {
    }
@@ -177,6 +213,12 @@ const closePoliticPopup = () => {
    font-weight: 700;
    color: $bg-white;
    padding-top: 15px;
+   @media screen and (max-width: $xl) {
+      order: 3;
+      justify-items: center;
+      justify-content: center;
+      padding-top: 0;
+   }
    &__phone {
       font-size: 40px;
       line-height: 52px;
@@ -193,6 +235,14 @@ const closePoliticPopup = () => {
             }
          }
       }
+      @media screen and (max-width: $md) {
+         font-size: 24px;
+         line-height: 29px;
+      }
+      @media screen and (max-width: 374.98px) {
+         font-size: 20px;
+         line-height: 28px;
+      }
    }
    &__email {
       font-size: 24px;
@@ -204,15 +254,33 @@ const closePoliticPopup = () => {
             color: $state-hover;
          }
       }
+      @media screen and (max-width: $xl) {
+         text-align: center;
+      }
+      @media screen and (max-width: $md) {
+         font-size: 16px;
+         line-height: 22px;
+      }
    }
 }
 .menu-footer {
    align-self: center;
+   justify-content: center;
+   @media screen and (max-width: $xl) {
+      order: 2;
+   }
    &__list {
       @include reset-list;
       display: flex;
       align-items: center;
-      gap: 52px;
+      flex-wrap: wrap;
+      gap: 20px 52px;
+      @media screen and (max-width: $xl) {
+         justify-content: center;
+      }
+      @media screen and (max-width: $md) {
+         flex-direction: column;
+      }
    }
    &__item {
    }
@@ -231,10 +299,15 @@ const closePoliticPopup = () => {
 .social-footer {
    display: grid;
    place-content: end;
+   @media screen and (max-width: $xl) {
+      order: 4;
+      place-content: center;
+   }
    &__list {
       @include reset-list;
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 12px;
    }
    &__item {
@@ -271,6 +344,10 @@ const closePoliticPopup = () => {
             }
          }
       }
+      @media screen and (max-width: $md) {
+         width: 60px;
+         height: 60px;
+      }
    }
    &__icon {
       width: 28px;
@@ -287,12 +364,22 @@ const closePoliticPopup = () => {
    display: flex;
    justify-content: space-between;
    align-items: center;
-   gap: 20px;
+   gap: 8px 20px;
    font-size: 14px;
    line-height: 18px;
    color: $gray;
    padding: 40px 0;
+   flex-wrap: wrap;
+   @media screen and (max-width: $xl) {
+      flex-direction: column;
+      padding: 20px 0;
+   }
    &__item {
+      @media screen and (max-width: $xl) {
+         &:nth-child(3) {
+            order: 1;
+         }
+      }
    }
    &__link {
       transition: color $time;
@@ -318,6 +405,7 @@ const closePoliticPopup = () => {
       flex-shrink: 0;
       fill: $bg-green-lime;
       transition: transform $time;
+      pointer-events: none;
    }
    @media (any-hover: hover) {
       &:hover {

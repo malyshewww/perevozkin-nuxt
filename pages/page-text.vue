@@ -42,7 +42,7 @@
                </p>
             </div>
             <Gallery />
-            <div class="content container">
+            <div class="content">
                <table>
                   <thead>
                      <tr>

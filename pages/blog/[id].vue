@@ -40,6 +40,9 @@ const breadcrumbs = [
       &__nav {
          padding-bottom: 36px;
          border-bottom: 1px solid $bg-asphalt;
+         @media screen and (max-width: $xl) {
+            padding-bottom: 24px;
+         }
       }
    }
    & .form {
@@ -51,11 +54,18 @@ const breadcrumbs = [
 .article-page {
    &__wrapper {
       display: grid;
-      grid-template-columns: 1fr minmax(400px, 560px);
-      gap: 20px;
+      grid-template-columns: 1fr 560px;
+      gap: 40px;
       justify-content: space-between;
       align-items: start;
       padding-top: 52px;
+      @media screen and (max-width: $xxl) {
+         grid-template-columns: 1fr 400px;
+      }
+      @media screen and (max-width: $xl) {
+         grid-template-columns: 1fr;
+         padding-top: 40px;
+      }
    }
 }
 </style>

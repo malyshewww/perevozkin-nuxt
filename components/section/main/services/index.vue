@@ -2,8 +2,15 @@
    <section class="main-services">
       <div class="container">
          <UiTicker>
-            <div class="ticker__item" v-for="item in tickerItems">
-               {{ item }}
+            <div class="ticker__group">
+               <div class="ticker__item" v-for="item in tickerItems">
+                  {{ item }}
+               </div>
+            </div>
+            <div class="ticker__group">
+               <div class="ticker__item" v-for="item in tickerItems">
+                  {{ item }}
+               </div>
             </div>
          </UiTicker>
          <div class="main-services__body">
@@ -20,6 +27,9 @@
 
 <script setup>
 const tickerItems = [
+   "Услуги сервиса",
+   "Услуги сервиса",
+   "Услуги сервиса",
    "Услуги сервиса",
    "Услуги сервиса",
    "Услуги сервиса",

@@ -95,12 +95,6 @@ a {
 		}
 	}
 }
-input.error,
-input.form-item--error,
-textarea.error,
-textarea.form-item--error {
-	border-color: red;
-}
 a:link,
 a:visited {
 	text-decoration: none;
@@ -118,10 +112,10 @@ img, picture, video, canvas, svg {
 	display: block;
 	max-width: 100%;
 }
-p, h1, h2, h3, h4, h5, h6 {
-	overflow-wrap: break-word;
-	hyphens: auto;
-}
+// h1, h2, h3, h4, h5, h6 {
+// 	overflow-wrap: break-word;
+// 	hyphens: auto;
+// }
 #root,
 #__next {
 	isolation: isolate;

@@ -45,6 +45,9 @@ const advantages = [
 .card-advantages {
    display: flex;
    min-height: 316px;
+   @media screen and (max-width: $xl) {
+      min-height: auto;
+   }
    &:nth-child(1) {
       & .card-advantages__title {
          max-width: 73%;
@@ -66,6 +69,9 @@ const advantages = [
       flex-direction: column;
       gap: 20px;
       margin-top: 20px;
+      @media screen and (max-width: $xl) {
+         margin: 0;
+      }
    }
    &__title {
       font-family: $third-family;

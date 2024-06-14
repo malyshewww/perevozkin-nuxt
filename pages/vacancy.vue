@@ -36,10 +36,16 @@ const breadcrumbs = [
 .vacancy {
    &__wrapper {
       display: grid;
-      grid-template-columns: 1fr minmax(400px, 560px);
+      grid-template-columns: 1fr 560px;
       align-items: start;
       justify-content: space-between;
-      gap: 20px;
+      gap: 40px;
+      @media screen and (max-width: $xxl) {
+         grid-template-columns: 1fr 400px;
+      }
+      @media screen and (max-width: $xl) {
+         grid-template-columns: 1fr;
+      }
    }
 }
 </style>

@@ -66,8 +66,11 @@ onMounted(() => {
 <style lang="scss">
 .map-contacts {
    display: grid;
-   grid-template-columns: minmax(300px, 705px) 1fr;
+   grid-template-columns: 0.71fr 1fr;
    gap: 20px;
+   @media screen and (max-width: $xl) {
+      grid-template-columns: 1fr;
+   }
    &__image {
       padding-bottom: calc(480 / 705 * 100%);
    }
@@ -75,6 +78,10 @@ onMounted(() => {
       overflow: hidden;
       width: 100%;
       background-color: transparent;
+      height: 480px;
+      @media screen and (max-width: $xl) {
+         height: 300px;
+      }
    }
    &__point {
       width: 100%;

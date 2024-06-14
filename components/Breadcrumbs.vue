@@ -24,6 +24,9 @@ const props = defineProps(["navList"]);
 <style lang="scss">
 .breadcrumbs {
    margin-top: 72px;
+   @media screen and (max-width: $xl) {
+      margin-top: 40px;
+   }
    &__nav {
       overflow: auto hidden;
    }

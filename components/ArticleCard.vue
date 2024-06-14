@@ -32,7 +32,6 @@ const props = defineProps(["articleList"]);
    flex-direction: column;
    align-items: flex-start;
    gap: 28px;
-   min-height: 614px;
    @include transition(background-color $time);
    @media (any-hover: hover) {
       &:hover {
@@ -42,6 +41,10 @@ const props = defineProps(["articleList"]);
             color: $state-hover;
          }
       }
+   }
+   @media screen and (max-width: $xl) {
+      gap: 20px;
+      padding: 20px 15px 20px;
    }
    &__image {
       padding-bottom: calc(320 / 504 * 100%);
@@ -60,6 +63,11 @@ const props = defineProps(["articleList"]);
       text-transform: uppercase;
       color: $bg-white;
       max-width: 90%;
+      hyphens: none;
+      @media screen and (max-width: $md) {
+         font-size: 20px;
+         line-height: 24px;
+      }
    }
    &__description {
       font-weight: 400;

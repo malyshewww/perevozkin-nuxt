@@ -14,9 +14,6 @@ useHead({
       class: `page--home`,
    },
 });
-definePageMeta({
-   layout: "custom",
-});
 const productsStore = useProductsStore();
 productsStore.fetchProductsFromDB();
 </script>

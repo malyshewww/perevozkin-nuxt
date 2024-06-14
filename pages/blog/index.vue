@@ -124,6 +124,12 @@ const articleList = [
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
+      @media screen and (max-width: $xxxl) {
+         grid-template-columns: repeat(2, 1fr);
+      }
+      @media screen and (max-width: $md) {
+         grid-template-columns: 1fr;
+      }
    }
 }
 </style>

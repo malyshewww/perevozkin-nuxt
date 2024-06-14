@@ -102,7 +102,10 @@
    width: 60%;
    margin-left: auto;
    gap: 40px;
-   max-width: 995px;
+   @media screen and (max-width: $xl) {
+      width: 100%;
+      gap: 20px;
+   }
    &__item {
       padding-bottom: 40px;
       border-bottom: 1px solid $bg-asphalt;
@@ -111,6 +114,11 @@
       grid-template-columns: 27% 1fr;
       justify-content: space-between;
       gap: 20px;
+      @media screen and (max-width: $xl) {
+         grid-template-columns: 1fr;
+         padding-bottom: 30px;
+         gap: 15px;
+      }
    }
    &__caption {
       padding: 4px 0;
@@ -125,7 +133,12 @@
       color: $bg-white;
       display: flex;
       align-items: center;
-      gap: 31px;
+      gap: 20px 31px;
+      flex-wrap: wrap;
+      @media screen and (max-width: $md) {
+         font-size: 20px;
+         line-height: 24px;
+      }
    }
    &__link {
       @include transition(color $time);
@@ -140,6 +153,7 @@
    @include reset-list;
    display: flex;
    align-items: center;
+   flex-wrap: wrap;
    gap: 12px;
 }
 .social-link {

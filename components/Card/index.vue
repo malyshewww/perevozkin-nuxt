@@ -27,7 +27,6 @@ const props = defineProps(["arr"]);
    padding: 40px;
    position: relative;
    @include transition(width $time, flex-grow $time);
-   min-height: 504px;
    &::before {
       content: "";
       position: absolute;
@@ -48,6 +47,9 @@ const props = defineProps(["arr"]);
             transform: translateY(0);
          }
       }
+   }
+   @media screen and (max-width: $xl) {
+      padding: 20px;
    }
    &__body {
       display: flex;
@@ -84,6 +86,10 @@ const props = defineProps(["arr"]);
       line-height: 36px;
       text-transform: uppercase;
       color: $bg-white;
+      @media screen and (max-width: $md) {
+         font-size: 20px;
+         line-height: 28px;
+      }
    }
    &__price {
       font-weight: 600;
@@ -97,18 +103,28 @@ const props = defineProps(["arr"]);
          font-weight: 400;
          color: $gray;
       }
+      @media screen and (max-width: $md) {
+         font-size: 18px;
+         line-height: 24px;
+      }
    }
    &__image {
       margin-top: auto;
-      max-height: 320px;
-      position: absolute;
-      bottom: 0;
-      left: 0;
+      // max-height: 320px;
+      // position: absolute;
+      // bottom: 0;
+      // left: 0;
       width: 100%;
-      max-height: 340px;
+      padding-bottom: calc(340 / 480 * 100%);
+      position: relative;
       @include transition(transform, $time);
       & img {
+         position: absolute;
+         top: 0;
+         left: 0;
          width: 100%;
+         height: 100%;
+         object-fit: cover;
          @include transition(transform, $time);
       }
    }

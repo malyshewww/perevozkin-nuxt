@@ -105,18 +105,14 @@ const menu = [
       );
       background-size: 300%;
       @include transition(background-position, $time * 2);
-      &::before {
-         content: "";
-         position: absolute;
-         bottom: 0;
-         left: 0;
-         width: 0;
-         height: 0;
-         border-style: solid;
-         border-width: 12px 0 0 12px;
-         border-color: transparent transparent transparent $bg-anthracite;
-         z-index: 2;
-      }
+      clip-path: polygon(
+         0 0,
+         100% 0,
+         100% 50%,
+         100% 100%,
+         12px 100%,
+         0 calc(100% - 12px)
+      );
       &-text {
          font-weight: 600;
          font-size: 16px;

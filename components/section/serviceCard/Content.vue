@@ -46,6 +46,9 @@
 .service-card {
    &__description {
       padding: 80px 0;
+      @media screen and (max-width: $xl) {
+         padding: 40px 0;
+      }
    }
    &__content {
       max-width: 1140px;

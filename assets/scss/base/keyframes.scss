@@ -11,3 +11,12 @@
 		transform: rotate(1turn);
 	}
 }
+
+@keyframes scroll-x {
+	from {
+		transform: translateX(var(--scroll-start));
+	}
+	to {
+		transform: translateX(var(--scroll-end));
+	}
+}

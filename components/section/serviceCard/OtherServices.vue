@@ -3,7 +3,7 @@
       <div class="container">
          <div class="heading">
             <div class="heading__title">Другие услуги</div>
-            <div class="slider-controls">
+            <div class="slider-controls" ref="sliderControls">
                <button
                   type="button"
                   class="slider-button slider-button-prev"
@@ -31,17 +31,42 @@ const otherSlider = ref("");
 const sliderInstance = ref(null);
 const buttonPrev = ref("");
 const buttonNext = ref("");
+const sliderControls = ref("");
 
 function initSlider() {
    sliderInstance.value = new Swiper(otherSlider.value, {
       modules: [Navigation],
       slideClass: "service-item",
-      slidesPerView: 3,
-      spaceBetween: 20,
       speed: 700,
       navigation: {
          nextEl: buttonNext.value,
          prevEl: buttonPrev.value,
+      },
+      breakpoints: {
+         300: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+         },
+         767.98: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+         },
+         1024: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+         },
+      },
+      on: {
+         init: function (swiper) {
+            let slides = swiper.slides;
+            let sliderControls =
+               swiper.navigation.prevEl.parentNode ||
+               swiper.navigation.nextEl.parentNode;
+            if (slides.length <= swiper.passedParams.slidesPerView) {
+               swiper.navigation.destroy();
+               sliderControls.value.style.display = "none";
+            }
+         },
       },
    });
 }
@@ -81,6 +106,9 @@ const servicesList = [
 <style lang="scss">
 .other-services {
    padding: 80px 0 0;
+   @media screen and (max-width: $xl) {
+      padding: 40px 0 0;
+   }
    & .heading {
       border: none;
       padding: 0;

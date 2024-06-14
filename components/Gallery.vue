@@ -1,31 +1,27 @@
 <template>
    <div class="gallery">
-      <div class="container">
-         <div class="heading">
-            <h2 class="heading__title">Фотогалерея</h2>
-            <div class="slider-controls">
-               <button
-                  type="button"
-                  class="slider-button slider-button-prev"
-                  ref="buttonPrev"></button>
-               <button
-                  type="button"
-                  class="slider-button slider-button-next"
-                  ref="buttonNext"></button>
-            </div>
+      <div class="heading">
+         <h2 class="heading__title">Фотогалерея</h2>
+         <div class="slider-controls">
+            <button
+               type="button"
+               class="slider-button slider-button-prev"
+               ref="buttonPrev"></button>
+            <button
+               type="button"
+               class="slider-button slider-button-next"
+               ref="buttonNext"></button>
          </div>
-         <div class="gallery__body swiper" ref="slider">
-            <div class="gallery__wrapper swiper-wrapper">
-               <div class="gallery__item swiper-slide" v-for="item in gallery">
-                  <a
-                     :href="`/images/gallery/${item.img}.jpg`"
-                     class="gallery__image"
-                     data-fancybox="gallery">
-                     <img
-                        :src="`/images/gallery/${item.img}.jpg`"
-                        alt="галерея" />
-                  </a>
-               </div>
+      </div>
+      <div class="gallery__body swiper" ref="slider">
+         <div class="gallery__wrapper swiper-wrapper">
+            <div class="gallery__item swiper-slide" v-for="item in gallery">
+               <a
+                  :href="`/images/gallery/${item.img}.jpg`"
+                  class="gallery__image"
+                  data-fancybox="gallery">
+                  <img :src="`/images/gallery/${item.img}.jpg`" alt="галерея" />
+               </a>
             </div>
          </div>
       </div>
@@ -66,6 +62,32 @@ const initSlider = () => {
          nextEl: buttonNext.value,
          prevEl: buttonPrev.value,
       },
+      breakpoints: {
+         300: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+         },
+         767.98: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+         },
+         1024: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+         },
+      },
+      on: {
+         init: function (swiper) {
+            let slides = swiper.slides;
+            let sliderControls =
+               swiper.navigation.prevEl.parentNode ||
+               swiper.navigation.nextEl.parentNode;
+            if (slides.length <= swiper.passedParams.slidesPerView) {
+               swiper.navigation.destroy();
+               sliderControls.value.style.display = "none";
+            }
+         },
+      },
    });
 };
 
@@ -93,6 +115,9 @@ const gallery = [
 <style lang="scss">
 .gallery {
    padding: 160px 0px;
+   @media screen and (max-width: $xl) {
+      padding: 80px 0;
+   }
    & h2 {
       margin: 0;
    }
@@ -102,6 +127,9 @@ const gallery = [
       align-items: center;
       gap: 20px;
       margin-bottom: 60px;
+      @media screen and (max-width: $xl) {
+         margin-bottom: 30px;
+      }
    }
    &__image {
       overflow: hidden;

@@ -2,8 +2,15 @@
    <div class="main-sale">
       <div class="container">
          <UiTicker>
-            <div class="ticker__item" v-for="item in tickerItems">
-               {{ item }}
+            <div class="ticker__group">
+               <div class="ticker__item" v-for="item in tickerItems">
+                  {{ item }}
+               </div>
+            </div>
+            <div class="ticker__group">
+               <div class="ticker__item" v-for="item in tickerItems">
+                  {{ item }}
+               </div>
             </div>
          </UiTicker>
          <div class="main-sale__body swiper" ref="saleSlider">
@@ -56,8 +63,6 @@ const tickerItems = [
    "Акция",
    "Акция",
    "Акция",
-   "Акция",
-   "Акция",
 ];
 const slider = ref(null);
 const saleSlider = ref("");
@@ -90,11 +95,6 @@ function initSlider() {
       spaceBetween: 165,
       speed: 1000,
       freeMode: true,
-      // on: {
-      //    init: function (swiper) {
-      //       swiper.params.freeMode.enabled = true;
-      //    },
-      // },
    });
 }
 
@@ -180,7 +180,7 @@ onMounted(() => {
       color: $bg-white;
    }
    &__title {
-      font-family: $second-family;
+      font-family: $third-family;
       font-weight: 700;
       font-size: 48px;
       line-height: 56px;

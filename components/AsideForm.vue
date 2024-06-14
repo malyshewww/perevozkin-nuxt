@@ -1,5 +1,5 @@
 <template>
-   <aside class="aside">
+   <aside class="aside" ref="aside">
       <form action="#" class="aside-form form">
          <div class="form__header">
             <div class="form__title" v-if="formTitle">{{ formTitle }}</div>
@@ -13,13 +13,36 @@
 </template>
 
 <script setup>
+import initCustomScrollbar from "../utils/customScrollbar.js";
+
+const aside = ref("");
+const asideSticky = () => {
+   const { bodyScrollBar } = initCustomScrollbar();
+   bodyScrollBar.addListener(({ offset }) => {
+      aside.value.style.top = `${offset.y + 30}px`;
+   });
+};
+
+onMounted(() => {
+   asideSticky();
+});
+
 const props = defineProps(["formTitle", "formSubtitle"]);
 </script>
 
 <style lang="scss">
+.aside {
+   position: sticky;
+}
 .aside-form {
    padding: 52px 60px 72px;
    background: $graphite;
+   @media screen and (max-width: $xxl) {
+      padding: 40px;
+   }
+   @media screen and (max-width: $md) {
+      padding: 20px;
+   }
    & .form__items {
       grid-template-columns: 1fr;
       margin: 0;
@@ -51,6 +74,13 @@ const props = defineProps(["formTitle", "formSubtitle"]);
          width: 72px;
          height: 1px;
          background-color: $bg-green-lime;
+      }
+      @media screen and (max-width: $xl) {
+         max-width: 100%;
+      }
+      @media screen and (max-width: $md) {
+         font-size: 22px;
+         line-height: 28px;
       }
    }
    &__sub-title {

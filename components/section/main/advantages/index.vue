@@ -82,7 +82,7 @@
       width: 560px;
       min-height: 540px;
       padding: 48px 48px 60px 48px;
-      box-shadow: 0 0 50px 0 rgba(16, 19, 22, 0.8);
+      box-shadow: 0 0 10px 0 rgba(16, 19, 22, 0.8);
       background: $bg-asphalt;
       position: absolute;
       &:nth-child(1) {

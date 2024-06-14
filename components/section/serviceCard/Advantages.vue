@@ -62,13 +62,37 @@ const sliderInstance = ref(null);
 function initSlider() {
    sliderInstance.value = new Swiper(slider.value, {
       modules: [Navigation, FreeMode],
-      slidesPerView: 3,
-      spaceBetween: 20,
       speed: 700,
       freeMode: true,
       navigation: {
          nextEl: buttonNext.value,
          prevEl: buttonPrev.value,
+      },
+      breakpoints: {
+         300: {
+            slidesPerView: 1,
+            spaceBetween: 10,
+         },
+         767.98: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+         },
+         1024: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+         },
+      },
+      on: {
+         init: function (swiper) {
+            let slides = swiper.slides;
+            let sliderControls =
+               swiper.navigation.prevEl.parentNode ||
+               swiper.navigation.nextEl.parentNode;
+            if (slides.length <= swiper.passedParams.slidesPerView) {
+               swiper.navigation.destroy();
+               sliderControls.value.style.display = "none";
+            }
+         },
       },
    });
 }
@@ -99,6 +123,9 @@ const serviceSlider = [
 }
 .service-advantages {
    padding: 80px 0;
+   @media screen and (max-width: $xl) {
+      padding: 40px 0;
+   }
    &__slider {
    }
    & .heading {
@@ -111,18 +138,45 @@ const serviceSlider = [
       &__title {
          font-size: 28px;
          line-height: 36px;
+         @media screen and (max-width: $xl) {
+            font-size: calc(40px / 1.5);
+            line-height: calc(52px / 1.5);
+         }
+         @media screen and (max-width: $md) {
+            font-size: 22px;
+            line-height: 28px;
+         }
+      }
+      @media screen and (max-width: $xl) {
+         grid-template-areas:
+            "subtitle subtitle"
+            "title title"
+            "descr descr";
+         gap: 20px;
       }
    }
    &__cards {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 93px;
+      @media screen and (max-width: $xxxl) {
+         gap: 30px;
+      }
+      @media screen and (max-width: $xl) {
+         grid-template-columns: repeat(2, 1fr);
+      }
+      @media screen and (max-width: $md) {
+         grid-template-columns: 1fr;
+      }
    }
 }
 .heading {
    padding-bottom: 28px;
    border-bottom: 1px solid $bg-asphalt;
    margin-bottom: 60px;
+   @media screen and (max-width: $xl) {
+      margin-bottom: 30px;
+   }
    &__sub-title {
       grid-area: subtitle;
    }
@@ -137,6 +191,11 @@ const serviceSlider = [
       text-align: right;
       font-size: 20px;
       line-height: 28px;
+      @media screen and (max-width: $xl) {
+         text-align: left;
+         font-size: 18px;
+         line-height: 24px;
+      }
    }
    &__number {
       font-family: $third-family;
@@ -146,10 +205,17 @@ const serviceSlider = [
       text-transform: uppercase;
       text-align: right;
       color: $bg-green-lime;
+      @media screen and (max-width: $xl) {
+         font-size: 24px;
+         line-height: 28px;
+      }
    }
 }
 .service-slider {
    margin-bottom: 100px;
+   @media screen and (max-width: $xl) {
+      margin-bottom: 40px;
+   }
    &__body {
    }
    &__wrapper {

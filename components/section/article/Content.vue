@@ -1,6 +1,9 @@
 <template>
    <div class="article-page__content content">
-      <h2>Обслуживание и&nbsp;диагностика тормозной системы</h2>
+      <h2>
+         Обслуживание <br />
+         и диагностика тормозной системы
+      </h2>
       <div class="content__image ibg">
          <img
             src="/images/articles/article-pic.jpg"
@@ -82,6 +85,9 @@
       max-width: 995px;
       & h2 {
          margin-bottom: 60px;
+         @media screen and (max-width: $xl) {
+            margin-bottom: 40px;
+         }
       }
    }
 }
@@ -94,6 +100,12 @@
    display: grid;
    gap: 40px;
    margin-top: 80px;
+   @media screen and (max-width: $xl) {
+      margin-top: 40px;
+   }
+   @media screen and (max-width: $md) {
+      gap: 30px;
+   }
 }
 .content-group {
    &:nth-child(even) {

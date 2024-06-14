@@ -98,6 +98,7 @@
       position: relative;
       width: 40px;
       height: 40px;
+      flex-shrink: 0;
       &--first,
       &--last,
       &--next,
@@ -109,6 +110,10 @@
             fill: currentColor;
             @include transition(fill $time);
          }
+      }
+      @media screen and (max-width: $md) {
+         width: 30px;
+         height: 30px;
       }
       &.is-active {
          .pager__link {

@@ -5,7 +5,7 @@
             <form action="#" class="form">
                <div class="form__sup-title">Обратная связь</div>
                <div class="form__title">
-                  Записаться на ремонт или обсудить проблему со специалистом
+                  Записаться на ремонт или обсудить проблему со специалистом
                </div>
                <div class="form__items">
                   <div class="form-item">
@@ -37,30 +37,50 @@
 <style lang="scss">
 .service-form {
    padding: 80px 0;
+   @media screen and (max-width: $xl) {
+      padding: 40px 0;
+   }
    &__body {
       background-color: $graphite;
       position: relative;
-      padding: 80px 0 108px;
-      &::before,
-      &::after {
-         content: "";
-         position: absolute;
-         width: 0;
-         height: 0;
-         border-style: solid;
+      padding: 80px 10px 108px;
+      --border: 70px;
+      clip-path: polygon(
+         100% 0,
+         calc(100% - var(--border)) 0%,
+         100% var(--border),
+         100% 100%,
+         100% 100%,
+         100% 100%,
+         var(--border) 100%,
+         0 calc(100% - var(--border)),
+         0 0,
+         0 0
+      );
+      @media screen and (max-width: $xl) {
+         --border: 40px;
+         padding: 40px 10px;
       }
-      &::before {
-         bottom: 0;
-         left: 0;
-         border-width: 70px 0 0 70px;
-         border-color: transparent transparent transparent $bg-anthracite;
-      }
-      &::after {
-         top: 0;
-         right: 0;
-         border-width: 0 70px 70px 0;
-         border-color: transparent $bg-anthracite transparent transparent;
-      }
+      // &::before,
+      // &::after {
+      //    content: "";
+      //    position: absolute;
+      //    width: 0;
+      //    height: 0;
+      //    border-style: solid;
+      // }
+      // &::before {
+      //    bottom: 0;
+      //    left: 0;
+      //    border-width: 70px 0 0 70px;
+      //    border-color: transparent transparent transparent $bg-anthracite;
+      // }
+      // &::after {
+      //    top: 0;
+      //    right: 0;
+      //    border-width: 0 70px 70px 0;
+      //    border-color: transparent $bg-anthracite transparent transparent;
+      // }
    }
    & .form__title {
       padding: 0;
@@ -85,12 +105,22 @@
       text-transform: uppercase;
       color: $dark-gray;
       margin-bottom: 34px;
+      @media screen and (max-width: $xl) {
+         margin-bottom: 30px;
+      }
    }
    &__title {
       font-size: 28px;
       line-height: 36px;
       text-transform: uppercase;
       color: $bg-white;
+      @media screen and (max-width: $xl) {
+         font-size: 24px;
+         line-height: 28px;
+      }
+      @media screen and (max-width: $md) {
+         font-size: 20px;
+      }
    }
    &__items {
       display: grid;
@@ -98,6 +128,10 @@
       gap: 20px;
       margin: 48px 0 28px;
       width: 100%;
+      @media screen and (max-width: $xl) {
+         grid-template-columns: 1fr;
+         margin: 30px 0;
+      }
    }
    &__action {
       width: 100%;
@@ -120,7 +154,7 @@
       }
    }
    & a {
-      text-decoration: underline;
+      // text-decoration: underline;
       color: $bg-white;
       box-shadow: 0 1px 0 0 $bg-white;
    }

@@ -59,10 +59,20 @@ const breadcrumbs = [
    &__top {
       padding: 120px 0 173px;
       background-color: $graphite;
+      @media screen and (max-width: $xxl) {
+         padding: 90px 0 130px;
+      }
+      @media screen and (max-width: $xl) {
+         padding: 40px 0 60px;
+      }
       & .breadcrumbs {
          grid-area: crumbs;
          margin-top: 0;
          margin-bottom: 24px;
+         grid-column: span 2;
+         @media screen and (max-width: $xl) {
+            margin: 0;
+         }
          & .container {
             padding: 0;
          }
@@ -79,6 +89,14 @@ const breadcrumbs = [
       gap: 36px;
       align-items: start;
       position: relative;
+      @media screen and (max-width: $xl) {
+         grid-template-columns: 1fr;
+         grid-template-areas:
+            "crumbs"
+            "title"
+            "descr";
+         gap: 30px;
+      }
    }
    &__title {
       grid-area: title;
@@ -88,12 +106,27 @@ const breadcrumbs = [
       line-height: 60px;
       text-transform: uppercase;
       color: $bg-white;
+      hyphens: none;
+      @media screen and (max-width: $xl) {
+         font-size: calc(48px / 1.5);
+         line-height: calc(60px / 1.5);
+         grid-column: span 2;
+      }
+      @media screen and (max-width: $md) {
+         font-size: 24px;
+         line-height: 32px;
+      }
    }
    &__description {
       grid-area: descr;
       font-size: 24px;
       line-height: 32px;
       color: $bg-white;
+      grid-column: span 2;
+      @media screen and (max-width: $md) {
+         font-size: 20px;
+         line-height: 24px;
+      }
    }
    &__image {
       grid-area: pic;
@@ -103,6 +136,9 @@ const breadcrumbs = [
       width: 100%;
       top: 57%;
       transform: translateY(-50%);
+      @media screen and (max-width: $xl) {
+         display: none;
+      }
    }
 }
 </style>
