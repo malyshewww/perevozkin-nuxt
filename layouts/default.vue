@@ -1,15 +1,17 @@
 <template>
    <div class="scroller">
       <div class="wrapper">
-         <!-- <Header></Header> -->
+         <Header></Header>
          <slot />
          <Footer></Footer>
       </div>
+      <!-- <UiTrailer /> -->
    </div>
 </template>
 
 <script setup>
 import initCustomScrollbar from "../utils/customScrollbar.js";
+
 onMounted(() => {
    initCustomScrollbar();
 });

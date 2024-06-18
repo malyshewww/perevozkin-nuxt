@@ -40,16 +40,19 @@ const tickerItems = [
 const serviceCardsTop = [
    {
       title: "Газель Next",
+      descr: "Диагностика и ремонт",
       img: "/main-services/service-1",
       href: "/services",
    },
    {
       title: "Газель Next",
+      descr: "Диагностика и ремонт",
       img: "/main-services/service-2",
       href: "/services",
    },
    {
       title: "Газель Next",
+      descr: "Диагностика и ремонт",
       img: "/main-services/service-3",
       href: "/services",
    },
@@ -71,7 +74,7 @@ const serviceCardsBottom = [
 <style lang="scss">
 .main-services {
    overflow: hidden;
-   padding: 120px 0;
+   padding: 160px 0 120px;
    &__body {
       display: grid;
       gap: 20px;
@@ -81,19 +84,30 @@ const serviceCardsBottom = [
       display: flex;
       gap: 20px;
       & .service-item {
-         min-height: 530px;
+         height: 530px;
          transition: width $time, flex-grow $time;
          flex-grow: 1;
          width: 33.333%;
          &__image {
-            position: relative;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
             z-index: 2;
+            transition: padding $time, height $time;
+            height: 320px;
+            padding: 0;
+            & img {
+               width: 100%;
+               object-fit: contain;
+               transition: width $time;
+            }
          }
          @media (any-hover: hover) {
             &:hover {
-               width: 50%;
-               & .service-item__image img {
-                  // transform: scale(1.01);
+               width: 75%;
+               & .service-item__image {
+                  height: 326px;
+                  // padding-bottom: 41.3%;
                }
             }
          }
@@ -128,6 +142,7 @@ const serviceCardsBottom = [
             bottom: 0;
             left: auto;
             max-height: 196px;
+            padding-bottom: 0;
          }
          &__icon {
             right: auto;

@@ -2,6 +2,11 @@ body > div.__nuxt {
 	height: 100%;
 }
 
+html.lock,
+body.lock {
+	overflow: hidden;
+}
+
 .container {
 	max-width: $maxWidthContainer + px;
 	margin: 0 auto;
@@ -503,3 +508,47 @@ body > div.__nuxt {
 		}
 	}
 }
+
+// .anim-title .line {
+// 	clip-path: polygon(0% 0%, 100% 0, 100% 100%, 0% 100%);
+// }
+
+// .trailer {
+// 	width: 134px;
+// 	height: 134px;
+// 	border-radius: 50%;
+// 	position: fixed;
+// 	background-color: transparent;
+// 	border: 1px solid $bg-white;
+// 	left: 0px;
+// 	top: 0px;
+// 	z-index: 1000;
+// 	pointer-events: none;
+// 	opacity: 0;
+// 	transition: opacity $time * 2 ease;
+// 	color: $bg-white;
+// 	cursor: pointer;
+// 	&:not([data-type=""]) {
+// 		opacity: 1;
+// 	}
+// 	&__content {
+// 		display: flex;
+// 		justify-content: center;
+// 		align-items: center;
+// 		gap: 4px;
+// 		width: 100%;
+// 		height: 100%;
+// 	}
+// 	& svg {
+// 		width: 16px;
+// 		height: 16px;
+// 		flex-shrink: 0;
+// 		fill: currentColor;
+// 	}
+// 	&__text {
+// 		font-weight: 600;
+// 		font-size: 14px;
+// 		line-height: 18px;
+// 		color: currentColor;
+// 	}
+// }

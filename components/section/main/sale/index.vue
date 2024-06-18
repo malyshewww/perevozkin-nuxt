@@ -13,7 +13,10 @@
                </div>
             </div>
          </UiTicker>
-         <div class="main-sale__body swiper" ref="saleSlider">
+         <div
+            class="main-sale__body swiper interactable"
+            ref="saleSlider"
+            data-type="slider">
             <div class="main-sale__wrapper swiper-wrapper">
                <div
                   class="main-sale__item item-sale swiper-slide"
@@ -26,7 +29,11 @@
                         <div class="item-sale__description">
                            {{ item.descr }}
                         </div>
-                        <div class="item-sale__button btn">{{ item.btn }}</div>
+                        <div
+                           class="item-sale__button btn"
+                           @click="openSalePopup($event, item)">
+                           {{ item.btn }}
+                        </div>
                         <div class="item-sale__bottom">
                            <div class="item-sale__disclamer">
                               {{ item.disclamer }}
@@ -46,6 +53,10 @@
          </div>
       </div>
    </div>
+   <PopupSale
+      :isActive="isSalePopupActive"
+      @closePopup="closeSalePopup()"
+      :data="popupSaleData" />
 </template>
 <script setup>
 import Swiper from "swiper";
@@ -53,6 +64,8 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { Navigation, FreeMode } from "swiper/modules";
+
+const emit = defineEmits(["openPopup"]);
 
 const tickerItems = [
    "Акция",
@@ -71,7 +84,7 @@ const saleSliderData = [
    {
       date: "с 01.04.2024 по 30.04.2024",
       title: "Диагностика ходовой бесплатно",
-      descr: "при замене тормозных дисков и колодок в автосервисах на ул. Переходникова, 12 и ул. Ларина, 27В",
+      descr: "при замене тормозных дисков и колодок в автосервисах на ул. Переходникова, 12 и ул. Ларина, 27В при замене тормозных дисков и колодок в автосервисах на ул. Переходникова, 12 и ул. Ларина, 27В при замене тормозных дисков и колодок в автосервисах на ул. Переходникова, 12 и ул. Ларина, 27В",
       btn: "Узнать больше",
       disclamer:
          "Подробности у сервисных консультантов. Не является публичной офертой",
@@ -95,8 +108,30 @@ function initSlider() {
       spaceBetween: 165,
       speed: 1000,
       freeMode: true,
+      on: {
+         // touchMove: function (swiper) {
+         //    console.log(swiper);
+         // },
+         // sliderMove: function (swiper) {
+         //    console.log(swiper);
+         // },
+      },
    });
 }
+
+const isSalePopupActive = ref(false);
+
+const popupSaleData = ref({});
+
+const openSalePopup = (event, saleItem) => {
+   isSalePopupActive.value = !isSalePopupActive.value;
+   document.documentElement.classList.toggle("lock");
+   popupSaleData.value = { ...saleItem };
+};
+const closeSalePopup = () => {
+   isSalePopupActive.value = !isSalePopupActive.value;
+   document.documentElement.classList.toggle("lock");
+};
 
 onMounted(() => {
    initSlider();
@@ -119,6 +154,7 @@ onMounted(() => {
    min-height: 560px;
    position: relative;
    background-color: $bg-asphalt;
+   height: auto;
    &::before {
       content: "";
       position: absolute;
@@ -139,9 +175,11 @@ onMounted(() => {
       grid-template-columns: 1fr 600px;
       gap: 20px;
       min-height: inherit;
+      height: 100%;
    }
    &__info {
       padding: 120px 70px 36px;
+      padding-right: 0;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -189,6 +227,10 @@ onMounted(() => {
    &__description {
       font-size: 20px;
       line-height: 28px;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
       & p {
          display: inline;
       }
@@ -224,9 +266,5 @@ onMounted(() => {
       z-index: 2;
       padding-bottom: calc(416 / 600 * 100%);
    }
-}
-.swiper-slide {
-}
-.btn {
 }
 </style>

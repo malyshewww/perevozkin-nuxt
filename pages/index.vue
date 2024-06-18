@@ -9,6 +9,9 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+   layout: "custom",
+});
 useHead({
    bodyAttrs: {
       class: `page--home`,

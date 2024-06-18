@@ -6,6 +6,9 @@
          </svg>
          <div class="service-item__header">
             <div class="service-item__title">{{ item.title }}</div>
+            <div class="service-item__sub-title" v-if="item.descr">
+               {{ item.descr }}
+            </div>
             <div class="service-item__price" v-if="item.price">
                <span>от</span> {{ item.price }}
             </div>
@@ -26,7 +29,7 @@ const props = defineProps(["arr"]);
    border: 1px solid $bg-asphalt;
    padding: 40px;
    position: relative;
-   @include transition(width $time, flex-grow $time);
+   @include transition(width $time * 2, flex-grow $time * 2);
    &::before {
       content: "";
       position: absolute;
@@ -45,6 +48,9 @@ const props = defineProps(["arr"]);
          & .service-item__icon {
             opacity: 1;
             transform: translateY(0);
+         }
+         & .service-item__sub-title {
+            clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);
          }
       }
    }
@@ -90,6 +96,12 @@ const props = defineProps(["arr"]);
          font-size: 20px;
          line-height: 28px;
       }
+   }
+   &__sub-title {
+      font-size: 20px;
+      line-height: 28px;
+      clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+      transition: clip-path $time;
    }
    &__price {
       font-weight: 600;

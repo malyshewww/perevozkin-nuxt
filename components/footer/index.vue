@@ -113,7 +113,7 @@
    </footer>
    <PopupPolitic
       :isActive="isPoliticPopupActive"
-      @closePopup="closePoliticPopup()"></PopupPolitic>
+      @closePopup="closePoliticPopup"></PopupPolitic>
 </template>
 <script setup>
 import initCustomScrollbar from "../utils/customScrollbar.js";

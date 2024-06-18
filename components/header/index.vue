@@ -67,6 +67,7 @@ const menu = [
       display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 10;
    }
    &__menu {
       flex-grow: 1;

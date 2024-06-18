@@ -27,7 +27,7 @@
 
 <script setup>
 const props = defineProps(["isActive"]);
-const emit = defineEmits(["closePopup"]);
+const emit = defineEmits(["closePopup", "openPopup"]);
 const closePopup = () => {
    emit("closePopup");
 };
