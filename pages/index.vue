@@ -1,6 +1,6 @@
 <template>
    <main class="main">
-      <SectionMainScreen />
+      <!-- <SectionMainScreen /> -->
       <SectionMainServices />
       <SectionMainAdvantages />
       <SectionMainSale />

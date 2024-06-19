@@ -2,12 +2,7 @@
    <section class="main-services">
       <div class="container">
          <UiTicker>
-            <div class="ticker__group">
-               <div class="ticker__item" v-for="item in tickerItems">
-                  {{ item }}
-               </div>
-            </div>
-            <div class="ticker__group">
+            <div class="ticker__group" ref="tickerGroup">
                <div class="ticker__item" v-for="item in tickerItems">
                   {{ item }}
                </div>
@@ -26,6 +21,8 @@
 </template>
 
 <script setup>
+const tickerGroup = ref("");
+
 const tickerItems = [
    "Услуги сервиса",
    "Услуги сервиса",
@@ -51,7 +48,7 @@ const serviceCardsTop = [
       href: "/services",
    },
    {
-      title: "Газель Next",
+      title: "Газон Next",
       descr: "Диагностика и ремонт",
       img: "/main-services/service-3",
       href: "/services",
@@ -69,6 +66,10 @@ const serviceCardsBottom = [
       href: "/services",
    },
 ];
+
+onMounted(() => {
+   tickerCopy(tickerGroup.value);
+});
 </script>
 
 <style lang="scss">
@@ -93,7 +94,7 @@ const serviceCardsBottom = [
             bottom: 0;
             width: 100%;
             z-index: 2;
-            transition: padding $time, height $time;
+            transition: height $time;
             height: 320px;
             padding: 0;
             & img {

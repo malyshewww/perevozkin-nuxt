@@ -1,13 +1,8 @@
 <template>
-   <div class="main-sale">
+   <div class="main-sale" id="sale">
       <div class="container">
          <UiTicker>
-            <div class="ticker__group">
-               <div class="ticker__item" v-for="item in tickerItems">
-                  {{ item }}
-               </div>
-            </div>
-            <div class="ticker__group">
+            <div class="ticker__group" ref="tickerGroup">
                <div class="ticker__item" v-for="item in tickerItems">
                   {{ item }}
                </div>
@@ -66,6 +61,8 @@ import "swiper/css/pagination";
 import { Navigation, FreeMode } from "swiper/modules";
 
 const emit = defineEmits(["openPopup"]);
+
+const tickerGroup = ref("");
 
 const tickerItems = [
    "Акция",
@@ -135,6 +132,7 @@ const closeSalePopup = () => {
 
 onMounted(() => {
    initSlider();
+   tickerCopy(tickerGroup.value);
 });
 </script>
 

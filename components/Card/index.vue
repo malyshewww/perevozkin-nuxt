@@ -35,9 +35,9 @@ const props = defineProps(["arr"]);
       position: absolute;
       inset: 0;
       background-image: linear-gradient(162deg, #2f3740 0%, #264947 100%);
-      background-size: 200%;
+      background-size: 100% 100%;
       opacity: 0;
-      z-index: 0;
+      z-index: -1;
       @include transition(opacity $time);
    }
    @media (any-hover: hover) {

@@ -10,16 +10,7 @@
          </div>
          <div class="partners__slider">
             <UiTicker>
-               <div class="ticker__group">
-                  <div class="partners__item" v-for="item in partnersData">
-                     <div class="partners__image">
-                        <img
-                           :src="`/images/main-partners/${item.img}.png`"
-                           alt="" />
-                     </div>
-                  </div>
-               </div>
-               <div class="ticker__group">
+               <div class="ticker__group" ref="tickerGroup">
                   <div class="partners__item" v-for="item in partnersData">
                      <div class="partners__image">
                         <img
@@ -34,8 +25,7 @@
    </section>
 </template>
 <script setup>
-const slider = ref(null);
-const partnerSlider = ref("");
+const tickerGroup = ref("");
 
 const partnersData = [
    {
@@ -63,6 +53,10 @@ const partnersData = [
       img: "partner-8",
    },
 ];
+
+onMounted(() => {
+   tickerCopy(tickerGroup.value);
+});
 </script>
 <style lang="scss">
 .partners {
