@@ -1,7 +1,10 @@
 <template>
    <div
-      class="main-advantages__card card-advantages"
+      :class="`main-advantages__card card-advantages card-advantages--${
+         index + 1
+      }`"
       v-for="(card, index) in advantages">
+      <div class="card-advantages__bg"></div>
       <div class="card-advantages__body">
          <div class="card-advantages__icon">
             <img
@@ -41,9 +44,28 @@ const animation = () => {
    ScrollTrigger.defaults({ scroller: scroller });
 };
 
-onMounted(() => {
-   animation();
-});
+// onMounted(() => {
+//    animation();
+// });
+
+const advantages = [
+   {
+      title: "Опыт мастеров более 7 лет",
+      text: "Наши специалисты имеют большой опыт в эксплуатации и ремонте автомобилей ГАЗ",
+   },
+   {
+      title: "Современное оборудование",
+      text: "Мы используем современное дорогое оборудование для диагностики и ремонта автомобилей ГАЗ. Это позволяет нам быстро и точно определить неисправности и устранить их",
+   },
+   {
+      title: "Оригинальные запчасти в наличии",
+      text: "Мы используем только оригинальные запчасти ГАЗ, что гарантирует высокое качество и надёжность ремонта",
+   },
+   {
+      title: "Гарантия на все виды ремонта",
+      text: "Предоставляем гарантию на все выполненные работы. Если в течение гарантийного срока возникнут какие‑либо проблемы с отремонтированным узлом или агрегатом, мы устраним их бесплатно",
+   },
+];
 </script>
 
 <style lang="scss">
@@ -57,6 +79,9 @@ onMounted(() => {
       & .card-advantages__title {
          max-width: 73%;
       }
+   }
+   &__bg {
+      display: none;
    }
    &__body {
       display: flex;

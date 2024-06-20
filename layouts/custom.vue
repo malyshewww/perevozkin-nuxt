@@ -3,6 +3,7 @@
       <div class="wrapper">
          <slot />
          <Footer></Footer>
+         <!-- <UiTrailer /> -->
       </div>
    </div>
 </template>

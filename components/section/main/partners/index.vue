@@ -1,9 +1,9 @@
 <template>
-   <section class="partners">
+   <section class="partners" ref="sectionPartners">
       <div class="container">
          <div class="heading">
             <div class="heading__sub-title">Партнёры</div>
-            <div class="heading__title">
+            <div class="heading__title" ref="animTitle">
                Работаем с ведущими компаниями и
                <span>Ценим долгосрочное сотрудничество</span>
             </div>
@@ -25,7 +25,53 @@
    </section>
 </template>
 <script setup>
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitType from "split-type";
+import initCustomScrollbar from "../utils/customScrollbar.js";
+
 const tickerGroup = ref("");
+const animTitle = ref("");
+const sectionPartners = ref("");
+
+const animation = () => {
+   const { bodyScrollBar, scroller } = initCustomScrollbar();
+   gsap.registerPlugin(ScrollTrigger);
+   ScrollTrigger.scrollerProxy(".scroller", {
+      scrollTop(value) {
+         if (arguments.length) {
+            bodyScrollBar.scrollTop = value;
+         }
+         return bodyScrollBar.scrollTop;
+      },
+   });
+   bodyScrollBar.addListener(ScrollTrigger.update);
+   ScrollTrigger.defaults({ scroller });
+   // const splitTitle = new SplitType(animTitle.value, {
+   //    types: "lines",
+   // });
+   // const lines = splitTitle.lines;
+   const tl = gsap.timeline({
+      scrollTrigger: {
+         trigger: sectionPartners.value,
+         start: "top 50%",
+         stager: 0.1,
+      },
+   });
+   tl.fromTo(
+      animTitle.value,
+      {
+         opacity: 0.5,
+         y: "100%",
+      },
+      {
+         y: "0%",
+         opacity: 1,
+         stagger: 0.25,
+         ease: "power3.out",
+      }
+   );
+};
 
 const partnersData = [
    {
@@ -56,10 +102,12 @@ const partnersData = [
 
 onMounted(() => {
    tickerCopy(tickerGroup.value);
+   animation();
 });
 </script>
 <style lang="scss">
 .partners {
+   padding: 120px 0 60px;
    & .heading {
       display: flex;
       flex-direction: row;
@@ -68,6 +116,7 @@ onMounted(() => {
       margin: 0;
       padding: 0;
       border: none;
+      overflow: hidden;
       &__title {
          flex: 1 1 auto;
          max-width: 1000px;

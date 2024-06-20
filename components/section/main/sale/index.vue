@@ -11,7 +11,12 @@
          <div
             class="main-sale__body swiper interactable"
             ref="saleSlider"
-            data-type="slider">
+            data-type="slider"
+            @mouseenter="showTrailer"
+            @mouseleave="hideTrailer"
+            @dragstart="func">
+            <!-- <UiTrailer :isActive="isActiveTrailer" :isScale="isScaling" /> -->
+            <div class="ball" ref="ball"></div>
             <div class="main-sale__wrapper swiper-wrapper">
                <div
                   class="main-sale__item item-sale swiper-slide"
@@ -46,6 +51,40 @@
                </div>
             </div>
          </div>
+         <div class="ball" ref="ball"></div>
+         <!-- <div class="carousel" ref="carousel">
+            <div
+               class="main-sale__item item-sale swiper-slide"
+               v-for="(item, index) in saleSliderData">
+               <div class="item-sale__wrapper">
+                  <div class="item-sale__info">
+                     <div class="item-sale__badge">Акция</div>
+                     <div class="item-sale__date">{{ item.date }}</div>
+                     <div class="item-sale__title">{{ item.title }}</div>
+                     <div class="item-sale__description">
+                        {{ item.descr }}
+                     </div>
+                     <div
+                        class="item-sale__button btn"
+                        @click="openSalePopup($event, item)">
+                        {{ item.btn }}
+                     </div>
+                     <div class="item-sale__bottom">
+                        <div class="item-sale__disclamer">
+                           {{ item.disclamer }}
+                        </div>
+                     </div>
+                  </div>
+                  <div class="item-sale__image-wrap">
+                     <div class="item-sale__image ibg">
+                        <img
+                           :src="`/images/main-sale/${item.img}.png`"
+                           alt="" />
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div> -->
       </div>
    </div>
    <PopupSale
@@ -54,28 +93,30 @@
       :data="popupSaleData" />
 </template>
 <script setup>
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Swiper from "swiper";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { Navigation, FreeMode } from "swiper/modules";
 
+// import Flickity from "flickity";
+// import "flickity/css/flickity.css";
+
 const emit = defineEmits(["openPopup"]);
 
 const tickerGroup = ref("");
-
-const tickerItems = [
-   "Акция",
-   "Акция",
-   "Акция",
-   "Акция",
-   "Акция",
-   "Акция",
-   "Акция",
-   "Акция",
-];
 const slider = ref(null);
 const saleSlider = ref("");
+
+const isActiveTrailer = ref(false);
+const isScaling = ref("");
+
+const isSalePopupActive = ref(false);
+const popupSaleData = ref({});
+
+const carousel = ref("");
 
 const saleSliderData = [
    {
@@ -97,8 +138,41 @@ const saleSliderData = [
       img: "sale-2",
    },
 ];
+const tickerItems = [
+   "Акция",
+   "Акция",
+   "Акция",
+   "Акция",
+   "Акция",
+   "Акция",
+   "Акция",
+   "Акция",
+];
+
+const showTrailer = () => {
+   isActiveTrailer.value = !isActiveTrailer.value;
+};
+const hideTrailer = () => {
+   isActiveTrailer.value = !isActiveTrailer.value;
+};
+
+const func = () => {
+   console.log("func");
+};
+
+const scalingTrailerDown = () => {
+   isScaling.value = !isScaling.value;
+};
+const scalingTrailerUp = () => {
+   isScaling.value = !isScaling.value;
+};
 
 function initSlider() {
+   // slider.value = new Flickity(carousel.value, {
+   //    // options
+   //    cellAlign: "left",
+   //    contain: true,
+   // });
    slider.value = new Swiper(saleSlider.value, {
       modules: [Navigation, FreeMode],
       slidesPerView: 1.1811,
@@ -106,19 +180,10 @@ function initSlider() {
       speed: 1000,
       freeMode: true,
       on: {
-         // touchMove: function (swiper) {
-         //    console.log(swiper);
-         // },
-         // sliderMove: function (swiper) {
-         //    console.log(swiper);
-         // },
+         touchMove: function (swiper) {},
       },
    });
 }
-
-const isSalePopupActive = ref(false);
-
-const popupSaleData = ref({});
 
 const openSalePopup = (event, saleItem) => {
    isSalePopupActive.value = !isSalePopupActive.value;
@@ -130,9 +195,36 @@ const closeSalePopup = () => {
    document.documentElement.classList.toggle("lock");
 };
 
+const ball = ref("");
+function initBall() {
+   gsap.set(ball.value, { xPercent: -50, yPercent: -50 });
+   const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+   const mouse = { x: pos.x, y: pos.y };
+   const speed = 0.35;
+   var active = false;
+   const xSet = gsap.quickSetter(ball.value, "x", "px");
+   const ySet = gsap.quickSetter(ball.value, "y", "px");
+   window.addEventListener("mousemove", (e) => {
+      mouse.x = e.x;
+      mouse.y = e.y;
+   });
+   gsap.ticker.add(cursor);
+   function cursor() {
+      if (!active) {
+         const dt = 1.0 - Math.pow(1.0 - speed, gsap.ticker.deltaRatio());
+         pos.x += (mouse.x - pos.x) * dt;
+         pos.y += (mouse.y - pos.y) * dt;
+         xSet(pos.x);
+         ySet(pos.y);
+      }
+   }
+   cursor();
+}
+
 onMounted(() => {
    initSlider();
    tickerCopy(tickerGroup.value);
+   // initBall();
 });
 </script>
 
@@ -142,6 +234,7 @@ onMounted(() => {
    &__body {
       margin-top: 100px;
       overflow: visible;
+      cursor: pointer;
    }
    &__wrapper {
    }

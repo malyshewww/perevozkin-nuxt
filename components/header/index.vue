@@ -20,7 +20,7 @@
                <a href="tel:+78311380880" class="header__phone"
                   >+7 (831) 138-08-80</a
                >
-               <a href="#sale" @click.prevent class="header__button">
+               <a href="#sale" class="header__button">
                   <span class="header__button-text">Акции</span>
                </a>
             </div>

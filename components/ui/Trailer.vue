@@ -1,5 +1,8 @@
 <template>
-   <div class="trailer" ref="trailer">
+   <div
+      class="trailer"
+      :class="{ active: isActive, scalling: isScale }"
+      ref="trailer">
       <div class="trailer__content">
          <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -22,36 +25,30 @@
 </template>
 
 <script setup>
-// import initCustomScrollbar from "../utils/customScrollbar.js";
-
 const trailer = ref("");
-onMounted(() => {
-   function animateTrailer(e, interacting) {
-      console.log(e, interacting);
-      const x = e.clientX - trailer.value.offsetWidth / 2,
-         y = e.clientY - trailer.value.offsetHeight / 2;
-      const keyframes = {
-         transform: `translate(${x}px, ${y}px) scale(${interacting ? 1 : 0})`,
-         opacity: `${interacting ? 1 : 0}`,
-      };
-      trailer.value.style.transform = `translate(${x}px, ${y}px) scale(${
-         interacting ? 1 : 0
-      })`;
-      trailer.value.style.opacity = `${interacting ? 1 : 0}`;
-      //   trailer.value.style.top = `${y}px`;
-      //   trailer.value.style.left = `${x}px`;
-      //   trailer.value.animate(keyframes, {
-      //      duration: 500,
-      //      fill: "forwards",
-      //   });
-   }
-   window.onmousemove = (e) => {
-      const interactable = e.target.closest(".interactable"),
-         interacting = interactable !== null;
-      animateTrailer(e, interacting);
-      trailer.value.dataset.type = interacting ? interactable.dataset.type : "";
-   };
-});
+
+const props = defineProps(["isActive", "isScale"]);
+
+// onMounted(() => {
+//    function animateTrailer(e, interacting) {
+//       const x = e.clientX - trailer.value.offsetWidth - 33,
+//          y = e.clientY - trailer.value.offsetHeight - 100;
+//       const keyframes = {
+//          transform: `translate(${x}px, ${y}px) scale(${interacting ? 1 : 0})`,
+//          opacity: `${interacting ? 1 : 0}`,
+//       };
+//       trailer.value.style.transform = `translate(${x}px, ${y}px) scale(${
+//          interacting ? 1 : 0
+//       })`;
+//       trailer.value.style.opacity = `${interacting ? 1 : 0}`;
+//    }
+//    window.onmousemove = (e) => {
+//       const interactable = e.target.closest(".interactable"),
+//          interacting = interactable !== null;
+//       animateTrailer(e, interacting);
+//       trailer.value.dataset.type = interacting ? interactable.dataset.type : "";
+//    };
+// });
 </script>
 
 <style lang="scss">
@@ -59,7 +56,7 @@ onMounted(() => {
    width: 134px;
    height: 134px;
    border-radius: 50%;
-   position: fixed;
+   position: absolute;
    background-color: transparent;
    border: 1px solid $bg-white;
    left: 0px;
@@ -67,7 +64,7 @@ onMounted(() => {
    z-index: 1000;
    pointer-events: none;
    opacity: 0;
-   transition: opacity $time * 2 ease, transform $time * 2;
+   transition: opacity $time * 2 ease;
    color: $bg-white;
    cursor: pointer;
    &:not([data-type=""]) {
