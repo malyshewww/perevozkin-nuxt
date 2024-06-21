@@ -35,7 +35,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import SplitType from "split-type";
 
-import initCustomScrollbar from "../utils/customScrollbar.js";
+import initCustomScrollbar from "~/utils/customScrollbar.js";
 
 const mainScreen = ref("");
 const mainVideo = ref("");
@@ -45,8 +45,8 @@ const mainParallax = ref("");
 let propress = ref(0);
 
 const initAnimation = () => {
-   const { bodyScrollBar, scroller } = initCustomScrollbar();
    gsap.registerPlugin(ScrollTrigger);
+   const { bodyScrollBar, scroller } = initCustomScrollbar();
    ScrollTrigger.scrollerProxy(".scroller", {
       scrollTop(value) {
          if (arguments.length) {

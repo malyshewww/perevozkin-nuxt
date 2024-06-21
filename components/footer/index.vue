@@ -137,15 +137,19 @@ const menu = [
    },
 ];
 const scrollTop = () => {
-   const { bodyScrollBar } = initCustomScrollbar();
-   if (window.innerWidth > 1024) {
-      bodyScrollBar.scrollIntoView(document.querySelector(".wrapper"));
-   } else {
-      window.scrollTo({
-         top: 0,
-         behavior: "smooth",
-      });
-   }
+   window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+   });
+   // const { bodyScrollBar } = initCustomScrollbar();
+   // if (window.innerWidth > 1024) {
+   //    bodyScrollBar.scrollIntoView(document.querySelector(".wrapper"));
+   // } else {
+   //    window.scrollTo({
+   //       top: 0,
+   //       behavior: "smooth",
+   //    });
+   // }
 };
 const btnUp = ref("");
 const isPoliticPopupActive = ref(false);

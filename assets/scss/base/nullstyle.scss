@@ -131,14 +131,14 @@ img, picture, video, canvas, svg {
 // *::-webkit-scrollbar {
 // 	width: 5px;
 // 	height: 5px;
-// 	background-color: white;
+// 	background-color: $gray;
 // }
 // *::-webkit-scrollbar-thumb {
 // 	cursor: pointer;
-// 	background-color: rgba(#fff, .8);
+// 	background-color: $bg-green-lime;
 // 	border-radius: 5px;
 // 	transition: all .5s;
 // }
 // *::-webkit-scrollbar-thumb:hover {
-// 	background-color: rgba(#fff, .5);
+// 	background-color: rgba($bg-green-lime, .6);
 // }

@@ -16,7 +16,11 @@
             </div>
          </div>
          <div class="service-advantages__slider service-slider">
-            <div class="service-slider__body swiper" ref="slider">
+            <div
+               class="service-slider__body swiper"
+               ref="slider"
+               @mouseover="showTrailer"
+               @mouseleave="hideTrailer">
                <div class="service-slider__wrapper swiper-wrapper">
                   <div
                      class="service-slider__item swiper-slide"
@@ -53,13 +57,33 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { Navigation, FreeMode } from "swiper/modules";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+
+import initCustomScrollbar from "~/utils/customScrollbar";
 
 const slider = ref("");
 const buttonPrev = ref("");
 const buttonNext = ref("");
 const sliderInstance = ref(null);
 
+const positionY = ref(0);
+
+const showTrailer = () => {
+   const trailer = document.querySelector(".trailer");
+   trailer && trailer.classList.add("active");
+};
+const hideTrailer = () => {
+   const trailer = document.querySelector(".trailer");
+   trailer && trailer.classList.remove("active");
+};
+
 function initSlider() {
+   const { bodyScrollBar, scroller } = initCustomScrollbar();
+   bodyScrollBar.addListener(({ offset }) => {
+      positionY.value = offset.y;
+   });
    sliderInstance.value = new Swiper(slider.value, {
       modules: [Navigation, FreeMode],
       speed: 700,
@@ -92,6 +116,24 @@ function initSlider() {
                swiper.navigation.destroy();
                sliderControls.value.style.display = "none";
             }
+         },
+         sliderMove: function (swiper) {
+            gsap.to({}, 0.0, {
+               onUpdate: function () {
+                  gsap.set(".trailer", {
+                     x: swiper.touches.currentX,
+                     y: swiper.touches.currentY + positionY.value,
+                  });
+               },
+            });
+         },
+         touchStart: function (swiper) {
+            const trailer = document.querySelector(".trailer");
+            trailer && trailer.classList.add("scalling");
+         },
+         touchEnd: function (swiper) {
+            const trailer = document.querySelector(".trailer");
+            trailer && trailer.classList.remove("scalling");
          },
       },
    });
@@ -217,6 +259,11 @@ const serviceSlider = [
       margin-bottom: 40px;
    }
    &__body {
+      @media (any-hover: hover) {
+         &:hover {
+            cursor: pointer;
+         }
+      }
    }
    &__wrapper {
    }

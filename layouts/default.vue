@@ -1,16 +1,16 @@
 <template>
    <div class="scroller">
       <div class="wrapper">
+         <UiTrailer />
          <Header></Header>
          <slot />
          <Footer></Footer>
       </div>
-      <!-- <UiTrailer /> -->
    </div>
 </template>
 
 <script setup>
-import initCustomScrollbar from "../utils/customScrollbar.js";
+import initCustomScrollbar from "~/utils/customScrollbar.js";
 
 onMounted(() => {
    initCustomScrollbar();

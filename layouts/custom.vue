@@ -1,9 +1,9 @@
 <template>
    <div class="scroller" ref="scroller">
       <div class="wrapper">
+         <UiTrailer />
          <slot />
          <Footer></Footer>
-         <!-- <UiTrailer /> -->
       </div>
    </div>
 </template>

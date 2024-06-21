@@ -1,8 +1,5 @@
 <template>
-   <div
-      class="trailer"
-      :class="{ active: isActive, scalling: isScale }"
-      ref="trailer">
+   <div class="trailer" ref="trailer">
       <div class="trailer__content">
          <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -25,50 +22,88 @@
 </template>
 
 <script setup>
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import initCustomScrollbar from "~/utils/customScrollbar";
+
 const trailer = ref("");
+const positionY = ref(0);
 
-const props = defineProps(["isActive", "isScale"]);
+onMounted(() => {
+   gsap.registerPlugin(ScrollTrigger);
+   const { bodyScrollBar, scroller } = initCustomScrollbar();
+   ScrollTrigger.scrollerProxy(".scroller", {
+      scrollTop(value) {
+         if (arguments.length) {
+            bodyScrollBar.scrollTop = value;
+         }
+         return bodyScrollBar.scrollTop;
+      },
+   });
+   bodyScrollBar.addListener(ScrollTrigger.update);
+   ScrollTrigger.defaults({ scroller: scroller });
 
-// onMounted(() => {
-//    function animateTrailer(e, interacting) {
-//       const x = e.clientX - trailer.value.offsetWidth - 33,
-//          y = e.clientY - trailer.value.offsetHeight - 100;
-//       const keyframes = {
-//          transform: `translate(${x}px, ${y}px) scale(${interacting ? 1 : 0})`,
-//          opacity: `${interacting ? 1 : 0}`,
-//       };
-//       trailer.value.style.transform = `translate(${x}px, ${y}px) scale(${
-//          interacting ? 1 : 0
-//       })`;
-//       trailer.value.style.opacity = `${interacting ? 1 : 0}`;
-//    }
-//    window.onmousemove = (e) => {
-//       const interactable = e.target.closest(".interactable"),
-//          interacting = interactable !== null;
-//       animateTrailer(e, interacting);
-//       trailer.value.dataset.type = interacting ? interactable.dataset.type : "";
-//    };
-// });
+   bodyScrollBar.addListener(({ offset }) => {
+      positionY.value = offset.y;
+   });
+
+   window.addEventListener("mousemove", (event) => {
+      if (event.target.closest(".item-sale__button")) {
+         trailer.value.classList.remove("active");
+      }
+      const style = window.getComputedStyle(
+         document.querySelector(".scroller")
+      );
+      const matrix = new WebKitCSSMatrix(style.transform);
+      gsap.to(trailer.value, {
+         x: event.clientX,
+         y: event.clientY + positionY.value - matrix.m42,
+         yPercent: -50,
+         xPercent: -50,
+         duration: 0.05,
+      });
+   });
+});
 </script>
 
 <style lang="scss">
 .trailer {
    width: 134px;
    height: 134px;
-   border-radius: 50%;
-   position: absolute;
+   position: fixed;
    background-color: transparent;
-   border: 1px solid $bg-white;
    left: 0px;
    top: 0px;
    z-index: 1000;
    pointer-events: none;
    opacity: 0;
-   transition: opacity $time * 2 ease;
+   transition: opacity $time;
    color: $bg-white;
-   cursor: pointer;
-   &:not([data-type=""]) {
+   pointer-events: none;
+   &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      border: 1px solid $bg-white;
+      border-radius: 50%;
+      transform: scale(0.5);
+      transform-origin: center;
+      transition: transform $time;
+   }
+   &.active {
       opacity: 1;
+      &::before {
+         transform: scale(1);
+      }
+   }
+   &.scalling {
+      &::before {
+         transform: scale(0.7);
+      }
    }
    &__content {
       display: flex;

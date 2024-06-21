@@ -28,25 +28,25 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
-import initCustomScrollbar from "../utils/customScrollbar.js";
+// import initCustomScrollbar from "../utils/customScrollbar.js";
 
 const tickerGroup = ref("");
 const animTitle = ref("");
 const sectionPartners = ref("");
 
 const animation = () => {
-   const { bodyScrollBar, scroller } = initCustomScrollbar();
+   // const { bodyScrollBar, scroller } = initCustomScrollbar();
    gsap.registerPlugin(ScrollTrigger);
-   ScrollTrigger.scrollerProxy(".scroller", {
-      scrollTop(value) {
-         if (arguments.length) {
-            bodyScrollBar.scrollTop = value;
-         }
-         return bodyScrollBar.scrollTop;
-      },
-   });
-   bodyScrollBar.addListener(ScrollTrigger.update);
-   ScrollTrigger.defaults({ scroller });
+   // ScrollTrigger.scrollerProxy(".scroller", {
+   //    scrollTop(value) {
+   //       if (arguments.length) {
+   //          bodyScrollBar.scrollTop = value;
+   //       }
+   //       return bodyScrollBar.scrollTop;
+   //    },
+   // });
+   // bodyScrollBar.addListener(ScrollTrigger.update);
+   // ScrollTrigger.defaults({ scroller });
    // const splitTitle = new SplitType(animTitle.value, {
    //    types: "lines",
    // });

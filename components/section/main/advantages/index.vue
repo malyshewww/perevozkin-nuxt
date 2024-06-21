@@ -35,7 +35,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 
-import initCustomScrollbar from "../utils/customScrollbar.js";
+import initCustomScrollbar from "~/utils/customScrollbar.js";
 
 const sectionAdvantages = ref("");
 const AdvantagesTitle = ref("");
@@ -107,25 +107,13 @@ const animation = () => {
          ease: "power4.out",
       }
    );
-   // gsap.to(cards, {
-   //    y: (i) => 100 + "%",
-   //    duration: 1,
-   //    ease: "cubic",
-   //    stagger: -0.1,
-   // });
-   // gsap.to(lastCard, {
-   //    y: "+=150%",
-   //    duration: 0.75,
-   //    ease: "cubic",
-   // });
-
    if (cards.length) {
       let timeln = gsap.timeline({
          scrollTrigger: {
             trigger: sectionAdvantages.value,
             pin: true,
             pinSpacing: true,
-            start: "top+=10% top",
+            start: "top+=1px top",
             end: () => "+=" + cards[0].clientHeight * cards.length,
             scrub: 1,
          },
