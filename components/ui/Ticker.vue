@@ -1,22 +1,74 @@
 <template>
    <div ref="ticker" class="ticker">
-      <div class="ticker__wrapper">
+      <div class="ticker-content">
          <slot />
       </div>
    </div>
 </template>
 
-<script setup></script>
+<script setup>
+const ticker = ref("");
+
+const initTicker = () => {
+   const tickerContent = ticker.value.querySelector(".ticker-content");
+   const tickerWidth = ticker.value.clientWidth;
+   const tickerContentWidth = tickerContent.scrollWidth;
+   if (!tickerContentWidth <= tickerWidth) {
+      const tickerWrapper = document.createElement("div");
+      tickerWrapper.classList.add("ticker-wrapper");
+      if (tickerContentWidth <= tickerWidth) {
+         let countTicker = Math.ceil(tickerWidth / tickerContentWidth);
+         for (let i = 0; i < countTicker; i++) {
+            tickerWrapper.innerHTML += ticker.value.innerHTML;
+         }
+      } else {
+         tickerContent.style.width = tickerContentWidth + "px";
+         tickerWrapper.innerHTML += ticker.value.innerHTML;
+      }
+      ticker.value.innerHTML = "";
+      ticker.value.append(tickerWrapper);
+      ticker.value.innerHTML += ticker.value.innerHTML;
+   } else {
+      ticker.value.classList.add("ticker--center");
+   }
+};
+
+onMounted(() => {
+   initTicker();
+});
+</script>
 
 <style lang="scss">
 .ticker {
    position: relative;
+   display: flex;
+   gap: var(--gap);
+   &-wrapper {
+      display: flex;
+      gap: var(--gap);
+      animation: scroll 60s infinite linear;
+      @media screen and (max-width: $xl) {
+         gap: 32px;
+      }
+   }
+   &-content {
+      width: fit-content;
+      white-space: nowrap;
+      display: flex;
+      gap: var(--gap);
+      @media screen and (max-width: $xl) {
+         gap: 32px;
+      }
+   }
    &__wrapper {
       display: flex;
       align-items: center;
       justify-content: flex-start;
       user-select: none;
       gap: var(--gap);
+      @media screen and (max-width: $xl) {
+         gap: 32px;
+      }
    }
    &__group {
       flex-shrink: 0;
@@ -48,6 +100,24 @@
          background: currentColor;
          border-radius: 50%;
       }
+      @media screen and (max-width: $xl) {
+         font-size: 32px;
+         line-height: 40px;
+         padding-right: 40px;
+         &::after {
+            width: 8px;
+            height: 8px;
+         }
+      }
+   }
+}
+@keyframes scroll {
+   0% {
+      transform: translate(0, 0);
+   }
+
+   100% {
+      transform: translate(-100%, 0);
    }
 }
 .ticker {

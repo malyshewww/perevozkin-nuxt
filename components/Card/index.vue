@@ -29,6 +29,7 @@ const props = defineProps(["arr"]);
    border: 1px solid $bg-asphalt;
    padding: 40px;
    position: relative;
+   flex-grow: 1;
    @include transition(width $time * 2, flex-grow $time * 2);
    &::before {
       content: "";
@@ -102,6 +103,9 @@ const props = defineProps(["arr"]);
       line-height: 28px;
       clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
       transition: clip-path $time;
+      @media screen and (max-width: $md) {
+         display: none;
+      }
    }
    &__price {
       font-weight: 600;

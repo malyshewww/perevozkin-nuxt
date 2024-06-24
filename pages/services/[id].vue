@@ -8,7 +8,7 @@
                   <h1 class="main__title">
                      Ремонт подвески ГАЗель Next в Нижнем Новгороде
                   </h1>
-                  <div class="main__description">
+                  <div class="main__description" ref="mainDescr">
                      <p>Мы специализируемся на ремонте автомобилей ГАЗ.</p>
                      <p>Лучше других знаем все «болячки» подвески</p>
                   </div>
@@ -28,11 +28,23 @@
    </main>
 </template>
 <script setup>
+import gsap from "gsap";
+import SplitType from "split-type";
 useHead({
    bodyAttrs: {
       class: "page--service",
    },
 });
+
+const mainDescr = ref("");
+
+const splitting = () => {
+   const splitDescr = new SplitType(mainDescr.value, {
+      types: "lines",
+   });
+   gsap.from(splitDescr.lines, { y: 100, opacity: 0, stagger: 0.1 });
+   gsap.to(splitDescr.lines, { y: 0, opacity: 1, stagger: 0.1 });
+};
 
 const breadcrumbs = [
    {
@@ -52,6 +64,9 @@ const breadcrumbs = [
       href: "/services/1",
    },
 ];
+onMounted(() => {
+   splitting();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -122,10 +137,12 @@ const breadcrumbs = [
       font-size: 24px;
       line-height: 32px;
       color: $bg-white;
-      grid-column: span 2;
       @media screen and (max-width: $md) {
          font-size: 20px;
          line-height: 24px;
+      }
+      & .line {
+         opacity: 0;
       }
    }
    &__image {

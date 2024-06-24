@@ -139,8 +139,63 @@ function initSlider() {
    });
 }
 
+const animation = () => {
+   const advantagesCards = [
+      ...document.querySelectorAll(
+         ".service-advantages__cards .card-advantages"
+      ),
+   ];
+   if (advantagesCards.length > 0) {
+      gsap.fromTo(
+         ".card-advantages",
+         { y: -70, opacity: 0 },
+         {
+            y: 0,
+            opacity: 1,
+            stagger: 0.5,
+            delay: 0.2,
+            duration: 0.5,
+            scrollTrigger: {
+               trigger: ".card-advantages",
+               start: "top 80%",
+               end: "top 85%",
+            },
+         }
+      );
+      gsap.fromTo(
+         ".card-advantages__title",
+         { yPercent: -50, opacity: 0 },
+         {
+            yPercent: 0,
+            opacity: 1,
+            stagger: 0.5,
+            delay: 0.5,
+            duration: 0.5,
+            scrollTrigger: {
+               trigger: ".card-advantages",
+            },
+         }
+      );
+      gsap.fromTo(
+         ".card-advantages__text",
+         { yPercent: -40, opacity: 0 },
+         {
+            yPercent: 0,
+            opacity: 1,
+            stagger: 0.5,
+            delay: 0.5,
+            duration: 0.5,
+            scrollTrigger: {
+               trigger: ".card-advantages",
+            },
+         }
+      );
+   }
+};
+
 onMounted(() => {
    initSlider();
+   animation();
 });
 
 const serviceSlider = [

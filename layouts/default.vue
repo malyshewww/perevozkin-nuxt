@@ -21,7 +21,7 @@ onMounted(() => {
 .scroller {
    height: 100vh;
    width: 100vw;
-   overflow: auto;
+   overflow: hidden auto;
 }
 .scroller .scrollbar-track-y {
    width: 6px;

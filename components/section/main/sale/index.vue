@@ -2,11 +2,11 @@
    <div class="main-sale" id="sale">
       <div class="container">
          <UiTicker>
-            <div class="ticker__group" ref="tickerGroup">
-               <div class="ticker__item" v-for="item in tickerItems">
-                  {{ item }}
-               </div>
+            <div class="ticker__item" v-for="item in tickerItems">
+               {{ item }}
             </div>
+            <!-- <div class="ticker__group" ref="tickerGroup">
+            </div> -->
          </UiTicker>
          <div
             class="main-sale__body swiper interactable"
@@ -156,46 +156,22 @@ const openSalePopup = (event, saleItem) => {
    isSalePopupActive.value = !isSalePopupActive.value;
    document.documentElement.classList.toggle("lock");
    popupSaleData.value = { ...saleItem };
+   const { bodyScrollBar } = initCustomScrollbar();
+   bodyScrollBar.updatePluginOptions("modal", { open: true });
 };
 const closeSalePopup = () => {
    isSalePopupActive.value = !isSalePopupActive.value;
    document.documentElement.classList.toggle("lock");
+   const { bodyScrollBar } = initCustomScrollbar();
+   bodyScrollBar.updatePluginOptions("modal", { open: false });
 };
 
 onMounted(() => {
    initSlider();
-   tickerCopy(tickerGroup.value);
 });
 </script>
 
 <style lang="scss">
-.carousel-cell {
-   width: 66%;
-   height: 200px;
-   margin-right: 10px;
-   background: #8c8;
-   border-radius: 5px;
-   counter-increment: carousel-cell;
-}
-.carousel-cell:before {
-   display: block;
-   text-align: center;
-   content: counter(carousel-cell);
-   line-height: 200px;
-   font-size: 80px;
-   color: white;
-}
-.ball {
-   z-index: 2;
-   width: 50px;
-   height: 50px;
-   position: absolute;
-   top: 0;
-   left: 0;
-   border: 3px solid dodgerblue;
-   border-radius: 50%;
-   pointer-events: none;
-}
 .main-sale {
    padding: 120px 0;
    &__body {

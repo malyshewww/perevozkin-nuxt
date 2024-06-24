@@ -9,17 +9,22 @@
                </div>
                <div class="form__items">
                   <div class="form-item">
+                     <input type="text" id="form-name" placeholder="Имя" />
                      <label for="form-name">Имя</label>
-                     <input type="text" id="form-name" />
                   </div>
                   <div class="form-item">
+                     <input
+                        type="tel"
+                        id="form-phone"
+                        placeholder="Телефон"
+                        ref="phone" />
                      <label for="form-phone">Телефон</label>
-                     <input type="tel" id="form-phone" />
                   </div>
                   <div class="form__action">
-                     <button type="submit" class="form__button btn">
-                        Отправить
-                     </button>
+                     <UiButton
+                        btnTitle="Отправить"
+                        btnType="input"
+                        classNames="form__button" />
                   </div>
                </div>
                <div class="form__text">
@@ -33,6 +38,14 @@
       </div>
    </div>
 </template>
+
+<script setup>
+import maskPhone from "~/utils/maskPhone.js";
+
+onMounted(() => {
+   maskPhone();
+});
+</script>
 
 <style lang="scss">
 .service-form {

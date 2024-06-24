@@ -179,13 +179,21 @@ const animation = () => {
 };
 
 onMounted(() => {
-   animation();
+   if (window.matchMedia("max-width: 1024px").matches) {
+      animation();
+   }
 });
 </script>
 
 <style lang="scss">
 .main-advantages {
    padding: 120px 0;
+   @media screen and (max-width: $xl) {
+      padding: 60px 0;
+   }
+   @media screen and (max-width: $md) {
+      padding: 40px 0;
+   }
    & .heading {
       border: none;
       margin: 0;
@@ -200,12 +208,21 @@ onMounted(() => {
       // display: flex;
       // justify-content: space-between;
       gap: 10px;
+      @media screen and (max-width: $xl) {
+         grid-template-columns: 1fr;
+         gap: 40px 0;
+      }
    }
    &__info {
       max-width: 705px;
       display: flex;
       flex-direction: column;
       grid-column: 1 / 7;
+      @media screen and (max-width: $xl) {
+         grid-column: 1 / 12;
+         max-width: 100%;
+         gap: 20px;
+      }
    }
    &__content {
       font-weight: 400;
@@ -214,6 +231,9 @@ onMounted(() => {
       color: $gray;
       margin-top: auto;
       max-width: 560px;
+      @media screen and (max-width: $xl) {
+         max-width: 90%;
+      }
    }
    &__cards {
       flex-grow: 1;
@@ -227,6 +247,12 @@ onMounted(() => {
       grid-template-rows: repeat(3, 2.5rem) auto;
       position: relative;
       backface-visibility: hidden;
+      @media screen and (max-width: $xl) {
+         grid-column: 1 / -1;
+         grid-row: none;
+         max-width: 100%;
+         // height: 520px;
+      }
    }
    & .card-advantages {
       --opacity: 0;
@@ -239,6 +265,10 @@ onMounted(() => {
       will-change: transform;
       position: absolute;
       isolation: isolate;
+      @media screen and (max-width: $xxxl) {
+         width: 100%;
+         padding: 20px 20px 36px;
+      }
       &:nth-child(1) {
          top: 0;
          margin: auto;
@@ -251,7 +281,7 @@ onMounted(() => {
          grid-column: 3 / 7;
       }
       &:nth-child(3) {
-         top: 20%;
+         top: 21%;
          left: 0;
          z-index: 3;
          grid-column: 1 / 5;
@@ -269,9 +299,14 @@ onMounted(() => {
          opacity: 0;
          background-color: $bg-asphalt;
          opacity: var(--opacity);
+         pointer-events: none;
       }
       &__content {
          margin-top: auto;
+         gap: 28px;
+         @media screen and (max-width: $xxxl) {
+            gap: 20px;
+         }
       }
       &__icon {
          width: 100px;
@@ -280,6 +315,10 @@ onMounted(() => {
       &__title {
          font-size: 28px;
          line-height: 36px;
+         @media screen and (max-width: $xxxl) {
+            font-size: 20px;
+            line-height: 28px;
+         }
       }
    }
 }

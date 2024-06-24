@@ -58,6 +58,7 @@ body.lock {
 		font-family: $third-family;
 		font-weight: 700;
 		font-size: 16px;
+		line-height: 20px;
 		text-transform: uppercase;
 		color: $dark-gray;
 		position: relative;
@@ -91,36 +92,6 @@ body.lock {
 		& span {
 			color: $bg-green-lime;
 		}
-	}
-}
-
-.btn {
-	min-height: 48px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-weight: 600;
-	font-size: 16px;
-	line-height: 22px;
-	color: $bg-anthracite;
-	background-color: $bg-green-lime;
-	position: relative;
-	transition: background-color $time;
-	clip-path: polygon(100% 0, calc(100% - 12px) 0%, 100% 12px, 100% 100%, 100% 100%, 15% 100%, 12px 100%, 0 calc(100% - 12px), 0 0, 0 0);
-	@media (any-hover: hover) {
-		&:hover {
-			cursor: pointer;
-			background-color: $state-hover;
-		}
-	}
-	&:active {
-		background-color: $state-pressed;
-	}
-	&:disabled,
-	&.disabled {
-		background-color: $bg-asphalt;
-		pointer-events: none;
-		color: $dark-gray;
 	}
 }
 
@@ -160,7 +131,9 @@ body.lock {
 	position: relative;
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 	gap: 4px;
+	font-weight: 400;
 	& input,
 	& textarea {
 		border: 1px solid $bg-asphalt;
@@ -186,6 +159,19 @@ body.lock {
 			background-color: $bg-asphalt;
 			pointer-events: none;
 		}
+		&::placeholder {
+			opacity: 0;
+		}
+		&:placeholder-shown {
+			& ~ label {
+				opacity: 1;
+			}
+		}
+		&:not(:placeholder-shown) {
+			& ~ label {
+				opacity: 0;
+			}
+		}
 	}
 	&.form-item--error,
 	&.error {
@@ -198,6 +184,7 @@ body.lock {
 		color: $system-alert;
 		font-size: 14px;
 		line-height: 18px;
+		font-family: $font-family;
 	}
 	& label {
 		font-family: $font-family;
@@ -209,7 +196,7 @@ body.lock {
 		color: $gray;
 		pointer-events: none;
 		display: block;
-		transition: opacity $time;
+		transition: opacity calc($time / 2);
 		@media (any-hover: hover) {
 			&:hover {
 				cursor: pointer;
@@ -217,8 +204,9 @@ body.lock {
 		}
 	}
 	& textarea {
-		height: 86px;
-		resize: none;
+		min-height: 86px;
+		max-height: 150px;
+		resize: vertical;
 		&::-webkit-scrollbar {
 			width: 3px;
 			background: $bg-asphalt;
@@ -239,13 +227,21 @@ body.lock {
 	justify-self: start;
 	& input {
 		clip: rect(0 0 0 0);
-		clip-path: inset(50%);
 		height: 1px;
 		overflow: hidden;
 		position: absolute;
 		white-space: nowrap;
 		width: 1px;
 		border: none;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		min-height: auto;
+		&:not(:placeholder-shown) {
+			& ~ label {
+				opacity: 1;
+			}
+		}
 	}
 	& label {
 		position: relative;

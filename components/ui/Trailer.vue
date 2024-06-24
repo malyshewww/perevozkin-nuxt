@@ -56,7 +56,7 @@ onMounted(() => {
          document.querySelector(".scroller")
       );
       const matrix = new WebKitCSSMatrix(style.transform);
-      gsap.to(trailer.value, {
+      gsap.to(".trailer", {
          x: event.clientX,
          y: event.clientY + positionY.value - matrix.m42,
          yPercent: -50,

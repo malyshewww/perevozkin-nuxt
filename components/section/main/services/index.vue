@@ -2,10 +2,8 @@
    <section class="main-services">
       <div class="container">
          <UiTicker>
-            <div class="ticker__group" ref="tickerGroup">
-               <div class="ticker__item" v-for="item in tickerItems">
-                  {{ item }}
-               </div>
+            <div class="ticker__item" v-for="item in tickerItems">
+               {{ item }}
             </div>
          </UiTicker>
          <div class="main-services__body">
@@ -42,7 +40,7 @@ const serviceCardsTop = [
       href: "/services",
    },
    {
-      title: "Газель Next",
+      title: "Газель бизнес",
       descr: "Диагностика и ремонт",
       img: "/main-services/service-2",
       href: "/services",
@@ -68,7 +66,7 @@ const serviceCardsBottom = [
 ];
 
 onMounted(() => {
-   tickerCopy(tickerGroup.value);
+   // tickerCopy(tickerGroup.value);
 });
 </script>
 
@@ -76,19 +74,40 @@ onMounted(() => {
 .main-services {
    overflow: hidden;
    padding: 160px 0 120px;
+   @media screen and (max-width: $xl) {
+      padding: 80px 0 60px;
+   }
+   @media screen and (max-width: $md) {
+      padding: 30px 0 40px;
+   }
    &__body {
       display: grid;
       gap: 20px;
       margin-top: 100px;
+      @media screen and (max-width: $xl) {
+         margin-top: 60px;
+      }
+      @media screen and (max-width: $md) {
+         margin-top: 40px;
+      }
    }
    &__top {
       display: flex;
       gap: 20px;
+      @media screen and (max-width: $xl) {
+         display: grid;
+         grid-template-columns: 1fr;
+      }
       & .service-item {
          height: 530px;
          transition: width $time, flex-grow $time;
          flex-grow: 1;
-         width: 33.333%;
+         width: 20%;
+         @media screen and (max-width: $xl) {
+            width: 100%;
+            height: auto;
+            min-height: 348px;
+         }
          &__image {
             position: absolute;
             bottom: 0;
@@ -97,6 +116,9 @@ onMounted(() => {
             transition: height $time;
             height: 320px;
             padding: 0;
+            @media screen and (max-width: $xl) {
+               height: 240px;
+            }
             & img {
                width: 100%;
                object-fit: contain;
@@ -105,7 +127,7 @@ onMounted(() => {
          }
          @media (any-hover: hover) {
             &:hover {
-               width: 75%;
+               width: 50%;
                & .service-item__image {
                   height: 326px;
                   // padding-bottom: 41.3%;
@@ -118,11 +140,20 @@ onMounted(() => {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
+      @media screen and (max-width: $xxxl) {
+         grid-template-columns: 1fr;
+      }
       & .service-item {
          width: 100%;
          min-height: 260px;
-         padding: 32px;
+         padding: 32px 40px;
+         @media screen and (max-width: $xl) {
+            padding: 20px;
+         }
          &:nth-child(1) {
+            @media screen and (max-width: $xxxl) {
+               grid-column: span 2;
+            }
             & .service-item__image {
                width: 250px;
                height: 155px;
@@ -132,6 +163,10 @@ onMounted(() => {
             & .service-item__image {
                width: 380px;
                height: 196px;
+               @media screen and (max-width: $xl) {
+                  width: 250px;
+                  height: 155px;
+               }
             }
          }
          &__header {
@@ -144,6 +179,7 @@ onMounted(() => {
             left: auto;
             max-height: 196px;
             padding-bottom: 0;
+            z-index: -1;
          }
          &__icon {
             right: auto;

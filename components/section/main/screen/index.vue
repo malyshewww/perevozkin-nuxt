@@ -57,19 +57,6 @@ const initAnimation = () => {
    });
    bodyScrollBar.addListener(ScrollTrigger.update);
    ScrollTrigger.defaults({ scroller: scroller });
-   // const animation = gsap.timeline({
-   //    scrollTrigger: {
-   //       trigger: ".main-screen",
-   //       pinSpacing: true,
-   //       pin: true,
-   //       scrub: true,
-   //       start: `top top`,
-   //       end: "+=100%",
-   //    },
-   // });
-   // animation.to(".main-screen", {
-   //    opacity: 0,
-   // });
    const header = document.querySelector(".header");
    const headerMenu = header.querySelector(".menu__body");
    const headerLogo = header.querySelector(".header__logo");
@@ -128,6 +115,9 @@ const initAnimation = () => {
          end: "+=100%",
       },
    });
+   animMenu.from(headerMenu, {
+      // marginLeft: "50%",
+   });
    animMenu.to(headerMenu, {
       marginLeft: 0,
    });
@@ -163,7 +153,9 @@ const initAnimation = () => {
       });
 };
 onMounted(() => {
-   initAnimation();
+   if (window.innerWidth > 1024) {
+      initAnimation();
+   }
 });
 </script>
 
@@ -171,7 +163,10 @@ onMounted(() => {
 .page--home {
    & .header {
       &__logo {
-         transform: translate(28%, 100%) scale(1.54);
+         transform: translate(98px, 118px) scale(1.54);
+         @media screen and (max-width: $xl) {
+            transform: none;
+         }
       }
       & .menu__body {
          margin-left: auto;
@@ -191,12 +186,22 @@ onMounted(() => {
       height: 100%;
       object-fit: contain;
    }
+   @media screen and (max-width: $xl) {
+      display: none;
+   }
 }
 .main-screen {
    height: calc(100vh - 108px);
    padding: 0 0 100px;
    isolation: isolate;
    position: relative;
+   @media screen and (max-width: $xl) {
+      height: auto;
+      padding: 0 0 50px;
+   }
+   @media screen and (max-width: $md) {
+      padding: 0 0 30px;
+   }
    & > .container {
       height: 100%;
    }
@@ -207,6 +212,10 @@ onMounted(() => {
       justify-content: flex-end;
       width: 100%;
       height: 100%;
+      @media screen and (max-width: $xl) {
+         flex-direction: column;
+         gap: 32px;
+      }
    }
    &__heading {
       position: absolute;
@@ -215,6 +224,10 @@ onMounted(() => {
       z-index: 5;
       max-width: 59%;
       overflow: hidden;
+      @media screen and (max-width: $xl) {
+         position: static;
+         max-width: 100%;
+      }
    }
    &__title {
       font-family: $third-family;
@@ -225,8 +238,17 @@ onMounted(() => {
       text-transform: uppercase;
       color: $bg-white;
       transform: translateY(120%);
+      @media (min-width: 1024px) and (max-height: 800px) {
+         font-size: 50px;
+         line-height: 120%;
+      }
       & span {
          color: $bg-green-lime;
+      }
+      @media screen and (max-width: $xl) {
+         transform: none;
+         font-size: 28px;
+         line-height: 36px;
       }
    }
    &__video {
@@ -234,7 +256,18 @@ onMounted(() => {
       padding: 0;
       position: relative;
       height: 48.28vh;
-      // padding-bottom: calc(420 / 995 * 100%);
+      @media screen and (max-width: $xl) {
+         width: 100%;
+         height: auto;
+         padding-bottom: calc(194 / 343 * 100%);
+         & video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+         }
+      }
    }
 }
 .spin {
@@ -257,6 +290,9 @@ onMounted(() => {
    }
    & img {
       animation: spin 10s linear infinite;
+   }
+   @media screen and (max-width: $xl) {
+      display: none;
    }
 }
 </style>

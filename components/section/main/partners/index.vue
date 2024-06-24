@@ -10,13 +10,11 @@
          </div>
          <div class="partners__slider">
             <UiTicker>
-               <div class="ticker__group" ref="tickerGroup">
-                  <div class="partners__item" v-for="item in partnersData">
-                     <div class="partners__image">
-                        <img
-                           :src="`/images/main-partners/${item.img}.png`"
-                           alt="" />
-                     </div>
+               <div class="partners__item" v-for="item in partnersData">
+                  <div class="partners__image">
+                     <img
+                        :src="`/images/main-partners/${item.img}.png`"
+                        alt="" />
                   </div>
                </div>
             </UiTicker>
@@ -101,7 +99,6 @@ const partnersData = [
 ];
 
 onMounted(() => {
-   tickerCopy(tickerGroup.value);
    animation();
 });
 </script>
@@ -122,11 +119,15 @@ onMounted(() => {
          max-width: 1000px;
       }
    }
-   & .ticker__wrapper {
-      gap: 20px;
-   }
-   & .ticker__group {
-      gap: 20px;
+   & .ticker {
+      --gap: 20px;
+      gap: var(--gap);
+      &-wrapper {
+         gap: var(--gap);
+      }
+      &-content {
+         gap: var(--gap);
+      }
    }
    &__slider {
       margin-top: 120px;
