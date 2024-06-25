@@ -1,7 +1,7 @@
 <template>
    <section class="partners" ref="sectionPartners">
       <div class="container">
-         <div class="heading">
+         <div class="heading" ref="heading">
             <div class="heading__sub-title">Партнёры</div>
             <div class="heading__title" ref="animTitle">
                Работаем с ведущими компаниями и
@@ -26,29 +26,27 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
-// import initCustomScrollbar from "../utils/customScrollbar.js";
+import initCustomScrollbar from "../utils/customScrollbar.js";
 
 const tickerGroup = ref("");
 const animTitle = ref("");
 const sectionPartners = ref("");
 
+const heading = ref("");
+
 const animation = () => {
-   // const { bodyScrollBar, scroller } = initCustomScrollbar();
+   const { bodyScrollBar, scroller } = initCustomScrollbar();
    gsap.registerPlugin(ScrollTrigger);
-   // ScrollTrigger.scrollerProxy(".scroller", {
-   //    scrollTop(value) {
-   //       if (arguments.length) {
-   //          bodyScrollBar.scrollTop = value;
-   //       }
-   //       return bodyScrollBar.scrollTop;
-   //    },
-   // });
-   // bodyScrollBar.addListener(ScrollTrigger.update);
-   // ScrollTrigger.defaults({ scroller });
-   // const splitTitle = new SplitType(animTitle.value, {
-   //    types: "lines",
-   // });
-   // const lines = splitTitle.lines;
+   ScrollTrigger.scrollerProxy(".scroller", {
+      scrollTop(value) {
+         if (arguments.length) {
+            bodyScrollBar.scrollTop = value;
+         }
+         return bodyScrollBar.scrollTop;
+      },
+   });
+   bodyScrollBar.addListener(ScrollTrigger.update);
+   ScrollTrigger.defaults({ scroller });
    const tl = gsap.timeline({
       scrollTrigger: {
          trigger: sectionPartners.value,
@@ -99,17 +97,25 @@ const partnersData = [
 ];
 
 onMounted(() => {
-   animation();
+   if (window.matchMedia("(min-width: 1024px)").matches) {
+      animation();
+   }
 });
 </script>
 <style lang="scss">
 .partners {
    padding: 120px 0 60px;
+   @media screen and (max-width: $xl) {
+      padding: 60px 0;
+   }
+   @media screen and (max-width: $md) {
+      padding: 40px 0 0;
+   }
    & .heading {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
-      gap: 0 253px;
+      gap: 12px 253px;
       margin: 0;
       padding: 0;
       border: none;
@@ -118,10 +124,20 @@ onMounted(() => {
          flex: 1 1 auto;
          max-width: 1000px;
       }
+      @media screen and (max-width: $xxl) {
+         gap: 12px 100px;
+      }
+      @media screen and (max-width: $xl) {
+         flex-direction: column;
+      }
    }
    & .ticker {
       --gap: 20px;
       gap: var(--gap);
+      @media screen and (max-width: $xl) {
+         --gap: 12px;
+         animation: none;
+      }
       &-wrapper {
          gap: var(--gap);
       }
@@ -131,6 +147,12 @@ onMounted(() => {
    }
    &__slider {
       margin-top: 120px;
+      @media screen and (max-width: $xl) {
+         margin-top: 80px;
+      }
+      @media screen and (max-width: $md) {
+         margin-top: 40px;
+      }
    }
    &__item {
       width: 270px;
@@ -142,6 +164,10 @@ onMounted(() => {
       align-items: center;
       border: 1px solid $bg-asphalt;
       padding: 20px;
+      @media screen and (max-width: $xl) {
+         width: 140px;
+         height: 140px;
+      }
    }
    &__image {
    }

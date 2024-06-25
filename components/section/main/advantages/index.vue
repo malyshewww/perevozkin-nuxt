@@ -43,6 +43,8 @@ const AdvantagesContent = ref("");
 
 const progress = ref(0);
 
+const anim = ref(true);
+
 const animation = () => {
    const { bodyScrollBar, scroller } = initCustomScrollbar();
    gsap.registerPlugin(ScrollTrigger);
@@ -177,9 +179,11 @@ const animation = () => {
       // timeln.to(".card-advantages-4", {});
    }
 };
+// const resizeObserver = new ResizeObserver((entries) => {
+// });
 
 onMounted(() => {
-   if (window.matchMedia("max-width: 1024px").matches) {
+   if (window.matchMedia("(min-width: 1024px)").matches) {
       animation();
    }
 });
@@ -188,6 +192,7 @@ onMounted(() => {
 <style lang="scss">
 .main-advantages {
    padding: 120px 0;
+   overflow: hidden;
    @media screen and (max-width: $xl) {
       padding: 60px 0;
    }
@@ -248,10 +253,19 @@ onMounted(() => {
       position: relative;
       backface-visibility: hidden;
       @media screen and (max-width: $xl) {
+         height: auto;
          grid-column: 1 / -1;
          grid-row: none;
          max-width: 100%;
-         // height: 520px;
+      }
+      @media screen and (max-width: $md) {
+         height: auto;
+         grid-column: unset;
+         grid-row: unset;
+         grid-template-columns: repeat(12, minmax(0, 1fr));
+         grid-template-rows: repeat(3, 40px) auto;
+         justify-self: center;
+         gap: 0 20px;
       }
    }
    & .card-advantages {
@@ -269,6 +283,22 @@ onMounted(() => {
          width: 100%;
          padding: 20px 20px 36px;
       }
+      @media screen and (max-width: $xl) {
+         position: static;
+         min-width: 280px;
+      }
+      @media screen and (max-width: $md) {
+         height: 400px;
+         grid-column: 2 / 12;
+      }
+      @media screen and (max-width: 374.98px) {
+         grid-column: 1 / 13;
+      }
+      &__body {
+         @media screen and (max-width: $md) {
+            gap: 32px;
+         }
+      }
       &:nth-child(1) {
          top: 0;
          margin: auto;
@@ -279,12 +309,24 @@ onMounted(() => {
          right: 0;
          z-index: 2;
          grid-column: 3 / 7;
+         @media screen and (max-width: $md) {
+            grid-column: 3 / 13;
+         }
+         @media screen and (max-width: 374.98px) {
+            grid-column: 1 / 13;
+         }
       }
       &:nth-child(3) {
          top: 21%;
          left: 0;
          z-index: 3;
          grid-column: 1 / 5;
+         @media screen and (max-width: $md) {
+            grid-column: 1 / 11;
+         }
+         @media screen and (max-width: 374.98px) {
+            grid-column: 1 / 13;
+         }
       }
       &:nth-child(4) {
          z-index: 4;
@@ -311,6 +353,10 @@ onMounted(() => {
       &__icon {
          width: 100px;
          height: 100px;
+         @media screen and (max-width: $xl) {
+            width: 60px;
+            height: 60px;
+         }
       }
       &__title {
          font-size: 28px;

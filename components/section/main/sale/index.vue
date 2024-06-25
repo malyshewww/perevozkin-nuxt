@@ -27,11 +27,11 @@
                         <div class="item-sale__description">
                            {{ item.descr }}
                         </div>
-                        <div
-                           class="item-sale__button btn"
-                           @click="openSalePopup($event, item)">
-                           {{ item.btn }}
-                        </div>
+                        <UiButton
+                           btnType="button"
+                           btnTitle="Узнать больше"
+                           classNames="item-sale__button"
+                           @openPopup="openSalePopup($event, item)"></UiButton>
                         <div class="item-sale__bottom">
                            <div class="item-sale__disclamer">
                               {{ item.disclamer }}
@@ -69,7 +69,6 @@ import initCustomScrollbar from "~/utils/customScrollbar";
 
 const emit = defineEmits(["openPopup"]);
 
-const tickerGroup = ref("");
 const slider = ref(null);
 const saleSlider = ref("");
 
@@ -125,10 +124,24 @@ function initSlider() {
    });
    slider.value = new Swiper(saleSlider.value, {
       modules: [Navigation, FreeMode],
-      slidesPerView: 1.1811,
-      spaceBetween: 165,
+      slidesPerView: "auto",
       speed: 1000,
       freeMode: true,
+      breakpoints: {
+         300: {
+            spaceBetween: 12,
+            slidesPerView: 1.04,
+         },
+         1024: {
+            slidesPerView: 1,
+            spaceBetween: 50,
+            autoHeight: true,
+         },
+         1400: {
+            spaceBetween: 165,
+            autoHeight: false,
+         },
+      },
       on: {
          sliderMove: function (swiper) {
             gsap.to({}, 0.0, {
@@ -174,6 +187,13 @@ onMounted(() => {
 <style lang="scss">
 .main-sale {
    padding: 120px 0;
+   overflow: hidden;
+   @media screen and (max-width: $xl) {
+      padding: 60px 0;
+   }
+   @media screen and (max-width: $md) {
+      padding: 40px 0;
+   }
    &__body {
       margin-top: 100px;
       overflow: visible;
@@ -182,10 +202,20 @@ onMounted(() => {
             cursor: pointer;
          }
       }
+      @media screen and (max-width: $xl) {
+         margin-top: 60px;
+      }
+      @media screen and (max-width: $md) {
+         margin-top: 40px;
+      }
    }
    &__wrapper {
    }
    &__item {
+      width: 1430px;
+      @media screen and (max-width: $xxxl) {
+         width: 100%;
+      }
    }
 }
 .item-sale {
@@ -193,6 +223,10 @@ onMounted(() => {
    position: relative;
    background-color: $bg-asphalt;
    height: auto;
+   overflow: hidden;
+   @media screen and (max-width: $xl) {
+      // height: inherit;
+   }
    &::before {
       content: "";
       position: absolute;
@@ -214,15 +248,27 @@ onMounted(() => {
       gap: 20px;
       min-height: inherit;
       height: 100%;
+      position: relative;
+      @media screen and (max-width: $xxxl) {
+         grid-template-columns: 1fr 40%;
+      }
+      @media screen and (max-width: $xl) {
+         grid-template-columns: 1fr;
+         grid-template-rows: auto 1fr;
+         gap: 24px;
+      }
    }
    &__info {
       padding: 120px 70px 36px;
       padding-right: 0;
-      position: relative;
       display: flex;
       flex-direction: column;
       gap: 20px;
       flex: 1 1 auto;
+      @media screen and (max-width: $xl) {
+         padding: 0 20px 24px;
+         gap: 12px;
+      }
    }
    &__badge {
       position: absolute;
@@ -238,22 +284,30 @@ onMounted(() => {
       line-height: 18px;
       color: $bg-white;
       background-image: $linearPromo;
-      &::before {
-         content: "";
-         position: absolute;
-         bottom: 0;
-         left: 0;
-         width: 0;
-         height: 0;
-         border-style: solid;
-         border-width: 12px 0 0 12px;
-         border-color: transparent transparent transparent $bg-asphalt;
-         z-index: 2;
+      clip-path: polygon(
+         0 0,
+         100% 0,
+         100% 50%,
+         100% 100%,
+         12px 100%,
+         0 calc(100% - 12px)
+      );
+      z-index: 2;
+      @media screen and (max-width: $xl) {
+         left: 20px;
+      }
+      @media screen and (max-width: $md) {
+         padding: 15px 10px;
+         width: 64px;
+         height: 64px;
       }
    }
    &__date {
       line-height: 24px;
       color: $bg-white;
+      @media screen and (max-width: $xl) {
+         line-height: 22px;
+      }
    }
    &__title {
       font-family: $third-family;
@@ -261,6 +315,13 @@ onMounted(() => {
       font-size: 48px;
       line-height: 56px;
       text-transform: uppercase;
+      @media screen and (max-width: $xxxl) {
+         hyphens: auto;
+      }
+      @media screen and (max-width: $xl) {
+         font-size: 22px;
+         line-height: 28px;
+      }
    }
    &__description {
       font-size: 20px;
@@ -272,10 +333,21 @@ onMounted(() => {
       & p {
          display: inline;
       }
+      @media screen and (max-width: $xl) {
+         font-size: 18px;
+         line-height: 24px;
+      }
    }
    &__button {
       max-width: 200px;
       margin-top: 20px;
+      @media screen and (max-width: $xl) {
+         margin-top: 16px;
+         margin-bottom: 8px;
+      }
+      @media screen and (max-width: $md) {
+         max-width: 100%;
+      }
    }
    &__bottom {
       margin-top: auto;
@@ -289,6 +361,7 @@ onMounted(() => {
       position: relative;
       display: grid;
       place-items: center;
+      overflow: hidden;
       &::before {
          content: "";
          position: absolute;
@@ -298,11 +371,23 @@ onMounted(() => {
          height: 100%;
          background-image: linear-gradient(135deg, #129465 0%, #6de754 100%);
       }
+      @media screen and (max-width: $xl) {
+         order: -1;
+         place-items: end;
+         &::before {
+            width: 100%;
+         }
+      }
    }
    &__image {
       width: 100%;
       z-index: 2;
       padding-bottom: calc(416 / 600 * 100%);
+      @media screen and (max-width: $xl) {
+         transform: translateX(30px);
+         padding-bottom: calc(187 / 270 * 100%);
+         // padding-bottom: calc(187 / 270 * 100%);
+      }
    }
 }
 </style>

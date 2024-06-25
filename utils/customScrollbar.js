@@ -19,6 +19,9 @@ function initCustomScrollbar() {
          syncCallbacks: true,
       });
    }
+   bodyScrollBar.addListener((status) => {
+      window.dispatchEvent(new Event("scroll"));
+   });
 
    return { bodyScrollBar, scroller };
 }

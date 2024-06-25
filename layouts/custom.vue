@@ -1,10 +1,8 @@
 <template>
-   <div class="scroller" ref="scroller">
-      <div class="wrapper">
-         <UiTrailer />
-         <slot />
-         <Footer></Footer>
-      </div>
+   <div class="scroller" ref="scroller" data-scrollbar>
+      <UiTrailer />
+      <slot />
+      <Footer></Footer>
    </div>
 </template>
 
@@ -20,14 +18,14 @@ onMounted(() => {
 .scroller {
    height: 100vh;
    width: 100vw;
-   overflow: hidden auto;
-}
-.scroller .scrollbar-track-y {
-   width: 6px;
-   background: rgba($bg-anthracite, 0.5);
-}
-.scroller .scrollbar-thumb {
-   background: rgba($bg-green-lime, 0.8);
+   overflow: auto;
+   & .scrollbar-track {
+      width: 6px;
+      background: rgba($bg-anthracite, 0.5);
+   }
+   & .scrollbar-thumb {
+      background: rgba($bg-green-lime, 0.8);
+   }
 }
 @media screen and (max-width: 1024px) {
    .scroller {

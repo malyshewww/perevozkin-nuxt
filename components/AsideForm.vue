@@ -18,9 +18,11 @@ import initCustomScrollbar from "../utils/customScrollbar.js";
 const aside = ref("");
 const asideSticky = () => {
    const { bodyScrollBar } = initCustomScrollbar();
-   bodyScrollBar.addListener(({ offset }) => {
-      aside.value.style.top = `${offset.y + 30}px`;
-   });
+   if (aside.value) {
+      bodyScrollBar.addListener(({ offset }) => {
+         aside.value.style.top = `${offset.y + 30}px`;
+      });
+   }
 };
 
 onMounted(() => {

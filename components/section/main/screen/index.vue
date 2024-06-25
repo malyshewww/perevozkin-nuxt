@@ -44,7 +44,7 @@ const mainParallax = ref("");
 
 let propress = ref(0);
 
-const initAnimation = () => {
+const animation = () => {
    gsap.registerPlugin(ScrollTrigger);
    const { bodyScrollBar, scroller } = initCustomScrollbar();
    ScrollTrigger.scrollerProxy(".scroller", {
@@ -153,8 +153,8 @@ const initAnimation = () => {
       });
 };
 onMounted(() => {
-   if (window.innerWidth > 1024) {
-      initAnimation();
+   if (window.matchMedia("(min-width: 1024px)").matches) {
+      animation();
    }
 });
 </script>
@@ -170,6 +170,9 @@ onMounted(() => {
       }
       & .menu__body {
          margin-left: auto;
+         @media screen and (max-width: $xl) {
+            margin-left: 0;
+         }
       }
    }
 }
@@ -197,10 +200,10 @@ onMounted(() => {
    position: relative;
    @media screen and (max-width: $xl) {
       height: auto;
-      padding: 0 0 50px;
+      padding: 0px 0 50px;
    }
    @media screen and (max-width: $md) {
-      padding: 0 0 30px;
+      padding: 0px 0 30px;
    }
    & > .container {
       height: 100%;
@@ -215,6 +218,7 @@ onMounted(() => {
       @media screen and (max-width: $xl) {
          flex-direction: column;
          gap: 32px;
+         padding-top: 40px;
       }
    }
    &__heading {
@@ -239,7 +243,7 @@ onMounted(() => {
       color: $bg-white;
       transform: translateY(120%);
       @media (min-width: 1024px) and (max-height: 800px) {
-         font-size: 50px;
+         font-size: 9vh;
          line-height: 120%;
       }
       & span {

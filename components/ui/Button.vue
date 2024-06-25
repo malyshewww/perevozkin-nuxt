@@ -2,7 +2,8 @@
    <button
       v-if="btnType == 'button'"
       type="button"
-      :class="['btn', classNames]">
+      :class="[classNames, 'btn']"
+      @click="openPopup">
       {{ btnTitle }}
    </button>
    <input v-else type="submit" :class="['btn', classNames]" :value="btnTitle" />
@@ -10,6 +11,11 @@
 
 <script setup>
 const props = defineProps(["classNames", "btnType", "btnTitle"]);
+const emit = defineEmits(["openPopup"]);
+const openPopup = () => {
+   console.log("open popup");
+   emit("openPopup");
+};
 </script>
 
 <style lang="scss">

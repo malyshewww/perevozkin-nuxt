@@ -30,6 +30,7 @@ const props = defineProps(["arr"]);
    padding: 40px;
    position: relative;
    flex-grow: 1;
+   z-index: 2;
    @include transition(width $time * 2, flex-grow $time * 2);
    &::before {
       content: "";

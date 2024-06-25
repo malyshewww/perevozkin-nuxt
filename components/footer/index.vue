@@ -8,7 +8,7 @@
                </nuxt-link>
                <div class="footer__contacts contacts-footer">
                   <a href="tel:+78311380880" class="contacts-footer__phone"
-                     ><span>+7 (831)</span>138-08-80</a
+                     >+7 (831) 138-08-80</a
                   >
                   <a href="mailto:" class="contacts-footer__email"
                      >perevozov-service@mail.ru</a
@@ -224,15 +224,15 @@ onMounted(() => {
       line-height: 52px;
       text-transform: uppercase;
       text-align: right;
-      & span {
-         color: $gray;
-         transition: color $time;
-      }
+      background: linear-gradient(to left, $bg-white 55%, $gray 45%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      background-position: 45% 0;
+      transition: background-position $time;
       @media (any-hover: hover) {
          &:hover {
-            & span {
-               color: $bg-white;
-            }
+            background-position: 100% 0;
          }
       }
       @media screen and (max-width: $md) {

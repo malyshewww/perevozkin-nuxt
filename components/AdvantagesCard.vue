@@ -72,6 +72,7 @@ const advantages = [
 .card-advantages {
    display: flex;
    min-height: 316px;
+   overflow: hidden;
    @media screen and (max-width: $xl) {
       min-height: auto;
    }
@@ -93,6 +94,10 @@ const advantages = [
       width: 80px;
       height: 80px;
       flex-shrink: 0;
+      @media screen and (max-width: $xl) {
+         width: 60px;
+         height: 60px;
+      }
    }
    &__content {
       display: flex;
@@ -115,6 +120,9 @@ const advantages = [
       font-size: 16px;
       line-height: 24px;
       color: $bg-white;
+      @media screen and (max-width: $md) {
+         line-height: 22px;
+      }
    }
 }
 </style>

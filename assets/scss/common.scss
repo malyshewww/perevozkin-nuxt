@@ -1,11 +1,8 @@
-body > div.__nuxt {
-	height: 100%;
-}
-
 html.lock,
 body.lock {
 	overflow: hidden;
 }
+
 
 .container {
 	max-width: $maxWidthContainer + px;
@@ -22,6 +19,7 @@ body.lock {
 .main {
 	flex: 1 1 auto;
 	padding-bottom: 160px;
+	overflow: clip;
 	@media screen and (max-width: $xl) {
 		padding-bottom: 120px;
 	}
@@ -54,6 +52,9 @@ body.lock {
 	display: flex;
 	flex-direction: column;
 	gap: 28px;
+	@media screen and (max-width: $md) {
+		gap: 12px;
+	}
 	&__sub-title {
 		font-family: $third-family;
 		font-weight: 700;
@@ -72,6 +73,15 @@ body.lock {
 			height: 1px;
 			background-color: currentColor;
 		}
+		@media screen and (max-width: $md) {
+			padding: 8px 0;
+			gap: 10px;
+			font-size: 14px;
+			line-height: 18px;
+			&::before {
+				width: 20px;
+			}
+		}
 	}
 	&__title {
 		font-family: $third-family;
@@ -85,12 +95,14 @@ body.lock {
 			line-height: calc(52px / 1.5);
 		}
 		@media screen and (max-width: $md) {
-			font-size: 22px;
-			line-height: 28px;
-			hyphens: auto;
+			font-size: 24px;
+			line-height: 32px;
 		}
 		& span {
 			color: $bg-green-lime;
+		}
+		@media screen and (max-width: 374.98px) {
+			hyphens: auto;
 		}
 	}
 }

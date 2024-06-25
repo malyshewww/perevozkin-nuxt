@@ -3,8 +3,8 @@
       <SectionMainScreen />
       <SectionMainServices />
       <SectionMainAdvantages />
-      <!-- <SectionMainSale /> -->
-      <!-- <SectionMainPartners /> -->
+      <SectionMainSale />
+      <SectionMainPartners />
    </main>
 </template>
 

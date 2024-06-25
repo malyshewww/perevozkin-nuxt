@@ -24,6 +24,7 @@
 <script setup>
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 import initCustomScrollbar from "~/utils/customScrollbar";
 
@@ -31,39 +32,40 @@ const trailer = ref("");
 const positionY = ref(0);
 
 onMounted(() => {
-   gsap.registerPlugin(ScrollTrigger);
-   const { bodyScrollBar, scroller } = initCustomScrollbar();
-   ScrollTrigger.scrollerProxy(".scroller", {
-      scrollTop(value) {
-         if (arguments.length) {
-            bodyScrollBar.scrollTop = value;
-         }
-         return bodyScrollBar.scrollTop;
-      },
-   });
-   bodyScrollBar.addListener(ScrollTrigger.update);
-   ScrollTrigger.defaults({ scroller: scroller });
-
-   bodyScrollBar.addListener(({ offset }) => {
-      positionY.value = offset.y;
-   });
-
-   window.addEventListener("mousemove", (event) => {
-      if (event.target.closest(".item-sale__button")) {
-         trailer.value.classList.remove("active");
-      }
-      const style = window.getComputedStyle(
-         document.querySelector(".scroller")
-      );
-      const matrix = new WebKitCSSMatrix(style.transform);
-      gsap.to(".trailer", {
-         x: event.clientX,
-         y: event.clientY + positionY.value - matrix.m42,
-         yPercent: -50,
-         xPercent: -50,
-         duration: 0.05,
+   if (window.matchMedia("(min-wdith: 1024px)")) {
+      const { bodyScrollBar, scroller } = initCustomScrollbar();
+      ScrollTrigger.scrollerProxy(".scroller", {
+         scrollTop(value) {
+            if (arguments.length) {
+               bodyScrollBar.scrollTop = value;
+            }
+            return bodyScrollBar.scrollTop;
+         },
       });
-   });
+      bodyScrollBar.addListener(ScrollTrigger.update);
+      ScrollTrigger.defaults({ scroller: scroller });
+
+      bodyScrollBar.addListener(({ offset }) => {
+         positionY.value = offset.y;
+      });
+
+      window.addEventListener("mousemove", (event) => {
+         if (event.target.closest(".item-sale__button")) {
+            trailer.value.classList.remove("active");
+         }
+         const style = window.getComputedStyle(
+            document.querySelector(".scroller")
+         );
+         const matrix = new WebKitCSSMatrix(style.transform);
+         gsap.to(".trailer", {
+            x: event.clientX,
+            y: event.clientY + positionY.value - matrix.m42,
+            yPercent: -50,
+            xPercent: -50,
+            duration: 0.05,
+         });
+      });
+   }
 });
 </script>
 
@@ -93,6 +95,9 @@ onMounted(() => {
       transform: scale(0.5);
       transform-origin: center;
       transition: transform $time;
+   }
+   @media screen and (max-width: $xl) {
+      display: none;
    }
    &.active {
       opacity: 1;
