@@ -1,32 +1,32 @@
 <template>
-   <AsideForm formTitle="Откликнуться на вакансию">
+   <AsideForm form-title="Откликнуться на вакансию">
       <div class="form__items">
          <div class="form-item">
-            <input type="text" id="form-name" name="name" placeholder="ФИО" />
+            <input id="form-name" type="text" name="name" placeholder="ФИО" />
             <label for="form-name">ФИО</label>
          </div>
          <div class="form-item">
             <input
-               type="tel"
                id="form-phone"
+               type="tel"
                name="phone"
                placeholder="Телефон" />
             <label for="form-phone">Телефон</label>
          </div>
          <div class="form-item">
             <textarea
-               type="text"
                id="form-comment"
+               type="text"
                name="comment"
                placeholder="Комментарий"></textarea>
             <label for="form-comment">Комментарий</label>
          </div>
       </div>
       <div class="form__bottom">
-         <div class="form-item form-item-file" v-if="fileName == ''">
+         <div v-if="fileName == ''" class="form-item form-item-file">
             <input
-               type="file"
                id="form-file"
+               type="file"
                class="input-file"
                name="file"
                @change="previewFiles" />
@@ -40,9 +40,9 @@
                @click="deleteFile($event)"></button>
          </div>
          <UiButton
-            btnTitle="Отправить"
-            btnType="input"
-            classNames="form__button" />
+            btn-title="Отправить"
+            btn-type="input"
+            class-names="form__button" />
          <div class="form__text">
             Отправляя форму, вы соглашаетесь
             <NuxtLink to="/page-text"
@@ -61,7 +61,7 @@ const fileName = ref("");
 const previewFiles = (e) => {
    fileName.value = e.target.files[0].name;
 };
-const deleteFile = (e) => {
+const deleteFile = () => {
    fileName.value = "";
 };
 

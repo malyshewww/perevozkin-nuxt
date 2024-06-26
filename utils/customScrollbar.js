@@ -2,13 +2,14 @@ import Scrollbar, { ScrollbarPlugin } from "smooth-scrollbar";
 
 import { AnchorPlugin } from "./anchorPlugin.js";
 import { ModalPlugin } from "./modalPlugin.js";
+import { LockPlugin } from "./LockPlugin.js";
 
 function initCustomScrollbar() {
    let bodyScrollBar;
    let scroller;
    scroller = document.querySelector(".scroller");
    if (scroller) {
-      Scrollbar.use(ModalPlugin, AnchorPlugin);
+      Scrollbar.use(ModalPlugin, AnchorPlugin, LockPlugin);
       bodyScrollBar = Scrollbar.init(scroller, {
          damping: 0.1,
          delegateTo: document,
@@ -19,10 +20,9 @@ function initCustomScrollbar() {
          syncCallbacks: true,
       });
    }
-   bodyScrollBar.addListener((status) => {
-      window.dispatchEvent(new Event("scroll"));
-   });
-
+   // bodyScrollBar.addListener((status) => {
+   //    window.dispatchEvent(new Event("scroll"));
+   // });
    return { bodyScrollBar, scroller };
 }
 

@@ -1,15 +1,15 @@
 <template>
-   <div class="main-screen" ref="mainScreen">
+   <div ref="mainScreen" class="main-screen">
       <Header />
       <div class="container">
          <div class="main-screen__body">
-            <div class="main-screen__heading">
-               <h1 class="main-screen__title anim-title" ref="mainTitle">
+            <div class="main-screen__heading anim-heading">
+               <h1 ref="mainTitle" class="main-screen__title anim-title">
                   Сервис автомобилей ГАЗ
                   <span>№1&nbsp;в&nbsp;Нижнем Новгороде</span>
                </h1>
             </div>
-            <div class="main-screen__video ibg" ref="mainVideo">
+            <div ref="mainVideo" class="main-screen__video ibg">
                <video
                   :poster="`/images/video-poster.jpg`"
                   autoplay="autoplay"
@@ -23,29 +23,26 @@
             </div>
          </div>
       </div>
-      <div class="main-parallax" ref="mainParallax">
+      <div ref="mainParallax" class="main-parallax">
          <img src="/images/main-screen/parallax.png" alt="parallax" />
       </div>
    </div>
 </template>
 
 <script setup>
+import initCustomScrollbar from "~/utils/customScrollbar.js";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-import SplitType from "split-type";
-
-import initCustomScrollbar from "~/utils/customScrollbar.js";
+gsap.registerPlugin(ScrollTrigger);
 
 const mainScreen = ref("");
 const mainVideo = ref("");
 const mainTitle = ref("");
 const mainParallax = ref("");
 
-let propress = ref(0);
+const propress = ref(0);
 
 const animation = () => {
-   gsap.registerPlugin(ScrollTrigger);
    const { bodyScrollBar, scroller } = initCustomScrollbar();
    ScrollTrigger.scrollerProxy(".scroller", {
       scrollTop(value) {
@@ -152,10 +149,30 @@ const animation = () => {
          opacity: 0,
       });
 };
+
+const mobileAnimation = () => {
+   const mediaAnimation = gsap.matchMedia();
+   mediaAnimation.add("(max-width: 1024px)", () => {
+      const tlVideo = gsap.timeline({
+         opacity: 1,
+         scrollTrigger: {
+            trigger: mainVideo.value,
+            start: "top",
+            end: "bottom",
+            scrub: 0.3,
+         },
+      });
+      tlVideo.to(mainVideo.value, {
+         opacity: 0.3,
+      });
+   });
+};
+
 onMounted(() => {
    if (window.matchMedia("(min-width: 1024px)").matches) {
       animation();
    }
+   mobileAnimation();
 });
 </script>
 
@@ -250,7 +267,7 @@ onMounted(() => {
          color: $bg-green-lime;
       }
       @media screen and (max-width: $xl) {
-         transform: none;
+         // transform: none;
          font-size: 28px;
          line-height: 36px;
       }

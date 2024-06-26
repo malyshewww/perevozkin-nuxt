@@ -1,16 +1,19 @@
 <template>
-   <section class="partners" ref="sectionPartners">
+   <section ref="sectionPartners" class="partners">
       <div class="container">
-         <div class="heading" ref="heading">
+         <div ref="heading" class="heading anim-heading">
             <div class="heading__sub-title">Партнёры</div>
-            <div class="heading__title" ref="animTitle">
+            <div ref="animTitle" class="heading__title anim-title">
                Работаем с ведущими компаниями и
                <span>Ценим долгосрочное сотрудничество</span>
             </div>
          </div>
          <div class="partners__slider">
             <UiTicker>
-               <div class="partners__item" v-for="item in partnersData">
+               <div
+                  v-for="(item, index) in partnersData"
+                  :key="index"
+                  class="partners__item">
                   <div class="partners__image">
                      <img
                         :src="`/images/main-partners/${item.img}.png`"
@@ -25,10 +28,8 @@
 <script setup>
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SplitType from "split-type";
 import initCustomScrollbar from "../utils/customScrollbar.js";
 
-const tickerGroup = ref("");
 const animTitle = ref("");
 const sectionPartners = ref("");
 

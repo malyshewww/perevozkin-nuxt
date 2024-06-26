@@ -1,5 +1,5 @@
 <template>
-   <Breadcrumbs :navList="breadcrumbs"></Breadcrumbs>
+   <BreadCrumbs :navList="breadcrumbs"></BreadCrumbs>
    <main class="main">
       <div class="main-header">
          <div class="container">
@@ -19,6 +19,9 @@
 </template>
 
 <script setup>
+useHead({
+   title: "Услуги",
+});
 const breadcrumbs = [
    {
       text: "Главная",

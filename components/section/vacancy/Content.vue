@@ -1,6 +1,9 @@
 <template>
    <div class="vacancy__content content">
-      <div class="vacancy__item item-vacancy" v-for="vacancy in vacancyList">
+      <div
+         v-for="(vacancy, index) in vacancyList"
+         :key="index"
+         class="vacancy__item item-vacancy">
          <h3 class="item-vacancy__title">{{ vacancy.title }}</h3>
          <div class="item-vacancy__groups">
             <div class="item-vacancy__group">
@@ -17,7 +20,8 @@
                      </div>
                      <div class="main-info__values">
                         <a
-                           v-for="phone in vacancy.phones"
+                           v-for="(phone, phoneIndex) in vacancy.phones"
+                           :key="phoneIndex"
                            :href="`tel:${phone}`"
                            class="main-info__value"
                            >{{ phone }}</a
@@ -29,7 +33,7 @@
             <div class="item-vacancy__group">
                <div class="item-vacancy__label">Обязанности</div>
                <ul>
-                  <li v-for="r in vacancy.responsibilities">
+                  <li v-for="(r, i) in vacancy.responsibilities" :key="i">
                      {{ r }}
                   </li>
                </ul>
@@ -37,7 +41,7 @@
             <div class="item-vacancy__group">
                <div class="item-vacancy__label">Требования</div>
                <ul>
-                  <li v-for="r in vacancy.requirements">
+                  <li v-for="(r, i) in vacancy.requirements" :key="i">
                      {{ r }}
                   </li>
                </ul>
@@ -45,7 +49,7 @@
             <div class="item-vacancy__group">
                <div class="item-vacancy__label">Условия работы</div>
                <ul>
-                  <li v-for="c in vacancy.conditions">
+                  <li v-for="(c, i) in vacancy.conditions" :key="i">
                      {{ c }}
                   </li>
                </ul>

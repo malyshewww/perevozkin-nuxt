@@ -13,6 +13,7 @@ definePageMeta({
    layout: "custom",
 });
 useHead({
+   title: "Главная страница",
    bodyAttrs: {
       class: `page--home`,
    },

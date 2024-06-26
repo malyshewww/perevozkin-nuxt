@@ -16,7 +16,10 @@
             <div class="header__menu menu" :class="{ active: isMenuActive }">
                <nav class="menu__body">
                   <ul class="menu__list">
-                     <li class="menu__item" v-for="item in menu">
+                     <li
+                        v-for="(item, index) in menu"
+                        :key="index"
+                        class="menu__item">
                         <NuxtLink
                            :to="`${item.href}`"
                            class="menu__link"
@@ -26,18 +29,9 @@
                      </li>
                   </ul>
                </nav>
+               <HeaderActions device="mobile" @go-to-section="goToSection" />
             </div>
-            <div class="header__actions" data-da=".header__menu, 1024, 1">
-               <a href="tel:+78311380880" class="header__phone"
-                  >+7 (831) 138-08-80</a
-               >
-               <NuxtLink
-                  :to="{ hash: '#sale', path: '/' }"
-                  @click="goToSection"
-                  class="header__button">
-                  <span class="header__button-text">Акции</span>
-               </NuxtLink>
-            </div>
+            <HeaderActions device="pc" @go-to-section="goToSection" />
             <div
                class="header__burger"
                :class="{ active: isMenuActive }"
@@ -54,26 +48,7 @@
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import initCustomScrollbar from "~/utils/customScrollbar.js";
 
-import { useDynamicAdapt } from "~/utils/dynamicAdapt.js";
-
-// const updatePositionTrailer = () => {
-//    const trailer = document.querySelector(".trailer");
-//    if (trailer) {
-//       const { bodyScrollBar } = initCustomScrollbar();
-//       trailer.top = `${bodyScrollBar.offset.y}px`;
-//    }
-// };
-
 const isMenuActive = ref(false);
-
-const goToSection = () => {
-   const { bodyScrollBar } = initCustomScrollbar();
-   const sectionSale = document.querySelector(".main-sale");
-   if (sectionSale) {
-      let scrollToHere = sectionSale.offsetTop + 100;
-      bodyScrollBar.scrollTo(0, scrollToHere, 100);
-   }
-};
 
 const menuOpen = () => {
    isMenuActive.value = !isMenuActive.value;
@@ -81,9 +56,21 @@ const menuOpen = () => {
 };
 
 const menuClose = () => {
-   isMenuActive.value = !isMenuActive.value;
+   isMenuActive.value = false;
    document.body.classList.contains("lock") &&
       document.body.classList.remove("lock");
+};
+
+const goToSection = () => {
+   const { bodyScrollBar } = initCustomScrollbar();
+   const sectionSale = document.querySelector(".main-sale");
+   if (sectionSale) {
+      const scrollToHere = sectionSale.offsetTop + 100;
+      bodyScrollBar.scrollTo(0, scrollToHere, 400);
+      if (window.matchMedia("(max-width: 1024px)").matches) {
+         menuClose();
+      }
+   }
 };
 
 onMounted(() => {
@@ -118,9 +105,7 @@ const menu = [
    },
 ];
 
-onMounted(() => {
-   useDynamicAdapt();
-});
+onMounted(() => {});
 </script>
 <style lang="scss">
 .header {
@@ -170,9 +155,16 @@ onMounted(() => {
       align-items: center;
       gap: 52px;
       @media screen and (max-width: $xl) {
+         display: none;
          flex-direction: column;
          align-self: stretch;
          gap: 60px;
+      }
+   }
+   &__actions--mobile {
+      display: none;
+      @media screen and (max-width: $xl) {
+         display: flex;
       }
    }
    &__phone {
@@ -238,6 +230,7 @@ onMounted(() => {
       height: 28px;
       padding: 5px 3px;
       z-index: 10;
+      display: none;
       &.active {
          & .header__burger-lines {
             & span {
@@ -259,6 +252,9 @@ onMounted(() => {
                   background-color 0.3s ease;
             }
          }
+      }
+      @media screen and (max-width: $xl) {
+         display: block;
       }
    }
    &__burger-lines {

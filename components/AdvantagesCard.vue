@@ -1,15 +1,16 @@
 <template>
    <div
+      v-for="(card, index) in advantages"
+      :key="index"
       :class="`main-advantages__card card-advantages card-advantages--${
          index + 1
-      }`"
-      v-for="(card, index) in advantages">
+      }`">
       <div class="card-advantages__bg"></div>
       <div class="card-advantages__body">
          <div class="card-advantages__icon">
             <img
                :src="`/images/advantages/icon-advantages-${index + 1}.png`"
-               alt="" />
+               alt="изображение" />
          </div>
          <div class="card-advantages__content">
             <div class="card-advantages__title">
@@ -24,30 +25,6 @@
 </template>
 
 <script setup>
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-import initCustomScrollbar from "../utils/customScrollbar.js";
-
-const animation = () => {
-   const { bodyScrollBar, scroller } = initCustomScrollbar();
-   gsap.registerPlugin(ScrollTrigger);
-   ScrollTrigger.scrollerProxy(".scroller", {
-      scrollTop(value) {
-         if (arguments.length) {
-            bodyScrollBar.scrollTop = value;
-         }
-         return bodyScrollBar.scrollTop;
-      },
-   });
-   bodyScrollBar.addListener(ScrollTrigger.update);
-   ScrollTrigger.defaults({ scroller: scroller });
-};
-
-// onMounted(() => {
-//    animation();
-// });
-
 const advantages = [
    {
       title: "Опыт мастеров более 7 лет",

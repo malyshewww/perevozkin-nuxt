@@ -2,7 +2,10 @@
    <section class="main-services">
       <div class="container">
          <UiTicker>
-            <div class="ticker__item" v-for="item in tickerItems">
+            <div
+               v-for="(item, index) in tickerItems"
+               :key="index"
+               class="ticker__item">
                {{ item }}
             </div>
          </UiTicker>
@@ -19,8 +22,6 @@
 </template>
 
 <script setup>
-const tickerGroup = ref("");
-
 const tickerItems = [
    "Услуги сервиса",
    "Услуги сервиса",
@@ -34,18 +35,21 @@ const tickerItems = [
 
 const serviceCardsTop = [
    {
+      id: "1",
       title: "Газель Next",
       descr: "Диагностика и ремонт",
       img: "/main-services/service-1",
       href: "/services",
    },
    {
+      id: "2",
       title: "Газель бизнес",
       descr: "Диагностика и ремонт",
       img: "/main-services/service-2",
       href: "/services",
    },
    {
+      id: "3",
       title: "Газон Next",
       descr: "Диагностика и ремонт",
       img: "/main-services/service-3",
@@ -54,20 +58,20 @@ const serviceCardsTop = [
 ];
 const serviceCardsBottom = [
    {
+      id: "4",
       title: "Шиномонтаж",
       img: "/main-services/service-4",
       href: "/services",
    },
    {
+      id: "5",
       title: "Техническое обслуживание ГАЗ",
       img: "/main-services/service-5",
-      href: "/services",
+      href: "/services/1",
    },
 ];
 
-onMounted(() => {
-   // tickerCopy(tickerGroup.value);
-});
+onMounted(() => {});
 </script>
 
 <style lang="scss">
@@ -75,7 +79,7 @@ onMounted(() => {
    overflow: hidden;
    padding: 160px 0 120px;
    @media screen and (max-width: $xl) {
-      padding: 80px 0 60px;
+      padding: 50px 0 60px;
    }
    @media screen and (max-width: $md) {
       padding: 30px 0 40px;

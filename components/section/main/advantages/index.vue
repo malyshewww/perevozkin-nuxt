@@ -1,11 +1,11 @@
 <template>
-   <section class="main-advantages" ref="sectionAdvantages">
+   <section ref="sectionAdvantages" class="main-advantages">
       <div class="container">
          <div class="main-advantages__body">
-            <div class="main-advantages__info">
+            <div class="main-advantages__info anim-heading">
                <div class="heading">
                   <div class="heading__sub-title">Преимущества</div>
-                  <h2 class="heading__title" ref="AdvantagesTitle">
+                  <h2 ref="AdvantagesTitle" class="heading__title anim-title">
                      Мы знаем <span>причины всех&nbsp;поломок</span>
                      и оптимальные
                      <br />
@@ -13,7 +13,9 @@
                      их устранения
                   </h2>
                </div>
-               <div class="main-advantages__content" ref="AdvantagesContent">
+               <div
+                  ref="AdvantagesContent"
+                  class="main-advantages__content anim-content">
                   <p>
                      Перевозкин24 имеет в своём распоряжении более 200
                      автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем
@@ -22,7 +24,7 @@
                   </p>
                </div>
             </div>
-            <div class="main-advantages__cards">
+            <div ref="advantagesCards" class="main-advantages__cards">
                <AdvantagesCard />
             </div>
          </div>
@@ -40,12 +42,11 @@ import initCustomScrollbar from "~/utils/customScrollbar.js";
 const sectionAdvantages = ref("");
 const AdvantagesTitle = ref("");
 const AdvantagesContent = ref("");
+const advantagesCards = ref("");
 
 const progress = ref(0);
 
-const anim = ref(true);
-
-const animation = () => {
+const animationCards = (triggerSelector, startPosition) => {
    const { bodyScrollBar, scroller } = initCustomScrollbar();
    gsap.registerPlugin(ScrollTrigger);
    ScrollTrigger.scrollerProxy(".scroller", {
@@ -58,64 +59,14 @@ const animation = () => {
    });
    bodyScrollBar.addListener(ScrollTrigger.update);
    ScrollTrigger.defaults({ scroller });
-
-   const splitTitle = new SplitType(AdvantagesTitle.value, {
-      types: "lines",
-   });
-   const lines = splitTitle.lines;
-   const splitContent = new SplitType(AdvantagesContent.value, {
-      types: "lines",
-   });
-   const linesContent = splitContent.lines;
-
-   let cards = gsap.utils.toArray(".page--home .card-advantages");
-
-   const tl = gsap.timeline({
-      scrollTrigger: {
-         trigger: sectionAdvantages.value,
-         start: "top top",
-         end: "+=100%",
-         pin: true,
-         pinSpacing: true,
-         // toggleActions: "play pause resume reset",
-         onUpdate: function (self) {
-            progress.value = self.progress;
-         },
-      },
-   });
-   tl.fromTo(
-      lines,
-      {
-         y: 100,
-         opacity: 0,
-         clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
-      },
-      {
-         y: 0,
-         opacity: 1,
-         duration: 1,
-         clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-         ease: "power4.out",
-      }
-   );
-   tl.fromTo(
-      AdvantagesContent.value,
-      {
-         opacity: 0,
-      },
-      {
-         stagger: 0.1,
-         opacity: 1,
-         ease: "power4.out",
-      }
-   );
+   const cards = gsap.utils.toArray(".page--home .card-advantages");
    if (cards.length) {
-      let timeln = gsap.timeline({
+      const timeln = gsap.timeline({
          scrollTrigger: {
-            trigger: sectionAdvantages.value,
+            trigger: triggerSelector,
             pin: true,
             pinSpacing: true,
-            start: "top+=1px top",
+            start: startPosition ? startPosition : "top+=1px top",
             end: () => "+=" + cards[0].clientHeight * cards.length,
             scrub: 1,
          },
@@ -179,12 +130,77 @@ const animation = () => {
       // timeln.to(".card-advantages-4", {});
    }
 };
-// const resizeObserver = new ResizeObserver((entries) => {
-// });
 
+const animation = () => {
+   const { bodyScrollBar, scroller } = initCustomScrollbar();
+   gsap.registerPlugin(ScrollTrigger);
+   ScrollTrigger.scrollerProxy(".scroller", {
+      scrollTop(value) {
+         if (arguments.length) {
+            bodyScrollBar.scrollTop = value;
+         }
+         return bodyScrollBar.scrollTop;
+      },
+   });
+   bodyScrollBar.addListener(ScrollTrigger.update);
+   ScrollTrigger.defaults({ scroller });
+
+   const splitTitle = new SplitType(AdvantagesTitle.value, {
+      types: "lines",
+   });
+   const lines = splitTitle.lines;
+   // const splitContent = new SplitType(AdvantagesContent.value, {
+   //    types: "lines",
+   // });
+   // const linesContent = splitContent.lines;
+
+   const tl = gsap.timeline({
+      scrollTrigger: {
+         trigger: sectionAdvantages.value,
+         start: "top top",
+         end: "+=100%",
+         pin: true,
+         pinSpacing: true,
+         // toggleActions: "play pause resume reset",
+         onUpdate: function (self) {
+            progress.value = self.progress;
+         },
+      },
+   });
+   tl.fromTo(
+      lines,
+      {
+         y: 100,
+         opacity: 0,
+         clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
+      },
+      {
+         y: 0,
+         opacity: 1,
+         duration: 1,
+         clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+         ease: "power4.out",
+      }
+   );
+   tl.fromTo(
+      AdvantagesContent.value,
+      {
+         opacity: 0,
+      },
+      {
+         stagger: 0.1,
+         opacity: 1,
+         ease: "power4.out",
+      }
+   );
+   animationCards(sectionAdvantages.value);
+};
 onMounted(() => {
    if (window.matchMedia("(min-width: 1024px)").matches) {
       animation();
+   }
+   if (window.matchMedia("(max-width: 1024px)").matches) {
+      animationCards(advantagesCards.value, "top 10%");
    }
 });
 </script>
@@ -267,6 +283,9 @@ onMounted(() => {
          justify-self: center;
          gap: 0 20px;
       }
+      @media screen and (max-width: 374.98px) {
+         width: 100%;
+      }
    }
    & .card-advantages {
       --opacity: 0;
@@ -285,11 +304,15 @@ onMounted(() => {
       }
       @media screen and (max-width: $xl) {
          position: static;
-         min-width: 280px;
+         min-width: 300px;
       }
       @media screen and (max-width: $md) {
          height: 400px;
          grid-column: 2 / 12;
+      }
+      @media screen and (max-width: 400px) {
+         min-width: auto;
+         max-width: 300px;
       }
       @media screen and (max-width: 374.98px) {
          grid-column: 1 / 13;
@@ -297,6 +320,9 @@ onMounted(() => {
       &__body {
          @media screen and (max-width: $md) {
             gap: 32px;
+         }
+         @media screen and (max-width: 374.98px) {
+            gap: 15px;
          }
       }
       &:nth-child(1) {

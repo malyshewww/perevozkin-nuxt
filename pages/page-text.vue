@@ -1,5 +1,5 @@
 <template>
-   <Breadcrumbs :navList="breadcrumbs"></Breadcrumbs>
+   <BreadCrumbs :navList="breadcrumbs"></BreadCrumbs>
    <main class="main">
       <div class="main-header">
          <div class="container">
@@ -41,8 +41,8 @@
                   {{ content.text }}
                </p>
             </div>
-            <Gallery />
-            <div class="content">
+            <SliderGallery />
+            <div class="content" style="max-width: 100%">
                <table>
                   <thead>
                      <tr>
@@ -68,6 +68,9 @@
 </template>
 
 <script setup>
+useHead({
+   title: "Текстовая страница",
+});
 const breadcrumbs = [
    {
       text: "Главная",

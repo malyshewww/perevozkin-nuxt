@@ -1,5 +1,5 @@
 <template>
-   <article class="article" v-for="article in articleList">
+   <article v-for="article in articleList" :key="article.id" class="article">
       <div class="article__image ibg">
          <img
             :src="`/images/articles/${article.img}.jpg`"
@@ -20,7 +20,12 @@
 </template>
 
 <script setup>
-const props = defineProps(["articleList"]);
+defineProps({
+   articleList: {
+      type: Array,
+      required: true,
+   },
+});
 </script>
 
 <style lang="scss">

@@ -1,5 +1,5 @@
 <template>
-   <Breadcrumbs :navList="breadcrumbs"></Breadcrumbs>
+   <BreadCrumbs :navList="breadcrumbs"></BreadCrumbs>
    <main class="main">
       <div class="article-page">
          <div class="container">
@@ -14,6 +14,7 @@
 
 <script setup>
 useHead({
+   title: "Карточка статьи блога",
    bodyAttrs: {
       class: "page--article",
    },

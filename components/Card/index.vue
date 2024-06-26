@@ -1,15 +1,19 @@
 <template>
-   <NuxtLink :to="`${item.href}`" v-for="item in arr" class="service-item">
+   <NuxtLink
+      v-for="item in arr"
+      :key="item.id"
+      :to="`${item.href}`"
+      class="service-item">
       <div class="service-item__body">
          <svg class="service-item__icon">
-            <use xlink:href="/images/icons/sprite.svg#rotate-arrow-down"></use>
+            <use xlink:href="/images/icons/sprite.svg#rotate-arrow-down" />
          </svg>
          <div class="service-item__header">
             <div class="service-item__title">{{ item.title }}</div>
-            <div class="service-item__sub-title" v-if="item.descr">
+            <div v-if="item.descr" class="service-item__sub-title">
                {{ item.descr }}
             </div>
-            <div class="service-item__price" v-if="item.price">
+            <div v-if="item.price" class="service-item__price">
                <span>от</span> {{ item.price }}
             </div>
          </div>
@@ -21,7 +25,12 @@
 </template>
 
 <script setup>
-const props = defineProps(["arr"]);
+defineProps({
+   arr: {
+      type: Array,
+      required: true,
+   },
+});
 </script>
 
 <style lang="scss">

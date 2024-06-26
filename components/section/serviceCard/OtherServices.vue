@@ -3,18 +3,18 @@
       <div class="container">
          <div class="heading">
             <div class="heading__title">Другие услуги</div>
-            <div class="slider-controls" ref="sliderControls">
+            <div ref="sliderControls" class="slider-controls">
                <button
+                  ref="buttonPrev"
                   type="button"
-                  class="slider-button slider-button-prev"
-                  ref="buttonPrev"></button>
+                  class="slider-button slider-button-prev"></button>
                <button
+                  ref="buttonNext"
                   type="button"
-                  class="slider-button slider-button-next"
-                  ref="buttonNext"></button>
+                  class="slider-button slider-button-next"></button>
             </div>
          </div>
-         <div class="other-services__slider swiper" ref="otherSlider">
+         <div ref="otherSlider" class="other-services__slider swiper">
             <div class="other-services__wrapper swiper-wrapper">
                <Card :arr="servicesList" />
             </div>
@@ -25,7 +25,7 @@
 <script setup>
 import Swiper from "swiper";
 import "swiper/css";
-import { Navigation, FreeMode } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 
 const otherSlider = ref("");
 const sliderInstance = ref(null);
@@ -58,8 +58,8 @@ function initSlider() {
       },
       on: {
          init: function (swiper) {
-            let slides = swiper.slides;
-            let sliderControls =
+            const slides = swiper.slides;
+            const sliderControls =
                swiper.navigation.prevEl.parentNode ||
                swiper.navigation.nextEl.parentNode;
             if (slides.length <= swiper.passedParams.slidesPerView) {

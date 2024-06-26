@@ -17,14 +17,15 @@
          </div>
          <div class="service-advantages__slider service-slider">
             <div
-               class="service-slider__body swiper"
                ref="slider"
+               class="service-slider__body swiper"
                @mouseover="showTrailer"
                @mouseleave="hideTrailer">
                <div class="service-slider__wrapper swiper-wrapper">
                   <div
-                     class="service-slider__item swiper-slide"
-                     v-for="item in serviceSlider">
+                     v-for="(item, index) in serviceSlider"
+                     :key="index"
+                     class="service-slider__item swiper-slide">
                      <div class="service-slider__image ibg">
                         <img
                            :src="`/images/service-card/${item.img}.jpg`"
@@ -35,23 +36,24 @@
             </div>
             <div class="slider-controls">
                <button
+                  ref="buttonPrev"
                   type="button"
-                  class="slider-button slider-button-prev"
-                  ref="buttonPrev"></button>
+                  class="slider-button slider-button-prev"></button>
                <button
+                  ref="buttonNext"
                   type="button"
-                  class="slider-button slider-button-next"
-                  ref="buttonNext"></button>
+                  class="slider-button slider-button-next"></button>
             </div>
          </div>
          <div class="service-advantages__cards advantages-cards">
-            <AdvantagesCard></AdvantagesCard>
+            <AdvantagesCard />
          </div>
       </div>
    </section>
 </template>
 
 <script setup>
+import initCustomScrollbar from "~/utils/customScrollbar";
 import Swiper from "swiper";
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -60,8 +62,6 @@ import { Navigation, FreeMode } from "swiper/modules";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
-
-import initCustomScrollbar from "~/utils/customScrollbar";
 
 const slider = ref("");
 const buttonPrev = ref("");
@@ -80,7 +80,7 @@ const hideTrailer = () => {
 };
 
 function initSlider() {
-   const { bodyScrollBar, scroller } = initCustomScrollbar();
+   const { bodyScrollBar } = initCustomScrollbar();
    bodyScrollBar.addListener(({ offset }) => {
       positionY.value = offset.y;
    });
@@ -108,8 +108,8 @@ function initSlider() {
       },
       on: {
          init: function (swiper) {
-            let slides = swiper.slides;
-            let sliderControls =
+            const slides = swiper.slides;
+            const sliderControls =
                swiper.navigation.prevEl.parentNode ||
                swiper.navigation.nextEl.parentNode;
             if (slides.length <= swiper.passedParams.slidesPerView) {
@@ -127,11 +127,11 @@ function initSlider() {
                },
             });
          },
-         touchStart: function (swiper) {
+         touchStart: function () {
             const trailer = document.querySelector(".trailer");
             trailer && trailer.classList.add("scalling");
          },
-         touchEnd: function (swiper) {
+         touchEnd: function () {
             const trailer = document.querySelector(".trailer");
             trailer && trailer.classList.remove("scalling");
          },
@@ -259,7 +259,7 @@ const serviceSlider = [
       @media screen and (max-width: $xxxl) {
          gap: 30px;
       }
-      @media screen and (max-width: $xl) {
+      @media screen and (max-width: $xxl) {
          grid-template-columns: repeat(2, 1fr);
       }
       @media screen and (max-width: $md) {

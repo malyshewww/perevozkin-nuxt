@@ -4,7 +4,7 @@
          <div class="main__top">
             <div class="container">
                <div class="main__top-inner">
-                  <Breadcrumbs :navList="breadcrumbs"></Breadcrumbs>
+                  <BreadCrumbs :navList="breadcrumbs"></BreadCrumbs>
                   <h1 class="main__title">
                      Ремонт подвески ГАЗель Next в Нижнем Новгороде
                   </h1>
@@ -31,13 +31,13 @@
 import gsap from "gsap";
 import SplitType from "split-type";
 useHead({
+   title: "Карточка услуги",
    bodyAttrs: {
       class: "page--service",
    },
 });
 
 const mainDescr = ref("");
-
 const splitting = () => {
    const splitDescr = new SplitType(mainDescr.value, {
       types: "lines",

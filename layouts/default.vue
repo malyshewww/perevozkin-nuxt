@@ -1,4 +1,5 @@
 <template>
+   <UiPreloader :isLoading="loading" />
    <div class="scroller">
       <div class="wrapper">
          <UiTrailer />
@@ -12,8 +13,20 @@
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar.js";
 
+const loading = ref(true);
+
+const Preloader = () => {
+   const { bodyScrollBar } = initCustomScrollbar();
+   bodyScrollBar.updatePluginOptions("lock", { lock: true });
+   setTimeout(() => {
+      loading.value = false;
+      bodyScrollBar.updatePluginOptions("lock", { lock: false });
+   }, 1000);
+};
+
 onMounted(() => {
    initCustomScrollbar();
+   Preloader();
 });
 </script>
 
@@ -32,8 +45,11 @@ onMounted(() => {
 }
 @media screen and (max-width: 1024px) {
    .scroller {
-      overflow: unset;
-      height: auto;
+      // overflow: unset;
+      // height: auto;
+      & .scrollbar-track {
+         width: 0;
+      }
    }
 }
 </style>

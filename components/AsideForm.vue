@@ -1,9 +1,9 @@
 <template>
-   <aside class="aside" ref="aside">
+   <aside class="aside">
       <form action="#" class="aside-form form">
          <div class="form__header">
-            <div class="form__title" v-if="formTitle">{{ formTitle }}</div>
-            <div class="form__sub-title" v-if="formSubtitle">
+            <div v-if="formTitle" class="form__title">{{ formTitle }}</div>
+            <div v-if="formSubtitle" class="form__sub-title">
                {{ formSubtitle }}
             </div>
          </div>
@@ -15,21 +15,31 @@
 <script setup>
 import initCustomScrollbar from "../utils/customScrollbar.js";
 
-const aside = ref("");
+defineProps({
+   formTitle: {
+      type: String,
+      required: true,
+   },
+   formSubtitle: {
+      type: String,
+      required: true,
+   },
+});
+
 const asideSticky = () => {
    const { bodyScrollBar } = initCustomScrollbar();
-   if (aside.value) {
+   const aside = document.querySelector(".aside");
+   if (aside) {
       bodyScrollBar.addListener(({ offset }) => {
-         aside.value.style.top = `${offset.y + 30}px`;
+         aside.style.top = `${offset.y + 30}px`;
       });
    }
 };
-
 onMounted(() => {
-   asideSticky();
+   if (window.matchMedia("(min-width: 1024px)")) {
+      asideSticky();
+   }
 });
-
-const props = defineProps(["formTitle", "formSubtitle"]);
 </script>
 
 <style lang="scss">

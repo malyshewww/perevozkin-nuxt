@@ -1,6 +1,6 @@
 <template>
    <Teleport to="body">
-      <Popup :isActive="isActive" @closePopup="closePopup">
+      <Popup :is-active="isActive" @close-popup="closePopup">
          <div class="popup__header">
             <h2 class="popup__title">Политика конфиденциальности</h2>
          </div>
@@ -51,7 +51,12 @@
 </template>
 
 <script setup>
-const props = defineProps(["isActive"]);
+defineProps({
+   isActive: {
+      type: Boolean,
+      required: true,
+   },
+});
 const emit = defineEmits(["closePopup"]);
 const closePopup = () => {
    emit("closePopup");

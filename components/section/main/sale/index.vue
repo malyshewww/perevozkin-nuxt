@@ -1,24 +1,26 @@
 <template>
-   <div class="main-sale" id="sale">
+   <div id="sale" class="main-sale">
       <div class="container">
          <UiTicker>
-            <div class="ticker__item" v-for="item in tickerItems">
+            <div
+               v-for="(item, index) in tickerItems"
+               :key="index"
+               class="ticker__item">
                {{ item }}
             </div>
-            <!-- <div class="ticker__group" ref="tickerGroup">
-            </div> -->
          </UiTicker>
          <div
-            class="main-sale__body swiper interactable"
             ref="saleSlider"
+            class="main-sale__body swiper interactable"
             data-type="slider"
             @mouseover="showTrailer"
             @mouseleave="hideTrailer">
             <!-- <div class="ball" ref="ball"></div> -->
             <div class="main-sale__wrapper swiper-wrapper">
                <div
-                  class="main-sale__item item-sale swiper-slide"
-                  v-for="(item, index) in saleSliderData">
+                  v-for="(item, index) in saleSliderData"
+                  :key="index"
+                  class="main-sale__item item-sale swiper-slide">
                   <div class="item-sale__wrapper">
                      <div class="item-sale__info">
                         <div class="item-sale__badge">Акция</div>
@@ -28,10 +30,10 @@
                            {{ item.descr }}
                         </div>
                         <UiButton
-                           btnType="button"
-                           btnTitle="Узнать больше"
-                           classNames="item-sale__button"
-                           @openPopup="openSalePopup($event, item)"></UiButton>
+                           btn-type="button"
+                           btn-title="Узнать больше"
+                           class-names="item-sale__button"
+                           @open-popup="openSalePopup($event, item)"></UiButton>
                         <div class="item-sale__bottom">
                            <div class="item-sale__disclamer">
                               {{ item.disclamer }}
@@ -42,23 +44,32 @@
                         <div class="item-sale__image ibg">
                            <img
                               :src="`/images/main-sale/${item.img}.png`"
-                              alt="" />
+                              alt="изображение" />
                         </div>
                      </div>
                   </div>
                </div>
             </div>
+            <div class="slider-controls">
+               <button
+                  ref="buttonPrev"
+                  type="button"
+                  class="slider-button slider-button-prev"></button>
+               <button
+                  ref="buttonNext"
+                  type="button"
+                  class="slider-button slider-button-next"></button>
+            </div>
          </div>
       </div>
    </div>
    <PopupSale
-      :isActive="isSalePopupActive"
-      @closePopup="closeSalePopup()"
-      :data="popupSaleData" />
+      :data="popupSaleData"
+      :is-active="isSalePopupActive"
+      @close-popup="closeSalePopup()" />
 </template>
 <script setup>
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Swiper from "swiper";
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -67,10 +78,11 @@ import { Navigation, FreeMode } from "swiper/modules";
 
 import initCustomScrollbar from "~/utils/customScrollbar";
 
-const emit = defineEmits(["openPopup"]);
-
 const slider = ref(null);
 const saleSlider = ref("");
+
+const buttonPrev = ref("");
+const buttonNext = ref("");
 
 const isSalePopupActive = ref(false);
 const popupSaleData = ref({});
@@ -118,15 +130,19 @@ const hideTrailer = () => {
 const positionY = ref(0);
 
 function initSlider() {
-   const { bodyScrollBar, scroller } = initCustomScrollbar();
+   const { bodyScrollBar } = initCustomScrollbar();
    bodyScrollBar.addListener(({ offset }) => {
       positionY.value = offset.y;
    });
    slider.value = new Swiper(saleSlider.value, {
       modules: [Navigation, FreeMode],
       slidesPerView: "auto",
-      speed: 1000,
+      speed: 800,
       freeMode: true,
+      navigation: {
+         nextEl: buttonNext.value,
+         prevEl: buttonPrev.value,
+      },
       breakpoints: {
          300: {
             spaceBetween: 12,
@@ -143,6 +159,16 @@ function initSlider() {
          },
       },
       on: {
+         init: function (swiper) {
+            const slides = swiper.slides;
+            const sliderControls =
+               swiper.navigation.prevEl.parentNode ||
+               swiper.navigation.nextEl.parentNode;
+            if (slides.length < 2) {
+               swiper.navigation.destroy();
+               sliderControls.style.display = "none";
+            }
+         },
          sliderMove: function (swiper) {
             gsap.to({}, 0.0, {
                onUpdate: function () {
@@ -153,11 +179,11 @@ function initSlider() {
                },
             });
          },
-         touchStart: function (swiper) {
+         touchStart: function () {
             const trailer = document.querySelector(".trailer");
             trailer && trailer.classList.add("scalling");
          },
-         touchEnd: function (swiper) {
+         touchEnd: function () {
             const trailer = document.querySelector(".trailer");
             trailer && trailer.classList.remove("scalling");
          },
@@ -215,6 +241,14 @@ onMounted(() => {
       width: 1430px;
       @media screen and (max-width: $xxxl) {
          width: 100%;
+      }
+   }
+   & .slider-controls {
+      display: none;
+      justify-content: center;
+      margin-top: 20px;
+      @media screen and (max-width: $xl) {
+         display: flex;
       }
    }
 }

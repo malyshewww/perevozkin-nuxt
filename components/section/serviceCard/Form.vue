@@ -9,28 +9,28 @@
                </div>
                <div class="form__items">
                   <div class="form-item">
-                     <input type="text" id="form-name" placeholder="Имя" />
+                     <input id="form-name" type="text" placeholder="Имя" />
                      <label for="form-name">Имя</label>
                   </div>
                   <div class="form-item">
                      <input
-                        type="tel"
                         id="form-phone"
-                        placeholder="Телефон"
-                        ref="phone" />
+                        ref="phone"
+                        type="tel"
+                        placeholder="Телефон" />
                      <label for="form-phone">Телефон</label>
                   </div>
                   <div class="form__action">
                      <UiButton
-                        btnTitle="Отправить"
-                        btnType="input"
-                        classNames="form__button" />
+                        btn-title="Отправить"
+                        btn-type="input"
+                        class-names="form__button" />
                   </div>
                </div>
                <div class="form__text">
                   Отправляя форму, вы соглашаетесь
                   <NuxtLink to="/page-text"
-                     >с политикой обработки персональных данных</NuxtLink
+                     >с политикой обработки персональных данных</NuxtLink
                   >
                </div>
             </form>

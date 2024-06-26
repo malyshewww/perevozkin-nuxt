@@ -16,10 +16,10 @@
                <li class="social-item">
                   <a href="/" target="_blank" class="social-link">
                      <svg
+                        id="icon-telegram-bg"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 32 32"
-                        id="icon-telegram-bg">
+                        viewBox="0 0 32 32">
                         <g clip-path="url(#clip0_558_2897)">
                            <path
                               d="M16 32C24.8368 32 32 24.8368 32 16C32 7.1632 24.8368 0 16 0C7.1632 0 0 7.1632 0 16C0 24.8368 7.1632 32 16 32Z"

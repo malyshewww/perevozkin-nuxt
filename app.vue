@@ -5,7 +5,19 @@
       </NuxtErrorBoundary>
    </NuxtLayout>
 </template>
-<script setup lang="ts"></script>
+<script setup>
+const nuxtApp = useNuxtApp();
+const loading = ref(false);
+nuxtApp.hook("page:start", () => {
+   loading.value = true;
+   console.log("start");
+});
+nuxtApp.hook("page:finish", () => {
+   loading.value = false;
+   console.log("end");
+});
+onMounted(() => {});
+</script>
 
 <style lang="scss">
 @import "~/assets/scss/base/nullstyle.scss";

@@ -14,7 +14,10 @@ export default defineNuxtConfig({
       // { path: "~/user-module/components", pathPrefix: false },
       // { path: "~/components/special-components", prefix: "Special" },
    ],
-   modules: ["@pinia/nuxt", "@nuxtjs/device", "@nuxtjs/i18n"],
+   modules: ["@pinia/nuxt", "@nuxtjs/device", "@nuxtjs/i18n", "@nuxt/image"],
+   image: {
+      dir: "assets/images",
+   },
    // Возможность подключения сторонних ресурсов и дополнительных мета тегов непосредственно в head
    app: {
       // pageTransition: { name: "page", mode: "out-in" },
@@ -29,6 +32,26 @@ export default defineNuxtConfig({
                as: "font",
                type: "font/woff2",
                crossorigin: "anonymous",
+            },
+            { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+            { rel: "shortcut icon", href: "/favicon.ico" },
+            {
+               rel: "icon",
+               type: "image/png",
+               sizes: "32x32",
+               href: "/favicon-32x32.png",
+            },
+            {
+               rel: "icon",
+               type: "image/png",
+               sizes: "16x16",
+               href: "/favicon-16x16.png",
+            },
+            {
+               rel: "apple-touch-icon",
+               type: "image/png",
+               sizes: "180x180",
+               href: "/apple-icon-180x180.png",
             },
          ],
          meta: [

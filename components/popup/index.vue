@@ -2,23 +2,7 @@
    <div class="popup" :class="{ active: isActive }" @click="closePopup">
       <div class="popup__wrapper">
          <div class="popup__content" @click.stop>
-            <button class="popup__close" @click="closePopup">
-               <svg
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  id="icon-close">
-                  <g clip-path="url(#clip0_452_876)">
-                     <path
-                        d="M13.379 12.0001L19.7606 5.61853L18.3816 4.23953L12 10.6211L5.61841 4.2395L4.2394 5.61851L10.621 12.0001L4.23948 18.3817L5.61848 19.7607L12 13.3791L18.3815 19.7606L19.7605 18.3816L13.379 12.0001Z"></path>
-                  </g>
-                  <defs>
-                     <clipPath id="clip0_452_876">
-                        <rect width="24" height="24" fill="white"></rect>
-                     </clipPath>
-                  </defs>
-               </svg>
-            </button>
+            <button class="popup__close" @click="closePopup"></button>
             <slot />
          </div>
       </div>
@@ -26,7 +10,12 @@
 </template>
 
 <script setup>
-const props = defineProps(["isActive"]);
+defineProps({
+   isActive: {
+      type: Boolean,
+      required: true,
+   },
+});
 const emit = defineEmits(["closePopup", "openPopup"]);
 const closePopup = () => {
    emit("closePopup");
@@ -50,9 +39,11 @@ const closePopup = () => {
    pointer-events: none;
    &::-webkit-scrollbar {
       background: none;
+      width: 0;
    }
    &::-webkit-scrollbar-thumb {
       background: none;
+      width: 0;
    }
    &.active {
       opacity: 1;
@@ -85,6 +76,12 @@ const closePopup = () => {
       opacity: 0;
       // transform: perspective(600px) translate(0px, -100%) rotateX(45deg);
       transition: opacity $time;
+      @media screen and (max-width: $xl) {
+         padding: 60px 40px;
+      }
+      @media screen and (max-width: $md) {
+         padding: 60px 30px;
+      }
    }
    &__close {
       position: absolute;
@@ -96,17 +93,28 @@ const closePopup = () => {
       width: calc(32px * 3);
       height: calc(32px * 3);
       background-color: transparent;
-      & svg {
+      &::before {
+         content: "";
+         display: block;
          width: 32px;
          height: 32px;
-         fill: $gray;
-         transition: fill $time;
+         flex-shrink: 0;
+         mask-image: url("/images/icons/icon-close.svg");
+         mask-repeat: no-repeat;
+         mask-position: center;
+         background-color: $gray;
+         mask-size: 32px 32px;
+         transition: background-color $time;
+      }
+      @media screen and (max-width: $xl) {
+         width: calc(32px * 2);
+         height: calc(32px * 2);
       }
       @media (any-hover: hover) {
          &:hover {
             cursor: pointer;
-            & svg {
-               fill: $bg-white;
+            &::before {
+               background-color: $bg-white;
             }
          }
       }
@@ -125,6 +133,16 @@ const closePopup = () => {
       text-transform: uppercase;
       color: $bg-white;
       max-width: 80%;
+      @media screen and (max-width: $xl) {
+         max-width: 100%;
+         font-size: 28px;
+         line-height: 36px;
+      }
+      @media screen and (max-width: $md) {
+         font-size: 24px;
+         line-height: 28px;
+         hyphens: auto;
+      }
    }
 }
 </style>
