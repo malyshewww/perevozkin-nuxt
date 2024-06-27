@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import initCustomScrollbar from "~/utils/customScrollbar.js";
+import initCustomScrollbar from "~/utils/customScrollbar";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);

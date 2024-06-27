@@ -37,7 +37,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 
-import initCustomScrollbar from "~/utils/customScrollbar.js";
+import initCustomScrollbar from "~/utils/customScrollbar";
 
 const sectionAdvantages = ref("");
 const AdvantagesTitle = ref("");

@@ -46,7 +46,7 @@
 </template>
 <script setup>
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import initCustomScrollbar from "~/utils/customScrollbar.js";
+import initCustomScrollbar from "~/utils/customScrollbar";
 
 const isMenuActive = ref(false);
 

@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import initCustomScrollbar from "~/utils/customScrollbar.js";
+import initCustomScrollbar from "~/utils/customScrollbar";
 
 const loading = ref(true);
 

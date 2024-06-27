@@ -121,12 +121,12 @@ export default defineNuxtConfig({
          },
       },
    },
-   // nitro: {
-   //    prerender: {
-   //       crawlLinks: true,
-   //       failOnError: false,
-   //    },
-   // },
+   nitro: {
+      prerender: {
+         crawlLinks: true,
+         failOnError: false,
+      },
+   },
    defaultLocale: "ru",
    // build: {
    //    postcss: {

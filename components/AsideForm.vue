@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import initCustomScrollbar from "../utils/customScrollbar.js";
+import initCustomScrollbar from "~/utils/customScrollbar.js";
 
 const asideSticky = () => {
    const { bodyScrollBar } = initCustomScrollbar();
