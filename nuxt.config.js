@@ -17,6 +17,7 @@ export default defineNuxtConfig({
       // { path: "~/components/special-components", prefix: "Special" },
    ],
    modules: ["@pinia/nuxt", "@nuxtjs/device"],
+   // plugins: [{ src: "~/plugins/scrollbar.js", mode: "client" }],
    // Возможность подключения сторонних ресурсов и дополнительных мета тегов непосредственно в head
    app: {
       // pageTransition: { name: "page", mode: "out-in" },

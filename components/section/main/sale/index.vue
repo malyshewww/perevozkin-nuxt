@@ -69,14 +69,13 @@
       @close-popup="closeSalePopup()" />
 </template>
 <script setup>
+import initCustomScrollbar from "~/utils/customScrollbar";
 import gsap from "gsap";
 import Swiper from "swiper";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { Navigation, FreeMode } from "swiper/modules";
-
-import initCustomScrollbar from "~/utils/customScrollbar";
 
 const slider = ref(null);
 const saleSlider = ref("");
