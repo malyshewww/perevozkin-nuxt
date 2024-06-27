@@ -1,23 +1,32 @@
 <template>
-   <UiPreloader :isLoading="loading" />
-   <div class="scroller" ref="scroller">
-      <div class="wrapper">
-         <UiTrailer />
-         <slot />
-         <Footer></Footer>
+   <div>
+      <UiPreloader :is-loading="loading" />
+      <div ref="scroller" class="scroller">
+         <div class="wrapper">
+            <UiTrailer />
+            <slot />
+            <Footer />
+         </div>
       </div>
+      <div id="rotate-device"></div>
    </div>
 </template>
 
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { usePreloaderStore } from "@/stores/preloader";
+gsap.registerPlugin(ScrollTrigger);
 
-const loading = ref(true);
+const store = usePreloaderStore();
+const loading = ref(store.loading);
 
 const Preloader = () => {
    const { bodyScrollBar } = initCustomScrollbar();
    bodyScrollBar.updatePluginOptions("lock", { lock: true });
    setTimeout(() => {
+      store.switchLoading();
       loading.value = false;
       bodyScrollBar.updatePluginOptions("lock", { lock: false });
    }, 1000);
@@ -25,18 +34,18 @@ const Preloader = () => {
 
 const mobileAnimation = () => {
    const titles = document.querySelectorAll(".anim-heading");
-   let scrollImations = (entries, observer) => {
+   const scrollImations = (entries) => {
       entries.forEach((entry) => {
          if (entry.isIntersecting && entry.intersectionRatio == 1) {
             entry.target.classList.add("active");
          }
       });
    };
-   let options = {
+   const options = {
       // root: null,
       threshold: 1.0,
    };
-   let observer = new IntersectionObserver(scrollImations, options);
+   const observer = new IntersectionObserver(scrollImations, options);
    for (const target of titles) {
       observer.observe(target);
    }

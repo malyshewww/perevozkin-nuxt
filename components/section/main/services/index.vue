@@ -11,10 +11,10 @@
          </UiTicker>
          <div class="main-services__body">
             <div class="main-services__top">
-               <Card :arr="serviceCardsTop"></Card>
+               <Card :arr="serviceCardsTop" />
             </div>
             <div class="main-services__bottom">
-               <Card :arr="serviceCardsBottom"></Card>
+               <Card :arr="serviceCardsBottom" />
             </div>
          </div>
       </div>

@@ -46,105 +46,83 @@ const advantagesCards = ref("");
 
 const progress = ref(0);
 
+const tl = ref(null);
+const timeln = ref(null);
+
 const animationCards = (triggerSelector, startPosition) => {
-   const { bodyScrollBar, scroller } = initCustomScrollbar();
-   gsap.registerPlugin(ScrollTrigger);
-   ScrollTrigger.scrollerProxy(".scroller", {
-      scrollTop(value) {
-         if (arguments.length) {
-            bodyScrollBar.scrollTop = value;
-         }
-         return bodyScrollBar.scrollTop;
-      },
-   });
-   bodyScrollBar.addListener(ScrollTrigger.update);
-   ScrollTrigger.defaults({ scroller });
    const cards = gsap.utils.toArray(".page--home .card-advantages");
    if (cards.length) {
-      const timeln = gsap.timeline({
-         scrollTrigger: {
-            trigger: triggerSelector,
-            pin: true,
-            pinSpacing: true,
-            start: startPosition ? startPosition : "top+=1px top",
-            end: () => "+=" + cards[0].clientHeight * cards.length,
-            scrub: 1,
-         },
-      });
-
-      timeln.from(".card-advantages--1", {
-         yPercent: 150,
-         "--opacity": 1,
-      });
-      timeln.addLabel("card1");
-      timeln.to(".card-advantages--1", {
-         yPercent: 0,
-         "--opacity": 0.6,
-      });
-      timeln.from(".card-advantages--2", {
-         yPercent: 150,
-         // opacity: 1,
-         "--opacity": 1,
-      });
-      timeln.addLabel("card2");
-      timeln.to(
-         ".card-advantages--1",
-         {
+      timeln.value = gsap
+         .timeline({
+            scrollTrigger: {
+               trigger: triggerSelector,
+               pin: true,
+               pinSpacing: true,
+               start: startPosition ? startPosition : "top+=1px top",
+               end: () => "+=" + cards[0].clientHeight * cards.length,
+               scrub: 1,
+            },
+         })
+         .from(".card-advantages--1", {
+            yPercent: 150,
+            "--opacity": 1,
+         })
+         .addLabel("card1")
+         .to(".card-advantages--1", {
             yPercent: 0,
             "--opacity": 0.6,
-         },
-         "-=0.3"
-      );
-      timeln.to(".card-advantages--2", {
-         yPercent: 0,
-         "--opacity": 0.6,
-      });
-      timeln.from(".card-advantages--3", {
-         yPercent: 150,
-         "--opacity": 1,
-      });
-      timeln.addLabel("card3");
-      timeln.to(
-         ".card-advantages--2",
-         {
+         })
+         .from(".card-advantages--2", {
+            yPercent: 150,
+            // opacity: 1,
+            "--opacity": 1,
+         })
+         .addLabel("card2")
+         .to(
+            ".card-advantages--1",
+            {
+               yPercent: 0,
+               "--opacity": 0.6,
+            },
+            "-=0.3"
+         )
+         .to(".card-advantages--2", {
             yPercent: 0,
             "--opacity": 0.6,
-         },
-         "-=0.3"
-      );
-      timeln.to(".card-advantages--3", {
-         yPercent: 0,
-         "--opacity": 0.6,
-      });
-      timeln.from(".card-advantages--4", {
-         yPercent: 150,
-      });
-      timeln.addLabel("card4");
-      timeln.to(
-         ".card-advantages--4",
-         {
+         })
+         .from(".card-advantages--3", {
+            yPercent: 150,
+            "--opacity": 1,
+         })
+         .addLabel("card3")
+         .to(
+            ".card-advantages--2",
+            {
+               yPercent: 0,
+               "--opacity": 0.6,
+            },
+            "-=0.3"
+         )
+         .to(".card-advantages--3", {
             yPercent: 0,
-         },
-         "-=0.3"
-      );
+            "--opacity": 0.6,
+         })
+         .from(".card-advantages--4", {
+            yPercent: 150,
+         })
+         .addLabel("card4")
+         .to(
+            ".card-advantages--4",
+            {
+               yPercent: 0,
+            },
+            "-=0.3"
+         );
       // timeln.to(".card-advantages-4", {});
    }
 };
 
 const animation = () => {
-   const { bodyScrollBar, scroller } = initCustomScrollbar();
-   gsap.registerPlugin(ScrollTrigger);
-   ScrollTrigger.scrollerProxy(".scroller", {
-      scrollTop(value) {
-         if (arguments.length) {
-            bodyScrollBar.scrollTop = value;
-         }
-         return bodyScrollBar.scrollTop;
-      },
-   });
-   bodyScrollBar.addListener(ScrollTrigger.update);
-   ScrollTrigger.defaults({ scroller });
-
    const splitTitle = new SplitType(AdvantagesTitle.value, {
       types: "lines",
    });
@@ -154,54 +132,78 @@ const animation = () => {
    // });
    // const linesContent = splitContent.lines;
 
-   const tl = gsap.timeline({
-      scrollTrigger: {
-         trigger: sectionAdvantages.value,
-         start: "top top",
-         end: "+=100%",
-         pin: true,
-         pinSpacing: true,
-         // toggleActions: "play pause resume reset",
-         onUpdate: function (self) {
-            progress.value = self.progress;
+   tl.value = gsap
+      .timeline({
+         scrollTrigger: {
+            trigger: sectionAdvantages.value,
+            start: "top top",
+            end: "+=100%",
+            pin: true,
+            pinSpacing: true,
+            // toggleActions: "play pause resume reset",
+            onUpdate: function (self) {
+               progress.value = self.progress;
+            },
          },
-      },
-   });
-   tl.fromTo(
-      lines,
-      {
-         y: 100,
-         opacity: 0,
-         clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
-      },
-      {
-         y: 0,
-         opacity: 1,
-         duration: 1,
-         clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-         ease: "power4.out",
-      }
-   );
-   tl.fromTo(
-      AdvantagesContent.value,
-      {
-         opacity: 0,
-      },
-      {
-         stagger: 0.1,
-         opacity: 1,
-         ease: "power4.out",
-      }
-   );
+      })
+      .fromTo(
+         lines,
+         {
+            y: 100,
+            opacity: 0,
+            clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
+         },
+         {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+            ease: "power4.out",
+         }
+      )
+      .fromTo(
+         AdvantagesContent.value,
+         {
+            opacity: 0,
+         },
+         {
+            stagger: 0.1,
+            opacity: 1,
+            ease: "power4.out",
+         }
+      );
    animationCards(sectionAdvantages.value);
 };
+
+const destroyAnimations = () => {
+   tl.value.pause().kill();
+   timeln.value.pause().kill();
+};
+
 onMounted(() => {
+   const { bodyScrollBar, scroller } = initCustomScrollbar();
+   gsap.registerPlugin(ScrollTrigger);
+   ScrollTrigger.scrollerProxy(".scroller", {
+      scrollTop(value) {
+         if (arguments.length) {
+            bodyScrollBar.scrollTop = value;
+         }
+         return bodyScrollBar.scrollTop;
+      },
+   });
+   bodyScrollBar.addListener(ScrollTrigger.update);
+   ScrollTrigger.defaults({ scroller });
    if (window.matchMedia("(min-width: 1024px)").matches) {
       animation();
    }
    if (window.matchMedia("(max-width: 1024px)").matches) {
-      animationCards(advantagesCards.value, "top 10%");
+      animationCards(".main-advantages__cards", "top 5%");
    }
+   console.log(timeln.value);
+});
+
+onUnmounted(() => {
+   destroyAnimations();
 });
 </script>
 

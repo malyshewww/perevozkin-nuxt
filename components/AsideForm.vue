@@ -1,30 +1,11 @@
 <template>
    <aside class="aside">
-      <form action="#" class="aside-form form">
-         <div class="form__header">
-            <div v-if="formTitle" class="form__title">{{ formTitle }}</div>
-            <div v-if="formSubtitle" class="form__sub-title">
-               {{ formSubtitle }}
-            </div>
-         </div>
-         <slot />
-      </form>
+      <slot />
    </aside>
 </template>
 
 <script setup>
 import initCustomScrollbar from "../utils/customScrollbar.js";
-
-defineProps({
-   formTitle: {
-      type: String,
-      required: true,
-   },
-   formSubtitle: {
-      type: String,
-      required: true,
-   },
-});
 
 const asideSticky = () => {
    const { bodyScrollBar } = initCustomScrollbar();

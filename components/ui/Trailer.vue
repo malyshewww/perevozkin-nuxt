@@ -1,19 +1,19 @@
 <template>
-   <div class="trailer" ref="trailer">
+   <div ref="trailer" class="trailer">
       <div class="trailer__content">
          <svg
+            id="icon-arrow-left-small"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            id="icon-arrow-left-small">
+            viewBox="0 0 16 16">
             <path
                d="M3.06994 7.52663L8.96502 1.63152L8 0.666504L0.457528 8.20898L8 15.7514L8.96502 14.7864L3.06998 8.89138L14.8601 8.89135L14.8601 7.5266L3.06994 7.52663Z"></path>
          </svg>
          <div class="trailer__text">Тяните</div>
          <svg
+            id="icon-arrow-right-small"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            id="icon-arrow-right-small">
+            viewBox="0 0 16 16">
             <path
                d="M12.9301 7.52663L7.03498 1.63152L8 0.666504L15.5425 8.20898L8 15.7514L7.03498 14.7864L12.93 8.89138L1.1399 8.89135L1.1399 7.5266L12.9301 7.52663Z"></path>
          </svg>
@@ -22,13 +22,11 @@
 </template>
 
 <script setup>
+import initCustomScrollbar from "~/utils/customScrollbar";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
-import initCustomScrollbar from "~/utils/customScrollbar";
-
-const trailer = ref("");
 const positionY = ref(0);
 
 onMounted(() => {
@@ -49,22 +47,25 @@ onMounted(() => {
          positionY.value = offset.y;
       });
 
-      window.addEventListener("mousemove", (event) => {
-         if (event.target.closest(".item-sale__button")) {
-            trailer.value.classList.remove("active");
-         }
-         const style = window.getComputedStyle(
-            document.querySelector(".scroller")
-         );
-         const matrix = new WebKitCSSMatrix(style.transform);
-         gsap.to(".trailer", {
-            x: event.clientX,
-            y: event.clientY + positionY.value - matrix.m42,
-            yPercent: -50,
-            xPercent: -50,
-            duration: 0.05,
+      const trailer = document.querySelector(".trailer");
+      if (trailer) {
+         window.addEventListener("mousemove", (event) => {
+            if (event.target.closest(".item-sale__button")) {
+               trailer.classList.remove("active");
+            }
+            const style = window.getComputedStyle(
+               document.querySelector(".scroller")
+            );
+            const matrix = new WebKitCSSMatrix(style.transform);
+            gsap.to(trailer, {
+               x: event.clientX,
+               y: event.clientY + positionY.value - matrix.m42,
+               yPercent: -50,
+               xPercent: -50,
+               duration: 0.1,
+            });
          });
-      });
+      }
    }
 });
 </script>

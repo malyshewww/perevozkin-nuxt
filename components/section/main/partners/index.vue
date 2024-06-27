@@ -26,18 +26,20 @@
    </section>
 </template>
 <script setup>
+import initCustomScrollbar from "../utils/customScrollbar.js";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import initCustomScrollbar from "../utils/customScrollbar.js";
+gsap.registerPlugin(ScrollTrigger);
 
 const animTitle = ref("");
 const sectionPartners = ref("");
 
 const heading = ref("");
 
+const tl = ref(null);
+
 const animation = () => {
    const { bodyScrollBar, scroller } = initCustomScrollbar();
-   gsap.registerPlugin(ScrollTrigger);
    ScrollTrigger.scrollerProxy(".scroller", {
       scrollTop(value) {
          if (arguments.length) {
@@ -48,26 +50,32 @@ const animation = () => {
    });
    bodyScrollBar.addListener(ScrollTrigger.update);
    ScrollTrigger.defaults({ scroller });
-   const tl = gsap.timeline({
-      scrollTrigger: {
-         trigger: sectionPartners.value,
-         start: "top 50%",
-         stager: 0.1,
-      },
-   });
-   tl.fromTo(
-      animTitle.value,
-      {
-         opacity: 0.5,
-         y: "100%",
-      },
-      {
-         y: "0%",
-         opacity: 1,
-         stagger: 0.25,
-         ease: "power3.out",
-      }
-   );
+   tl.value = gsap
+      .timeline({
+         scrollTrigger: {
+            trigger: sectionPartners.value,
+            start: "top 50%",
+            stager: 0.1,
+         },
+      })
+      .fromTo(
+         animTitle.value,
+         {
+            opacity: 0.5,
+            y: "100%",
+         },
+         {
+            y: "0%",
+            opacity: 1,
+            stagger: 0.25,
+            ease: "power3.out",
+         }
+      );
+};
+
+const destroyAnimations = () => {
+   tl.value.pause().kill();
+   tl.value = null;
 };
 
 const partnersData = [
@@ -101,6 +109,10 @@ onMounted(() => {
    if (window.matchMedia("(min-width: 1024px)").matches) {
       animation();
    }
+});
+
+onBeforeUnmount(() => {
+   destroyAnimations();
 });
 </script>
 <style lang="scss">

@@ -1,21 +1,23 @@
 <template>
-   <BreadCrumbs :navList="breadcrumbs"></BreadCrumbs>
-   <main class="main">
-      <div class="main-header">
-         <div class="container">
-            <div class="main-header__body">
-               <h1 class="main__title page-title">Газель Next</h1>
+   <div>
+      <BreadCrumbs :nav-list="breadcrumbs" />
+      <main class="main">
+         <div class="main-header">
+            <div class="container">
+               <div class="main-header__body">
+                  <h1 class="main__title page-title">Газель Next</h1>
+               </div>
             </div>
          </div>
-      </div>
-      <div class="services">
-         <div class="container">
-            <div class="services__body">
-               <Card :arr="servicesList"></Card>
+         <div class="services">
+            <div class="container">
+               <div class="services__body">
+                  <Card :arr="servicesList" />
+               </div>
             </div>
          </div>
-      </div>
-   </main>
+      </main>
+   </div>
 </template>
 
 <script setup>

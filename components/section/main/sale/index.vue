@@ -33,7 +33,7 @@
                            btn-type="button"
                            btn-title="Узнать больше"
                            class-names="item-sale__button"
-                           @open-popup="openSalePopup($event, item)"></UiButton>
+                           @open-popup="openSalePopup($event, item)" />
                         <div class="item-sale__bottom">
                            <div class="item-sale__disclamer">
                               {{ item.disclamer }}

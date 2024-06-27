@@ -1,8 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from "nuxt/config";
 import autoprefixer from "autoprefixer";
 import postCssSortMediaQueries from "postcss-sort-media-queries";
 export default defineNuxtConfig({
    devtools: { enabled: false },
+   loading: false,
    components: [
       // импорт компонентов, основываясь только на их имени, а не на пути (pathPrefix: false)
       {
@@ -14,10 +16,7 @@ export default defineNuxtConfig({
       // { path: "~/user-module/components", pathPrefix: false },
       // { path: "~/components/special-components", prefix: "Special" },
    ],
-   modules: ["@pinia/nuxt", "@nuxtjs/device", "@nuxtjs/i18n", "@nuxt/image"],
-   image: {
-      dir: "assets/images",
-   },
+   modules: ["@pinia/nuxt", "@nuxtjs/device"],
    // Возможность подключения сторонних ресурсов и дополнительных мета тегов непосредственно в head
    app: {
       // pageTransition: { name: "page", mode: "out-in" },
@@ -26,13 +25,13 @@ export default defineNuxtConfig({
             lang: "ru",
          },
          link: [
-            {
-               rel: "preload",
-               href: "/fonts/GolosText-Regular.woff2",
-               as: "font",
-               type: "font/woff2",
-               crossorigin: "anonymous",
-            },
+            // {
+            //    rel: "preload",
+            //    href: "/fonts/GolosText-Regular.woff2",
+            //    as: "font",
+            //    type: "font/woff2",
+            //    crossorigin: "anonymous",
+            // },
             { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
             { rel: "shortcut icon", href: "/favicon.ico" },
             {
@@ -105,14 +104,14 @@ export default defineNuxtConfig({
    // css: ["animate.css"],
    vite: {
       css: {
-         // postcss: {
-         //    plugins: [
-         //       postCssSortMediaQueries({ sort: "desktop-first" }),
-         //       autoprefixer({
-         //          overrideBrowserslist: ["last 3 versions", "ie >= 10"],
-         //       }),
-         //    ],
-         // },
+         postcss: {
+            plugins: [
+               postCssSortMediaQueries({ sort: "desktop-first" }),
+               autoprefixer({
+                  overrideBrowserslist: ["last 3 versions", "ie >= 10"],
+               }),
+            ],
+         },
          preprocessorOptions: {
             scss: {
                additionalData:
@@ -121,14 +120,20 @@ export default defineNuxtConfig({
          },
       },
    },
+   // nitro: {
+   //    prerender: {
+   //       crawlLinks: true,
+   //       failOnError: false,
+   //    },
+   // },
    defaultLocale: "ru",
-   build: {
-      postcss: {
-         preset: {
-            autoprefixer: {
-               grid: true,
-            },
-         },
-      },
-   },
+   // build: {
+   //    postcss: {
+   //       preset: {
+   //          autoprefixer: {
+   //             grid: true,
+   //          },
+   //       },
+   //    },
+   // },
 });

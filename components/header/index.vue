@@ -86,6 +86,8 @@ onMounted(() => {
    bodyScrollBar.addListener(ScrollTrigger.update);
 });
 
+onBeforeUnmount(() => {});
+
 const menu = [
    {
       title: "Услуги",
@@ -301,7 +303,7 @@ onMounted(() => {});
       height: auto;
       background-color: $graphite;
       z-index: 10;
-      padding: 77px 16px 20px;
+      padding: 92px 16px 20px;
       gap: 52px;
       flex-direction: column;
       transform: translateY(-120%);
@@ -322,6 +324,9 @@ onMounted(() => {});
          pointer-events: none;
          z-index: 11;
       }
+   }
+   @media screen and (max-width: $md) {
+      padding-top: 77px;
    }
    &__body {
       flex: 0 1 44.488372%;

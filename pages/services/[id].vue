@@ -4,11 +4,11 @@
          <div class="main__top">
             <div class="container">
                <div class="main__top-inner">
-                  <BreadCrumbs :navList="breadcrumbs"></BreadCrumbs>
+                  <BreadCrumbs :nav-list="breadcrumbs" />
                   <h1 class="main__title">
                      Ремонт подвески ГАЗель Next в Нижнем Новгороде
                   </h1>
-                  <div class="main__description" ref="mainDescr">
+                  <div ref="mainDescr" class="main__description">
                      <p>Мы специализируемся на ремонте автомобилей ГАЗ.</p>
                      <p>Лучше других знаем все «болячки» подвески</p>
                   </div>
@@ -37,13 +37,22 @@ useHead({
    },
 });
 
+const tl = ref("");
+
 const mainDescr = ref("");
 const splitting = () => {
    const splitDescr = new SplitType(mainDescr.value, {
       types: "lines",
    });
-   gsap.from(splitDescr.lines, { y: 100, opacity: 0, stagger: 0.1 });
-   gsap.to(splitDescr.lines, { y: 0, opacity: 1, stagger: 0.1 });
+   tl.value = gsap
+      .timeline({})
+      .from(splitDescr.lines, { y: 100, opacity: 0, stagger: 0.1 })
+      .to(splitDescr.lines, { y: 0, opacity: 1, stagger: 0.1 });
+};
+
+const destroyAnimations = () => {
+   tl.value.pause().kill();
+   tl.value = null;
 };
 
 const breadcrumbs = [
@@ -66,6 +75,9 @@ const breadcrumbs = [
 ];
 onMounted(() => {
    splitting();
+});
+onUnmounted(() => {
+   destroyAnimations();
 });
 </script>
 

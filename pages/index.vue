@@ -8,17 +8,16 @@
    </main>
 </template>
 
-<script setup lang="ts">
-definePageMeta({
-   layout: "custom",
-});
+<script setup>
 useHead({
    title: "Главная страница",
    bodyAttrs: {
       class: `page--home`,
    },
 });
+definePageMeta({
+   layout: "custom",
+});
 const productsStore = useProductsStore();
 productsStore.fetchProductsFromDB();
 </script>
-<style lang="scss"></style>

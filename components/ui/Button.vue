@@ -10,10 +10,22 @@
 </template>
 
 <script setup>
-const props = defineProps(["classNames", "btnType", "btnTitle"]);
+defineProps({
+   classNames: {
+      type: String,
+      required: true,
+   },
+   btnType: {
+      type: String,
+      required: true,
+   },
+   btnTitle: {
+      type: String,
+      required: true,
+   },
+});
 const emit = defineEmits(["openPopup"]);
 const openPopup = () => {
-   console.log("open popup");
    emit("openPopup");
 };
 </script>

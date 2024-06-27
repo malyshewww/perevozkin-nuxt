@@ -1,15 +1,17 @@
 <template>
-   <BreadCrumbs :navList="breadcrumbs"></BreadCrumbs>
-   <main class="main">
-      <div class="article-page">
-         <div class="container">
-            <div class="article-page__wrapper">
-               <SectionArticleContent />
-               <SectionArticleForm />
+   <div>
+      <BreadCrumbs :nav-list="breadcrumbs" />
+      <main class="main">
+         <div class="article-page">
+            <div class="container">
+               <div class="article-page__wrapper">
+                  <SectionArticleContent />
+                  <SectionArticleForm />
+               </div>
             </div>
          </div>
-      </div>
-   </main>
+      </main>
+   </div>
 </template>
 
 <script setup>

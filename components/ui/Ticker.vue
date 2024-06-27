@@ -17,7 +17,7 @@ const initTicker = () => {
       const tickerWrapper = document.createElement("div");
       tickerWrapper.classList.add("ticker-wrapper");
       if (tickerContentWidth <= tickerWidth) {
-         let countTicker = Math.ceil(tickerWidth / tickerContentWidth);
+         const countTicker = Math.ceil(tickerWidth / tickerContentWidth);
          for (let i = 0; i < countTicker; i++) {
             tickerWrapper.innerHTML += ticker.value.innerHTML;
          }

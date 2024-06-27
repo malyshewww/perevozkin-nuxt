@@ -1,12 +1,14 @@
 <template>
-   <UiPreloader :isLoading="loading" />
-   <div class="scroller">
-      <div class="wrapper">
-         <UiTrailer />
-         <Header></Header>
-         <slot />
-         <Footer></Footer>
+   <div>
+      <div class="scroller">
+         <div class="wrapper">
+            <UiTrailer />
+            <Header />
+            <slot />
+            <Footer />
+         </div>
       </div>
+      <div id="rotate-device"></div>
    </div>
 </template>
 

@@ -7,7 +7,12 @@
 </template>
 
 <script setup>
-const props = defineProps(["isLoading"]);
+defineProps({
+   isLoading: {
+      type: Boolean,
+      required: true,
+   },
+});
 </script>
 
 <style lang="scss">

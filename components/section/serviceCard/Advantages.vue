@@ -70,6 +70,8 @@ const sliderInstance = ref(null);
 
 const positionY = ref(0);
 
+const tlCards = ref(null);
+
 const showTrailer = () => {
    const trailer = document.querySelector(".trailer");
    trailer && trailer.classList.add("active");
@@ -146,7 +148,7 @@ const animation = () => {
       ),
    ];
    if (advantagesCards.length > 0) {
-      gsap.fromTo(
+      tlCards.value = gsap.fromTo(
          ".card-advantages",
          { y: -70, opacity: 0 },
          {
@@ -162,7 +164,7 @@ const animation = () => {
             },
          }
       );
-      gsap.fromTo(
+      tlCards.value = gsap.fromTo(
          ".card-advantages__title",
          { yPercent: -50, opacity: 0 },
          {
@@ -176,7 +178,7 @@ const animation = () => {
             },
          }
       );
-      gsap.fromTo(
+      tlCards.value = gsap.fromTo(
          ".card-advantages__text",
          { yPercent: -40, opacity: 0 },
          {
@@ -193,9 +195,18 @@ const animation = () => {
    }
 };
 
+const destroyAnimations = () => {
+   tlCards.value.pause().kill();
+   tlCards.value = null;
+};
+
 onMounted(() => {
    initSlider();
    animation();
+});
+
+onUnmounted(() => {
+   destroyAnimations();
 });
 
 const serviceSlider = [

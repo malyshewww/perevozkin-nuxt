@@ -42,6 +42,13 @@ const mainParallax = ref("");
 
 const propress = ref(0);
 
+const anim = ref(null);
+const animParallax = ref(null);
+const animLogo = ref(null);
+const animMenu = ref(null);
+const animTitle = ref(null);
+const tlVideo = ref(null);
+
 const animation = () => {
    const { bodyScrollBar, scroller } = initCustomScrollbar();
    ScrollTrigger.scrollerProxy(".scroller", {
@@ -54,81 +61,85 @@ const animation = () => {
    });
    bodyScrollBar.addListener(ScrollTrigger.update);
    ScrollTrigger.defaults({ scroller: scroller });
+   // bodyScrollBar.addListener((status) => {
+   //    window.dispatchEvent(new Event("scroll"));
+   // });
    const header = document.querySelector(".header");
    const headerMenu = header.querySelector(".menu__body");
    const headerLogo = header.querySelector(".header__logo");
-   const anim = gsap.timeline({
-      scrollTrigger: {
-         trigger: mainScreen.value,
-         pinSpacing: true,
-         pin: true,
-         scrub: true,
-         start: `top top`,
-         end: "+=100%",
-         onUpdate: function (self) {
-            propress.value = self.progress;
+   anim.value = gsap
+      .timeline({
+         scrollTrigger: {
+            trigger: mainScreen.value,
+            pinSpacing: true,
+            pin: true,
+            scrub: true,
+            start: `top top`,
+            end: "+=100%",
+            onUpdate: function (self) {
+               propress.value = self.progress;
+            },
          },
-      },
-   });
-   anim.to(mainVideo.value, {
-      width: "100%",
-      height: `calc(${100}vh - ${header?.clientHeight + 100}px)`,
-   });
-   const animParallax = gsap.timeline({
-      scrollTrigger: {
-         trigger: mainScreen.value,
-         pinSpacing: false,
-         pin: false,
-         scrub: true,
-         start: () => propress.value > 0.01,
-         end: "+=100%",
-      },
-   });
-   animParallax.to(mainParallax.value, {
-      y: -300,
-   });
-   const animLogo = gsap.timeline({
-      scrollTrigger: {
-         trigger: mainScreen.value,
-         pinSpacing: false,
-         pin: false,
-         scrub: true,
-         start: () => propress.value > 0.01,
-         end: "+=100%",
-      },
-   });
-   animLogo.to(headerLogo, {
-      scale: 1,
-      y: 0,
-      x: 0,
-   });
-   const animMenu = gsap.timeline({
-      scrollTrigger: {
-         trigger: mainScreen.value,
-         pinSpacing: false,
-         pin: false,
-         scrub: true,
-         start: () => propress.value > 0.01,
-         end: "+=100%",
-      },
-   });
-   animMenu.from(headerMenu, {
-      // marginLeft: "50%",
-   });
-   animMenu.to(headerMenu, {
-      marginLeft: 0,
-   });
-   const animTitle = gsap.timeline({
-      scrollTrigger: {
-         trigger: mainScreen.value,
-         pinSpacing: false,
-         pin: false,
-         scrub: true,
-         start: () => propress.value > 0.01,
-         end: "+=80%",
-      },
-   });
-   animTitle
+      })
+      .to(mainVideo.value, {
+         width: "100%",
+         height: `calc(${100}vh - ${header?.clientHeight + 100}px)`,
+      });
+   animParallax.value = gsap
+      .timeline({
+         scrollTrigger: {
+            trigger: mainScreen.value,
+            pinSpacing: false,
+            pin: false,
+            scrub: true,
+            start: () => propress.value > 0.01,
+            end: "+=100%",
+         },
+      })
+      .to(mainParallax.value, {
+         y: -300,
+      });
+   animLogo.value = gsap
+      .timeline({
+         scrollTrigger: {
+            trigger: mainScreen.value,
+            pinSpacing: false,
+            pin: false,
+            scrub: true,
+            start: () => propress.value > 0.01,
+            end: "+=100%",
+         },
+      })
+      .to(headerLogo, {
+         scale: 1,
+         y: 0,
+         x: 0,
+      });
+   animMenu.value = gsap
+      .timeline({
+         scrollTrigger: {
+            trigger: mainScreen.value,
+            pinSpacing: false,
+            pin: false,
+            scrub: true,
+            start: () => propress.value > 0.01,
+            end: "+=100%",
+         },
+      })
+      .to(headerMenu, {
+         marginLeft: 0,
+      });
+   animTitle.value = gsap
+      .timeline({
+         scrollTrigger: {
+            trigger: mainScreen.value,
+            pinSpacing: false,
+            pin: false,
+            scrub: true,
+            start: () => propress.value > 0.01,
+            end: "+=80%",
+         },
+      })
       .to(mainTitle.value, {
          scrollTrigger: {
             trigger: mainScreen.value,
@@ -153,19 +164,29 @@ const animation = () => {
 const mobileAnimation = () => {
    const mediaAnimation = gsap.matchMedia();
    mediaAnimation.add("(max-width: 1024px)", () => {
-      const tlVideo = gsap.timeline({
-         opacity: 1,
-         scrollTrigger: {
-            trigger: mainVideo.value,
-            start: "top",
-            end: "bottom",
-            scrub: 0.3,
-         },
-      });
-      tlVideo.to(mainVideo.value, {
-         opacity: 0.3,
-      });
+      tlVideo.value = gsap
+         .timeline({
+            opacity: 1,
+            scrollTrigger: {
+               trigger: mainVideo.value,
+               start: "top",
+               end: "bottom",
+               scrub: 0.3,
+            },
+         })
+         .to(mainVideo.value, {
+            opacity: 0.3,
+         });
    });
+};
+
+const destroyAnimations = () => {
+   anim.value.pause().kill();
+   animParallax.value.pause().kill();
+   animLogo.value.pause().kill();
+   animMenu.value.pause().kill();
+   animTitle.value.pause().kill();
+   tlVideo.value.pause().kill();
 };
 
 onMounted(() => {
@@ -173,6 +194,10 @@ onMounted(() => {
       animation();
    }
    mobileAnimation();
+});
+
+onBeforeUnmount(() => {
+   destroyAnimations();
 });
 </script>
 

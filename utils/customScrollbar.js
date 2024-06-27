@@ -1,4 +1,4 @@
-import Scrollbar, { ScrollbarPlugin } from "smooth-scrollbar";
+import Scrollbar from "smooth-scrollbar";
 
 import { AnchorPlugin } from "./anchorPlugin.js";
 import { ModalPlugin } from "./modalPlugin.js";
