@@ -240,6 +240,7 @@ onMounted(() => {
    }
    &__item.swiper-slide {
       width: 1430px;
+      height: auto;
       @media screen and (max-width: $xxxl) {
          width: 100%;
       }
