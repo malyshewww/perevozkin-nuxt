@@ -8,7 +8,7 @@ function initCustomScrollbar() {
    let bodyScrollBar;
    let scroller;
    scroller = document.querySelector(".scroller");
-   // Scrollbar.use(ModalPlugin, AnchorPlugin, LockPlugin);
+   Scrollbar.use(ModalPlugin, AnchorPlugin, LockPlugin);
    bodyScrollBar = Scrollbar.init(scroller, {
       damping: 0.1,
       delegateTo: document,
