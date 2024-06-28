@@ -15,20 +15,8 @@
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
 
-const loading = ref(true);
-
-const Preloader = () => {
-   const { bodyScrollBar } = initCustomScrollbar();
-   bodyScrollBar.updatePluginOptions("lock", { lock: true });
-   setTimeout(() => {
-      loading.value = false;
-      bodyScrollBar.updatePluginOptions("lock", { lock: false });
-   }, 1000);
-};
-
 onMounted(() => {
    initCustomScrollbar();
-   Preloader();
 });
 </script>
 
