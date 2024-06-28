@@ -14,10 +14,7 @@
 
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePreloaderStore } from "@/stores/preloader";
-gsap.registerPlugin(ScrollTrigger);
 
 const store = usePreloaderStore();
 const loading = ref(store.loading);

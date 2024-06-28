@@ -18,7 +18,7 @@
             </div>
          </div>
          <div class="service-item__image">
-            <img :src="`/images/${item.img}.png`" :alt="item.title" />
+            <img :src="`/images${item.img}.png`" :alt="item.title" />
          </div>
       </div>
    </NuxtLink>

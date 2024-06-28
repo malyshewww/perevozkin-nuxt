@@ -28,7 +28,8 @@
    </main>
 </template>
 <script setup>
-import gsap from "gsap";
+const { $gsap: gsap } = useNuxtApp();
+
 import SplitType from "split-type";
 useHead({
    title: "Карточка услуги",

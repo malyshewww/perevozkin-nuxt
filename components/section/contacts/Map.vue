@@ -19,44 +19,41 @@ onMounted(() => {
    script.onload = function () {
       initMap();
    };
-
    async function initMap() {
-      if (mapElem) {
-         await ymaps3.ready;
-         const {
-            YMap,
-            YMapDefaultSchemeLayer,
-            YMapDefaultFeaturesLayer,
-            YMapMarker,
-         } = ymaps3;
-         const map = new YMap(document.getElementById("mapElem"), {
-            location: {
-               center: [43.867233, 56.353754],
-               zoom: 16,
-            },
-         });
-         // Добавьте слой с дорогами и зданиями
-         map.addChild(
-            new YMapDefaultSchemeLayer({
-               theme: "dark",
-               customization: json,
-            })
-         );
-         // Добавьте слой для маркеров
-         map.addChild(new YMapDefaultFeaturesLayer());
-         const content = document.createElement("img");
-         content.classList.add("map-contacts__point");
-         content.src = "/images/icons/pin.svg";
-         // Инициализируйте маркер
-         const marker = new YMapMarker(
-            {
-               coordinates: [43.867233, 56.353754],
-               draggable: true,
-            },
-            content
-         );
-         map.addChild(marker);
-      }
+      await ymaps3.ready;
+      const {
+         YMap,
+         YMapDefaultSchemeLayer,
+         YMapDefaultFeaturesLayer,
+         YMapMarker,
+      } = ymaps3;
+      const map = new YMap(document.getElementById("mapElem"), {
+         location: {
+            center: [43.867233, 56.353754],
+            zoom: 16,
+         },
+      });
+      // Добавьте слой с дорогами и зданиями
+      map.addChild(
+         new YMapDefaultSchemeLayer({
+            theme: "dark",
+            customization: json,
+         })
+      );
+      // Добавьте слой для маркеров
+      map.addChild(new YMapDefaultFeaturesLayer());
+      const content = document.createElement("img");
+      content.classList.add("map-contacts__point");
+      content.src = "/images/icons/pin.svg";
+      // Инициализируйте маркер
+      const marker = new YMapMarker(
+         {
+            coordinates: [43.867233, 56.353754],
+            draggable: true,
+         },
+         content
+      );
+      map.addChild(marker);
    }
 });
 </script>

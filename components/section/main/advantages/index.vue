@@ -33,11 +33,11 @@
 </template>
 
 <script setup>
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SplitType from "split-type";
-
 import initCustomScrollbar from "~/utils/customScrollbar";
+
+const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
+
+import SplitType from "split-type";
 
 const sectionAdvantages = ref("");
 const AdvantagesTitle = ref("");
@@ -50,6 +50,17 @@ const tl = ref(null);
 const timeln = ref(null);
 
 const animationCards = (triggerSelector, startPosition) => {
+   const { bodyScrollBar, scroller } = initCustomScrollbar();
+   ScrollTrigger.scrollerProxy(".scroller", {
+      scrollTop(value) {
+         if (arguments.length) {
+            bodyScrollBar.scrollTop = value;
+         }
+         return bodyScrollBar.scrollTop;
+      },
+   });
+   bodyScrollBar.addListener(ScrollTrigger.update);
+   ScrollTrigger.defaults({ scroller });
    const cards = gsap.utils.toArray(".page--home .card-advantages");
    if (cards.length) {
       timeln.value = gsap
@@ -123,6 +134,18 @@ const animationCards = (triggerSelector, startPosition) => {
 };
 
 const animation = () => {
+   const { bodyScrollBar, scroller } = initCustomScrollbar();
+   gsap.registerPlugin(ScrollTrigger);
+   ScrollTrigger.scrollerProxy(".scroller", {
+      scrollTop(value) {
+         if (arguments.length) {
+            bodyScrollBar.scrollTop = value;
+         }
+         return bodyScrollBar.scrollTop;
+      },
+   });
+   bodyScrollBar.addListener(ScrollTrigger.update);
+   ScrollTrigger.defaults({ scroller });
    const splitTitle = new SplitType(AdvantagesTitle.value, {
       types: "lines",
    });
@@ -181,25 +204,12 @@ const destroyAnimations = () => {
 };
 
 onMounted(() => {
-   const { bodyScrollBar, scroller } = initCustomScrollbar();
-   gsap.registerPlugin(ScrollTrigger);
-   ScrollTrigger.scrollerProxy(".scroller", {
-      scrollTop(value) {
-         if (arguments.length) {
-            bodyScrollBar.scrollTop = value;
-         }
-         return bodyScrollBar.scrollTop;
-      },
-   });
-   bodyScrollBar.addListener(ScrollTrigger.update);
-   ScrollTrigger.defaults({ scroller });
    if (window.matchMedia("(min-width: 1024px)").matches) {
       animation();
    }
    if (window.matchMedia("(max-width: 1024px)").matches) {
-      animationCards(".main-advantages__cards", "top 5%");
+      animationCards(advantagesCards.value, "top 5%");
    }
-   console.log(timeln.value);
 });
 
 onUnmounted(() => {

@@ -119,7 +119,7 @@
       @close-popup="closePoliticPopup" />
 </template>
 <script setup>
-import initCustomScrollbar from "~/utils/customScrollbar.js";
+import initCustomScrollbar from "~/utils/customScrollbar";
 
 const menu = [
    {

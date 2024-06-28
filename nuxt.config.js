@@ -127,7 +127,7 @@ export default defineNuxtConfig({
    //       failOnError: false,
    //    },
    // },
-   ssr: false,
+   ssr: true,
    defaultLocale: "ru",
    // build: {
    //    postcss: {

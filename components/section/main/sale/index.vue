@@ -70,12 +70,14 @@
 </template>
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
-import gsap from "gsap";
+
 import Swiper from "swiper";
 import "swiper/css";
+import { Navigation, FreeMode } from "swiper/modules";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
-import { Navigation, FreeMode } from "swiper/modules";
+
+const { $gsap: gsap } = useNuxtApp();
 
 const slider = ref(null);
 const saleSlider = ref("");
@@ -219,7 +221,7 @@ onMounted(() => {
    @media screen and (max-width: $md) {
       padding: 40px 0;
    }
-   &__body {
+   &__body.swiper {
       margin-top: 100px;
       overflow: visible;
       @media (any-hover: hover) {
@@ -236,7 +238,7 @@ onMounted(() => {
    }
    &__wrapper {
    }
-   &__item {
+   &__item.swiper-slide {
       width: 1430px;
       @media screen and (max-width: $xxxl) {
          width: 100%;

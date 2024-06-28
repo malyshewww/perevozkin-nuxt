@@ -45,8 +45,9 @@
    </header>
 </template>
 <script setup>
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import initCustomScrollbar from "~/utils/customScrollbar";
+
+const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 
 const isMenuActive = ref(false);
 

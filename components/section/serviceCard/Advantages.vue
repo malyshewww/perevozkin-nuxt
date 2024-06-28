@@ -59,9 +59,8 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { Navigation, FreeMode } from "swiper/modules";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+
+const { $gsap: gsap } = useNuxtApp();
 
 const slider = ref("");
 const buttonPrev = ref("");
