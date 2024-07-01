@@ -160,6 +160,7 @@ body.lock {
 		color: $bg-white;
 		background-color: transparent;
 		min-height: 48px;
+		border-radius: 0;
 		transition: border-color $time, background-color $time;
 		&:focus {
 			border-color: $gray;
@@ -487,8 +488,8 @@ body.lock {
 		@include transition(background-color $time);
 	}
 	@media screen and (max-width: $xl) {
-		width: 60px;
-		height: 60px;
+		width: 40px;
+		height: 40px;
 	}
 	&-prev {
 		&::before {

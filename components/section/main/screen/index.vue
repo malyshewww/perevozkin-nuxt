@@ -39,7 +39,7 @@ const mainVideo = ref("");
 const mainTitle = ref("");
 const mainParallax = ref("");
 
-const propress = ref(0);
+const progress = ref(0);
 
 const anim = ref(null);
 const animParallax = ref(null);
@@ -64,10 +64,11 @@ const animation = () => {
    //    window.dispatchEvent(new Event("scroll"));
    // });
    const header = document.querySelector(".header");
-   const headerMenu = header.querySelector(".menu__body");
+   const headerMenu = header.querySelector(".menu__list");
    const headerLogo = header.querySelector(".header__logo");
    anim.value = gsap
       .timeline({
+         pause: true,
          scrollTrigger: {
             trigger: mainScreen.value,
             pinSpacing: true,
@@ -76,7 +77,24 @@ const animation = () => {
             start: `top top`,
             end: "+=100%",
             onUpdate: function (self) {
-               propress.value = self.progress;
+               progress.value = self.progress;
+               // switch (true) {
+               //    case progress.value > 0.1 && self.progress < 0.6:
+               //       mainTitle.value.classList.add("active");
+               //       break;
+               //    case self.progress > 0.6 && self.progress < 1:
+               //       mainTitle.value.classList.add("hide");
+               //       break;
+               //    case self.progress == 1:
+               //       mainTitle.value.classList.remove("hide");
+               //       mainTitle.value.classList.remove("active");
+               //       break;
+               //    default:
+               //       break;
+               // }
+            },
+            onComplete: function (self) {
+               console.log(1);
             },
          },
       })
@@ -91,7 +109,7 @@ const animation = () => {
             pinSpacing: false,
             pin: false,
             scrub: true,
-            start: () => propress.value > 0.01,
+            start: () => progress.value > 0.01,
             end: "+=100%",
          },
       })
@@ -101,12 +119,12 @@ const animation = () => {
    animLogo.value = gsap
       .timeline({
          scrollTrigger: {
-            trigger: mainScreen.value,
-            pinSpacing: false,
-            pin: false,
+            // trigger: mainScreen.value,
+            // pinSpacing: false,
+            // pin: false,
             scrub: true,
-            start: () => propress.value > 0.01,
-            end: "+=100%",
+            start: () => progress.value > 0.01,
+            end: "+=15%",
          },
       })
       .to(headerLogo, {
@@ -117,12 +135,12 @@ const animation = () => {
    animMenu.value = gsap
       .timeline({
          scrollTrigger: {
-            trigger: mainScreen.value,
-            pinSpacing: false,
-            pin: false,
+            // trigger: mainScreen.value,
+            // pinSpacing: false,
+            // pin: false,
             scrub: true,
-            start: () => propress.value > 0.01,
-            end: "+=100%",
+            start: () => progress.value > 0.01,
+            end: "+=15%",
          },
       })
       .to(headerMenu, {
@@ -135,21 +153,23 @@ const animation = () => {
             pinSpacing: false,
             pin: false,
             scrub: true,
-            start: () => propress.value > 0.01,
-            end: "+=80%",
-         },
-      })
-      .to(mainTitle.value, {
-         scrollTrigger: {
-            trigger: mainScreen.value,
-            pinSpacing: false,
-            pin: false,
-            scrub: true,
-            end: () => propress.value > 0.6,
+            start: () => progress.value > 0.01,
+            end: "+=30%",
          },
       })
       .to(mainTitle.value, {
          y: 0,
+         opacity: 1,
+      })
+      .to(mainTitle.value, {
+         scrollTrigger: {
+            pinSpacing: false,
+            pin: false,
+            scrub: true,
+            end: () => progress.value > 0.6,
+         },
+      })
+      .to(mainTitle.value, {
          opacity: 1,
       })
       .to(mainTitle.value, {
@@ -283,6 +303,14 @@ onBeforeUnmount(() => {
       text-transform: uppercase;
       color: $bg-white;
       transform: translateY(120%);
+      transition: transform 0.2s;
+      will-change: transform;
+      &.active {
+         transform: translate(0);
+      }
+      &.hide {
+         opacity: 0;
+      }
       @media (min-width: 1024px) and (max-height: 800px) {
          font-size: 9vh;
          line-height: 120%;

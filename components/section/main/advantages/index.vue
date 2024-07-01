@@ -1,7 +1,7 @@
 <template>
    <section ref="sectionAdvantages" class="main-advantages">
       <div class="container">
-         <div class="main-advantages__body">
+         <div ref="advantagesBody" class="main-advantages__body">
             <div class="main-advantages__info anim-heading">
                <div class="heading">
                   <div class="heading__sub-title">Преимущества</div>
@@ -44,6 +44,7 @@ const AdvantagesTitle = ref("");
 const AdvantagesContent = ref("");
 const advantagesCards = ref("");
 
+const advantagesBody = ref("");
 const progress = ref(0);
 
 const tl = ref(null);
@@ -69,13 +70,15 @@ const animationCards = (triggerSelector, startPosition) => {
                trigger: triggerSelector,
                pin: true,
                pinSpacing: true,
+               stagger: 0.02,
+               delay: 1,
                start: startPosition ? startPosition : "top+=1px top",
                end: () => "+=" + cards[0].clientHeight * cards.length,
-               scrub: 1,
+               scrub: 2,
             },
          })
          .from(".card-advantages--1", {
-            yPercent: 150,
+            yPercent: 130,
             "--opacity": 1,
          })
          .addLabel("card1")
@@ -84,7 +87,7 @@ const animationCards = (triggerSelector, startPosition) => {
             "--opacity": 0.6,
          })
          .from(".card-advantages--2", {
-            yPercent: 150,
+            yPercent: 130,
             // opacity: 1,
             "--opacity": 1,
          })
@@ -102,7 +105,8 @@ const animationCards = (triggerSelector, startPosition) => {
             "--opacity": 0.6,
          })
          .from(".card-advantages--3", {
-            yPercent: 150,
+            yPercent: 130,
+
             "--opacity": 1,
          })
          .addLabel("card3")
@@ -110,16 +114,18 @@ const animationCards = (triggerSelector, startPosition) => {
             ".card-advantages--2",
             {
                yPercent: 0,
+
                "--opacity": 0.6,
             },
             "-=0.3"
          )
          .to(".card-advantages--3", {
             yPercent: 0,
+
             "--opacity": 0.6,
          })
          .from(".card-advantages--4", {
-            yPercent: 150,
+            yPercent: 130,
          })
          .addLabel("card4")
          .to(
@@ -158,7 +164,7 @@ const animation = () => {
    tl.value = gsap
       .timeline({
          scrollTrigger: {
-            trigger: sectionAdvantages.value,
+            trigger: advantagesBody.value,
             start: "top top",
             end: "+=100%",
             pin: true,
@@ -179,7 +185,7 @@ const animation = () => {
          {
             y: 0,
             opacity: 1,
-            duration: 1,
+            duration: 0.5,
             clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
             ease: "power4.out",
          }
@@ -195,7 +201,7 @@ const animation = () => {
             ease: "power4.out",
          }
       );
-   animationCards(sectionAdvantages.value);
+   animationCards(advantagesBody.value, "top 2%");
 };
 
 const destroyAnimations = () => {
@@ -280,6 +286,7 @@ onUnmounted(() => {
       grid-template-rows: repeat(3, 2.5rem) auto;
       position: relative;
       backface-visibility: hidden;
+      overflow: hidden;
       @media screen and (max-width: $xl) {
          height: auto;
          grid-column: 1 / -1;
@@ -331,10 +338,7 @@ onUnmounted(() => {
       }
       &__body {
          @media screen and (max-width: $md) {
-            gap: 32px;
-         }
-         @media screen and (max-width: 374.98px) {
-            gap: 15px;
+            gap: 10px;
          }
       }
       &:nth-child(1) {

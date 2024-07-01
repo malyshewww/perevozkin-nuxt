@@ -44,7 +44,7 @@ const breadcrumbs = [
       align-items: start;
       gap: 100px;
       @media screen and (max-width: $xl) {
-         gap: 60px;
+         gap: 50px;
       }
    }
 }

@@ -104,7 +104,7 @@ onMounted(() => {});
       }
       & .service-item {
          height: 530px;
-         transition: width $time, flex-grow $time;
+         transition: width $time * 2, flex-grow $time * 2;
          flex-grow: 1;
          width: 20%;
          @media screen and (max-width: $xl) {
@@ -117,7 +117,7 @@ onMounted(() => {});
             bottom: 0;
             width: 100%;
             z-index: 2;
-            transition: height $time;
+            transition: transform $time * 2;
             height: 320px;
             padding: 0;
             @media screen and (max-width: $xl) {
@@ -126,14 +126,14 @@ onMounted(() => {});
             & img {
                width: 100%;
                object-fit: contain;
-               transition: width $time;
+               transition: width $time, transform $time;
             }
          }
          @media (any-hover: hover) {
             &:hover {
                width: 50%;
                & .service-item__image {
-                  height: 326px;
+                  transform: scale(1.2);
                   // padding-bottom: 41.3%;
                }
             }

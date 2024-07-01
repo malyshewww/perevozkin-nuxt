@@ -122,7 +122,8 @@ onUnmounted(() => {
          grid-template-areas:
             "crumbs"
             "title"
-            "descr";
+            "descr"
+            "pic";
          gap: 30px;
       }
    }
@@ -150,6 +151,7 @@ onUnmounted(() => {
       font-size: 24px;
       line-height: 32px;
       color: $bg-white;
+      overflow: hidden;
       @media screen and (max-width: $md) {
          font-size: 20px;
          line-height: 24px;
@@ -167,7 +169,11 @@ onUnmounted(() => {
       top: 57%;
       transform: translateY(-50%);
       @media screen and (max-width: $xl) {
-         display: none;
+         // display: none;
+         padding-bottom: 45%;
+         position: relative;
+         inset: 0;
+         transform: none;
       }
    }
 }

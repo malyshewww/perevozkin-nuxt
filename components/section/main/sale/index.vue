@@ -253,6 +253,12 @@ onMounted(() => {
          display: flex;
       }
    }
+   & .slider-button {
+      @media screen and (max-width: $xl) {
+         width: 60px;
+         height: 60px;
+      }
+   }
 }
 .item-sale {
    min-height: 560px;
@@ -333,9 +339,7 @@ onMounted(() => {
          left: 20px;
       }
       @media screen and (max-width: $md) {
-         padding: 15px 10px;
-         width: 64px;
-         height: 64px;
+         display: none;
       }
    }
    &__date {
@@ -414,6 +418,9 @@ onMounted(() => {
             width: 100%;
          }
       }
+      @media screen and (max-width: $xs) {
+         height: 216px;
+      }
    }
    &__image {
       width: 100%;
@@ -423,6 +430,14 @@ onMounted(() => {
          transform: translateX(30px);
          padding-bottom: calc(187 / 270 * 100%);
          // padding-bottom: calc(187 / 270 * 100%);
+      }
+      @media screen and (max-width: $xs) {
+         padding: 0;
+         position: absolute;
+         inset: 0;
+         & img {
+            position: static;
+         }
       }
    }
 }

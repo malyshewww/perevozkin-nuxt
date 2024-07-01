@@ -8,7 +8,7 @@
                </NuxtLink>
                <div class="footer__contacts contacts-footer">
                   <a href="tel:+78311380880" class="contacts-footer__phone"
-                     >+7 (831) 138-08-80</a
+                     >+7 (831)138-08-80</a
                   >
                   <a href="mailto:" class="contacts-footer__email"
                      >perevozov-service@mail.ru</a

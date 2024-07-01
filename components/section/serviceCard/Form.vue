@@ -73,6 +73,7 @@ onMounted(() => {
       @media screen and (max-width: $xl) {
          --border: 40px;
          padding: 40px 10px;
+         clip-path: none;
       }
       // &::before,
       // &::after {

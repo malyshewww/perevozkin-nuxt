@@ -26,8 +26,8 @@ defineProps({
    display: grid;
    place-items: center;
    background-image: url("/images/preloader.gif");
-   background-size: 97% auto;
-   background-position: 100% 50%;
+   background-size: 50% auto;
+   background-position: center;
    background-repeat: no-repeat;
 }
 </style>

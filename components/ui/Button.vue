@@ -55,6 +55,7 @@ const openPopup = () => {
       0 0,
       0 0
    );
+   border-radius: 0;
    @media (any-hover: hover) {
       &:hover {
          cursor: pointer;

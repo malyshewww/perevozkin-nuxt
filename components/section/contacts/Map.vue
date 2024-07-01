@@ -1,7 +1,7 @@
 <template>
    <div class="contacts__map map-contacts">
-      <div class="map-contacts__image ibg">
-         <img src="/images/contacts/picture.jpg" alt="изображение" />
+      <div v-if="isDesktop">
+         <SectionContactsImage />
       </div>
       <div id="mapElem" class="map-contacts__location"></div>
    </div>
@@ -9,6 +9,8 @@
 
 <script setup>
 import json from "~/static/geo.json";
+
+const { isDesktop } = useDevice();
 
 onMounted(() => {
    const mapElem = document.getElementById("mapElem");
@@ -65,9 +67,6 @@ onMounted(() => {
    gap: 20px;
    @media screen and (max-width: $xl) {
       grid-template-columns: 1fr;
-   }
-   &__image {
-      padding-bottom: calc(480 / 705 * 100%);
    }
    &__location {
       overflow: hidden;

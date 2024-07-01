@@ -170,14 +170,23 @@ onMounted(() => {});
          display: flex;
       }
    }
+   &__phone-wrap {
+      @media screen and (max-width: $xl) {
+         overflow: hidden;
+      }
+   }
    &__phone {
+      display: block;
       line-height: 22px;
       font-weight: 600;
-      @include transition(color, $time);
+      transition: color $time * 2 0.5s, transform $time * 2 0.9s;
       @media (any-hover: hover) {
          &:hover {
             color: $state-hover;
          }
+      }
+      @media screen and (max-width: $xl) {
+         transform: translate3d(0, 110%, 0);
       }
    }
    &__button {
@@ -207,11 +216,31 @@ onMounted(() => {});
       position: absolute;
       top: 0;
       right: 0;
+      &::before {
+         content: "";
+         position: absolute;
+         height: 100%;
+         width: 100%;
+         left: 0;
+         top: 0;
+         inset: 0;
+         transform-origin: right;
+         z-index: 3;
+         pointer-events: none;
+         background-color: $graphite;
+         transition: width $time * 2 1s;
+         display: none;
+         @media screen and (max-width: $xl) {
+            display: block;
+         }
+      }
       @media screen and (max-width: $xl) {
-         position: static;
+         position: relative;
          width: 100%;
          height: 48px;
          padding: 10px;
+         display: grid;
+         place-items: center;
       }
       &-text {
          font-weight: 600;
@@ -307,12 +336,31 @@ onMounted(() => {});
       padding: 92px 16px 20px;
       gap: 52px;
       flex-direction: column;
-      transform: translateY(-120%);
-      transition: transform $time * 2;
+      transform: translate3d(0, -100%, 0);
+      transition: transform 0.5s 1.2s;
       overflow-x: hidden;
       overflow-y: auto;
       &.active {
+         transition: transform 0.5s;
          transform: translateY(0);
+         & .menu__link {
+            transform: translate3d(0, 0, 0);
+         }
+         & .header__phone {
+            transform: translate3d(0, 0, 0);
+         }
+         & .header__button {
+            &::before {
+               transform-origin: left;
+               width: 0;
+            }
+         }
+         & .menu__body {
+            &::before {
+               width: 100%;
+               transition: width 0.5s 0.7s;
+            }
+         }
       }
       &::before {
          content: "";
@@ -330,18 +378,30 @@ onMounted(() => {});
       padding-top: 77px;
    }
    &__body {
-      flex: 0 1 44.488372%;
-      @media screen and (max-width: 1919px) {
-         flex: 1 1 auto;
-         display: flex;
-         justify-content: center;
+      flex: 1 1 auto;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      &::before {
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         height: 1px;
+         width: 0;
+         z-index: 1;
+         background-color: $bg-asphalt;
+         transition: height 0.5s, width 0.5s 0.6s;
+         display: none;
+         @media screen and (max-width: $xl) {
+            display: block;
+         }
       }
       @media screen and (max-width: $xl) {
          margin-left: 0;
       }
       @media screen and (max-width: $xl) {
          padding-top: 40px;
-         border-top: 1px solid $bg-asphalt;
       }
    }
    &__list {
@@ -350,21 +410,33 @@ onMounted(() => {});
       align-items: center;
       gap: 52px;
       flex-wrap: wrap;
+      margin-left: auto;
+      flex: 0 1 44.488372%;
+      @media screen and (max-width: 1919px) {
+         justify-content: flex-end;
+         flex: 0 0 auto;
+      }
       @media screen and (max-width: $xxl) {
          gap: 20px;
       }
       @media screen and (max-width: $xl) {
          flex-direction: column;
+         justify-content: center;
+         margin-left: 0;
       }
    }
    &__item {
+      @media screen and (max-width: $xl) {
+         overflow: hidden;
+      }
    }
    &__link {
       color: $bg-white;
       line-height: 24px;
       font-size: 16px;
       font-weight: 600;
-      @include transition(color, $time);
+      display: block;
+      transition: color $time, transform 0.5s;
       @media (any-hover: hover) {
          &:hover {
             color: $state-hover;
@@ -372,6 +444,19 @@ onMounted(() => {});
       }
       @media screen and (max-width: $xl) {
          line-height: 22px;
+         transform: translate3d(0, 110%, 0);
+         &:nth-child(1) {
+            transition: transform 0.5s 0.5s;
+         }
+         &:nth-child(2) {
+            transition: transform 0.5s 0.6s;
+         }
+         &:nth-child(3) {
+            transition: transform 0.5s 0.7s;
+         }
+         &:nth-child(4) {
+            transition: transform 0.5s 0.8s;
+         }
       }
    }
 }

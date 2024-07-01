@@ -1,4 +1,7 @@
 <template>
+   <div v-if="isMobile">
+      <SectionContactsImage />
+   </div>
    <div class="contacts__info info-contacts">
       <div class="info-contacts__item">
          <div class="info-contacts__caption">Адрес</div>
@@ -93,6 +96,10 @@
       </div>
    </div>
 </template>
+
+<script setup>
+const { isMobile } = useDevice();
+</script>
 
 <style lang="scss">
 .info-contacts {
