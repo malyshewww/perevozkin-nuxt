@@ -9,6 +9,7 @@
 </template>
 
 <script setup>
+import initCustomScrollbar from "~/utils/customScrollbar";
 const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 
 useHead({
@@ -21,10 +22,16 @@ definePageMeta({
    layout: "custom",
 });
 
-onMounted(() => {});
+onMounted(() => {
+   const { bodyScrollBar } = initCustomScrollbar();
+   if (!window.location.hash) {
+      bodyScrollBar.scrollTo(0, 0, 100);
+      bodyScrollBar.offset.y = 0;
+      bodyScrollBar.scrollTop = 0;
+   }
+});
 
 onUnmounted(() => {
-   ScrollTrigger.killAll();
    // const { bodyScrollBar, scroller } = initCustomScrollbar();
    // ScrollTrigger.scrollerProxy(".scroller", {
    //    scrollTop(value) {

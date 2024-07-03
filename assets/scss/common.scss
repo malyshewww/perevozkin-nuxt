@@ -289,6 +289,17 @@ body.lock {
 		}
 	}
 }
+.form__text {
+	& a {
+		transition: color $time, box-shadow $time;
+		@media (any-hover: hover) {
+			&:hover {
+				color: $state-hover;
+				box-shadow: 0 1px 0 0 $state-hover;
+			}
+		}
+	}
+}
 
 .content {
 	font-size: 16px;

@@ -19,8 +19,6 @@ nuxtApp.hook("page:start", () => {
 nuxtApp.hook("page:finish", () => {
    loading.value = false;
    console.log("end");
-   const { bodyScrollBar } = initCustomScrollbar();
-   bodyScrollBar.scrollTo(0, 0, 100);
    // setTimeout(() => {
    //    ScrollTrigger.refresh();
    // }, 1000);

@@ -20,8 +20,7 @@
                   id="form-phone"
                   type="tel"
                   name="phone"
-                  placeholder="Телефон"
-                  disabled />
+                  placeholder="Телефон" />
                <label for="form-phone">Телефон</label>
             </div>
          </div>
