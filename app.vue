@@ -6,6 +6,10 @@
    </NuxtLayout>
 </template>
 <script setup>
+import initCustomScrollbar from "~/utils/customScrollbar";
+
+const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
+
 const nuxtApp = useNuxtApp();
 const loading = ref(false);
 nuxtApp.hook("page:start", () => {
@@ -15,6 +19,11 @@ nuxtApp.hook("page:start", () => {
 nuxtApp.hook("page:finish", () => {
    loading.value = false;
    console.log("end");
+   const { bodyScrollBar } = initCustomScrollbar();
+   bodyScrollBar.scrollTo(0, 0, 100);
+   // setTimeout(() => {
+   //    ScrollTrigger.refresh();
+   // }, 1000);
 });
 onMounted(() => {});
 </script>

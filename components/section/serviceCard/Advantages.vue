@@ -148,17 +148,16 @@ const animation = () => {
    ];
    if (advantagesCards.length > 0) {
       tlCards.value = gsap.fromTo(
-         ".card-advantages",
-         { y: -70, opacity: 0 },
+         ".heading__title",
+         { y: 70, opacity: 0 },
          {
             y: 0,
             opacity: 1,
-            stagger: 0.5,
-            delay: 0.2,
+            stagger: 0.1,
             duration: 0.5,
             scrollTrigger: {
-               trigger: ".card-advantages",
-               start: "top 80%",
+               trigger: ".service-card__advantages",
+               start: "top 60%",
                end: "top 85%",
             },
          }
@@ -183,6 +182,20 @@ const animation = () => {
          {
             yPercent: 0,
             opacity: 1,
+            stagger: 0.5,
+            delay: 0.5,
+            duration: 0.5,
+            scrollTrigger: {
+               trigger: ".card-advantages",
+            },
+         }
+      );
+      tlCards.value = gsap.fromTo(
+         ".card-advantages__icon",
+         { opacity: 0, rotate: 180 },
+         {
+            opacity: 1,
+            rotate: 0,
             stagger: 0.5,
             delay: 0.5,
             duration: 0.5,
@@ -245,6 +258,7 @@ const serviceSlider = [
       &__title {
          font-size: 28px;
          line-height: 36px;
+         transition: none;
          @media screen and (max-width: $xl) {
             font-size: calc(40px / 1.5);
             line-height: calc(52px / 1.5);

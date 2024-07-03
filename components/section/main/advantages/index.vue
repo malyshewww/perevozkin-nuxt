@@ -48,6 +48,7 @@ const advantagesBody = ref("");
 const progress = ref(0);
 
 const tl = ref(null);
+const tlContent = ref(null);
 const timeln = ref(null);
 
 const animationCards = (triggerSelector, startPosition) => {
@@ -78,8 +79,12 @@ const animationCards = (triggerSelector, startPosition) => {
             },
          })
          .from(".card-advantages--1", {
-            yPercent: 130,
-            "--opacity": 1,
+            y: window.matchMedia("(min-width: 1024px)").matches
+               ? "130vh"
+               : "0px",
+            "--opacity": window.matchMedia("(min-width: 1024px)").matches
+               ? 1
+               : 0,
          })
          .addLabel("card1")
          .to(".card-advantages--1", {
@@ -87,7 +92,7 @@ const animationCards = (triggerSelector, startPosition) => {
             "--opacity": 0.6,
          })
          .from(".card-advantages--2", {
-            yPercent: 130,
+            y: "130vh",
             // opacity: 1,
             "--opacity": 1,
          })
@@ -105,7 +110,7 @@ const animationCards = (triggerSelector, startPosition) => {
             "--opacity": 0.6,
          })
          .from(".card-advantages--3", {
-            yPercent: 130,
+            y: "130vh",
 
             "--opacity": 1,
          })
@@ -125,7 +130,7 @@ const animationCards = (triggerSelector, startPosition) => {
             "--opacity": 0.6,
          })
          .from(".card-advantages--4", {
-            yPercent: 130,
+            y: "130vh",
          })
          .addLabel("card4")
          .to(
@@ -160,27 +165,21 @@ const animation = () => {
    //    types: "lines",
    // });
    // const linesContent = splitContent.lines;
-
    tl.value = gsap
       .timeline({
          scrollTrigger: {
             trigger: advantagesBody.value,
-            start: "top top",
-            end: "+=100%",
-            pin: true,
-            pinSpacing: true,
-            // toggleActions: "play pause resume reset",
-            onUpdate: function (self) {
-               progress.value = self.progress;
-            },
+            start: "top-=50%",
+            end: "top 85%",
+            // pin: true,
          },
       })
       .fromTo(
          lines,
          {
+            clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
             y: 100,
             opacity: 0,
-            clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
          },
          {
             y: 0,
@@ -189,15 +188,25 @@ const animation = () => {
             clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
             ease: "power4.out",
          }
-      )
+      );
+   tlContent.value = gsap
+      .timeline({
+         scrollTrigger: {
+            trigger: advantagesBody.value,
+            start: "top top",
+            end: "+=100%",
+            // pin: true,
+         },
+      })
       .fromTo(
          AdvantagesContent.value,
          {
             opacity: 0,
          },
          {
-            stagger: 0.1,
+            stagger: 0.5,
             opacity: 1,
+            duration: 0.5,
             ease: "power4.out",
          }
       );
@@ -207,6 +216,7 @@ const animation = () => {
 const destroyAnimations = () => {
    tl.value.pause().kill();
    timeln.value.pause().kill();
+   tlContent.value.pause().kill();
 };
 
 onMounted(() => {
@@ -214,7 +224,7 @@ onMounted(() => {
       animation();
    }
    if (window.matchMedia("(max-width: 1024px)").matches) {
-      animationCards(advantagesCards.value, "top 5%");
+      animationCards(advantagesCards.value, "top 2%");
    }
 });
 
@@ -286,7 +296,6 @@ onUnmounted(() => {
       grid-template-rows: repeat(3, 2.5rem) auto;
       position: relative;
       backface-visibility: hidden;
-      overflow: hidden;
       @media screen and (max-width: $xl) {
          height: auto;
          grid-column: 1 / -1;

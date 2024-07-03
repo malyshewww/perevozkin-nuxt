@@ -1,13 +1,13 @@
 <template>
    <article v-for="article in articleList" :key="article.id" class="article">
-      <div class="article__image ibg">
+      <NuxtLink :to="`/blog/${article.id}`" class="article__image ibg">
          <img
             :src="`/images/articles/${article.img}.jpg`"
             :alt="article.title" />
-      </div>
+      </NuxtLink>
       <div class="article__body">
          <h2 class="article__title">
-            {{ article.title }}
+            <NuxtLink :to="`/blog/${article.id}`">{{ article.title }}</NuxtLink>
          </h2>
          <div class="article__description">
             <p>{{ article.description }}</p>

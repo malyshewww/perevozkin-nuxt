@@ -37,6 +37,16 @@ defineProps({
    }
    &__nav {
       overflow: auto hidden;
+      &::-webkit-scrollbar {
+         display: none;
+         width: 0;
+         height: 0;
+      }
+      &::-webkit-scrollbar-thumb {
+         display: none;
+         width: 0;
+         height: 0;
+      }
    }
    &__list {
       @include reset-list;

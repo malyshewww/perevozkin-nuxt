@@ -235,6 +235,12 @@ onBeforeUnmount(() => {
             margin-left: 0;
          }
       }
+      & .menu__list {
+         margin-left: auto;
+         @media screen and (max-width: $xl) {
+            margin: 0;
+         }
+      }
    }
 }
 .main-parallax {

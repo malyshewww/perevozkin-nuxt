@@ -54,12 +54,20 @@ const isMenuActive = ref(false);
 const menuOpen = () => {
    isMenuActive.value = !isMenuActive.value;
    document.body.classList.toggle("lock");
+   const { bodyScrollBar } = initCustomScrollbar();
+   bodyScrollBar.updatePluginOptions("lock", { lock: true });
+   setTimeout(() => {
+      isMenuActive.value == false &&
+         bodyScrollBar.updatePluginOptions("lock", { lock: false });
+   }, 1200);
 };
 
 const menuClose = () => {
    isMenuActive.value = false;
    document.body.classList.contains("lock") &&
       document.body.classList.remove("lock");
+   const { bodyScrollBar } = initCustomScrollbar();
+   bodyScrollBar.updatePluginOptions("lock", { lock: false });
 };
 
 const goToSection = () => {
@@ -228,7 +236,7 @@ onMounted(() => {});
          z-index: 3;
          pointer-events: none;
          background-color: $graphite;
-         transition: width $time * 2 1s;
+         transition: width $time 0.9s;
          display: none;
          @media screen and (max-width: $xl) {
             display: block;
@@ -410,7 +418,6 @@ onMounted(() => {});
       align-items: center;
       gap: 52px;
       flex-wrap: wrap;
-      margin-left: auto;
       flex: 0 1 44.488372%;
       @media screen and (max-width: 1919px) {
          justify-content: flex-end;
