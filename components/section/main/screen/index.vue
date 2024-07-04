@@ -10,13 +10,16 @@
                </h1>
             </div>
             <div ref="mainVideo" class="main-screen__video ibg">
-               <video
+               <img
+                  src="`/images/main-screen/empty.png`"
+                  alt="изображение заглушка" />
+               <!-- <video
                   :poster="`/images/video-poster.jpg`"
                   autoplay="autoplay"
                   loop="loop"
                   muted>
                   <source :src="`/images/video.mp4`" type="video/mp4" />
-               </video>
+               </video> -->
             </div>
             <div class="spin">
                <img src="/images/icons/spin.svg" alt="spin" />
@@ -122,9 +125,9 @@ const animation = () => {
             // trigger: mainScreen.value,
             // pinSpacing: false,
             // pin: false,
-            scrub: true,
+            scrub: 1,
             start: () => progress.value > 0.01,
-            end: "+=15%",
+            end: "+=10%",
          },
       })
       .to(headerLogo, {
@@ -138,9 +141,9 @@ const animation = () => {
             // trigger: mainScreen.value,
             // pinSpacing: false,
             // pin: false,
-            scrub: true,
+            scrub: 1,
             start: () => progress.value > 0.01,
-            end: "+=15%",
+            end: "+=10%",
          },
       })
       .to(headerMenu, {
@@ -152,7 +155,7 @@ const animation = () => {
             trigger: mainScreen.value,
             pinSpacing: false,
             pin: false,
-            scrub: true,
+            scrub: 1,
             start: () => progress.value > 0.01,
             end: "+=30%",
          },
@@ -165,7 +168,7 @@ const animation = () => {
          scrollTrigger: {
             pinSpacing: false,
             pin: false,
-            scrub: true,
+            scrub: 1,
             end: () => progress.value > 0.6,
          },
       })
@@ -309,8 +312,9 @@ onBeforeUnmount(() => {
       text-transform: uppercase;
       color: $bg-white;
       transform: translateY(120%);
-      transition: transform 0.2s;
+      transition: transform $time;
       will-change: transform;
+      transition: none;
       &.active {
          transform: translate(0);
       }

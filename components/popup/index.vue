@@ -69,10 +69,6 @@ const closePopup = () => {
       padding: 80px 100px;
       //   box-shadow: 0 0 50px 0 rgba(16, 19, 22, 0.8);
       position: relative;
-      @media screen and (max-width: $md) {
-         padding: 30px 15px;
-         border-radius: 16px;
-      }
       opacity: 0;
       // transform: perspective(600px) translate(0px, -100%) rotateX(45deg);
       transition: opacity $time;
