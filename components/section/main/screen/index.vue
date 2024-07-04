@@ -11,7 +11,7 @@
             </div>
             <div ref="mainVideo" class="main-screen__video ibg">
                <img
-                  src="`/images/main-screen/empty.png`"
+                  :src="`/images/main-screen/empty.png`"
                   alt="изображение заглушка" />
                <!-- <video
                   :poster="`/images/video-poster.jpg`"
