@@ -10,7 +10,11 @@
 
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
+import { usePreloaderStore } from "@/stores/preloader";
+
 const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
+
+const store = usePreloaderStore();
 
 useHead({
    title: "Главная страница",
@@ -26,8 +30,12 @@ onMounted(() => {
    const { bodyScrollBar } = initCustomScrollbar();
    if (!window.location.hash) {
       bodyScrollBar.scrollTo(0, 0, 100);
-      bodyScrollBar.offset.y = 0;
-      bodyScrollBar.scrollTop = 0;
+   } else {
+      const sectionSale = document.querySelector(".main-sale");
+      if (sectionSale) {
+         const scrollToHere = sectionSale.offsetTop + 100;
+         bodyScrollBar.scrollTo(0, scrollToHere, 100);
+      }
    }
 });
 

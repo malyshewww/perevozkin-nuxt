@@ -19,7 +19,6 @@ defineProps({
 .loading {
    width: 100%;
    height: 100%;
-   background-color: $bg-asphalt;
    position: fixed;
    z-index: 20;
    inset: 0;
@@ -29,5 +28,14 @@ defineProps({
    background-size: 50% auto;
    background-position: center;
    background-repeat: no-repeat;
+   animation: bg 3s linear;
+}
+@keyframes bg {
+   0% {
+      background-color: black;
+   }
+   100% {
+      background-color: $bg-asphalt;
+   }
 }
 </style>

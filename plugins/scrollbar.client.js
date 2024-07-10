@@ -42,7 +42,7 @@ export default defineNuxtPlugin((nuxtApp) => {
          if (!hash) {
             return;
          }
-         if (hash === "#top") {
+         if (hash === "#sale") {
             scrollbar.setMomentum(0, -scrollbar.scrollTop);
          } else {
             console.log("scrollTop:", scrollbar.containerEl.scrollTop);
