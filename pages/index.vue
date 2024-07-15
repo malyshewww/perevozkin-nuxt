@@ -9,10 +9,18 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import initCustomScrollbar from "~/utils/customScrollbar";
 import { usePreloaderStore } from "@/stores/preloader";
 
-const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
+const {
+   $ScrollTrigger: ScrollTrigger,
+   $ScrollbarPlugin: ScrollbarPlugin,
+   $Scrollbar: Scrollbar,
+} = useNuxtApp();
+
+console.log(Scrollbar);
+console.log(ScrollbarPlugin);
 
 const store = usePreloaderStore();
 
@@ -33,8 +41,14 @@ onMounted(() => {
    } else {
       const sectionSale = document.querySelector(".main-sale");
       if (sectionSale) {
-         const scrollToHere = sectionSale.offsetTop + 100;
-         bodyScrollBar.scrollTo(0, scrollToHere, 100);
+         let itemY = sectionSale.offsetTop + 100;
+         bodyScrollBar.scrollTo(0, itemY, 600);
+         // const scrollToHere = sectionSale.offsetTop + bodyScrollBar.offset.y;
+         // bodyScrollBar.scrollTo(
+         //    0,
+         //       scrollToHere,
+         //    100
+         // );
       }
    }
 });

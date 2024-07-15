@@ -21,7 +21,6 @@ export default defineNuxtPlugin((nuxtApp) => {
    }
    class AnchorPlugin extends ScrollbarPlugin {
       static pluginName = "anchor";
-
       onHashChange = () => {
          this.jumpToHash(window.location.hash);
       };
@@ -39,17 +38,54 @@ export default defineNuxtPlugin((nuxtApp) => {
       jumpToHash = (hash) => {
          console.log("hash:", hash);
          const { scrollbar } = this;
+         let offset = 0;
+         let itemY = 0;
          if (!hash) {
+            console.log("not hash sale");
             return;
          }
          if (hash === "#sale") {
-            scrollbar.setMomentum(0, -scrollbar.scrollTop);
+            itemY =
+               scrollbar.offset.y +
+               document?.querySelector(hash).getBoundingClientRect().top -
+               scrollbar.scrollTop;
+            // scrollbar.offset.y - document.querySelector(hash).clientHeight;
+            // scrollbar.setMomentum(0, -scrollbar.scrollTop);
+            console.log("hash sale");
+         }
+         // else {
+         //    console.log("scrollTop:", scrollbar.containerEl.scrollTop);
+         //    scrollbar.scrollIntoView(document?.querySelector(hash), {
+         //       offsetTop: -scrollbar.containerEl.scrollTop - 100,
+         //    });
+         //    scrollbar.containerEl.scrollTop = 0;
+         // }
+         // // reset scrollTop
+         // scrollbar.containerEl.scrollTop = 0;
+         if (document?.querySelector(hash).getBoundingClientRect().top > 0) {
+            if (
+               window
+                  .getComputedStyle(document?.querySelector(hash), null)
+                  .paddingTop.replace("px", "") < 100
+            ) {
+               // window.scrollTo(0, itemY - offset);
+               scrollbar.scrollTo(0, itemY - offset, 600);
+            } else {
+               // window.scrollTo(0, itemY + offset);
+               scrollbar.scrollTo(0, itemY + offset, 600);
+            }
          } else {
-            console.log("scrollTop:", scrollbar.containerEl.scrollTop);
-            scrollbar.scrollIntoView(document.querySelector(hash), {
-               offsetTop: -scrollbar.containerEl.scrollTop - 100,
-            });
-            scrollbar.containerEl.scrollTop = 0;
+            if (
+               window
+                  .getComputedStyle(document?.querySelector(hash), null)
+                  .paddingTop.replace("px", "") < 100
+            ) {
+               // window.scrollTo(0, itemY - headerHeight - offset);
+               scrollbar.scrollTo(0, itemY - offset, 600);
+            } else {
+               // window.scrollTo(0, itemY - headerHeight + offset);
+               scrollbar.scrollTo(0, itemY + offset, 600);
+            }
          }
       };
       onInit() {

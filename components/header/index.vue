@@ -74,7 +74,7 @@ const goToSection = () => {
    const { bodyScrollBar } = initCustomScrollbar();
    const sectionSale = document.querySelector(".main-sale");
    if (sectionSale) {
-      const scrollToHere = sectionSale.offsetTop + 100;
+      const scrollToHere = sectionSale.offsetTop;
       bodyScrollBar.scrollTo(0, scrollToHere, 400);
       if (window.matchMedia("(max-width: 1024px)").matches) {
          menuClose();
@@ -187,7 +187,7 @@ onMounted(() => {});
       display: block;
       line-height: 22px;
       font-weight: 600;
-      transition: color $time * 2 0.5s, transform $time * 2 0.9s;
+      transition: color $time, transform $time * 2 0.9s;
       @media (any-hover: hover) {
          &:hover {
             color: $state-hover;

@@ -1,18 +1,17 @@
 <template>
-   <div>
-      <UiPreloader :is-loading="loading" />
-      <div ref="scroller" class="scroller">
-         <div class="wrapper">
-            <UiTrailer />
-            <slot />
-            <Footer />
-         </div>
+   <UiPreloader :is-loading="loading" />
+   <div ref="scroller" class="scroller">
+      <div class="wrapper" :class="{ active: !loading }">
+         <UiTrailer />
+         <slot />
+         <Footer />
       </div>
-      <div id="rotate-device"></div>
    </div>
+   <div id="rotate-device"></div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import initCustomScrollbar from "~/utils/customScrollbar";
 import { usePreloaderStore } from "@/stores/preloader";
 
@@ -26,7 +25,7 @@ const Preloader = () => {
       store.switchLoading();
       loading.value = false;
       bodyScrollBar.updatePluginOptions("lock", { lock: false });
-   }, 1000);
+   }, 1400);
 };
 
 const mobileAnimation = () => {
@@ -77,6 +76,20 @@ onMounted(() => {
       & .scrollbar-track {
          width: 0;
       }
+   }
+}
+.wrapper {
+   &.active {
+      animation: opacity 1s linear;
+   }
+}
+
+@keyframes opacity {
+   0% {
+      opacity: 0;
+   }
+   100% {
+      opacity: 1;
    }
 }
 </style>

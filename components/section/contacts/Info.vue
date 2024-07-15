@@ -6,7 +6,7 @@
       <div class="info-contacts__item">
          <div class="info-contacts__caption">Адрес</div>
          <div class="info-contacts__values">
-            <address>603086, г. Нижний Новгород, ул. Коминтерна, 39</address>
+            <address>г. Нижний Новгород, ул. Партизанская, дом 6</address>
          </div>
       </div>
       <div class="info-contacts__item">

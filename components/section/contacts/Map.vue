@@ -31,7 +31,7 @@ onMounted(() => {
       } = ymaps3;
       const map = new YMap(document.getElementById("mapElem"), {
          location: {
-            center: [43.867233, 56.353754],
+            center: [43.932217, 56.266512],
             zoom: 16,
          },
       });
@@ -50,7 +50,7 @@ onMounted(() => {
       // Инициализируйте маркер
       const marker = new YMapMarker(
          {
-            coordinates: [43.867233, 56.353754],
+            coordinates: [43.932217, 56.266512],
             draggable: true,
          },
          content

@@ -24,11 +24,20 @@ defineProps({
    inset: 0;
    display: grid;
    place-items: center;
-   background-image: url("/images/preloader.gif");
-   background-size: 50% auto;
-   background-position: center;
-   background-repeat: no-repeat;
-   animation: bg 3s linear;
+   animation: bg 2.5s ease;
+   &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("/images/preloader.gif");
+      background-size: 50% auto;
+      background-position: center;
+      background-repeat: no-repeat;
+      animation: opacity 2s linear;
+   }
 }
 @keyframes bg {
    0% {
@@ -36,6 +45,14 @@ defineProps({
    }
    100% {
       background-color: $bg-asphalt;
+   }
+}
+@keyframes opacity {
+   50% {
+      opacity: 1;
+   }
+   100% {
+      opacity: 0;
    }
 }
 </style>

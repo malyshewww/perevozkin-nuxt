@@ -35,6 +35,10 @@
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
 
+import { usePreloaderStore } from "@/stores/preloader";
+
+const store = usePreloaderStore();
+
 const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 
 const mainScreen = ref("");
@@ -155,20 +159,20 @@ const animation = () => {
             trigger: mainScreen.value,
             pinSpacing: false,
             pin: false,
-            scrub: 1,
+            scrub: true,
             start: () => progress.value > 0.01,
             end: "+=30%",
          },
       })
-      .to(mainTitle.value, {
-         y: 0,
-         opacity: 1,
-      })
+      // .to(mainTitle.value, {
+      //    y: 0,
+      //    opacity: 1,
+      // })
       .to(mainTitle.value, {
          scrollTrigger: {
             pinSpacing: false,
             pin: false,
-            scrub: 1,
+            scrub: true,
             end: () => progress.value > 0.6,
          },
       })
@@ -216,6 +220,11 @@ onMounted(() => {
       animation();
    }
    mobileAnimation();
+   setTimeout(() => {
+      mainTitle.value.style.transition = "opacity 0.3s, transform 0.3s";
+      mainTitle.value.style.opacity = "1";
+      mainTitle.value.style.transform = "translateY(0)";
+   }, store.loading && 2000);
 });
 
 onBeforeUnmount(() => {
