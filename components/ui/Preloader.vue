@@ -1,9 +1,5 @@
 <template>
-   <div v-if="isLoading" class="loading">
-      <!-- <div class="loading__image">
-         <img src="/images/preloader.gif" alt="прелоадер" />
-      </div> -->
-   </div>
+   <div v-if="isLoading" class="loading"></div>
 </template>
 
 <script setup>
@@ -15,7 +11,7 @@ defineProps({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .loading {
    width: 100%;
    height: 100%;
@@ -24,7 +20,7 @@ defineProps({
    inset: 0;
    display: grid;
    place-items: center;
-   animation: bg 2.5s ease;
+   animation: bg 2.5s linear both;
    &::before {
       content: "";
       position: absolute;
@@ -32,11 +28,11 @@ defineProps({
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url("/images/preloader.gif");
+      background-image: url("/images/preloader2.gif");
       background-size: 50% auto;
       background-position: center;
       background-repeat: no-repeat;
-      animation: opacity 2s linear;
+      animation: opacityZero 2.2s linear both;
    }
 }
 @keyframes bg {
@@ -47,8 +43,8 @@ defineProps({
       background-color: $bg-asphalt;
    }
 }
-@keyframes opacity {
-   50% {
+@keyframes opacityZero {
+   60% {
       opacity: 1;
    }
    100% {
