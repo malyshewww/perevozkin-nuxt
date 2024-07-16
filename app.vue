@@ -5,35 +5,7 @@
       </NuxtErrorBoundary>
    </NuxtLayout>
 </template>
-<script setup>
-import initCustomScrollbar from "~/utils/customScrollbar";
-
-const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
-
-import { usePreloaderStore } from "@/stores/preloader";
-
-const store = usePreloaderStore();
-
-const nuxtApp = useNuxtApp();
-const loading = ref(false);
-nuxtApp.hook("page:start", () => {
-   // loading.value = true;
-   console.log("start");
-});
-nuxtApp.hook("page:finish", () => {
-   // loading.value = false;
-   console.log("end");
-   // setTimeout(() => {
-   //    ScrollTrigger.refresh();
-   // }, 1000);
-   // if (!window.location.hash) {
-   //    const { bodyScrollBar } = initCustomScrollbar();
-   //    bodyScrollBar.scrollIntoView(document.querySelector("header"));
-   // }
-});
-
-onMounted(() => {});
-</script>
+<script setup></script>
 
 <style lang="scss">
 @import "~/assets/scss/base/nullstyle.scss";

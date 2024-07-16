@@ -47,12 +47,22 @@ const mobileAnimation = () => {
    }
 };
 
+const nuxtApp = useNuxtApp();
+nuxtApp.hook("page:start", () => {
+   // loading.value = true;
+   console.log("start");
+});
+nuxtApp.hook("page:finish", () => {
+   // loading.value = false;
+   console.log("end");
+   Preloader();
+});
+
 onMounted(() => {
    initCustomScrollbar();
    if (window.matchMedia("(max-width: 1024px)").matches) {
       mobileAnimation();
    }
-   Preloader();
 });
 </script>
 
