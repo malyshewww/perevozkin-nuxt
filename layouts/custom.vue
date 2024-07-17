@@ -25,7 +25,7 @@ const Preloader = () => {
       store.switchLoading();
       loading.value = false;
       bodyScrollBar.updatePluginOptions("lock", { lock: false });
-   }, 1500);
+   }, 2000);
 };
 
 const mobileAnimation = () => {

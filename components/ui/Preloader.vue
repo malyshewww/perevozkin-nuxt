@@ -25,7 +25,7 @@ const setPreloaderPath = () => {
    inset: 0;
    display: grid;
    place-items: center;
-   animation: bg 2.5s linear running;
+   animation: bg 2.5s linear both;
    pointer-events: none;
    // &::before {
    //    content: "";
@@ -51,7 +51,7 @@ const setPreloaderPath = () => {
       left: 50%;
       transform: translateX(-50%);
       & img {
-         animation: opacityZero 2.3s linear running;
+         animation: opacityZero 2.3s linear both;
       }
    }
 }
