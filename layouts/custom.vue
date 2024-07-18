@@ -36,6 +36,7 @@ nuxtApp.hook("page:start", () => {
 nuxtApp.hook("page:finish", () => {
    // loading.value = false;
    console.log("end");
+   Preloader();
    const { bodyScrollBar } = initCustomScrollbar();
    if (!window.location.hash) {
       bodyScrollBar.scrollTo(0, 0, 100);
@@ -72,7 +73,6 @@ onMounted(() => {
    if (window.matchMedia("(max-width: 1024px)").matches) {
       mobileAnimation();
    }
-   Preloader();
 });
 </script>
 
