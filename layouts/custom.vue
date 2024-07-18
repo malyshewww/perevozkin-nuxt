@@ -36,6 +36,16 @@ nuxtApp.hook("page:start", () => {
 nuxtApp.hook("page:finish", () => {
    // loading.value = false;
    console.log("end");
+   const { bodyScrollBar } = initCustomScrollbar();
+   if (!window.location.hash) {
+      bodyScrollBar.scrollTo(0, 0, 100);
+   } else {
+      const sectionSale = document.querySelector(".main-sale");
+      if (sectionSale) {
+         const scrollToHere = sectionSale.offsetTop;
+         bodyScrollBar.scrollTo(0, scrollToHere, 400);
+      }
+   }
 });
 
 const mobileAnimation = () => {
