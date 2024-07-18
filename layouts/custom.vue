@@ -25,7 +25,7 @@ const Preloader = () => {
       store.switchLoading();
       loading.value = false;
       bodyScrollBar.updatePluginOptions("lock", { lock: false });
-   }, 2000);
+   }, 2200);
 };
 
 const nuxtApp = useNuxtApp();
@@ -99,7 +99,7 @@ onMounted(() => {
 
 @keyframes opacityWrapper {
    0% {
-      opacity: 0.5;
+      opacity: 0.2;
    }
    100% {
       opacity: 1;

@@ -65,11 +65,11 @@ const setPreloaderPath = () => {
    }
    100% {
       background-color: $bg-asphalt;
-      opacity: 0;
+      opacity: 0.2;
    }
 }
 @keyframes opacityZero {
-   60% {
+   65% {
       opacity: 1;
    }
    100% {
