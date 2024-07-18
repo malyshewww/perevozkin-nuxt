@@ -28,7 +28,7 @@ const setPreloaderPath = () => {
    background-color: black;
    opacity: 1;
    // animation: bg 2.5s linear running;
-   animation: bg 2.5s linear 1.08s;
+   animation: bg 2.5s linear 1.08s both;
    pointer-events: none;
    // &::before {
    //    content: "";
