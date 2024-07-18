@@ -33,7 +33,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .scroller {
    height: 100vh;
    width: 100vw;
