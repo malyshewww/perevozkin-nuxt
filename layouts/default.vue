@@ -1,7 +1,7 @@
 <template>
    <div>
       <div class="scroller">
-         <div class="wrapper">
+         <div class="wrapper wrapper-default">
             <UiTrailer />
             <Header />
             <slot />
@@ -57,5 +57,8 @@ onMounted(() => {
          width: 0;
       }
    }
+}
+.wrapper-default {
+   opacity: 1;
 }
 </style>

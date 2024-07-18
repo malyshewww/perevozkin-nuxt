@@ -1,5 +1,5 @@
 <template>
-   <main class="main main-index">
+   <main class="main">
       <SectionMainScreen />
       <SectionMainServices />
       <SectionMainAdvantages />
