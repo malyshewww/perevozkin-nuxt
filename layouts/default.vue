@@ -15,6 +15,19 @@
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
 
+const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
+
+const nuxtApp = useNuxtApp();
+nuxtApp.hook("page:start", () => {
+   /* your code goes here */
+});
+nuxtApp.hook("page:finish", () => {
+   if (!window.location.hash) {
+      const { bodyScrollBar } = initCustomScrollbar();
+      bodyScrollBar.scrollTo(0, 0, 100);
+   }
+});
+
 onMounted(() => {
    initCustomScrollbar();
 });
@@ -31,6 +44,9 @@ onMounted(() => {
    }
    & .scrollbar-thumb {
       background: rgba($bg-green-lime, 0.8);
+   }
+   & .scrollbar-track-x {
+      display: none;
    }
 }
 @media screen and (max-width: 1024px) {

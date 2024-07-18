@@ -9,17 +9,19 @@
                   <span>№1&nbsp;в&nbsp;Нижнем Новгороде</span>
                </h1>
             </div>
-            <div ref="mainVideo" class="main-screen__video ibg">
-               <img
-                  :src="`/images/main-screen/empty.png`"
-                  alt="изображение заглушка" />
-               <!-- <video
-                  :poster="`/images/video-poster.jpg`"
-                  autoplay="autoplay"
-                  loop="loop"
-                  muted>
-                  <source :src="`/images/video.mp4`" type="video/mp4" />
-               </video> -->
+            <div class="main-screen__video-wrap">
+               <div ref="mainVideo" class="main-screen__video ibg">
+                  <img
+                     :src="`/images/main-screen/empty.png`"
+                     alt="изображение заглушка" />
+                  <!-- <video
+                     :poster="`/images/video-poster.jpg`"
+                     autoplay="autoplay"
+                     loop="loop"
+                     muted>
+                     <source :src="`/images/video.mp4`" type="video/mp4" />
+                  </video> -->
+               </div>
             </div>
             <div class="spin">
                <img src="/images/icons/spin.svg" alt="spin" />
@@ -108,6 +110,7 @@ const animation = () => {
       .to(mainVideo.value, {
          width: "100%",
          height: `calc(${100}vh - ${header?.clientHeight + 100}px)`,
+         // paddingBottom: 0,
       });
    animParallax.value = gsap
       .timeline({
@@ -343,16 +346,21 @@ onBeforeUnmount(() => {
          line-height: 36px;
       }
    }
+   &__video-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+   }
    &__video {
       width: 55.5%;
-      padding: 0;
-      position: relative;
-      height: 48.28vh;
+      // padding-bottom: 56.25%;
+      height: 56.25vh;
       @media screen and (max-width: $xl) {
          width: 100%;
          height: auto;
          padding-bottom: calc(194 / 343 * 100%);
-         & video {
+         & video,
+         & img {
             position: absolute;
             top: 0;
             left: 0;

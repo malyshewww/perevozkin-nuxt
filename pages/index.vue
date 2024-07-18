@@ -1,5 +1,5 @@
 <template>
-   <main class="main">
+   <main class="main main-index">
       <SectionMainScreen />
       <SectionMainServices />
       <SectionMainAdvantages />
@@ -9,20 +9,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import initCustomScrollbar from "~/utils/customScrollbar";
-import { usePreloaderStore } from "@/stores/preloader";
-
-const {
-   $ScrollTrigger: ScrollTrigger,
-   $ScrollbarPlugin: ScrollbarPlugin,
-   $Scrollbar: Scrollbar,
-} = useNuxtApp();
-
-console.log(Scrollbar);
-console.log(ScrollbarPlugin);
-
-const store = usePreloaderStore();
 
 useHead({
    title: "Главная страница",
@@ -42,6 +29,7 @@ onMounted(() => {
       const sectionSale = document.querySelector(".main-sale");
       if (sectionSale) {
          let itemY = sectionSale.offsetTop + 100;
+         console.log(itemY);
          bodyScrollBar.scrollTo(0, itemY, 600);
          // const scrollToHere = sectionSale.offsetTop + bodyScrollBar.offset.y;
          // bodyScrollBar.scrollTo(
@@ -66,7 +54,6 @@ onUnmounted(() => {
    // bodyScrollBar.addListener(ScrollTrigger.update);
    // ScrollTrigger.defaults({ scroller });
 });
-// onBeforeUpdate(() => {
-//    window.location.reload();
-// });
 </script>
+
+<style lang="scss"></style>

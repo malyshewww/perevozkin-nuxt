@@ -12,8 +12,8 @@
 
 <script setup>
 import { ref } from "vue";
-import initCustomScrollbar from "~/utils/customScrollbar";
 import { usePreloaderStore } from "@/stores/preloader";
+import initCustomScrollbar from "~/utils/customScrollbar";
 
 const store = usePreloaderStore();
 const loading = ref(store.loading);
@@ -27,6 +27,16 @@ const Preloader = () => {
       bodyScrollBar.updatePluginOptions("lock", { lock: false });
    }, 2000);
 };
+
+const nuxtApp = useNuxtApp();
+nuxtApp.hook("page:start", () => {
+   // loading.value = true;
+   console.log("start");
+});
+nuxtApp.hook("page:finish", () => {
+   // loading.value = false;
+   console.log("end");
+});
 
 const mobileAnimation = () => {
    const titles = document.querySelectorAll(".anim-heading");
@@ -47,22 +57,12 @@ const mobileAnimation = () => {
    }
 };
 
-const nuxtApp = useNuxtApp();
-nuxtApp.hook("page:start", () => {
-   // loading.value = true;
-   console.log("start");
-});
-nuxtApp.hook("page:finish", () => {
-   // loading.value = false;
-   console.log("end");
-   Preloader();
-});
-
 onMounted(() => {
    initCustomScrollbar();
    if (window.matchMedia("(max-width: 1024px)").matches) {
       mobileAnimation();
    }
+   Preloader();
 });
 </script>
 
@@ -78,6 +78,9 @@ onMounted(() => {
    & .scrollbar-thumb {
       background: rgba($bg-green-lime, 0.8);
    }
+   & .scrollbar-track-x {
+      display: none;
+   }
 }
 @media screen and (max-width: 1024px) {
    .scroller {
@@ -90,13 +93,13 @@ onMounted(() => {
 }
 .wrapper {
    &.active {
-      animation: opacity 1s linear;
+      animation: opacityWrapper 1s linear;
    }
 }
 
-@keyframes opacity {
+@keyframes opacityWrapper {
    0% {
-      opacity: 0;
+      opacity: 0.5;
    }
    100% {
       opacity: 1;
