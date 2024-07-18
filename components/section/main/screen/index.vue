@@ -334,7 +334,7 @@ onBeforeUnmount(() => {
          opacity: 0;
       }
       @media (min-width: 1024px) and (max-height: 800px) {
-         font-size: 9vh;
+         font-size: 8vh;
          line-height: 120%;
       }
       & span {

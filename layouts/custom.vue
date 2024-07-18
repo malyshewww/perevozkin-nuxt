@@ -1,7 +1,7 @@
 <template>
    <UiPreloader :is-loading="loading" />
-   <div ref="scroller" class="scroller" :class="{ active: isLoaded }">
-      <div class="wrapper">
+   <div ref="scroller" class="scroller">
+      <div class="wrapper" :class="{ active: isLoaded }">
          <UiTrailer />
          <slot />
          <Footer />
@@ -31,13 +31,13 @@ const Preloader = () => {
 };
 
 const nuxtApp = useNuxtApp();
-nuxtApp.hook("page:start", () => {
+nuxtApp.hook("page:loading:start", () => {
    // loading.value = true;
-   console.log("start");
+   console.log("loading start");
 });
-nuxtApp.hook("page:finish", () => {
+nuxtApp.hook("page:loading:end", () => {
    // loading.value = false;
-   console.log("end");
+   console.log("loading end");
    Preloader();
    isLoaded.value = !isLoaded.value;
    const { bodyScrollBar } = initCustomScrollbar();
@@ -105,4 +105,19 @@ onMounted(() => {
       }
    }
 }
+
+// .wrapper {
+//    &.active {
+//       animation: opacityWrapper 1s linear running;
+//    }
+// }
+
+// @keyframes opacityWrapper {
+//    0% {
+//       opacity: 0;
+//    }
+//    100% {
+//       opacity: 1;
+//    }
+// }
 </style>

@@ -21,6 +21,7 @@ export default defineNuxtConfig({
    // Возможность подключения сторонних ресурсов и дополнительных мета тегов непосредственно в head
    app: {
       // pageTransition: { name: "page", mode: "out-in" },
+      // layoutTransition: { name: "layout", mode: "out-in" },
       head: {
          htmlAttrs: {
             lang: "ru",

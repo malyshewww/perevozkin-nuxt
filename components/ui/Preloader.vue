@@ -1,5 +1,5 @@
 <template>
-   <div v-if="isLoading" class="loading">
+   <div class="loading">
       <div class="loading__image">
          <img :src="setPreloaderPath()" alt="" />
       </div>
@@ -26,9 +26,8 @@ const setPreloaderPath = () => {
    display: grid;
    place-items: center;
    background-color: black;
-   opacity: 1;
    // animation: bg 2.5s linear running;
-   animation: bg 2.5s linear 1.08s both;
+   animation: bg 2.5s linear 1.08s forwards;
    pointer-events: none;
    // &::before {
    //    content: "";
@@ -65,7 +64,7 @@ const setPreloaderPath = () => {
    }
    100% {
       background-color: $bg-asphalt;
-      opacity: 0.2;
+      opacity: 0;
    }
 }
 @keyframes opacityZero {
