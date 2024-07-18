@@ -1,6 +1,6 @@
 <template>
    <UiPreloader :is-loading="loading" />
-   <div ref="scroller" class="scroller">
+   <div ref="scroller" class="scroller" :class="{ active: isLoaded }">
       <div class="wrapper">
          <UiTrailer />
          <slot />
@@ -39,6 +39,7 @@ nuxtApp.hook("page:finish", () => {
    // loading.value = false;
    console.log("end");
    Preloader();
+   isLoaded.value = !isLoaded.value;
    const { bodyScrollBar } = initCustomScrollbar();
    if (!window.location.hash) {
       bodyScrollBar.scrollTo(0, 0, 100);
@@ -79,7 +80,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .scroller {
    height: 100vh;
    width: 100vw;
@@ -102,20 +103,6 @@ onMounted(() => {
       & .scrollbar-track {
          width: 0;
       }
-   }
-}
-// .wrapper {
-//    &.active {
-//       animation: opacityWrapper 1s linear;
-//    }
-// }
-
-@keyframes opacityWrapper {
-   0% {
-      opacity: 0.2;
-   }
-   100% {
-      opacity: 1;
    }
 }
 </style>
