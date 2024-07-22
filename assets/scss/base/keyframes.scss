@@ -20,3 +20,14 @@
 		transform: translateX(var(--scroll-end));
 	}
 }
+
+@keyframes slideUp {
+	0% {
+		transform: translateY(120%);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}

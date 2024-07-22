@@ -1,6 +1,6 @@
 <template>
    <div ref="mainScreen" class="main-screen">
-      <Header />
+      <Header v-if="isDesktop" />
       <div class="container">
          <div class="main-screen__body">
             <div class="main-screen__heading anim-heading">
@@ -36,8 +36,10 @@
 
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
-
+import SplitType from "split-type";
 import { usePreloaderStore } from "@/stores/preloader";
+
+const { isDesktop } = useDevice();
 
 const store = usePreloaderStore();
 
@@ -75,6 +77,42 @@ const animation = () => {
    const header = document.querySelector(".header");
    const headerMenu = header.querySelector(".menu__list");
    const headerLogo = header.querySelector(".header__logo");
+
+   const tl = ref("");
+
+   const firstAnimation = () => {
+      const splitTitle = new SplitType(mainTitle.value, {
+         types: "lines",
+      });
+      tl.value = gsap
+         .timeline(
+            {
+               delay: store.loading ? 2 : 0.5,
+            },
+            ">-0.5"
+         )
+         .from(mainVideo.value, {
+            opacity: 0,
+            delay: 0,
+         })
+         .to(mainVideo.value, { opacity: 1, stagger: 0.1 })
+         .from(splitTitle.lines, {
+            y: 100,
+            opacity: 0,
+            stagger: 0.05,
+            duration: 0.5,
+         })
+         .to(splitTitle.lines, { y: 0, opacity: 1, stagger: 0.1 })
+         .from(headerLogo, {
+            opacity: 0,
+            stagger: 0.01,
+            delay: 0,
+         })
+         .to(headerLogo, { opacity: 1, stagger: 0.1 });
+   };
+
+   firstAnimation();
+
    anim.value = gsap
       .timeline({
          pause: true,
@@ -155,6 +193,7 @@ const animation = () => {
       })
       .to(headerMenu, {
          marginLeft: 0,
+         paddingRight: 0,
       });
    animTitle.value = gsap
       .timeline({
@@ -223,11 +262,9 @@ onMounted(() => {
       animation();
    }
    mobileAnimation();
-   setTimeout(() => {
-      mainTitle.value.style.transition = "opacity 0.3s, transform 0.3s";
-      mainTitle.value.style.opacity = "1";
-      mainTitle.value.style.transform = "translateY(0)";
-   }, store.loading && 2000);
+   // setTimeout(() => {
+   //    mainTitle.value.classList.add("anim");
+   // }, store.loading && 2000);
 });
 
 onBeforeUnmount(() => {
@@ -236,6 +273,23 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
+// .main-screen__title {
+//    animation: slideUp 0.85s cubic-bezier(0.65, 0, 0.35, 1) both;
+//    &.anim {
+//       & .line {
+//          animation: slideUp 0.85s cubic-bezier(0.65, 0, 0.35, 1) both;
+//       }
+//    }
+//    @for $i from 2 through 3 {
+//       & > div {
+//          animation-delay: 0s;
+//       }
+//       &:nth-child(#{$i}) {
+//          animation-delay: $i * 0.025s;
+//       }
+//    }
+// }
+
 .page--home {
    & .header {
       &__logo {
@@ -245,14 +299,19 @@ onBeforeUnmount(() => {
          }
       }
       & .menu__body {
-         margin-left: auto;
+         // margin-left: auto;
          @media screen and (max-width: $xl) {
             margin-left: 0;
          }
       }
       & .menu__list {
          margin-left: auto;
+         padding-right: 86px;
+         @media screen and (max-width: 1919px) {
+            padding-right: 20px;
+         }
          @media screen and (max-width: $xl) {
+            padding-right: 0;
             margin: 0;
          }
       }
@@ -323,8 +382,8 @@ onBeforeUnmount(() => {
       letter-spacing: 0.01em;
       text-transform: uppercase;
       color: $bg-white;
-      transform: translateY(120%);
-      transition: transform $time;
+      // transform: translateY(120%);
+      // transition: transform $time;
       will-change: transform;
       transition: none;
       &.active {

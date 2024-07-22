@@ -2,18 +2,22 @@
    <UiPreloader :is-loading="loading" />
    <div ref="scroller" class="scroller">
       <div class="wrapper" :class="{ active: !isLoaded }">
+         <Header v-if="isMobile" />
          <UiTrailer />
          <slot />
          <Footer />
       </div>
    </div>
    <div id="rotate-device"></div>
+   <!-- <UiHeaderOverlay /> -->
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { usePreloaderStore } from "@/stores/preloader";
 import initCustomScrollbar from "~/utils/customScrollbar";
+
+const { isMobile } = useDevice();
 
 const store = usePreloaderStore();
 const loading = ref(store.loading);

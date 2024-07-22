@@ -1,5 +1,5 @@
 <template>
-   <header class="header">
+   <header ref="header" class="header" :class="{ active: isMenuActive }">
       <div class="container">
          <div class="header__body">
             <NuxtLink to="/" class="header__logo" @click="menuClose">
@@ -51,6 +51,8 @@ const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 
 const isMenuActive = ref(false);
 
+const header = ref("");
+
 const menuOpen = () => {
    isMenuActive.value = !isMenuActive.value;
    document.body.classList.toggle("lock");
@@ -95,8 +97,6 @@ onMounted(() => {
    bodyScrollBar.addListener(ScrollTrigger.update);
 });
 
-onBeforeUnmount(() => {});
-
 const menu = [
    {
       title: "Услуги",
@@ -120,10 +120,30 @@ onMounted(() => {});
 </script>
 <style lang="scss">
 .header {
-   background-color: $bg-anthracite;
+   background-color: transparent;
    min-height: 108px;
+   &::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #22282f;
+      transition: opacity 0.5s ease 1.2s;
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0;
+   }
+   &.active {
+      &::before {
+         opacity: 1;
+         transition: opacity 0.5s ease 0s;
+      }
+   }
    @media screen and (max-width: $xl) {
       min-height: 77px;
+      background-color: $bg-anthracite;
    }
    &__body {
       display: flex;
@@ -418,7 +438,7 @@ onMounted(() => {});
       align-items: center;
       gap: 52px;
       flex-wrap: wrap;
-      flex: 0 1 44.488372%;
+      // flex: 0 1 44.488372%;
       @media screen and (max-width: 1919px) {
          justify-content: flex-end;
          flex: 0 0 auto;

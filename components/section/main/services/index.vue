@@ -80,6 +80,7 @@ onMounted(() => {});
    padding: 160px 0 120px;
    @media screen and (max-width: $xl) {
       padding: 50px 0 60px;
+      position: relative;
    }
    @media screen and (max-width: $md) {
       padding: 30px 0 40px;
