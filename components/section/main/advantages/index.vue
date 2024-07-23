@@ -72,10 +72,11 @@ const animationCards = (triggerSelector, startPosition) => {
                pin: true,
                pinSpacing: true,
                stagger: 0.05,
-               delay: 1,
+               delay: 0.5,
                start: startPosition ? startPosition : "top+=1px top",
                end: () => "+=" + cards[0].clientHeight * cards.length,
                scrub: 3,
+               duration: 1,
             },
          })
          .from(".card-advantages--1", {

@@ -129,8 +129,8 @@ onMounted(() => {});
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #22282f;
-      transition: opacity 0.5s ease 1.2s;
+      background-color: rgba(#22282f, 0.8);
+      transition: opacity 0.3s ease 1s;
       pointer-events: none;
       z-index: 10;
       opacity: 0;
@@ -138,7 +138,7 @@ onMounted(() => {});
    &.active {
       &::before {
          opacity: 1;
-         transition: opacity 0.5s ease 0s;
+         transition: opacity 0.3s ease 0s;
       }
    }
    @media screen and (max-width: $xl) {

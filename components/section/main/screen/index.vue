@@ -11,16 +11,16 @@
             </div>
             <div class="main-screen__video-wrap">
                <div ref="mainVideo" class="main-screen__video ibg">
-                  <img
+                  <!-- <img
                      :src="`/images/main-screen/empty.png`"
-                     alt="изображение заглушка" />
-                  <!-- <video
+                     alt="изображение заглушка" /> -->
+                  <video
                      :poster="`/images/video-poster.jpg`"
                      autoplay="autoplay"
                      loop="loop"
                      muted>
                      <source :src="`/images/video.mp4`" type="video/mp4" />
-                  </video> -->
+                  </video>
                </div>
             </div>
             <div class="spin">
@@ -59,6 +59,45 @@ const animMenu = ref(null);
 const animTitle = ref(null);
 const tlVideo = ref(null);
 
+const tl = ref("");
+const tl2 = ref("");
+const tl3 = ref("");
+
+const firstAnimation = () => {
+   const header = document.querySelector(".header");
+   const headerLogo = header.querySelector(".header__logo");
+   const splitTitle = new SplitType(mainTitle.value, {
+      types: "lines",
+   });
+   tl2.value = gsap
+      .timeline({})
+      .from(headerLogo, {
+         opacity: 0,
+         stagger: 0.01,
+         delay: store.loading ? 2.3 : 0.5,
+      })
+      .to(headerLogo, { opacity: 1, stagger: 0.1 });
+   tl3.value = gsap
+      .timeline({})
+      .from(splitTitle.lines, {
+         y: 100,
+         opacity: 0,
+         stagger: 0.05,
+         duration: 0.5,
+         delay: store.loading ? 2.2 : 0.5,
+      })
+      .to(splitTitle.lines, { y: 0, opacity: 1, stagger: 0.1 });
+   tl.value = gsap
+      .timeline({
+         autoAlpha: 0,
+      })
+      .from(mainVideo.value, {
+         opacity: 0,
+         delay: store.loading ? 2.3 : 0.5,
+      })
+      .to(mainVideo.value, { opacity: 1, stagger: 0.1 });
+};
+
 const animation = () => {
    const { bodyScrollBar, scroller } = initCustomScrollbar();
    ScrollTrigger.scrollerProxy(".scroller", {
@@ -77,41 +116,6 @@ const animation = () => {
    const header = document.querySelector(".header");
    const headerMenu = header.querySelector(".menu__list");
    const headerLogo = header.querySelector(".header__logo");
-
-   const tl = ref("");
-
-   const firstAnimation = () => {
-      const splitTitle = new SplitType(mainTitle.value, {
-         types: "lines",
-      });
-      tl.value = gsap
-         .timeline(
-            {
-               delay: store.loading ? 2 : 0.5,
-            },
-            ">-0.5"
-         )
-         .from(mainVideo.value, {
-            opacity: 0,
-            delay: 0,
-         })
-         .to(mainVideo.value, { opacity: 1, stagger: 0.1 })
-         .from(splitTitle.lines, {
-            y: 100,
-            opacity: 0,
-            stagger: 0.05,
-            duration: 0.5,
-         })
-         .to(splitTitle.lines, { y: 0, opacity: 1, stagger: 0.1 })
-         .from(headerLogo, {
-            opacity: 0,
-            stagger: 0.01,
-            delay: 0,
-         })
-         .to(headerLogo, { opacity: 1, stagger: 0.1 });
-   };
-
-   firstAnimation();
 
    anim.value = gsap
       .timeline({
@@ -262,9 +266,7 @@ onMounted(() => {
       animation();
    }
    mobileAnimation();
-   // setTimeout(() => {
-   //    mainTitle.value.classList.add("anim");
-   // }, store.loading && 2000);
+   firstAnimation();
 });
 
 onBeforeUnmount(() => {
@@ -358,6 +360,7 @@ onBeforeUnmount(() => {
       height: 100%;
       @media screen and (max-width: $xl) {
          flex-direction: column;
+         align-items: flex-start;
          gap: 32px;
          padding-top: 40px;
       }
