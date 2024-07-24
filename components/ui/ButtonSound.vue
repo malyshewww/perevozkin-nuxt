@@ -17,7 +17,7 @@ const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 const positionY = ref(0);
 
 onMounted(() => {
-   if (window.matchMedia("(min-wdith: 1024px)").matches) {
+   if (window.innerWidth > 1024) {
       const { bodyScrollBar, scroller } = initCustomScrollbar();
       ScrollTrigger.scrollerProxy(".scroller", {
          scrollTop(value) {

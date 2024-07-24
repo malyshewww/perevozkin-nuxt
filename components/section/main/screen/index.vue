@@ -73,7 +73,7 @@ const video = ref("");
 const videoMuted = ref(true);
 
 const switchVideoSound = (e) => {
-   if (window.matchMedia("(min-wdith: 1024px)").matches) {
+   if (window.innerWidth > 1024) {
       if (e.target.closest("video")) {
          const cursor = document.querySelector(".cursor");
          console.log(e);
