@@ -1,7 +1,7 @@
 <template>
    <div v-if="isLoading" class="loading">
       <div class="loading__image">
-         <img :src="setPreloaderPath()" alt="" />
+         <img :src="setPreloaderPath()" alt="прелодер" />
       </div>
    </div>
 </template>
@@ -12,6 +12,8 @@ const props = defineProps(["isLoading"]);
 const setPreloaderPath = () => {
    if (props.isLoading) {
       return "/images/preloader2.gif";
+   } else {
+      return "";
    }
 };
 </script>
@@ -27,7 +29,7 @@ const setPreloaderPath = () => {
    place-items: center;
    background-color: black;
    pointer-events: none;
-   animation: bg 2.5s linear 1.08s both;
+   animation: bg 2.5s linear 1.08s forwards;
    // &::before {
    //    content: "";
    //    position: absolute;

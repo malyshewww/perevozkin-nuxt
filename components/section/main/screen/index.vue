@@ -20,7 +20,6 @@
                      alt="изображение заглушка" /> -->
                   <video
                      ref="video"
-                     :poster="`/images/video-poster.jpg`"
                      autoplay="autoplay"
                      loop="loop"
                      :muted="videoMuted">
