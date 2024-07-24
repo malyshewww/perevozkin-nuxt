@@ -391,9 +391,10 @@ onBeforeUnmount(() => {
       position: absolute;
       left: 0;
       bottom: 40px;
-      z-index: 5;
+      z-index: 6;
       max-width: 59%;
       overflow: hidden;
+      pointer-events: none;
       @media screen and (max-width: $xl) {
          position: static;
          max-width: 100%;
