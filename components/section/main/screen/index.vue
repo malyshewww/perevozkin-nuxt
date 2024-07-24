@@ -10,15 +10,20 @@
                </h1>
             </div>
             <div class="main-screen__video-wrap">
-               <div ref="mainVideo" class="main-screen__video ibg">
+               <div
+                  ref="mainVideo"
+                  class="main-screen__video ibg"
+                  data-type="video"
+                  @click="switchVideoSound($event)">
                   <!-- <img
                      :src="`/images/main-screen/empty.png`"
                      alt="изображение заглушка" /> -->
                   <video
+                     ref="video"
                      :poster="`/images/video-poster.jpg`"
                      autoplay="autoplay"
                      loop="loop"
-                     muted>
+                     :muted="videoMuted">
                      <source :src="`/images/video.mp4`" type="video/mp4" />
                   </video>
                </div>
@@ -62,6 +67,23 @@ const tlVideo = ref(null);
 const tl = ref("");
 const tl2 = ref("");
 const tl3 = ref("");
+
+const video = ref("");
+
+const videoMuted = ref(true);
+
+const switchVideoSound = (e) => {
+   if (window.matchMedia("(min-wdith: 1024px)").matches) {
+      if (e.target.closest("video")) {
+         const cursor = document.querySelector(".cursor");
+         console.log(e);
+         videoMuted.value = !videoMuted.value;
+         if (cursor) {
+            cursor.classList[videoMuted.value ? "remove" : "add"]("no-sound");
+         }
+      }
+   }
+};
 
 const firstAnimation = () => {
    const header = document.querySelector(".header");
@@ -417,6 +439,7 @@ onBeforeUnmount(() => {
       width: 55.5%;
       // padding-bottom: 56.25%;
       height: 56.25vh;
+      z-index: 5;
       @media screen and (max-width: $xl) {
          width: 100%;
          height: auto;
@@ -440,6 +463,8 @@ onBeforeUnmount(() => {
    position: absolute;
    left: 50%;
    transform: translate(-50%, 50%);
+   z-index: 5;
+   pointer-events: none;
    &::before {
       content: "";
       position: absolute;

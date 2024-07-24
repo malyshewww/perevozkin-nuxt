@@ -4,6 +4,7 @@
       <div class="wrapper" :class="{ active: !isLoaded }">
          <Header v-if="isMobile" />
          <UiTrailer />
+         <UiButtonSound />
          <slot />
          <Footer />
       </div>
