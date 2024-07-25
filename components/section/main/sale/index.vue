@@ -362,6 +362,10 @@ onMounted(() => {
          font-size: 22px;
          line-height: 28px;
       }
+      @media screen and (max-width: $xs) {
+         font-size: 19px;
+         line-height: 25px;
+      }
    }
    &__description {
       font-size: 20px;

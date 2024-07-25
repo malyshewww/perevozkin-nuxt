@@ -5,19 +5,20 @@
          <div class="main-screen__body">
             <div class="main-screen__heading anim-heading">
                <h1 ref="mainTitle" class="main-screen__title anim-title">
-                  Сервис автомобилей ГАЗ
-                  <span>№1&nbsp;в&nbsp;Нижнем Новгороде</span>
+                  <p>Сервис автомобилей</p>
+                  <p>ГАЗ <span>№1 в Нижнем&nbsp;</span></p>
+                  <p><span>Новгороде</span></p>
                </h1>
             </div>
-            <div class="main-screen__video-wrap">
+            <div ref="mainVideoWrap" class="main-screen__video-wrap">
                <div
                   ref="mainVideo"
                   class="main-screen__video ibg"
                   data-type="video"
                   @click="switchVideoSound($event)">
                   <!-- <img
-                     :src="`/images/main-screen/empty.png`"
-                     alt="изображение заглушка" /> -->
+                      :src="`/images/main-screen/empty.png`"
+                      alt="изображение заглушка" /> -->
                   <video
                      ref="video"
                      autoplay="autoplay"
@@ -51,6 +52,7 @@ const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 
 const mainScreen = ref("");
 const mainVideo = ref("");
+const mainVideoWrap = ref("");
 const mainTitle = ref("");
 const mainParallax = ref("");
 
@@ -150,6 +152,13 @@ const animation = () => {
             end: "+=100%",
             onUpdate: function (self) {
                progress.value = self.progress;
+               console.log(progress.value);
+               if (progress.value > 0.01) {
+                  mainVideoWrap.value.style.maxWidth = "100%";
+               }
+               if (progress.value < 0.01) {
+                  mainVideoWrap.value.style.maxWidth = "calc(16 / 9 * 100vh)";
+               }
                // switch (true) {
                //    case progress.value > 0.1 && self.progress < 0.6:
                //       mainTitle.value.classList.add("active");
@@ -170,10 +179,14 @@ const animation = () => {
             },
          },
       })
+      //  .to(mainVideoWrap.value, {
+      //    maxWidth: "100%",
+      //    paddingBottom: 0,
+      //  })
       .to(mainVideo.value, {
          width: "100%",
          height: `calc(${100}vh - ${header?.clientHeight + 100}px)`,
-         // paddingBottom: 0,
+         paddingBottom: 0,
       });
    animParallax.value = gsap
       .timeline({
@@ -358,7 +371,7 @@ onBeforeUnmount(() => {
    }
 }
 .main-screen {
-   height: calc(100vh - 108px);
+   height: calc(100vh);
    padding: 0 0 100px;
    isolation: isolate;
    position: relative;
@@ -373,23 +386,26 @@ onBeforeUnmount(() => {
       height: 100%;
    }
    &__body {
+      position: absolute;
       position: relative;
       display: flex;
       align-items: flex-end;
       justify-content: flex-end;
       width: 100%;
       height: 100%;
+      padding-bottom: 100px;
       @media screen and (max-width: $xl) {
          flex-direction: column;
          align-items: flex-start;
          gap: 32px;
          padding-top: 40px;
+         padding-bottom: 0;
       }
    }
    &__heading {
       position: absolute;
       left: 0;
-      bottom: 40px;
+      bottom: 140px;
       z-index: 6;
       max-width: 59%;
       overflow: hidden;
@@ -434,10 +450,15 @@ onBeforeUnmount(() => {
       width: 100%;
       display: flex;
       justify-content: flex-end;
+      max-width: calc(16 / 9 * 100vh);
+      transition: max-width 0.15s linear;
+      @media screen and (max-width: $xl) {
+         max-width: 100%;
+      }
    }
    &__video {
       width: 55.5%;
-      // padding-bottom: 56.25%;
+      //  padding-bottom: 56.25%;
       height: 56.25vh;
       z-index: 5;
       @media screen and (max-width: $xl) {
