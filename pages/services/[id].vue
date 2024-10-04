@@ -4,7 +4,7 @@
 			.main__top
 				.container
 					.main__top-inner
-						breadcrumbs(:nav-list="breadcrumbs")
+						BreadCrumbs(:nav-list="breadcrumbs")
 						h1.main__title Ремонт подвески ГАЗель Next в Нижнем Новгороде
 						.main__description(ref="mainDescr")
 							p Мы специализируемся на ремонте автомобилей ГАЗ.

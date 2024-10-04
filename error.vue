@@ -1,5 +1,5 @@
 <template lang="pug">
-	nuxt-layout
+	NuxtLayout
 		div
 			h1 {{ error.statusCode }}
 			nuxt-link(to="/") Go back home

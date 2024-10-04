@@ -1,16 +1,12 @@
-<template>
-   <div>
-      <div class="scroller">
-         <div class="wrapper wrapper-default">
-            <UiTrailer />
-            <Header />
-            <slot />
-            <Footer />
-         </div>
-      </div>
-      <!-- <UiHeaderOverlay /> -->
-      <div id="rotate-device"></div>
-   </div>
+<template lang="pug">
+	div
+		.scroller
+			.wrapper.wrapper-default
+				UiTrailer
+				Header
+				slot
+				Footer
+		#rotate-device
 </template>
 
 <script setup>

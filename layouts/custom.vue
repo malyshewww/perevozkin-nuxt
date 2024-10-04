@@ -1,16 +1,13 @@
-<template>
-   <UiPreloader :is-loading="loading" />
-   <div ref="scroller" class="scroller">
-      <div class="wrapper" :class="{ active: !isLoaded }">
-         <Header v-if="isMobile" />
-         <UiTrailer />
-         <UiButtonSound />
-         <slot />
-         <Footer />
-      </div>
-   </div>
-   <div id="rotate-device"></div>
-   <!-- <UiHeaderOverlay /> -->
+<template lang="pug">
+   UiPreloader(:is-loading="loading")
+   .scroller(ref="scroller")
+      .wrapper(:class="{ active: !isLoaded }")
+         Header(v-if="isMobile")
+         UiTrailer
+         UiButtonSound
+         slot
+         Footer
+   #rotate-device
 </template>
 
 <script setup>
