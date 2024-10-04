@@ -1,9 +1,7 @@
-<template>
-   <div ref="ticker" class="ticker">
-      <div class="ticker-content">
-         <slot />
-      </div>
-   </div>
+<template lang="pug">
+	.ticker(ref="ticker")
+		.ticker-content
+			slot
 </template>
 
 <script setup>

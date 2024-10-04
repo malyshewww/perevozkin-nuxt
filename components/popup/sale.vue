@@ -1,14 +1,9 @@
-<template>
-   <Teleport to="body">
-      <Popup :is-active="isActive" @close-popup="closePopup">
-         <div class="popup__header">
-            <h2 class="popup__title">{{ data.title }}</h2>
-         </div>
-         <div class="popup__description content">
-            {{ data.descr }}
-         </div>
-      </Popup>
-   </Teleport>
+<template lang="pug">
+	Teleport(to="body")
+		Popup(:is-active="isActive" @close-popup="closePopup")
+			.popup__header
+				h2.popup__title {{ data.title }}
+			.popup__description.content {{ data.descr }}
 </template>
 
 <script setup>

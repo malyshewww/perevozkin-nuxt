@@ -1,22 +1,13 @@
-<template>
-   <article v-for="article in articleList" :key="article.id" class="article">
-      <NuxtLink :to="`/blog/${article.id}`" class="article__image ibg">
-         <img
-            :src="`/images/articles/${article.img}.jpg`"
-            :alt="article.title" />
-      </NuxtLink>
-      <div class="article__body">
-         <h2 class="article__title">
-            <NuxtLink :to="`/blog/${article.id}`">{{ article.title }}</NuxtLink>
-         </h2>
-         <div class="article__description">
-            <p>{{ article.description }}</p>
-         </div>
-         <NuxtLink :to="`/blog/${article.id}`" class="article__link"
-            >Подробнее</NuxtLink
-         >
-      </div>
-   </article>
+<template lang="pug">
+   article.article(v-for="article in articleList" :key="article.id")
+      nuxt-link.article__image.ibg(:to="`/blog/${article.id}`")
+         img(:src="`/images/articles/${article.img}.jpg`" :alt="article.title")
+      .article__body
+         h2.article__title
+            nuxt-link(:to="`/blog/${article.id}`") {{ article.title }}
+         .article__description
+            p {{ article.description }}
+         nuxt-link.article__link(:to="`/blog/${article.id}`") Подробнее
 </template>
 
 <script setup>

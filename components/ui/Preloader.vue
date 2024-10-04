@@ -1,9 +1,7 @@
-<template>
-   <div v-if="isLoading" class="loading">
-      <div class="loading__image">
-         <img :src="setPreloaderPath()" alt="прелодер" />
-      </div>
-   </div>
+<template lang="pug">
+   .loading(v-if="isLoading")
+      .loading__image
+         img(:src="setPreloaderPath()" alt="прелодер")
 </template>
 
 <script setup>

@@ -1,5 +1,5 @@
-<template>
-   <div ref="headerOverlay" class="header-overlay"></div>
+<template lang="pug">
+	.header-overlay(ref="headerOverlay")
 </template>
 
 <script setup>

@@ -1,7 +1,6 @@
-<template>
-   <aside class="aside">
-      <slot />
-   </aside>
+<template lang="pug">
+	aside.aside
+		slot
 </template>
 
 <script setup>
@@ -91,6 +90,9 @@ onMounted(() => {
       display: grid;
       gap: 24px;
       margin-top: 20px;
+      @media screen and (max-width: $xl) {
+         width: 100%;
+      }
    }
    &__button {
       &::before {

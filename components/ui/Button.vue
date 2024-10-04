@@ -1,12 +1,6 @@
-<template>
-   <button
-      v-if="btnType == 'button'"
-      type="button"
-      :class="[classNames, 'btn']"
-      @click="openPopup">
-      {{ btnTitle }}
-   </button>
-   <input v-else type="submit" :class="['btn', classNames]" :value="btnTitle" />
+<template lang="pug">
+	button(v-if="btnType == 'button'" type="button" :class="[classNames, 'btn']" @click="openPopup") {{ btnTitle }}
+	input(v-else type="submit" :class="['btn', classNames]" :value="btnTitle")
 </template>
 
 <script setup>

@@ -1,72 +1,27 @@
-<template>
-   <div id="sale" class="main-sale">
-      <div class="container">
-         <UiTicker>
-            <div
-               v-for="(item, index) in tickerItems"
-               :key="index"
-               class="ticker__item">
-               {{ item }}
-            </div>
-         </UiTicker>
-         <div
-            ref="saleSlider"
-            class="main-sale__body swiper interactable"
-            data-type="slider"
-            @mouseover="showTrailer"
-            @mouseleave="hideTrailer">
-            <!-- <div class="ball" ref="ball"></div> -->
-            <div class="main-sale__wrapper swiper-wrapper">
-               <div
-                  v-for="(item, index) in saleSliderData"
-                  :key="index"
-                  class="main-sale__item item-sale swiper-slide">
-                  <div class="item-sale__wrapper">
-                     <div class="item-sale__info">
-                        <div class="item-sale__badge">Акция</div>
-                        <div class="item-sale__date">{{ item.date }}</div>
-                        <div class="item-sale__title">{{ item.title }}</div>
-                        <div class="item-sale__description">
-                           {{ item.descr }}
-                        </div>
-                        <UiButton
-                           btn-type="button"
-                           btn-title="Узнать больше"
-                           class-names="item-sale__button"
-                           @open-popup="openSalePopup($event, item)" />
-                        <div class="item-sale__bottom">
-                           <div class="item-sale__disclamer">
-                              {{ item.disclamer }}
-                           </div>
-                        </div>
-                     </div>
-                     <div class="item-sale__image-wrap">
-                        <div class="item-sale__image ibg">
-                           <img
-                              :src="`/images/main-sale/${item.img}.png`"
-                              alt="изображение" />
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="slider-controls">
-               <button
-                  ref="buttonPrev"
-                  type="button"
-                  class="slider-button slider-button-prev"></button>
-               <button
-                  ref="buttonNext"
-                  type="button"
-                  class="slider-button slider-button-next"></button>
-            </div>
-         </div>
-      </div>
-   </div>
-   <PopupSale
-      :data="popupSaleData"
-      :is-active="isSalePopupActive"
-      @close-popup="closeSalePopup()" />
+<template lang="pug">
+	#sale.main-sale
+		.container
+			UiTicker
+				.ticker__item(v-for="(item, index) in tickerItems" :key="index") {{ item }}
+			.main-sale__body.swiper.interactable(ref="saleSlider" data-type="slider" @mouseover="showTrailer" @mouseleave="hideTrailer")
+				.main-sale__wrapper.swiper-wrapper
+					.main-sale__item.item-sale.swiper-slide(v-for="(item, index) in saleSliderData" :key="index")
+						.item-sale__wrapper
+							.item-sale__info
+								.item-sale__badge Акция
+								.item-sale__date {{ item.date }}
+								.item-sale__title {{ item.title }}
+								.item-sale__description {{ item.descr }}
+								UiButton(btn-type="button" btn-title="Узнать больше" class-names="item-sale__button" @open-popup="openSalePopup($event, item)")
+								.item-sale__bottom
+									.item-sale__disclamer {{ item.disclamer }}
+							.item-sale__image-wrap
+								.item-sale__image.ibg
+									img(:src="`/images/main-sale/${item.img}.png`" alt="изображение")
+				.slider-controls
+					button.slider-button.slider-button-prev(ref="buttonPrev" type="button")
+					button.slider-button.slider-button-next(ref="buttonNext" type="button")
+	PopupSale(:data="popupSaleData" :is-active="isSalePopupActive" @close-popup="closeSalePopup()")
 </template>
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";

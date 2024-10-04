@@ -1,62 +1,29 @@
-<template>
-   <div class="vacancy__content content">
-      <div
-         v-for="(vacancy, index) in vacancyList"
-         :key="index"
-         class="vacancy__item item-vacancy">
-         <h3 class="item-vacancy__title">{{ vacancy.title }}</h3>
-         <div class="item-vacancy__groups">
-            <div class="item-vacancy__group">
-               <div class="item-vacancy__main main-info">
-                  <div class="main-info__inner">
-                     <div class="main-info__label">Заработная плата:</div>
-                     <div class="main-info__values" data-attr="от">
-                        {{ vacancy.salary }}
-                     </div>
-                  </div>
-                  <div class="main-info__inner">
-                     <div class="main-info__label">
-                        Контакты отдела персонала:
-                     </div>
-                     <div class="main-info__values">
-                        <a
-                           v-for="(phone, phoneIndex) in vacancy.phones"
-                           :key="phoneIndex"
-                           :href="`tel:${phone}`"
-                           class="main-info__value"
-                           >{{ phone }}</a
-                        >
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="item-vacancy__group">
-               <div class="item-vacancy__label">Обязанности</div>
-               <ul>
-                  <li v-for="(r, i) in vacancy.responsibilities" :key="i">
-                     {{ r }}
-                  </li>
-               </ul>
-            </div>
-            <div class="item-vacancy__group">
-               <div class="item-vacancy__label">Требования</div>
-               <ul>
-                  <li v-for="(r, i) in vacancy.requirements" :key="i">
-                     {{ r }}
-                  </li>
-               </ul>
-            </div>
-            <div class="item-vacancy__group">
-               <div class="item-vacancy__label">Условия работы</div>
-               <ul>
-                  <li v-for="(c, i) in vacancy.conditions" :key="i">
-                     {{ c }}
-                  </li>
-               </ul>
-            </div>
-         </div>
-      </div>
-   </div>
+<template lang="pug">
+	.vacancy__content.content
+		.vacancy__item.item-vacancy(v-for="(vacancy, index) in vacancyList" :key="index")
+			h3.item-vacancy__title {{ vacancy.title }}
+			.item-vacancy__groups
+				.item-vacancy__group
+					.item-vacancy__main.main-info
+						.main-info__inner
+							.main-info__label Заработная плата:
+							.main-info__values(data-attr="от") {{ vacancy.salary }}
+						.main-info__inner
+							.main-info__label Контакты отдела персонала:
+							.main-info__values
+								a.main-info__value(v-for="(phone, phoneIndex) in vacancy.phones" :key="phoneIndex" :href="`tel:${phone}`") {{ phone }}
+				.item-vacancy__group
+					.item-vacancy__label Обязанности
+					ul
+						li(v-for="(r, i) in vacancy.responsibilities" :key="i") {{ r }}
+				.item-vacancy__group
+					.item-vacancy__label Требования
+					ul
+						li(v-for="(r, i) in vacancy.requirements" :key="i") {{ r }}
+				.item-vacancy__group
+					.item-vacancy__label Условия работы
+					ul
+						li(v-for="(c, i) in vacancy.conditions" :key="i") {{ c }}
 </template>
 
 <script setup>

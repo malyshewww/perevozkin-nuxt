@@ -1,12 +1,9 @@
-<template>
-   <div class="popup" :class="{ active: isActive }" @click="closePopup">
-      <div class="popup__wrapper">
-         <div class="popup__content" @click.stop>
-            <button class="popup__close" @click="closePopup"></button>
-            <slot />
-         </div>
-      </div>
-   </div>
+<template lang="pug">
+	.popup(:class="{ active: isActive }" @click="closePopup")
+		.popup__wrapper
+			.popup__content(@click.stop)
+				button.popup__close(@click="closePopup")
+				slot
 </template>
 
 <script setup>

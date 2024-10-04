@@ -1,48 +1,22 @@
-<template>
-   <header ref="header" class="header" :class="{ active: isMenuActive }">
-      <div class="container">
-         <div class="header__body">
-            <NuxtLink to="/" class="header__logo" @click="menuClose">
-               <picture>
-                  <source
-                     srcset="/images/logo.svg"
-                     media="(min-width: 767.98px)" />
-                  <source
-                     srcset="/images/logo-touch.svg"
-                     media="(min-width: 300px)" />
-                  <img src="/images/logo.svg" alt="логотип" />
-               </picture>
-            </NuxtLink>
-            <div class="header__menu menu" :class="{ active: isMenuActive }">
-               <nav class="menu__body">
-                  <ul class="menu__list">
-                     <li
-                        v-for="(item, index) in menu"
-                        :key="index"
-                        class="menu__item">
-                        <NuxtLink
-                           :to="`${item.href}`"
-                           class="menu__link"
-                           @click="menuClose"
-                           >{{ item.title }}</NuxtLink
-                        >
-                     </li>
-                  </ul>
-               </nav>
-               <HeaderActions device="mobile" @go-to-section="goToSection" />
-            </div>
-            <HeaderActions device="pc" @go-to-section="goToSection" />
-            <div
-               class="header__burger"
-               :class="{ active: isMenuActive }"
-               @click="menuOpen">
-               <div class="header__burger-lines">
-                  <span></span>
-               </div>
-            </div>
-         </div>
-      </div>
-   </header>
+<template lang="pug">
+	header.header(ref="header" :class="{ active: isMenuActive }")
+		.container
+			.header__body
+				nuxt-link.header__logo(to="/" @click="menuClose")
+					picture
+						source(srcset="/images/logo.svg" media="(min-width: 767.98px)")
+						source(srcset="/images/logo-touch.svg" media="(min-width: 300px)")
+						img(src="/images/logo.svg" alt="логотип")
+				.header__menu.menu(:class="{ active: isMenuActive }")
+					nav.menu__body
+						ul.menu__list
+							li.menu__item(v-for="(item, index) in menu" :key="index")
+								nuxt-link.menu__link(:to="`${item.href}`" @click="menuClose") {{ item.title }}
+					HeaderActions(device="mobile" @go-to-section="goToSection")
+				HeaderActions(device="pc" @go-to-section="goToSection")
+				.header__burger(:class="{ active: isMenuActive }" @click="menuOpen")
+					.header__burger-lines
+						span
 </template>
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";

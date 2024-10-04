@@ -1,23 +1,10 @@
-<template>
-   <div class="breadcrumbs">
-      <div class="container">
-         <nav class="breadcrumbs__nav">
-            <ul class="breadcrumbs__list">
-               <li
-                  v-for="(item, index) in navList"
-                  :key="index"
-                  class="breadcrumbs__item">
-                  <NuxtLink
-                     :to="item.href"
-                     class="breadcrumbs__link"
-                     :class="{ disabled: index == navList.length - 1 }"
-                     >{{ item.text }}</NuxtLink
-                  >
-               </li>
-            </ul>
-         </nav>
-      </div>
-   </div>
+<template lang="pug">
+	.breadcrumbs
+		.container
+			nav.breadcrumbs__nav
+				ul.breadcrumbs__list
+					li.breadcrumbs__item(v-for="(item, index) in navList" :key="index")
+						nuxt-link.breadcrumbs__link(:to="item.href" :class="{ disabled: index == navList.length - 1 }") {{ item.text }}
 </template>
 
 <script setup>

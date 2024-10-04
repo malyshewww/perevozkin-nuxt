@@ -1,17 +1,12 @@
-<template>
-   <div>
-      <BreadCrumbs :nav-list="breadcrumbs" />
-      <main class="main">
-         <div class="article-page">
-            <div class="container">
-               <div class="article-page__wrapper">
-                  <SectionArticleContent />
-                  <SectionArticleForm />
-               </div>
-            </div>
-         </div>
-      </main>
-   </div>
+<template lang="pug">
+	div
+		BreadCrumbs(:nav-list="breadcrumbs")
+		main.main
+			.article-page
+				.container
+					.article-page__wrapper
+						SectionArticleContent
+						SectionArticleForm
 </template>
 
 <script setup>

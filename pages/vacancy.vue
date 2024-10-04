@@ -1,24 +1,15 @@
-<template>
-   <div>
-      <BreadCrumbs :nav-list="breadcrumbs" />
-      <main class="main">
-         <div class="main-header">
-            <div class="container">
-               <div class="main-header__body">
-                  <h1 class="main__title page-title">Вакансии</h1>
-               </div>
-            </div>
-         </div>
-         <div class="vacancy">
-            <div class="container">
-               <div class="vacancy__wrapper">
-                  <SectionVacancyContent />
-                  <SectionVacancyForm />
-               </div>
-            </div>
-         </div>
-      </main>
-   </div>
+<template lang="pug">
+   div
+      BreadCrumbs(:nav-list="breadcrumbs")
+      main.main
+         .container
+            .main-header
+               .main-header__body
+                  h1.main__title.page-title Вакансии
+            .vacancy
+               .vacancy__wrapper
+                  SectionVacancyContent
+                  SectionVacancyForm
 </template>
 
 <script setup>

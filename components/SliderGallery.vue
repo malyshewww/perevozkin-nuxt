@@ -1,34 +1,15 @@
-<template>
-   <div class="gallery">
-      <div class="heading">
-         <h2 class="heading__title">Фотогалерея</h2>
-         <div class="slider-controls">
-            <button
-               ref="buttonPrev"
-               type="button"
-               class="slider-button slider-button-prev"></button>
-            <button
-               ref="buttonNext"
-               type="button"
-               class="slider-button slider-button-next"></button>
-         </div>
-      </div>
-      <div ref="slider" class="gallery__body swiper">
-         <div class="gallery__wrapper swiper-wrapper">
-            <div
-               v-for="(item, index) in gallery"
-               :key="index"
-               class="gallery__item swiper-slide">
-               <a
-                  :href="`/images/gallery/${item.img}.jpg`"
-                  class="gallery__image"
-                  data-fancybox="gallery">
-                  <img :src="`/images/gallery/${item.img}.jpg`" alt="галерея" />
-               </a>
-            </div>
-         </div>
-      </div>
-   </div>
+<template lang="pug">
+	.gallery
+		.heading
+			h2.heading__title Фотогалерея
+			.slider-controls
+				button.slider-button.slider-button-prev(ref="buttonPrev" type="button")
+				button.slider-button.slider-button-next(ref="buttonNext" type="button")
+		.gallery__body.swiper(ref="slider")
+			.gallery__wrapper.swiper-wrapper
+				.gallery__item.swiper-slide(v-for="(item, index) in gallery" :key="index")
+					a.gallery__image(:href="`/images/gallery/${item.img}.jpg`" data-fancybox="gallery")
+						img(:src="`/images/gallery/${item.img}.jpg`" alt="галерея")
 </template>
 
 <script setup>

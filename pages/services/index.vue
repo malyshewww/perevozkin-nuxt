@@ -1,23 +1,14 @@
-<template>
-   <div>
-      <BreadCrumbs :nav-list="breadcrumbs" />
-      <main class="main">
-         <div class="main-header">
-            <div class="container">
-               <div class="main-header__body">
-                  <h1 class="main__title page-title">Газель Next</h1>
-               </div>
-            </div>
-         </div>
-         <div class="services">
-            <div class="container">
-               <div class="services__body">
-                  <Card :arr="servicesList" />
-               </div>
-            </div>
-         </div>
-      </main>
-   </div>
+<template lang="pug">
+	div
+		BreadCrumbs(:nav-list="breadcrumbs")
+		main.main
+			.container
+				.main-header
+					.main-header__body
+						h1.main__title.page-title Газель Next
+				.services
+					.services__body
+						Card(:arr="servicesList")
 </template>
 
 <script setup>

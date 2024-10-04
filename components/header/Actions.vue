@@ -1,17 +1,9 @@
-<template>
-   <div
-      class="header__actions"
-      :class="[device === 'pc' ? '' : 'header__actions--mobile']">
-      <div class="header__phone-wrap">
-         <a href="tel:+78311380880" class="header__phone">+7 (831) 138-08-80</a>
-      </div>
-      <NuxtLink
-         :to="{ hash: '#sale', path: '/' }"
-         class="header__button"
-         @click="goToSection">
-         <span class="header__button-text">Акции</span>
-      </NuxtLink>
-   </div>
+<template lang="pug">
+   .header__actions(:class="[device === 'pc' ? '' : 'header__actions--mobile']")
+      .header__phone-wrap
+         a.header__phone(href="tel:+78311380880") +7 (831) 138-08-80
+      nuxt-link.header__button(:to="{ hash: '#sale', path: '/' }" @click="goToSection")
+         span.header__button-text Акции
 </template>
 
 <script setup>

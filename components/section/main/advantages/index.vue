@@ -1,35 +1,15 @@
-<template>
-   <section ref="sectionAdvantages" class="main-advantages">
-      <div class="container">
-         <div ref="advantagesBody" class="main-advantages__body">
-            <div class="main-advantages__info anim-heading">
-               <div class="heading">
-                  <div class="heading__sub-title">Преимущества</div>
-                  <h2 ref="AdvantagesTitle" class="heading__title anim-title">
-                     Мы знаем <span>причины всех&nbsp;поломок</span>
-                     и оптимальные
-                     <br />
-                     варианты <br />
-                     их устранения
-                  </h2>
-               </div>
-               <div
-                  ref="AdvantagesContent"
-                  class="main-advantages__content anim-content">
-                  <p>
-                     Перевозкин24 имеет в своём распоряжении более 200
-                     автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем
-                     самостоятельно. Огромный опыт наших мастеров по ремонту
-                     автомобилей ГАЗ гарантирует высокое качество и надёжность.
-                  </p>
-               </div>
-            </div>
-            <div ref="advantagesCards" class="main-advantages__cards">
-               <AdvantagesCard />
-            </div>
-         </div>
-      </div>
-   </section>
+<template lang="pug">
+	section.main-advantages(ref="sectionAdvantages")
+		.container
+			.main-advantages__body(ref="advantagesBody")
+				.main-advantages__info.anim-heading
+					.heading
+						.heading__sub-title Преимущества
+						h2.heading__title.anim-title(ref="AdvantagesTitle") Мы знаем #[span причины всех поломок] и оптимальные #[br] варианты #[br] их устранения
+					.main-advantages__content.anim-content(ref="AdvantagesContent")
+						p Перевозкин24 имеет в своём распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно. Огромный опыт наших мастеров по ремонту автомобилей ГАЗ гарантирует высокое качество и надёжность.
+				.main-advantages__cards(ref="advantagesCards")
+					AdvantagesCard
 </template>
 
 <script setup>

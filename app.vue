@@ -1,9 +1,7 @@
-<template>
-   <NuxtLayout>
-      <NuxtErrorBoundary>
-         <NuxtPage />
-      </NuxtErrorBoundary>
-   </NuxtLayout>
+<template lang="pug">
+	NuxtLayout
+		NuxtErrorBoundary
+			NuxtPage
 </template>
 <script setup></script>
 

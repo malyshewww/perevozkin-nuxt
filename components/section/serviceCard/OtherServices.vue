@@ -1,26 +1,14 @@
-<template>
-   <div class="service-card__other-services other-services">
-      <div class="container">
-         <div class="heading">
-            <div class="heading__title">Другие услуги</div>
-            <div ref="sliderControls" class="slider-controls">
-               <button
-                  ref="buttonPrev"
-                  type="button"
-                  class="slider-button slider-button-prev"></button>
-               <button
-                  ref="buttonNext"
-                  type="button"
-                  class="slider-button slider-button-next"></button>
-            </div>
-         </div>
-         <div ref="otherSlider" class="other-services__slider swiper">
-            <div class="other-services__wrapper swiper-wrapper">
-               <Card :arr="servicesList" />
-            </div>
-         </div>
-      </div>
-   </div>
+<template lang="pug">
+	.service-card__other-services.other-services
+		.container
+			.heading
+				.heading__title Другие услуги
+				.slider-controls(ref="sliderControls")
+					button.slider-button.slider-button-prev(ref="buttonPrev" type="button")
+					button.slider-button.slider-button-next(ref="buttonNext" type="button")
+			.other-services__slider.swiper(ref="otherSlider")
+				.other-services__wrapper.swiper-wrapper
+					Card(:arr="servicesList")
 </template>
 <script setup>
 import Swiper from "swiper";
@@ -106,6 +94,7 @@ const servicesList = [
 <style lang="scss">
 .other-services {
    padding: 80px 0 0;
+   overflow: hidden;
    @media screen and (max-width: $xl) {
       padding: 40px 0 0;
    }

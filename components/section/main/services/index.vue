@@ -1,24 +1,13 @@
-<template>
-   <section class="main-services">
-      <div class="container">
-         <UiTicker>
-            <div
-               v-for="(item, index) in tickerItems"
-               :key="index"
-               class="ticker__item">
-               {{ item }}
-            </div>
-         </UiTicker>
-         <div class="main-services__body">
-            <div class="main-services__top">
-               <Card :arr="serviceCardsTop" />
-            </div>
-            <div class="main-services__bottom">
-               <Card :arr="serviceCardsBottom" />
-            </div>
-         </div>
-      </div>
-   </section>
+<template lang="pug">
+	section.main-services
+		.container
+			UiTicker
+				.ticker__item(v-for="(item, index) in tickerItems" :key="index") {{ item }}
+			.main-services__body
+				.main-services__top
+					Card(:arr="serviceCardsTop")
+				.main-services__bottom
+					Card(:arr="serviceCardsBottom")
 </template>
 
 <script setup>

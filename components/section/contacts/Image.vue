@@ -1,7 +1,6 @@
-<template>
-   <div class="contacts__image ibg" :class="classNames">
-      <img src="/images/contacts/picture.jpg" alt="изображение" />
-   </div>
+<template lang="pug">
+	.contacts__image.ibg(:class="classNames")
+		img(:src="`/images/contacts/picture.jpg`" alt="изображение")
 </template>
 
 <script setup>

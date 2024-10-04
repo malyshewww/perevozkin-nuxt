@@ -1,29 +1,14 @@
-<template>
-   <section ref="sectionPartners" class="partners">
-      <div class="container">
-         <div ref="heading" class="heading anim-heading">
-            <div class="heading__sub-title">Партнёры</div>
-            <div ref="animTitle" class="heading__title anim-title">
-               Работаем с ведущими компаниями и
-               <span>Ценим долгосрочное сотрудничество</span>
-            </div>
-         </div>
-         <div class="partners__slider">
-            <UiTicker>
-               <div
-                  v-for="(item, index) in partnersData"
-                  :key="index"
-                  class="partners__item">
-                  <div class="partners__image">
-                     <img
-                        :src="`/images/main-partners/${item.img}.png`"
-                        alt="" />
-                  </div>
-               </div>
-            </UiTicker>
-         </div>
-      </div>
-   </section>
+<template lang="pug">
+   section.partners(ref="sectionPartners")
+      .container
+         .heading.anim-heading(ref="heading")
+            .heading__sub-title Партнёры
+            .heading__title.anim-title(ref="animTitle") Работаем с ведущими компаниями и #[span Ценим долгосрочное сотрудничество]
+         .partners__slider
+            UiTicker
+               .partners__item(v-for="(item, index) in partnersData" :key="index")
+                  .partners__image
+                     img(:src="`/images/main-partners/${item.img}.png`" alt="изображение")
 </template>
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";

@@ -1,12 +1,9 @@
-<template>
-   <div ref="cursor" class="cursor">
-      <div class="cursor__label cover">
-         <div class="cursor__label-current visible">
-            <span>без звука</span>
-            <span>со звуком</span>
-         </div>
-      </div>
-   </div>
+<template lang="pug">
+	.cursor(ref="cursor")
+		.cursor__label.cover
+			.cursor__label-current.visible
+				span без звука
+				span со звуком
 </template>
 
 <script setup>

@@ -1,42 +1,21 @@
-<template>
-   <div ref="mainScreen" class="main-screen">
-      <Header v-if="isDesktop" />
-      <div class="container">
-         <div class="main-screen__body">
-            <div class="main-screen__heading anim-heading">
-               <h1 ref="mainTitle" class="main-screen__title anim-title">
-                  <p>Сервис автомобилей</p>
-                  <p>ГАЗ <span>№1 в Нижнем&nbsp;</span></p>
-                  <p><span>Новгороде</span></p>
-               </h1>
-            </div>
-            <div ref="mainVideoWrap" class="main-screen__video-wrap">
-               <div
-                  ref="mainVideo"
-                  class="main-screen__video ibg"
-                  data-type="video"
-                  @click="switchVideoSound($event)">
-                  <!-- <img
-                      :src="`/images/main-screen/empty.png`"
-                      alt="изображение заглушка" /> -->
-                  <video
-                     ref="video"
-                     autoplay="autoplay"
-                     loop="loop"
-                     :muted="videoMuted">
-                     <source :src="`/images/video.mp4`" type="video/mp4" />
-                  </video>
-               </div>
-            </div>
-            <div class="spin">
-               <img src="/images/icons/spin.svg" alt="spin" />
-            </div>
-         </div>
-      </div>
-      <div ref="mainParallax" class="main-parallax">
-         <img src="/images/main-screen/parallax.png" alt="parallax" />
-      </div>
-   </div>
+<template lang="pug">
+	.main-screen(ref="mainScreen")
+		Header(v-if="isDesktop")
+		.container
+			.main-screen__body
+				.main-screen__heading.anim-heading
+					.main-screen__title.anim-title(ref="mainTitle")
+						p Сервис автомобилей
+						p ГАЗ #[span №1 в Нижнем]
+						p #[span Новгороде]
+				.main-screen__video-wrap(ref="mainVideoWrap")
+					.main-screen__video.ibg(ref="mainVideo" data-type="video" @click="switchVideoSound($event)")
+						video(ref="video" autoplay loop :muted="videoMuted")
+							source(:src="`/images/video.mp4`" type="video/mp4")
+				.spin
+					img(:src="`/images/icons/spin.svg`" alt="spin")
+		.main-parallax(ref="mainParallax")
+			img(:src="`/images/main-screen/parallax.png`" alt="parallax")
 </template>
 
 <script setup>

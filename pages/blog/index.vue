@@ -1,26 +1,16 @@
-<template>
-   <div>
-      <BreadCrumbs :nav-list="breadcrumbs" />
-      <main class="main">
-         <div class="main-header">
-            <div class="container">
-               <div class="main-header__body">
-                  <h1 class="main__title page-title">Блог</h1>
-               </div>
-            </div>
-         </div>
-         <div class="articles">
-            <div class="container">
-               <div class="articles__wrapper">
-                  <div class="articles__body">
-                     <ArticleCard :article-list="articleList" />
-                  </div>
-                  <UiPager />
-               </div>
-            </div>
-         </div>
-      </main>
-   </div>
+<template lang="pug">
+	div
+		BreadCrumbs(:nav-list="breadcrumbs")
+		main.main
+			.container
+				.main-header
+					.main-header__body
+						h1.main__title.page-title Блог
+				.articles
+					.articles__wrapper
+						.articles__body
+							ArticleCard(:article-list="articleList")
+						UiPager
 </template>
 
 <script setup>

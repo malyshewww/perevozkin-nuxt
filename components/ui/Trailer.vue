@@ -1,24 +1,11 @@
-<template>
-   <div ref="trailer" class="trailer">
-      <div class="trailer__content">
-         <svg
-            id="icon-arrow-left-small"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16">
-            <path
-               d="M3.06994 7.52663L8.96502 1.63152L8 0.666504L0.457528 8.20898L8 15.7514L8.96502 14.7864L3.06998 8.89138L14.8601 8.89135L14.8601 7.5266L3.06994 7.52663Z"></path>
-         </svg>
-         <div class="trailer__text">Тяните</div>
-         <svg
-            id="icon-arrow-right-small"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16">
-            <path
-               d="M12.9301 7.52663L7.03498 1.63152L8 0.666504L15.5425 8.20898L8 15.7514L7.03498 14.7864L12.93 8.89138L1.1399 8.89135L1.1399 7.5266L12.9301 7.52663Z"></path>
-         </svg>
-      </div>
-   </div>
+<template lang="pug">
+	.trailer(ref="trailer")
+		.trailer__content
+			svg#icon-arrow-left-small(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16")
+				path(d="M3.06994 7.52663L8.96502 1.63152L8 0.666504L0.457528 8.20898L8 15.7514L8.96502 14.7864L3.06998 8.89138L14.8601 8.89135L14.8601 7.5266L3.06994 7.52663Z")
+			.trailer__text Тяните
+			svg#icon-arrow-right-small(fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16")
+				path(d="M12.9301 7.52663L7.03498 1.63152L8 0.666504L15.5425 8.20898L8 15.7514L7.03498 14.7864L12.93 8.89138L1.1399 8.89135L1.1399 7.5266L12.9301 7.52663Z")
 </template>
 
 <script setup>

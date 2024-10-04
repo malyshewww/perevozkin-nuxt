@@ -1,69 +1,27 @@
-<template>
-   <AsideForm>
-      <form
-         action="#"
-         enctype="multipart/form-data"
-         class="aside-form form"
-         @submit.prevent="formSubmit">
-         <div class="form__header">
-            <div class="form__title">Откликнуться на вакансию</div>
-         </div>
-         <div class="form__items">
-            <div class="form-item">
-               <input
-                  id="form-name"
-                  type="text"
-                  name="name"
-                  placeholder="ФИО" />
-               <label for="form-name">ФИО</label>
-            </div>
-            <div class="form-item">
-               <input
-                  id="form-phone"
-                  type="tel"
-                  name="phone"
-                  placeholder="Телефон" />
-               <label for="form-phone">Телефон</label>
-            </div>
-            <div class="form-item">
-               <textarea
-                  id="form-comment"
-                  type="text"
-                  name="comment"
-                  placeholder="Комментарий"></textarea>
-               <label for="form-comment">Комментарий</label>
-            </div>
-         </div>
-         <div class="form__bottom">
-            <div v-if="fileName == ''" class="form-item form-item-file">
-               <input
-                  id="form-file"
-                  type="file"
-                  class="input-file"
-                  name="file"
-                  @change="previewFiles" />
-               <label for="form-file">Прикрепить резюме</label>
-            </div>
-            <div v-else-if="fileName != ''" class="form-file">
-               <div class="form-file__text">{{ fileName }}</div>
-               <button
-                  type="button"
-                  class="form-file__button"
-                  @click="deleteFile($event)"></button>
-            </div>
-            <UiButton
-               btn-title="Отправить"
-               btn-type="input"
-               class-names="form__button" />
-            <div class="form__text">
-               Отправляя форму, вы соглашаетесь
-               <NuxtLink to="/page-text"
-                  >с политикой обработки персональных данных</NuxtLink
-               >
-            </div>
-         </div>
-      </form>
-   </AsideForm>
+<template lang="pug">
+	AsideForm
+		form.aside-form.form(action="#" enctype="multipart/form-data" @submit.prevent="formSubmit")
+			.form__header
+				.form__title Откликнуться на вакансию
+			.form__items
+				.form-item
+					input#form-name(type="text" name="name" placeholder="ФИО")
+					label(for="form-name") ФИО
+				.form-item
+					input#form-phone(type="tel" name="phone" placeholder="Телефон")
+					label(for="form-phone") Телефон
+				.form-item
+					textarea#form-comment(type="text" name="comment" placeholder="Комментарий")
+					label(for="form-comment") Комментарий
+			.form__bottom
+				.form-item.form-item-file(v-if="fileName == ''")
+					input#form-file.input-file(type="file" name="file" @change="previewFiles")
+					label(for="form-file") Прикрепить резюме
+				.form-file(v-else-if="fileName != ''")
+					.form-file__text {{ fileName }}
+					button.form-file__button(type="button" @click="deleteFile($event)")
+				UiButton(btn-title="Отправить" btn-type="input" class-names="form__button")
+				.form__text Отправляя форму, вы соглашаетесь #[nuxt-link(to="/page-text" target="_blank") с политикой обработки персональных данных]
 </template>
 
 <script setup>

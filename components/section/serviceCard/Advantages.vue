@@ -1,55 +1,23 @@
-<template>
-   <section class="service-card__advantages service-advantages">
-      <div class="container">
-         <div class="heading">
-            <div class="heading__sub-title">Преимущества</div>
-            <h2 class="heading__title">
-               Мы <span>знаем причины всех поломок</span> и оптимальные варианты
-               их устранения
-            </h2>
-            <div class="heading__description">
-               <p>
-                  Перевозкин24 имеет в своем распоряжении более 200 автомобилей
-                  ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно
-               </p>
-               <div class="heading__number">Более 7 лет</div>
-            </div>
-         </div>
-         <div class="service-advantages__slider service-slider">
-            <div
-               ref="slider"
-               class="service-slider__body swiper"
-               @mouseover="showTrailer"
-               @mouseleave="hideTrailer">
-               <div class="service-slider__wrapper swiper-wrapper">
-                  <div
-                     v-for="(item, index) in serviceSlider"
-                     :key="index"
-                     class="service-slider__item swiper-slide">
-                     <div class="service-slider__image ibg">
-                        <img
-                           :src="`/images/service-card/${item.img}.jpg`"
-                           alt="изображение" />
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="slider-controls">
-               <button
-                  ref="buttonPrev"
-                  type="button"
-                  class="slider-button slider-button-prev"></button>
-               <button
-                  ref="buttonNext"
-                  type="button"
-                  class="slider-button slider-button-next"></button>
-            </div>
-         </div>
-         <div class="service-advantages__cards advantages-cards">
-            <AdvantagesCard />
-         </div>
-      </div>
-   </section>
+<template lang="pug">
+	section.service-card__advantages.service-advantages
+		.container
+			.heading
+				.heading__sub-title Преимущества
+				h2.heading__title Мы #[span знаем причины всех поломок] и оптимальные варианты их устранения
+				.heading__description
+					p Перевозкин24 имеет в своем распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно
+					.heading__number Более 7 лет
+			.service-advantages__slider.service-slider
+				.service-slider__body.swiper(ref="slider" @mouseover="showTrailer" @mouseleave="hideTrailer")
+					.service-slider__wrapper.swiper-wrapper
+						.service-slider__item.swiper-slide(v-for="(item, index) in serviceSlider" :key="index")
+							.service-slider__image.ibg
+								img(:src="`/images/service-card/${item.img}.jpg`" alt="изображение")
+				.slider-controls
+					button.slider-button.slider-button-prev(ref="buttonPrev" type="button")
+					button.slider-button.slider-button-next(ref="buttonNext" type="button")
+			.service-advantages__cards.advantages-cards
+				AdvantagesCard
 </template>
 
 <script setup>

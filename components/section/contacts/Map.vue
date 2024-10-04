@@ -1,10 +1,8 @@
-<template>
-   <div class="contacts__map map-contacts">
-      <div v-if="isDesktop">
-         <SectionContactsImage />
-      </div>
-      <div id="mapElem" class="map-contacts__location"></div>
-   </div>
+<template lang="pug">
+	.contacts__map.map-contacts
+		div(v-if="isDesktop")
+			SectionContactsImage
+		#mapElem.map-contacts__location
 </template>
 
 <script setup>

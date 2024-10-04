@@ -1,42 +1,20 @@
-<template>
-   <div class="service-card__form service-form">
-      <div class="container">
-         <div class="service-form__body">
-            <form action="#" class="form">
-               <div class="form__sup-title">Обратная связь</div>
-               <div class="form__title">
-                  Записаться на ремонт или обсудить проблему со специалистом
-               </div>
-               <div class="form__items">
-                  <div class="form-item">
-                     <input id="form-name" type="text" placeholder="Имя" />
-                     <label for="form-name">Имя</label>
-                  </div>
-                  <div class="form-item">
-                     <input
-                        id="form-phone"
-                        ref="phone"
-                        type="tel"
-                        placeholder="Телефон" />
-                     <label for="form-phone">Телефон</label>
-                  </div>
-                  <div class="form__action">
-                     <UiButton
-                        btn-title="Отправить"
-                        btn-type="input"
-                        class-names="form__button" />
-                  </div>
-               </div>
-               <div class="form__text">
-                  Отправляя форму, вы соглашаетесь
-                  <NuxtLink to="/page-text"
-                     >с политикой обработки персональных данных</NuxtLink
-                  >
-               </div>
-            </form>
-         </div>
-      </div>
-   </div>
+<template lang="pug">
+	.service-card__form.service-form
+		.container
+			.service-form__body
+				form.form(action="#")
+					.form__sup-title Обратная связь
+					.form__title Записаться на ремонт или обсудить проблему со специалистом
+					.form__items
+						.form-item
+							input#form-name(type="text" placeholder="Имя")
+							label(for="form-name") Имя
+						.form-item
+							input#form-phone(ref="phone" type="tel" placeholder="Телефон")
+							label(for="form-phone") Телефон
+						.form__action
+							UiButton(btn-title="Отправить" btn-type="input" class-names="form__button")
+					.form__text Отправляя форму, вы соглашаетесь #[nuxt-link(to="/page-text" target="_blank") с политикой обработки персональных данных]
 </template>
 
 <script setup>

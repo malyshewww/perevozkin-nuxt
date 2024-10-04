@@ -1,9 +1,7 @@
-<template>
-   <Teleport to="body">
-      <Popup :is-active="isActive" @close-popup="closePopup">
-         <h2 class="popup__title">Форма успешно отправлена</h2>
-      </Popup>
-   </Teleport>
+<template lang="pug">
+	Teleport(to="body")
+		Popup(:is-active="isActive" @close-popup="closePopup")
+			h2.popup__title Форма успешно отправлена
 </template>
 
 <script setup>

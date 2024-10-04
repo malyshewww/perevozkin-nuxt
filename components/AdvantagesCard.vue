@@ -1,27 +1,13 @@
-<template>
-   <div
-      v-for="(card, index) in advantages"
-      :key="index"
-      :class="`main-advantages__card card-advantages card-advantages--${
-         index + 1
-      }`">
-      <div class="card-advantages__bg"></div>
-      <div class="card-advantages__body">
-         <div class="card-advantages__icon">
-            <img
-               :src="`/images/advantages/icon-advantages-${index + 1}.png`"
-               alt="изображение" />
-         </div>
-         <div class="card-advantages__content">
-            <div class="card-advantages__title">
-               {{ card.title }}
-            </div>
-            <div class="card-advantages__text">
-               <p>{{ card.text }}</p>
-            </div>
-         </div>
-      </div>
-   </div>
+<template lang="pug">
+	div(v-for="(card, index) in advantages" :key="index" :class="`main-advantages__card card-advantages card-advantages--${index + 1}`")
+		.card-advantages__bg
+		.card-advantages__body
+			.card-advantages__icon
+				img(:src="`/images/advantages/icon-advantages-${index + 1}.png`" alt="изображение")
+			.card-advantages__content
+				.card-advantages__title {{ card.title }}
+				.card-advantages__text
+					p {{ card.text }}
 </template>
 
 <script setup>

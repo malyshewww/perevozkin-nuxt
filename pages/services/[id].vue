@@ -1,31 +1,20 @@
-<template>
-   <main class="main">
-      <div class="service-card">
-         <div class="main__top">
-            <div class="container">
-               <div class="main__top-inner">
-                  <BreadCrumbs :nav-list="breadcrumbs" />
-                  <h1 class="main__title">
-                     Ремонт подвески ГАЗель Next в Нижнем Новгороде
-                  </h1>
-                  <div ref="mainDescr" class="main__description">
-                     <p>Мы специализируемся на ремонте автомобилей ГАЗ.</p>
-                     <p>Лучше других знаем все «болячки» подвески</p>
-                  </div>
-                  <div class="main__image ibg">
-                     <img
-                        src="/images/service-card/service-img.png"
-                        alt="изображение" />
-                  </div>
-               </div>
-            </div>
-         </div>
-         <SectionServiceCardAdvantages />
-         <SectionServiceCardForm />
-         <SectionServiceCardContent />
-         <SectionServiceCardOtherServices />
-      </div>
-   </main>
+<template lang="pug">
+	main.main
+		.service-card
+			.main__top
+				.container
+					.main__top-inner
+						breadcrumbs(:nav-list="breadcrumbs")
+						h1.main__title Ремонт подвески ГАЗель Next в Нижнем Новгороде
+						.main__description(ref="mainDescr")
+							p Мы специализируемся на ремонте автомобилей ГАЗ.
+							p Лучше других знаем все «болячки» подвески
+						.main__image.ibg
+							img(:src="`/images/service-card/service-img.png`", alt="изображение")
+		SectionServiceCardAdvantages
+		SectionServiceCardForm
+		SectionServiceCardContent
+		SectionServiceCardOtherServices
 </template>
 <script setup>
 const { $gsap: gsap } = useNuxtApp();

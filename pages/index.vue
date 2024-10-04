@@ -1,11 +1,10 @@
-<template>
-   <main class="main">
-      <SectionMainScreen />
-      <SectionMainServices />
-      <SectionMainAdvantages />
-      <SectionMainSale />
-      <SectionMainPartners />
-   </main>
+<template lang="pug">
+	main.main
+		SectionMainScreen
+		SectionMainServices
+		SectionMainAdvantages
+		SectionMainSale
+		SectionMainPartners
 </template>
 
 <script setup>
