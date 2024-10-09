@@ -1,15 +1,15 @@
 <template lang="pug">
 	div
-		BreadCrumbs(:nav-list="breadcrumbs")
+		BreadCrumbs(:nav-list="blog.breadcrumbs")
 		main.main
 			.container
 				.main-header
 					.main-header__body
-						h1.main__title.page-title Блог
+						h1.main__title.page-title {{blog.title}}
 				.articles
 					.articles__wrapper
 						.articles__body
-							ArticleCard(:article-list="articleList")
+							ArticleCard(:article-list="blog.main.list")
 						UiPager
 </template>
 
@@ -17,6 +17,29 @@
 useHead({
    title: "Блог",
 });
+
+const runtimeConfig = useRuntimeConfig();
+const {
+   data: blog,
+   status,
+   error,
+} = await useAsyncData(
+   "blog",
+   () => $fetch(`${runtimeConfig.public.apiBase}/blog?_format=json`, {}),
+   {
+      transform: ({ breadcrumb, data, metatag }) => {
+         console.log(data);
+         return {
+            breadcrumbs: breadcrumb,
+            main: {
+               list: data,
+            },
+            meta: metatag,
+         };
+      },
+   }
+);
+
 const breadcrumbs = [
    {
       text: "Главная",

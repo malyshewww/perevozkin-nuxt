@@ -1,6 +1,6 @@
 <template lang="pug">
 	main.main
-		SectionMainScreen
+		SectionMainScreen(:menu="main.menu")
 		SectionMainServices
 		SectionMainAdvantages
 		SectionMainSale
@@ -9,6 +9,10 @@
 
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
+
+const props = defineProps({
+   main: {},
+});
 
 useHead({
    title: "Главная страница",

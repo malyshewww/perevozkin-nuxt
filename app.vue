@@ -1,9 +1,33 @@
 <template lang="pug">
-	NuxtLayout
+	NuxtLayout(:main="mainInfo.main")
 		NuxtErrorBoundary
-			NuxtPage
+			NuxtPage(:main="mainInfo.main")
 </template>
-<script setup></script>
+<script setup>
+const runtimeConfig = useRuntimeConfig();
+const {
+   data: mainInfo,
+   status,
+   error,
+} = await useAsyncData(
+   "mainInfo",
+   () =>
+      $fetch(
+         `${runtimeConfig.public.apiBase}/wsapi/packs/site_info?_format=json`,
+         {}
+      ),
+   {
+      transform: ({ data, metatag }) => {
+         return {
+            main: {
+               menu: data.menu_main,
+            },
+            meta: metatag,
+         };
+      },
+   }
+);
+</script>
 
 <style lang="scss">
 @import "~/assets/scss/base/nullstyle.scss";
@@ -11,12 +35,4 @@
 @import "~/assets/scss/base/keyframes.scss";
 @import "~/assets/scss/fonts.scss";
 @import "~/assets/scss/common.scss";
-// .page-enter-active,
-// .page-leave-active {
-//    transition: all 2s;
-// }
-// .page-enter-from,
-// .page-leave-to {
-//    opacity: 0;
-// }
 </style>

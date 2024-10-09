@@ -1,14 +1,14 @@
 <template lang="pug">
    div
-      BreadCrumbs(:nav-list="breadcrumbs")
+      BreadCrumbs(:nav-list="vacancy.breadcrumbs")
       main.main
          .container
             .main-header
                .main-header__body
-                  h1.main__title.page-title Вакансии
+                  h1.main__title.page-title {{vacancy.title}}
             .vacancy
                .vacancy__wrapper
-                  SectionVacancyContent
+                  SectionVacancyContent(:vacancyList="vacancy.main.list")
                   SectionVacancyForm
 </template>
 
@@ -16,16 +16,28 @@
 useHead({
    title: "Вакансии",
 });
-const breadcrumbs = [
+const runtimeConfig = useRuntimeConfig();
+const {
+   data: vacancy,
+   status,
+   error,
+} = await useAsyncData(
+   "vacancy",
+   () => $fetch(`${runtimeConfig.public.apiBase}/vacancy?_format=json`, {}),
    {
-      text: "Главная",
-      href: "/",
-   },
-   {
-      text: "Вакансии",
-      href: "/vacancy",
-   },
-];
+      transform: ({ data, breadcrumb, metatag }) => {
+         console.log(breadcrumb);
+         return {
+            breadcrumbs: breadcrumb,
+            title: data.title,
+            main: {
+               list: data.field_vacancies,
+            },
+            meta: metatag,
+         };
+      },
+   }
+);
 </script>
 
 <style lang="scss">

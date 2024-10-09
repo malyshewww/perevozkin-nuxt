@@ -1,11 +1,11 @@
 <template lang="pug">
 	div
-		BreadCrumbs(:nav-list="breadcrumbs")
+		BreadCrumbs(:nav-list="blogDetail.breadcrumbs")
 		main.main
 			.article-page
 				.container
 					.article-page__wrapper
-						SectionArticleContent
+						SectionArticleContent(:content="blogDetail.main.content")
 						SectionArticleForm
 </template>
 
@@ -16,6 +16,31 @@ useHead({
       class: "page--article",
    },
 });
+
+const { id } = useRoute().params;
+const runtimeConfig = useRuntimeConfig();
+
+const {
+   data: blogDetail,
+   status,
+   error,
+} = await useAsyncData(
+   "blogDetail",
+   () => $fetch(`${runtimeConfig.public.apiBase}/blog/${id}?_format=json`, {}),
+   {
+      transform: ({ breadcrumb, data, metatag }) => {
+         console.log(data);
+         return {
+            breadcrumbs: breadcrumb,
+            main: {
+               content: data,
+            },
+            meta: metatag,
+         };
+      },
+   }
+);
+
 const breadcrumbs = [
    {
       text: "Главная",

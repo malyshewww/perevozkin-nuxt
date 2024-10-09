@@ -11,7 +11,7 @@
 					nav.menu__body
 						ul.menu__list
 							li.menu__item(v-for="(item, index) in menu" :key="index")
-								nuxt-link.menu__link(:to="`${item.href}`" @click="menuClose") {{ item.title }}
+								nuxt-link.menu__link(:to="`${item.url.href}`" @click="menuClose") {{ item.title }}
 					HeaderActions(device="mobile" @go-to-section="goToSection")
 				HeaderActions(device="pc" @go-to-section="goToSection")
 				.header__burger(:class="{ active: isMenuActive }" @click="menuOpen")
@@ -20,6 +20,12 @@
 </template>
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
+
+defineProps({
+   menu: {
+      required: true,
+   },
+});
 
 const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 
@@ -70,25 +76,6 @@ onMounted(() => {
    });
    bodyScrollBar.addListener(ScrollTrigger.update);
 });
-
-const menu = [
-   {
-      title: "Услуги",
-      href: "/services",
-   },
-   {
-      title: "Вакансии",
-      href: "/vacancy",
-   },
-   {
-      title: "Блог",
-      href: "/blog",
-   },
-   {
-      title: "Контакты",
-      href: "/contacts",
-   },
-];
 
 onMounted(() => {});
 </script>

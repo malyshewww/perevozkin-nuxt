@@ -1,11 +1,11 @@
 <template lang="pug">
    div(v-if="isMobile")
-      SectionContactsImage
+      SectionContactsImage(:image="info.image")
    .contacts__info.info-contacts
       .info-contacts__item
          .info-contacts__caption Адрес
          .info-contacts__values
-            address г. Нижний Новгород, ул. Партизанская, дом 6
+            address {{info.address}}
       .info-contacts__item
          .info-contacts__caption Телефон
          .info-contacts__values
@@ -39,11 +39,18 @@
       .info-contacts__item
          .info-contacts__caption E-mail
          .info-contacts__values
-            a.info-contacts__link(href="mailto:perevozov-service@mail.ru") perevozov-service@mail.ru
+            a.info-contacts__link(:href="`${info.email}`") {{info.email}}
 </template>
 
 <script setup>
 const { isMobile } = useDevice();
+
+const props = defineProps({
+   info: {
+      type: Object,
+      required: true,
+   },
+});
 </script>
 
 <style lang="scss">

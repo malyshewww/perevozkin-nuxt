@@ -1,12 +1,16 @@
 <template lang="pug">
-	.contacts__image.ibg(:class="classNames")
-		img(:src="`/images/contacts/picture.jpg`" alt="изображение")
+	.contacts__image.ibg(:class="classNames" v-html="image")
+		//- img(:src="`/images/contacts/picture.jpg`" alt="изображение")
 </template>
 
 <script setup>
 defineProps({
    classNames: {
       type: String,
+   },
+   image: {
+      type: String,
+      required: true,
    },
 });
 </script>

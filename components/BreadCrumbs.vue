@@ -4,7 +4,7 @@
 			nav.breadcrumbs__nav
 				ul.breadcrumbs__list
 					li.breadcrumbs__item(v-for="(item, index) in navList" :key="index")
-						nuxt-link.breadcrumbs__link(:to="item.href" :class="{ disabled: index == navList.length - 1 }") {{ item.text }}
+						nuxt-link.breadcrumbs__link(:to="item.url" :class="{ disabled: index == navList.length - 1 }") {{ item.text }}
 </template>
 
 <script setup>

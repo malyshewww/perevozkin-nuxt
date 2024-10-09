@@ -1,24 +1,37 @@
 <template lang="pug">
 	.contacts__map.map-contacts
 		div(v-if="isDesktop")
-			SectionContactsImage
+			SectionContactsImage(:image="info.image")
 		#mapElem.map-contacts__location
 </template>
 
 <script setup>
+const props = defineProps({
+   info: {
+      type: Object,
+      required: true,
+   },
+});
+
+console.log(props.image);
+
 import json from "~/static/geo.json";
 
 const { isDesktop } = useDevice();
+const runtimeConfig = useRuntimeConfig();
 
 onMounted(() => {
    const mapElem = document.getElementById("mapElem");
-   const script = document.createElement("script");
-   script.src =
-      "https://api-maps.yandex.ru/v3/?apikey=ea2f2b8f-a553-4e78-bbd3-fbfd203217aa&lang=ru_RU";
-   document.body.appendChild(script);
-   script.onload = function () {
-      initMap();
-   };
+   let isLoaded = false;
+   function loadMap() {
+      const script = document.createElement("script");
+      script.src = `https://api-maps.yandex.ru/v3/?apikey=${runtimeConfig.public.apiKey}&lang=ru_RU`;
+      document.body.appendChild(script);
+      isLoaded = true;
+      script.onload = function () {
+         initMap();
+      };
+   }
    async function initMap() {
       await ymaps3.ready;
       const {
@@ -55,6 +68,19 @@ onMounted(() => {
       );
       map.addChild(marker);
    }
+   const observerOptions = {};
+   const observer = new IntersectionObserver(([entry]) => {
+      const targetInfo = entry.boundingClientRect;
+      const rootBoundsInfo = entry.rootBounds;
+      if (
+         (!isLoaded && targetInfo.top < rootBoundsInfo.bottom) ||
+         targetInfo.isIntersecting
+      ) {
+         loadMap();
+         observer.unobserve(entry.target);
+      }
+   }, observerOptions);
+   observer.observe(mapElem);
 });
 </script>
 

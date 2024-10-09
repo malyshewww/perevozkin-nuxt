@@ -1,13 +1,14 @@
 <template lang="pug">
-   article.article(v-for="article in articleList" :key="article.id")
-      nuxt-link.article__image.ibg(:to="`/blog/${article.id}`")
-         img(:src="`/images/articles/${article.img}.jpg`" :alt="article.title")
+   article.article(v-for="(article, index) in articleList" :key="index")
+      nuxt-link.article__image.ibg(:to="article.url")
+         div(v-html="article.field_image[0].markup")
+         //- img(:src="`/images/articles/${article.img}.jpg`" :alt="article.title")
       .article__body
          h2.article__title
-            nuxt-link(:to="`/blog/${article.id}`") {{ article.title }}
+            nuxt-link(:to="article.url") {{ article.title }}
          .article__description
-            p {{ article.description }}
-         nuxt-link.article__link(:to="`/blog/${article.id}`") Подробнее
+            p {{ article.body }}
+         nuxt-link.article__link(:to="article.url") Подробнее
 </template>
 
 <script setup>

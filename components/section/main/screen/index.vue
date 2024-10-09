@@ -1,6 +1,6 @@
 <template lang="pug">
 	.main-screen(ref="mainScreen")
-		Header(v-if="isDesktop")
+		Header(v-if="isDesktop" :menu="menu")
 		.container
 			.main-screen__body
 				.main-screen__heading.anim-heading
@@ -22,6 +22,12 @@
 import initCustomScrollbar from "~/utils/customScrollbar";
 import SplitType from "split-type";
 import { usePreloaderStore } from "@/stores/preloader";
+
+defineProps({
+   menu: {
+      required: true,
+   },
+});
 
 const { isDesktop } = useDevice();
 

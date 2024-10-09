@@ -1,76 +1,54 @@
 <template lang="pug">
 	.vacancy__content.content
-		.vacancy__item.item-vacancy(v-for="(vacancy, index) in vacancyList" :key="index")
-			h3.item-vacancy__title {{ vacancy.title }}
+		.vacancy__item.item-vacancy(v-for="(vacancy, index) in modifiedVacancyList" :key="vacancy.id")
+			h3.item-vacancy__title {{ vacancy.field_name[0] }}
 			.item-vacancy__groups
 				.item-vacancy__group
 					.item-vacancy__main.main-info
-						.main-info__inner
+						.main-info__inner(v-if="vacancy.field_salary.length")
 							.main-info__label Заработная плата:
-							.main-info__values(data-attr="от") {{ vacancy.salary }}
-						.main-info__inner
+							.main-info__values(data-attr="от") {{ vacancy.field_salary[0] }}
+						.main-info__inner(v-if="vacancy.field_contacts.length")
 							.main-info__label Контакты отдела персонала:
 							.main-info__values
-								a.main-info__value(v-for="(phone, phoneIndex) in vacancy.phones" :key="phoneIndex" :href="`tel:${phone}`") {{ phone }}
-				.item-vacancy__group
+								a.main-info__value(v-for="(phone, phoneIndex) in vacancy.field_contacts" :key="phoneIndex" :href="`tel:${vacancy.field_contacts_new[phoneIndex]}`") {{ phone }}
+				.item-vacancy__group(v-if="vacancy.field_responsibilities.length")
 					.item-vacancy__label Обязанности
 					ul
-						li(v-for="(r, i) in vacancy.responsibilities" :key="i") {{ r }}
-				.item-vacancy__group
+						li(v-for="(r, i) in vacancy.field_responsibilities" :key="i") {{ r }}
+				.item-vacancy__group(v-if="vacancy.field_requirements.length")
 					.item-vacancy__label Требования
 					ul
-						li(v-for="(r, i) in vacancy.requirements" :key="i") {{ r }}
-				.item-vacancy__group
+						li(v-for="(r, i) in vacancy.field_requirements" :key="i") {{ r }}
+				.item-vacancy__group(v-if="vacancy.field_working_conditions.length")
 					.item-vacancy__label Условия работы
 					ul
-						li(v-for="(c, i) in vacancy.conditions" :key="i") {{ c }}
+						li(v-for="(c, i) in vacancy.field_working_conditions" :key="i") {{ c }}
 </template>
 
 <script setup>
-const vacancyList = [
-   {
-      title: "Диагност электронных систем",
-      salary: "80 000 руб./мес.",
-      phones: ["+7 (831) 138-08-80", "+7 (831) 138-08-80"],
-      responsibilities: [
-         "Знание устройства автомобилей иностранного производства.",
-         "Знание методов технического обслуживания и ремонта автомобилей",
-         "Подтвержденный опыт технического обслуживания и ремонта автомобилей иностранного производства.",
-         "Приветливость и внимание к Клиентам.",
-      ],
-      requirements: [
-         "Проведение необходимых ремонтных мероприятий по указанию своего руководителя.",
-         "Применение специальной аппаратуры для выявления проблем в функционировании автомашин.",
-         "Выполнение ремонтных работ.",
-      ],
-      conditions: [
-         "График работы 2/2/3",
-         "Оформление согласно ТК РФ.",
-         "Корпоративные скидки на услуги сервиса.",
-      ],
+const props = defineProps({
+   vacancyList: {
+      type: Object,
+      required: true,
    },
-   {
-      title: "Мастер-приёмщик",
-      salary: "80 000 руб./мес.",
-      phones: ["+7 (831) 138-08-80", "+7 (831) 138-08-80"],
-      responsibilities: [
-         "Знание устройства автомобилей иностранного производства.",
-         "Знание методов технического обслуживания и ремонта автомобилей",
-         "Подтвержденный опыт технического обслуживания и ремонта автомобилей иностранного производства.",
-         "Приветливость и внимание к Клиентам.",
-      ],
-      requirements: [
-         "Проведение необходимых ремонтных мероприятий по указанию своего руководителя.",
-         "Применение специальной аппаратуры для выявления проблем в функционировании автомашин.",
-         "Выполнение ремонтных работ.",
-      ],
-      conditions: [
-         "График работы 2/2/3",
-         "Оформление согласно ТК РФ.",
-         "Корпоративные скидки на услуги сервиса.",
-      ],
-   },
-];
+});
+
+const modifiedVacancyList = ref([]);
+modifiedVacancyList.value = props.vacancyList.map((item) => {
+   const filedContacts = item.field_contacts;
+   const field_contacts_new = [];
+   if (filedContacts.length) {
+      filedContacts.forEach((field) => {
+         const phone = field.replace(/[^\d\+]/g, "");
+         field_contacts_new.push(phone);
+      });
+   }
+   return {
+      ...item,
+      field_contacts_new,
+   };
+});
 </script>
 
 <style lang="scss">

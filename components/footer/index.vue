@@ -11,7 +11,7 @@
 					.footer__menu.menu-footer
 						ul.menu-footer__list
 							li.menu-footer__item(v-for="(item, index) in menu" :key="index")
-								nuxt-link.menu-footer__link(:to="`${item.href}`") {{ item.title }}
+								nuxt-link.menu-footer__link(:to="`${item.url.href}`") {{ item.title }}
 					.footer__social.social-footer
 						ul.social-footer__list
 							li.social-footer__item
@@ -44,24 +44,12 @@
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
 
-const menu = [
-   {
-      title: "Услуги",
-      href: "/services",
+defineProps({
+   menu: {
+      type: Array,
+      retuired: true,
    },
-   {
-      title: "Вакансии",
-      href: "/vacancy",
-   },
-   {
-      title: "Блог",
-      href: "/blog",
-   },
-   {
-      title: "Контакты",
-      href: "/contacts",
-   },
-];
+});
 const scrollTop = () => {
    const wrapper = document.querySelector(".wrapper");
    if (wrapper) {

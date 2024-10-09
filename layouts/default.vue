@@ -3,14 +3,18 @@
 		.scroller
 			.wrapper.wrapper-default
 				UiTrailer
-				Header
+				Header(:menu="main.menu")
 				slot
-				Footer
+				Footer(:menu="main.menu")
 		#rotate-device
 </template>
 
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
+
+const props = defineProps({
+   main: {},
+});
 
 const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 

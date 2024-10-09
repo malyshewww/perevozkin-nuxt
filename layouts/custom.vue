@@ -2,7 +2,7 @@
    UiPreloader(:is-loading="loading")
    .scroller(ref="scroller")
       .wrapper(:class="{ active: !isLoaded }")
-         Header(v-if="isMobile")
+         Header(v-if="isMobile" :menu="main.menu")
          UiTrailer
          UiButtonSound
          slot
@@ -14,6 +14,10 @@
 import { ref } from "vue";
 import { usePreloaderStore } from "@/stores/preloader";
 import initCustomScrollbar from "~/utils/customScrollbar";
+
+const props = defineProps({
+   main: {},
+});
 
 const { isMobile } = useDevice();
 

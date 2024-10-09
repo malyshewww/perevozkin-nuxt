@@ -19,6 +19,12 @@ export default defineNuxtConfig({
    modules: ["@pinia/nuxt", "@nuxtjs/device"],
    // plugins: [{ src: "~/plugins/scrollbar.js", mode: "client" }],
    // Возможность подключения сторонних ресурсов и дополнительных мета тегов непосредственно в head
+   runtimeConfig: {
+      public: {
+         apiBase: process.env.NUXT_PUBLIC_API_BASE_URL,
+         apiKey: process.env.NUXT_PUBLIC_API_KEY,
+      },
+   },
    app: {
       head: {
          htmlAttrs: {
