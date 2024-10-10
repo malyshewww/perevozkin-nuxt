@@ -17,6 +17,7 @@ useHead({
    title: "Вакансии",
 });
 const runtimeConfig = useRuntimeConfig();
+
 const {
    data: vacancy,
    status,

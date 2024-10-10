@@ -1,17 +1,19 @@
 <template lang="pug">
 	main.main
 		SectionMainScreen(:menu="main.menu")
-		SectionMainServices
-		SectionMainAdvantages
-		SectionMainSale
-		SectionMainPartners
+		SectionMainServices(:catalogList="front.main.catalogFront" :serviceList="front.main.serviceFront")
+		SectionMainAdvantages(:text="front.main.frontInfo.advantageText" :advantages="front.main.advantages")
+		SectionMainSale(:stocks="front.main.frontInfo.stocks")
+		SectionMainPartners(:partners="front.main.frontInfo.partners")
 </template>
 
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
 
-const props = defineProps({
-   main: {},
+defineProps({
+   main: {
+      required: true,
+   },
 });
 
 useHead({
@@ -20,9 +22,43 @@ useHead({
       class: `page--home`,
    },
 });
+
 definePageMeta({
    layout: "custom",
 });
+
+const runtimeConfig = useRuntimeConfig();
+const {
+   data: front,
+   status,
+   error,
+} = await useAsyncData(
+   "front",
+   () =>
+      $fetch(
+         `${runtimeConfig.public.apiBase}/wsapi/packs/front?_format=json`,
+         {}
+      ),
+   {
+      transform: ({ data, metatag }) => {
+         console.log(data);
+         console.log(data.services_front);
+         return {
+            main: {
+               advantages: data.advantages[0].field_advantages,
+               catalogFront: data.catalog_front,
+               serviceFront: data.services_front,
+               frontInfo: {
+                  advantageText: data.front_info[0].field_advantage_text,
+                  partners: data.front_info[0].field_partners,
+                  stocks: data.front_info[0].field_stocks,
+               },
+            },
+            meta: metatag,
+         };
+      },
+   }
+);
 
 onMounted(() => {
    const { bodyScrollBar } = initCustomScrollbar();

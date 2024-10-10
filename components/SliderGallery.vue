@@ -7,9 +7,8 @@
 				button.slider-button.slider-button-next(ref="buttonNext" type="button")
 		.gallery__body.swiper(ref="slider")
 			.gallery__wrapper.swiper-wrapper
-				.gallery__item.swiper-slide(v-for="(item, index) in gallery" :key="index")
-					a.gallery__image(:href="`/images/gallery/${item.img}.jpg`" data-fancybox="gallery")
-						img(:src="`/images/gallery/${item.img}.jpg`" alt="галерея")
+				a.gallery__item.swiper-slide(v-for="(item, index) in gallerySlider" :key="index" data-fancybox="gallery" :href="`${item.raw}`")
+					.gallery__image.ibg(v-html="item.markup")
 </template>
 
 <script setup>
@@ -18,6 +17,13 @@ import "swiper/css";
 import { Navigation } from "swiper/modules";
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
+
+defineProps({
+   gallerySlider: {
+      type: Array,
+      required: false,
+   },
+});
 
 const instanceFancybox = () => {
    Fancybox.bind('[data-fancybox="gallery"]', {
@@ -79,21 +85,6 @@ onMounted(() => {
    initSlider();
    instanceFancybox();
 });
-
-const gallery = [
-   {
-      img: "gallery-1",
-   },
-   {
-      img: "gallery-2",
-   },
-   {
-      img: "gallery-1",
-   },
-   {
-      img: "gallery-2",
-   },
-];
 </script>
 
 <style lang="scss">
@@ -112,6 +103,7 @@ const gallery = [
       padding-bottom: 0;
       border: none;
       flex-flow: row wrap;
+      margin-bottom: 60px;
       @media screen and (max-width: $xl) {
          margin-bottom: 30px;
       }
@@ -119,6 +111,7 @@ const gallery = [
    &__image {
       overflow: hidden;
       display: block;
+      padding-bottom: math.div(380, 560) * 100%;
       & img {
          transition: transform 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.87);
       }

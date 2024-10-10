@@ -1,0 +1,207 @@
+<template lang="pug">
+	main.main
+		.service-card
+			.main__top
+				.container
+					.main__top-inner
+						BreadCrumbs(:nav-list="serviceDetail.breadcrumbs")
+						h1.main__title(v-if="serviceDetail.main.top.title") {{serviceDetail.main.top.title}}
+						.main__description(ref="mainDescr" v-if="serviceDetail.main.top.subtitle")
+							p(v-for="(p, i) in serviceDetail.main.top.subtitle" :key="i") {{p}}
+						.main__image.ibg(v-html="serviceDetail.main.top.image.markup")
+							//- img(:src="`/images/service-card/service-img.png`", alt="изображение")
+		SectionServiceCardAdvantages(v-if="serviceDetail.main.advantages" :advantages="serviceDetail.main.advantages")
+		SectionServiceCardForm
+		SectionServiceCardContent(v-if="serviceDetail.main.content" :content="serviceDetail.main.content")
+		SectionServiceCardOtherServices(v-if="serviceDetail.main.otherServices" :services="serviceDetail.main.otherServices")
+</template>
+<script setup>
+import SplitType from "split-type";
+const { $gsap: gsap } = useNuxtApp();
+
+useHead({
+   title: "Карточка услуги",
+   bodyAttrs: {
+      class: "page--service",
+   },
+});
+
+const tl = ref("");
+const mainDescr = ref("");
+const splitting = () => {
+   const splitDescr = new SplitType(mainDescr.value, {
+      types: "lines",
+   });
+   tl.value = gsap
+      .timeline({})
+      .from(splitDescr.lines, { y: 100, opacity: 0, stagger: 0.1 })
+      .to(splitDescr.lines, { y: 0, opacity: 1, stagger: 0.1 });
+};
+
+const destroyAnimations = () => {
+   tl.value.pause().kill();
+   tl.value = null;
+};
+
+const { catalog, title } = useRoute().params;
+
+const runtimeConfig = useRuntimeConfig();
+const {
+   data: serviceDetail,
+   status,
+   error,
+} = await useAsyncData(
+   "serviceDetail",
+   () =>
+      $fetch(
+         `${runtimeConfig.public.apiBase}/services/${catalog}/${title}?_format=json`,
+         {}
+      ),
+   {
+      transform: ({ breadcrumb, data, metatag }) => {
+         return {
+            breadcrumbs: breadcrumb,
+            main: {
+               data: data,
+               top: {
+                  title: data.title,
+                  subtitle: data.field_subtitle[0],
+                  image: data.field_image[0],
+               },
+               advantages: {
+                  list: data.advantages[0].field_advantages,
+                  description: data.field_dvantage_description[0],
+                  strongText: data.field_advantages_strong_text[0],
+                  images: data.field_advantages_images,
+               },
+               otherServices: data.services_same,
+               content: data.body[0],
+            },
+            meta: metatag,
+         };
+      },
+   }
+);
+
+const breadcrumbs = [
+   {
+      text: "Главная",
+      href: "/",
+   },
+   {
+      text: "Услуги",
+      href: "/services",
+   },
+   {
+      text: "Газель NEXT",
+      href: "/services",
+   },
+   {
+      text: "Ремонт подвески Газель NEXT в Нижнем Новгороде",
+      href: "/services/1",
+   },
+];
+onMounted(() => {
+   splitting();
+});
+onUnmounted(() => {
+   destroyAnimations();
+});
+</script>
+
+<style lang="scss" scoped>
+.main {
+   &__top {
+      padding: 120px 0 173px;
+      background-color: $graphite;
+      @media screen and (max-width: $xxl) {
+         padding: 90px 0 130px;
+      }
+      @media screen and (max-width: $xl) {
+         padding: 40px 0 60px;
+      }
+      & .breadcrumbs {
+         grid-area: crumbs;
+         margin-top: 0;
+         margin-bottom: 24px;
+         grid-column: span 2;
+         @media screen and (max-width: $xl) {
+            margin: 0;
+         }
+         & .container {
+            padding: 0;
+         }
+      }
+   }
+   &__top-inner {
+      display: grid;
+      grid-template-areas:
+         "crumbs pic"
+         "title pic"
+         "descr pic";
+      grid-template-columns: 48% 41%;
+      justify-content: space-between;
+      gap: 36px;
+      align-items: start;
+      position: relative;
+      @media screen and (max-width: $xl) {
+         grid-template-columns: 1fr;
+         grid-template-areas:
+            "crumbs"
+            "title"
+            "descr"
+            "pic";
+         gap: 30px;
+      }
+   }
+   &__title {
+      grid-area: title;
+      font-family: $third-family;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 60px;
+      text-transform: uppercase;
+      color: $bg-white;
+      hyphens: none;
+      @media screen and (max-width: $xl) {
+         font-size: calc(48px / 1.5);
+         line-height: calc(60px / 1.5);
+         grid-column: span 2;
+      }
+      @media screen and (max-width: $md) {
+         font-size: 24px;
+         line-height: 32px;
+      }
+   }
+   &__description {
+      grid-area: descr;
+      font-size: 24px;
+      line-height: 32px;
+      color: $bg-white;
+      overflow: hidden;
+      @media screen and (max-width: $md) {
+         font-size: 20px;
+         line-height: 24px;
+      }
+      & .line {
+         opacity: 0;
+      }
+   }
+   &__image {
+      grid-area: pic;
+      padding-bottom: calc(504 / 705 * 100%);
+      position: absolute;
+      right: 0;
+      width: 100%;
+      top: 57%;
+      transform: translateY(-50%);
+      @media screen and (max-width: $xl) {
+         // display: none;
+         padding-bottom: 45%;
+         position: relative;
+         inset: 0;
+         transform: none;
+      }
+   }
+}
+</style>

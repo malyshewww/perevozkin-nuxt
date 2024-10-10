@@ -1,20 +1,44 @@
 <template lang="pug">
 	div
-		BreadCrumbs(:nav-list="breadcrumbs")
+		BreadCrumbs(:nav-list="services.breadcrumbs")
 		main.main
 			.container
 				.main-header
 					.main-header__body
-						h1.main__title.page-title Газель Next
+						h1.main__title.page-title Услуги
 				.services
 					.services__body
-						Card(:arr="servicesList")
+						Card(:arr="services.main.list")
 </template>
 
 <script setup>
 useHead({
    title: "Услуги",
 });
+definePageMeta({
+   layout: "default",
+});
+
+const runtimeConfig = useRuntimeConfig();
+const {
+   data: services,
+   status,
+   error,
+} = await useAsyncData(
+   "services",
+   () => $fetch(`${runtimeConfig.public.apiBase}/services?_format=json`, {}),
+   {
+      transform: ({ breadcrumb, data, metatag }) => {
+         return {
+            breadcrumbs: breadcrumb,
+            main: {
+               list: data,
+            },
+            meta: metatag,
+         };
+      },
+   }
+);
 const breadcrumbs = [
    {
       text: "Главная",

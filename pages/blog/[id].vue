@@ -6,7 +6,7 @@
 				.container
 					.article-page__wrapper
 						SectionArticleContent(:content="blogDetail.main.content")
-						SectionArticleForm
+						SectionArticleForm(:title="blogDetail.title")
 </template>
 
 <script setup>
@@ -32,6 +32,7 @@ const {
          console.log(data);
          return {
             breadcrumbs: breadcrumb,
+            title: data.title,
             main: {
                content: data,
             },

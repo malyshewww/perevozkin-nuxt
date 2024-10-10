@@ -6,7 +6,7 @@
          UiTrailer
          UiButtonSound
          slot
-         Footer
+         Footer(:menu="main.menu")
    #rotate-device
 </template>
 
@@ -17,7 +17,13 @@ import initCustomScrollbar from "~/utils/customScrollbar";
 
 const props = defineProps({
    main: {},
+   links: {
+      type: Object,
+      required: true,
+   },
 });
+
+provide("links", props.links);
 
 const { isMobile } = useDevice();
 
@@ -96,7 +102,8 @@ onMounted(() => {
    & .scrollbar-thumb {
       background: rgba($bg-green-lime, 0.8);
    }
-   & .scrollbar-track-x {
+   & .scrollbar-track-x,
+   & .scrollbar-thumb-x {
       display: none;
    }
 }

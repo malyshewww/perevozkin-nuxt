@@ -8,12 +8,19 @@
 					button.slider-button.slider-button-next(ref="buttonNext" type="button")
 			.other-services__slider.swiper(ref="otherSlider")
 				.other-services__wrapper.swiper-wrapper
-					Card(:arr="servicesList")
+					Card(:arr="services")
 </template>
 <script setup>
 import Swiper from "swiper";
 import "swiper/css";
 import { Navigation } from "swiper/modules";
+
+defineProps({
+   services: {
+      type: Array,
+      required: false,
+   },
+});
 
 const otherSlider = ref("");
 const sliderInstance = ref(null);
@@ -107,6 +114,9 @@ const servicesList = [
    }
    & .slider-controls {
       margin: 0;
+   }
+   & .service-item {
+      flex-grow: 0;
    }
 }
 .service-item {

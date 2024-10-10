@@ -5,12 +5,42 @@
 				.ticker__item(v-for="(item, index) in tickerItems" :key="index") {{ item }}
 			.main-services__body
 				.main-services__top
-					Card(:arr="serviceCardsTop")
+					Card(:arr="newArrCatalog")
 				.main-services__bottom
-					Card(:arr="serviceCardsBottom")
+					Card(:arr="listBottom")
 </template>
 
 <script setup>
+const props = defineProps({
+   catalogList: {
+      type: Array,
+      required: true,
+   },
+   serviceList: {
+      type: Array,
+      required: true,
+   },
+});
+
+const newArrCatalog = ref([]);
+
+const listBottom = ref([]);
+
+console.log("list", listBottom);
+
+const newCatalogList = props.catalogList.map((el, index) => {
+   if (index <= 2) {
+      newArrCatalog.value.push(el);
+   }
+   if (index > 2) {
+      listBottom.value.push(el);
+   }
+});
+
+const newServiceList = props.serviceList.map((el) => {
+   listBottom.value.push(el);
+});
+
 const tickerItems = [
    "Услуги сервиса",
    "Услуги сервиса",
@@ -141,6 +171,9 @@ onMounted(() => {});
          width: 100%;
          min-height: 260px;
          padding: 32px 40px;
+         &__price {
+            display: none;
+         }
          @media screen and (max-width: $xl) {
             padding: 20px;
          }

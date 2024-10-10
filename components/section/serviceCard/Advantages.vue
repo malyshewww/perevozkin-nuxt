@@ -4,20 +4,20 @@
 			.heading
 				.heading__sub-title Преимущества
 				h2.heading__title Мы #[span знаем причины всех поломок] и оптимальные варианты их устранения
-				.heading__description
-					p Перевозкин24 имеет в своем распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно
-					.heading__number Более 7 лет
+				.heading__description(v-if="advantages.description")
+					p {{advantages.description}}
+					.heading__number(v-if="advantages.strongText") {{advantages.strongText}}
 			.service-advantages__slider.service-slider
 				.service-slider__body.swiper(ref="slider" @mouseover="showTrailer" @mouseleave="hideTrailer")
 					.service-slider__wrapper.swiper-wrapper
-						.service-slider__item.swiper-slide(v-for="(item, index) in serviceSlider" :key="index")
-							.service-slider__image.ibg
-								img(:src="`/images/service-card/${item.img}.jpg`" alt="изображение")
+						.service-slider__item.swiper-slide(v-for="(item, index) in advantages.images" :key="index")
+							.service-slider__image.ibg(v-html="item.markup")
+								//- img(:src="`/images/service-card/${item.img}.jpg`" alt="изображение")
 				.slider-controls
 					button.slider-button.slider-button-prev(ref="buttonPrev" type="button")
 					button.slider-button.slider-button-next(ref="buttonNext" type="button")
 			.service-advantages__cards.advantages-cards
-				AdvantagesCard
+				AdvantagesCard(:advantages="advantages.list")
 </template>
 
 <script setup>
@@ -28,6 +28,12 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { Navigation, FreeMode } from "swiper/modules";
 
+const props = defineProps({
+   advantages: {
+      type: Object,
+      required: true,
+   },
+});
 const { $gsap: gsap } = useNuxtApp();
 
 const slider = ref("");

@@ -6,18 +6,28 @@
 					.heading
 						.heading__sub-title Преимущества
 						h2.heading__title.anim-title(ref="AdvantagesTitle") Мы знаем #[span причины всех поломок] и оптимальные #[br] варианты #[br] их устранения
-					.main-advantages__content.anim-content(ref="AdvantagesContent")
-						p Перевозкин24 имеет в своём распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно. Огромный опыт наших мастеров по ремонту автомобилей ГАЗ гарантирует высокое качество и надёжность.
+					.main-advantages__content.anim-content(ref="AdvantagesContent" v-if="text")
+						p {{text}}
 				.main-advantages__cards(ref="advantagesCards")
-					AdvantagesCard
+					AdvantagesCard(:advantages="advantages")
 </template>
 
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
+import SplitType from "split-type";
+
+defineProps({
+   text: {
+      type: String,
+      required: false,
+   },
+   advantages: {
+      type: Array,
+      required: true,
+   },
+});
 
 const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
-
-import SplitType from "split-type";
 
 const sectionAdvantages = ref("");
 const AdvantagesTitle = ref("");

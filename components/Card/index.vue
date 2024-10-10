@@ -1,15 +1,14 @@
 <template lang="pug">
-	nuxt-link.service-item(v-for="item in arr" :key="item.id" :to="`${item.href}`")
+	nuxt-link.service-item(v-for="(item, index) in arr" :key="index" :to="item.url")
 		.service-item__body
 			svg.service-item__icon
 				use(href="/images/icons/sprite.svg#rotate-arrow-down")
 			.service-item__header
-				.service-item__title {{ item.title }}
+				.service-item__title(v-if="item.title || item.name") {{ item.name || item.title }}
 				.service-item__sub-title(v-if="item.descr") {{ item.descr }}
-				.service-item__price(v-if="item.price")
-					span от {{ item.price }}
-			.service-item__image
-				img(:src="`/images${item.img}.png`" :alt="item.title")
+				.service-item__price(v-if="item.field_price") #[span от] {{ item.field_price }} ₽
+			.service-item__image(v-html="item.field_image[0].markup")
+				//- img(:src="`/images${item.img}.png`" :alt="item.title")
 </template>
 
 <script setup>

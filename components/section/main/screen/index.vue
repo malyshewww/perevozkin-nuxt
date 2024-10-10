@@ -137,7 +137,7 @@ const animation = () => {
             end: "+=100%",
             onUpdate: function (self) {
                progress.value = self.progress;
-               console.log(progress.value);
+               // console.log(progress.value);
                if (progress.value > 0.01) {
                   mainVideoWrap.value.style.maxWidth = "100%";
                }

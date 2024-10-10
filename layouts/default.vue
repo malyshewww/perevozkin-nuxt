@@ -13,8 +13,16 @@
 import initCustomScrollbar from "~/utils/customScrollbar";
 
 const props = defineProps({
-   main: {},
+   main: {
+      required: true,
+   },
+   links: {
+      type: Object,
+      required: true,
+   },
 });
+
+provide("links", props.links);
 
 const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 
@@ -46,7 +54,8 @@ onMounted(() => {
    & .scrollbar-thumb {
       background: rgba($bg-green-lime, 0.8);
    }
-   & .scrollbar-track-x {
+   & .scrollbar-track-x,
+   & .scrollbar-thumb-x {
       display: none;
    }
 }

@@ -4,22 +4,21 @@
 			.main__top
 				.container
 					.main__top-inner
-						BreadCrumbs(:nav-list="breadcrumbs")
-						h1.main__title Ремонт подвески ГАЗель Next в Нижнем Новгороде
-						.main__description(ref="mainDescr")
-							p Мы специализируемся на ремонте автомобилей ГАЗ.
-							p Лучше других знаем все «болячки» подвески
-						.main__image.ibg
-							img(:src="`/images/service-card/service-img.png`", alt="изображение")
-		SectionServiceCardAdvantages
+						BreadCrumbs(:nav-list="serviceGaz.breadcrumbs")
+						h1.main__title(v-if="serviceGaz.main.top.title") {{serviceGaz.main.top.title}}
+						.main__description(ref="mainDescr" v-if="serviceGaz.main.top.subtitle")
+							p(v-for="(p, i) in serviceGaz.main.top.subtitle" :key="i") {{p}}
+						.main__image.ibg(v-html="serviceGaz.main.top.image.markup")
+							//- img(:src="`/images/service-card/service-img.png`", alt="изображение")
+		SectionServiceCardAdvantages(v-if="serviceGaz.main.advantages" :advantages="serviceGaz.main.advantages")
 		SectionServiceCardForm
-		SectionServiceCardContent
-		SectionServiceCardOtherServices
+		SectionServiceCardContent(v-if="serviceGaz.main.content" :content="serviceGaz.main.content")
+		SectionServiceCardOtherServices(v-if="serviceGaz.main.otherServices" :services="serviceGaz.main.otherServices")
 </template>
-<script setup>
+<script setup scope>
+import SplitType from "split-type";
 const { $gsap: gsap } = useNuxtApp();
 
-import SplitType from "split-type";
 useHead({
    title: "Карточка услуги",
    bodyAttrs: {
@@ -28,7 +27,6 @@ useHead({
 });
 
 const tl = ref("");
-
 const mainDescr = ref("");
 const splitting = () => {
    const splitDescr = new SplitType(mainDescr.value, {
@@ -44,6 +42,42 @@ const destroyAnimations = () => {
    tl.value.pause().kill();
    tl.value = null;
 };
+
+const runtimeConfig = useRuntimeConfig();
+const { gaz } = useRoute().params;
+
+const {
+   data: serviceGaz,
+   status,
+   error,
+} = await useAsyncData(
+   "serviceGaz",
+   () =>
+      $fetch(`${runtimeConfig.public.apiBase}/services/gaz?_format=json`, {}),
+   {
+      transform: ({ breadcrumb, data, metatag }) => {
+         return {
+            breadcrumbs: breadcrumb,
+            main: {
+               top: {
+                  title: data.title,
+                  subtitle: data.field_subtitle[0],
+                  image: data.field_image[0],
+               },
+               advantages: {
+                  list: data.advantages[0].field_advantages,
+                  description: data.field_dvantage_description[0],
+                  strongText: data.field_advantages_strong_text[0],
+                  images: data.field_advantages_images,
+               },
+               otherServices: data.services_same,
+               content: data.body[0],
+            },
+            meta: metatag,
+         };
+      },
+   }
+);
 
 const breadcrumbs = [
    {

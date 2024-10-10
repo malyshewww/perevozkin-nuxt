@@ -1,6 +1,6 @@
 <template lang="pug">
 	div
-		//- BreadCrumbs(:nav-list="contactInfo.breadcrumbs")
+		BreadCrumbs(:nav-list="contactInfo.breadcrumbs")
 		main.main
 			.container
 				.main-header
@@ -16,6 +16,7 @@
 useHead({
    title: "Контакты",
 });
+
 const runtimeConfig = useRuntimeConfig();
 const {
    data: contactInfo,

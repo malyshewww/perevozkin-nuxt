@@ -6,24 +6,24 @@
 					nuxt-link.footer__logo(to="/")
 						img(src="/images/logo.svg" alt="логотип")
 					.footer__contacts.contacts-footer
-						a.contacts-footer__phone(href="tel:+78311380880") +7 (831)138-08-80
-						a.contacts-footer__email(href="mailto:perevozov-service@mail.ru") perevozov-service@mail.ru
+						a.contacts-footer__phone(:href="`tel:${formatPhone}`" v-if="phone") {{phone}}
+						a.contacts-footer__email(href="mailto:perevozov-service@mail.ru" v-if="email") {{email}}
 					.footer__menu.menu-footer
 						ul.menu-footer__list
 							li.menu-footer__item(v-for="(item, index) in menu" :key="index")
 								nuxt-link.menu-footer__link(:to="`${item.url.href}`") {{ item.title }}
-					.footer__social.social-footer
+					.footer__social.social-footer(v-if="vk || telegram || youtube")
 						ul.social-footer__list
-							li.social-footer__item
-								a.social-footer__link(href="/" target="_blank")
+							li.social-footer__item(v-if="vk")
+								a.social-footer__link(:href="vk" target="_blank")
 									svg#icon-vk.social-footer__icon(fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24")
 										path(d="M12.7663 17C7.24904 17 4.12261 13.2805 4 7H6.75862C6.81992 11.5732 8.90421 13.5244 10.4981 13.8902V7H13.0728V10.9634C14.6667 10.7805 16.3218 9.01219 16.8736 7H19.4483C19.0192 9.43902 17.1801 11.2683 15.8927 12C17.1801 12.6098 19.2644 14.1951 20 17H17.1188C16.5057 15.1098 14.9732 13.6463 12.9502 13.4024V17H12.7663Z", fill="currentColor")
-							li.social-footer__item
-								a.social-footer__link(href="/" target="_blank")
+							li.social-footer__item(v-if="telegram")
+								a.social-footer__link(:href="telegram" target="_blank")
 									svg#icon-telegram.social-footer__icon(fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24")
 										path(d="M18.9422 5.1135L4.60403 10.7367C3.8187 10.9704 3.8425 11.7702 4.42554 11.9671L8.01902 13.1237L9.39929 17.4795C9.56587 17.9594 9.70866 18.1317 9.99423 18.144C10.2917 18.144 10.4107 18.0332 10.7201 17.7502C11.0889 17.3934 11.6363 16.8397 12.5168 15.9538L16.2531 18.8084C16.9432 19.2022 17.443 18.993 17.6095 18.144L19.9417 6.15938C20.1916 5.1135 19.5967 4.80589 18.9422 5.1135ZM8.57826 12.853L16.7409 7.54979C17.1455 7.26679 17.2645 7.58671 17.086 7.79588L10.3155 14.1081L9.97044 17.258L8.57826 12.853Z", fill="currentColor")
-							li.social-footer__item
-								a.social-footer__link(href="/" target="_blank")
+							li.social-footer__item(v-if="youtube")
+								a.social-footer__link(:href="youtube" target="_blank")
 									svg#icon-youtube.social-footer__icon(fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24")
 										path(d="M19.7219 7.7731C19.5274 6.93737 18.8294 6.31622 17.9941 6.22587C16.0145 6 14.0007 6 11.9983 6C9.99583 6 7.9934 6 6.00242 6.21458C5.17857 6.31622 4.48058 6.92608 4.28606 7.7731C4 8.97023 4 10.269 4 11.5C4 12.731 4 14.0411 4.27462 15.2382C4.46914 16.0739 5.16713 16.6951 6.00242 16.7854C7.98196 17 9.99583 17 11.9983 17C14.0007 17 16.0031 17 17.9941 16.7854C18.8294 16.6951 19.5274 16.0739 19.7219 15.2382C19.9965 14.0411 19.9965 12.731 19.9965 11.5C20.0079 10.269 20.0079 8.97023 19.7219 7.7731ZM10.3277 13.6571V9.27515L14.5614 11.4661L10.3277 13.6571Z", fill="currentColor")
 				.footer__bottom.bottom-footer
@@ -43,13 +43,21 @@
 </template>
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
-
 defineProps({
    menu: {
-      type: Array,
-      retuired: true,
+      retuired: false,
    },
 });
+
+const { phone, email, telegram, youtube, vk } = inject("links");
+console.log(phone, email, telegram, youtube, vk);
+
+const formatPhone = computed(() => {
+   if (phone) {
+      return phone.replace(/[^\d\+]/g, "");
+   }
+});
+
 const scrollTop = () => {
    const wrapper = document.querySelector(".wrapper");
    if (wrapper) {

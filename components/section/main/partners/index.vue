@@ -6,12 +6,19 @@
             .heading__title.anim-title(ref="animTitle") Работаем с ведущими компаниями и #[span Ценим долгосрочное сотрудничество]
          .partners__slider
             UiTicker
-               .partners__item(v-for="(item, index) in partnersData" :key="index")
-                  .partners__image
-                     img(:src="`/images/main-partners/${item.img}.png`" alt="изображение")
+               .partners__item(v-for="(item, index) in partners" :key="index")
+                  .partners__image(v-html="item.markup")
+                     //- img(:src="`/images/main-partners/${item.img}.png`" alt="изображение")
 </template>
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
+
+defineProps({
+   partners: {
+      type: Array,
+      required: true,
+   },
+});
 
 const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 

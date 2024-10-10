@@ -10,9 +10,9 @@
          .info-contacts__caption Телефон
          .info-contacts__values
             a.info-contacts__link(href="tel:+78311380880") + 7 (831) 138-08-80
-            ul.social-list
-               li.social-item
-                  a.social-link(href="/" target="_blank")
+            ul.social-list(v-if="telegram || whatsapp || viber")
+               li.social-item(v-if="telegram")
+                  a.social-link(:href="telegram" target="_blank")
                      svg#icon-telegram-bg(fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32")
                         g(clip-path="url(#clip0_558_2897)")
                            path(d="M16 32C24.8368 32 32 24.8368 32 16C32 7.1632 24.8368 0 16 0C7.1632 0 0 7.1632 0 16C0 24.8368 7.1632 32 16 32Z" fill="url(#paint0_linear_558_2897)")
@@ -28,15 +28,15 @@
                               stop(offset="1" stop-color="white")
                            clipPath#clip0_558_2897
                               rect(width="32" height="32" fill="white")
-               li.social-item
-                  a.social-link(href="/" target="_blank")
+               li.social-item(v-if="whatsapp")
+                  a.social-link(:href="whatsapp" target="_blank")
                      svg
                         use(href="/images/icons/sprite.svg#icon-whatsapp")
-               li.social-item
-                  a.social-link(href="/" target="_blank")
+               li.social-item(v-if="viber")
+                  a.social-link(:href="viber" target="_blank")
                      svg
                         use(href="/images/icons/sprite.svg#icon-viber")
-      .info-contacts__item
+      .info-contacts__item(v-if="info.email")
          .info-contacts__caption E-mail
          .info-contacts__values
             a.info-contacts__link(:href="`${info.email}`") {{info.email}}
@@ -51,6 +51,8 @@ const props = defineProps({
       required: true,
    },
 });
+
+const { telegram, viber, whatsapp } = inject("links");
 </script>
 
 <style lang="scss">

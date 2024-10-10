@@ -5,32 +5,41 @@
 				.ticker__item(v-for="(item, index) in tickerItems" :key="index") {{ item }}
 			.main-sale__body.swiper.interactable(ref="saleSlider" data-type="slider" @mouseover="showTrailer" @mouseleave="hideTrailer")
 				.main-sale__wrapper.swiper-wrapper
-					.main-sale__item.item-sale.swiper-slide(v-for="(item, index) in saleSliderData" :key="index")
+					.main-sale__item.item-sale.swiper-slide(v-for="(item, index) in stocks" :key="item.id")
 						.item-sale__wrapper
 							.item-sale__info
 								.item-sale__badge Акция
-								.item-sale__date {{ item.date }}
-								.item-sale__title {{ item.title }}
-								.item-sale__description {{ item.descr }}
-								UiButton(btn-type="button" btn-title="Узнать больше" class-names="item-sale__button" @open-popup="openSalePopup($event, item)")
+								.item-sale__date {{ item.field_date[0] }}
+								.item-sale__title {{ item.field_title[0] }}
+								.item-sale__description {{ item.field_description_short[0] }}
+								UiButton(btn-type="button" btn-title="Узнать больше" class-names="item-sale__button" @open-popup="openSalePopup($event, {title: item.field_title[0], descr: item.field_body[0]})")
 								.item-sale__bottom
-									.item-sale__disclamer {{ item.disclamer }}
+									.item-sale__disclamer Подробности у сервисных консультантов. Не является публичной офертой
 							.item-sale__image-wrap
-								.item-sale__image.ibg
-									img(:src="`/images/main-sale/${item.img}.png`" alt="изображение")
+								.item-sale__image.ibg(v-html="item.field_image[0].markup")
+									//- img(:src="`/images/main-sale/${item.img}.png`" alt="изображение")
 				.slider-controls
 					button.slider-button.slider-button-prev(ref="buttonPrev" type="button")
 					button.slider-button.slider-button-next(ref="buttonNext" type="button")
 	PopupSale(:data="popupSaleData" :is-active="isSalePopupActive" @close-popup="closeSalePopup()")
 </template>
+
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
-
 import Swiper from "swiper";
 import "swiper/css";
 import { Navigation, FreeMode } from "swiper/modules";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
+
+const props = defineProps({
+   stocks: {
+      type: Array,
+      required: true,
+   },
+});
+
+console.log(props.stocks);
 
 const { $gsap: gsap } = useNuxtApp();
 
