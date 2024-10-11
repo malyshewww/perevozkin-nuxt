@@ -68,7 +68,6 @@ const submitForm = async (e) => {
          )
             .then((res) => res.json())
             .then(function (res) {
-               console.log(res);
                if (res.sid) {
                   formData.name = "";
                   formData.phone = "";

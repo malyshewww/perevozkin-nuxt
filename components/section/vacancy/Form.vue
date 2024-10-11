@@ -85,9 +85,22 @@ const formSubmit = (e) => {
                   body: JSON.stringify(formData),
                }
             )
-               .then((res) => console.log(res))
+               .then((res) => res.json())
                .then(function (res) {
-                  console.log(res);
+                  if (res.fid[0]) {
+                     let fid = res.fid[0].value;
+                     console.log(fid);
+                     fileName.value = "";
+                     buttonSubmit.removeAttribute("disabled");
+                     buttonSubmit.textContent = buttonSubmitText;
+                  } else {
+                     buttonSubmit.removeAttribute("disabled");
+                     buttonSubmit.textContent = buttonSubmitText;
+                  }
+                  // if (res.sid[0]) {
+                  //    let fid = res.data.fid[0].value;
+                  //    console.log(fid);
+                  // }
                });
          });
    } else {
