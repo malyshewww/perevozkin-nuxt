@@ -1,21 +1,33 @@
 <template lang="pug">
-	div
+	PageContainer(:status.sync="status" :error.sync="error")
 		BreadCrumbs(:nav-list="blog.breadcrumbs")
 		main.main
 			.container
 				.main-header
 					.main-header__body
-						h1.main__title.page-title {{blog.title}}
+						h1.main__title.page-title Блог
 				.articles
 					.articles__wrapper
 						.articles__body
 							ArticleCard(:article-list="blog.main.list")
-						UiPager
+						UiPager(v-if="blog.pagination.totalItems > 1" :pagination.sync="blog.pagination" @changePage="changePage")
+						//- vue-awesome-paginate(v-if="blog.pagination.totalItems > 1" :total-items="blog.pagination.totalItems" :items-per-page="blog.pagination.perPage" :max-pages-shown="4" v-model="internalCurrentPage" @click="onClickHandler")
 </template>
 
 <script setup>
-useHead({
-   title: "Блог",
+import initCustomScrollbar from "~/utils/customScrollbar";
+
+const route = useRoute();
+const router = useRouter();
+const currentPage = ref(route.query.page ? route.query.page : 0);
+
+const internalCurrentPage = computed({
+   get() {
+      return currentPage.value === 0 ? 1 : currentPage.value + 1; // Возвращаем 1 при currentPage 0
+   },
+   set(value) {
+      currentPage.value = value - 1; // Устанавливаем хранимое значение, вычитая 1
+   },
 });
 
 const runtimeConfig = useRuntimeConfig();
@@ -25,110 +37,51 @@ const {
    error,
 } = await useAsyncData(
    "blog",
-   () => $fetch(`${runtimeConfig.public.apiBase}/blog?_format=json`, {}),
+   () =>
+      $fetch(`${runtimeConfig.public.apiBase}/blog?_format=json`, {
+         query: {
+            page: currentPage.value,
+         },
+      }),
    {
-      transform: ({ breadcrumb, data, metatag }) => {
-         console.log(data);
+      transform: ({ breadcrumb, data, metatag, meta }) => {
+         const metadata = useGenerateMeta(metatag.html_head);
+         const { acc: metaData, title } = metadata;
          return {
             breadcrumbs: breadcrumb,
             main: {
                list: data,
             },
-            meta: metatag,
+            pagination: {
+               perPage: meta.per_page,
+               count: meta.count,
+               totalItems: Math.ceil(meta.count / meta.per_page),
+               currPage: +currentPage.value,
+            },
+            meta: metaData,
+            title,
          };
       },
+      watch: [currentPage],
    }
 );
 
-const breadcrumbs = [
-   {
-      text: "Главная",
-      href: "/",
-   },
-   {
-      text: "Блог",
-      href: "/blog",
-   },
-];
-const articleList = [
-   {
-      id: "1",
-      img: "article-1",
-      title: "Обслуживание и диагностика тормозной системы",
-      description:
-         "Перевозкин24 имеет в своём распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно. Огромный опыт наших мастеров по ремонту автомобилей ГАЗ гарантирует высокое качество и надёжность.",
-   },
-   {
-      id: "2",
-      img: "article-2",
-      title: "Летние скидки на услуги автосервиса",
-      description:
-         "Перевозкин24 имеет в своём распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно. Огромный опыт наших мастеров по ремонту автомобилей ГАЗ гарантирует высокое качество и надёжность.",
-   },
-   {
-      id: "3",
-      img: "article-3",
-      title: "Обслуживание и диагностика тормозной системы",
-      description:
-         "Перевозкин24 имеет в своём распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно. Огромный опыт наших мастеров по ремонту автомобилей ГАЗ гарантирует высокое качество и надёжность.",
-   },
-   {
-      id: "4",
-      img: "article-1",
-      title: "Обслуживание и диагностика тормозной системы",
-      description:
-         "Перевозкин24 имеет в своём распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно. Огромный опыт наших мастеров по ремонту автомобилей ГАЗ гарантирует высокое качество и надёжность.",
-   },
-   {
-      id: "5",
-      img: "article-2",
-      title: "Обслуживание и диагностика тормозной системы",
-      description:
-         "Перевозкин24 имеет в своём распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно. Огромный опыт наших мастеров по ремонту автомобилей ГАЗ гарантирует высокое качество и надёжность.",
-   },
-   {
-      id: "6",
-      img: "article-3",
-      title: "Обслуживание и диагностика тормозной системы",
-      description:
-         "Перевозкин24 имеет в своём распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно. Огромный опыт наших мастеров по ремонту автомобилей ГАЗ гарантирует высокое качество и надёжность.",
-   },
-   {
-      id: "7",
-      img: "article-1",
-      title: "Обслуживание и диагностика тормозной системы",
-      description:
-         "Перевозкин24 имеет в своём распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно. Огромный опыт наших мастеров по ремонту автомобилей ГАЗ гарантирует высокое качество и надёжность.",
-   },
-   {
-      id: "8",
-      img: "article-2",
-      title: "Обслуживание и диагностика тормозной системы",
-      description:
-         "Перевозкин24 имеет в своём распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно. Огромный опыт наших мастеров по ремонту автомобилей ГАЗ гарантирует высокое качество и надёжность.",
-   },
-   {
-      id: "9",
-      img: "article-3",
-      title: "Обслуживание и диагностика тормозной системы",
-      description:
-         "Перевозкин24 имеет в своём распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно. Огромный опыт наших мастеров по ремонту автомобилей ГАЗ гарантирует высокое качество и надёжность.",
-   },
-   {
-      id: "10",
-      img: "article-1",
-      title: "Обслуживание и диагностика тормозной системы",
-      description:
-         "Перевозкин24 имеет в своём распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно. Огромный опыт наших мастеров по ремонту автомобилей ГАЗ гарантирует высокое качество и надёжность.",
-   },
-   {
-      id: "11",
-      img: "article-2",
-      title: "Обслуживание и диагностика тормозной системы",
-      description:
-         "Перевозкин24 имеет в своём распоряжении более 200 автомобилей ГАЗ, которые мы эксплуатируем и ремонтируем самостоятельно. Огромный опыт наших мастеров по ремонту автомобилей ГАЗ гарантирует высокое качество и надёжность.",
-   },
-];
+useHead({
+   title: blog.value.title,
+   meta: [...blog.value.meta],
+});
+
+const changePage = (numPage) => {
+   router.push({
+      path: route.path,
+      query: {
+         page: numPage,
+      },
+   });
+   currentPage.value = numPage;
+   const { bodyScrollBar } = initCustomScrollbar();
+   bodyScrollBar.scrollTo(0, 0, 600);
+};
 </script>
 
 <style lang="scss">

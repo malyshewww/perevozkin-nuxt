@@ -1,30 +1,24 @@
 <template lang="pug">
-	main.main
-		.service-card
-			.main__top
-				.container
-					.main__top-inner
-						BreadCrumbs(:nav-list="serviceGaz.breadcrumbs")
-						h1.main__title(v-if="serviceGaz.main.top.title") {{serviceGaz.main.top.title}}
-						.main__description(ref="mainDescr" v-if="serviceGaz.main.top.subtitle")
-							p(v-for="(p, i) in serviceGaz.main.top.subtitle" :key="i") {{p}}
-						.main__image.ibg(v-html="serviceGaz.main.top.image.markup")
-							//- img(:src="`/images/service-card/service-img.png`", alt="изображение")
-		SectionServiceCardAdvantages(v-if="serviceGaz.main.advantages" :advantages="serviceGaz.main.advantages")
-		SectionServiceCardForm
-		SectionServiceCardContent(v-if="serviceGaz.main.content" :content="serviceGaz.main.content")
-		SectionServiceCardOtherServices(v-if="serviceGaz.main.otherServices" :services="serviceGaz.main.otherServices")
+	PageContainer(:status.sync="status" :error.sync="error")
+		main.main
+			.service-card
+				.main__top
+					.container
+						.main__top-inner
+							BreadCrumbs(:nav-list="serviceGaz.breadcrumbs")
+							h1.main__title(v-if="serviceGaz.main.top.title") {{serviceGaz.main.top.title}}
+							.main__description(ref="mainDescr" v-if="serviceGaz.main.top.subtitle")
+								p(v-for="(p, i) in serviceGaz.main.top.subtitle" :key="i") {{p}}
+							.main__image.ibg(v-html="serviceGaz.main.top.image.markup")
+								//- img(:src="`/images/service-card/service-img.png`", alt="изображение")
+			SectionServiceCardAdvantages(v-if="serviceGaz.main.advantages" :advantages="serviceGaz.main.advantages")
+			SectionServiceCardForm
+			SectionServiceCardContent(v-if="serviceGaz.main.content" :content="serviceGaz.main.content")
+			SectionServiceCardOtherServices(v-if="serviceGaz.main.otherServices" :services="serviceGaz.main.otherServices")
 </template>
 <script setup scope>
 import SplitType from "split-type";
 const { $gsap: gsap } = useNuxtApp();
-
-useHead({
-   title: "Карточка услуги",
-   bodyAttrs: {
-      class: "page--service",
-   },
-});
 
 const tl = ref("");
 const mainDescr = ref("");
@@ -44,7 +38,6 @@ const destroyAnimations = () => {
 };
 
 const runtimeConfig = useRuntimeConfig();
-const { gaz } = useRoute().params;
 
 const {
    data: serviceGaz,
@@ -56,6 +49,8 @@ const {
       $fetch(`${runtimeConfig.public.apiBase}/services/gaz?_format=json`, {}),
    {
       transform: ({ breadcrumb, data, metatag }) => {
+         const metadata = useGenerateMeta(metatag.html_head);
+         const { acc: meta, title } = metadata;
          return {
             breadcrumbs: breadcrumb,
             main: {
@@ -73,30 +68,21 @@ const {
                otherServices: data.services_same,
                content: data.body[0],
             },
-            meta: metatag,
+            meta,
+            title,
          };
       },
    }
 );
 
-const breadcrumbs = [
-   {
-      text: "Главная",
-      href: "/",
+useHead({
+   title: serviceGaz.value.title,
+   meta: [...serviceGaz.value.meta],
+   bodyAttrs: {
+      class: "page--service",
    },
-   {
-      text: "Услуги",
-      href: "/services",
-   },
-   {
-      text: "Газель NEXT",
-      href: "/services",
-   },
-   {
-      text: "Ремонт подвески Газель NEXT в Нижнем Новгороде",
-      href: "/services/1",
-   },
-];
+});
+
 onMounted(() => {
    splitting();
 });

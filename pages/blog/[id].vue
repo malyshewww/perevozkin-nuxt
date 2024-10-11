@@ -1,5 +1,5 @@
 <template lang="pug">
-	div
+	PageContainer(:status.sync="status" :error.sync="error")
 		BreadCrumbs(:nav-list="blogDetail.breadcrumbs")
 		main.main
 			.article-page
@@ -29,33 +29,25 @@ const {
    () => $fetch(`${runtimeConfig.public.apiBase}/blog/${id}?_format=json`, {}),
    {
       transform: ({ breadcrumb, data, metatag }) => {
-         console.log(data);
+         const metadata = useGenerateMeta(metatag.html_head);
+         const { acc: meta, title } = metadata;
          return {
             breadcrumbs: breadcrumb,
             title: data.title,
             main: {
                content: data,
             },
-            meta: metatag,
+            meta,
+            title,
          };
       },
    }
 );
 
-const breadcrumbs = [
-   {
-      text: "Главная",
-      href: "/",
-   },
-   {
-      text: "Блог",
-      href: "/blog",
-   },
-   {
-      text: "Обслуживание и диагностика тормозной системы",
-      href: "/blog/1",
-   },
-];
+useHead({
+   title: blogDetail.value.title,
+   meta: [...blogDetail.value.meta],
+});
 </script>
 
 <style lang="scss">

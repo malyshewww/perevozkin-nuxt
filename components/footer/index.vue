@@ -50,7 +50,6 @@ defineProps({
 });
 
 const { phone, email, telegram, youtube, vk } = inject("links");
-console.log(phone, email, telegram, youtube, vk);
 
 const formatPhone = computed(() => {
    if (phone) {

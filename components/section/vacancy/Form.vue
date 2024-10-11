@@ -1,27 +1,29 @@
 <template lang="pug">
 	AsideForm
-		form.aside-form.form(action="#" enctype="multipart/form-data" @submit.prevent="formSubmit")
+		form.aside-form.form(@submit.prevent="formSubmit($event)")
 			.form__header
 				.form__title Откликнуться на вакансию
 			.form__items
-				.form-item
-					input#form-name(type="text" name="name" placeholder="ФИО")
+				.form-item(:class="{'form-item--error': formData.fio === '' && formErrors.fio}")
+					input#form-name(type="text" name="fio" v-model="formData.fio" placeholder="ФИО")
 					label(for="form-name") ФИО
-				.form-item
-					input#form-phone(type="tel" name="phone" placeholder="Телефон")
+					.form-item--error-message(v-if="formData.fio === '' && formErrors.fio") {{formErrors.fio}}
+				.form-item(:class="{'form-item--error': formData.phone === '' && formErrors.phone}")
+					input#form-phone(type="tel" name="phone" v-model="formData.phone" placeholder="Телефон")
 					label(for="form-phone") Телефон
+					.form-item--error-message(v-if="formData.phone === '' && formErrors.phone") {{formErrors.phone}}
 				.form-item
-					textarea#form-comment(type="text" name="comment" placeholder="Комментарий")
+					textarea#form-comment(type="text" name="message" v-model="formData.message" placeholder="Комментарий")
 					label(for="form-comment") Комментарий
 			.form__bottom
 				.form-item.form-item-file(v-if="fileName == ''")
-					input#form-file.input-file(type="file" name="file" @change="previewFiles")
+					input#form-file.input-file(type="file" name="resume" @change="previewFiles")
 					label(for="form-file") Прикрепить резюме
 				.form-file(v-else-if="fileName != ''")
 					.form-file__text {{ fileName }}
 					button.form-file__button(type="button" @click="deleteFile($event)")
 				UiButton(btn-title="Отправить" btn-type="input" class-names="form__button")
-				.form__text Отправляя форму, вы соглашаетесь #[nuxt-link(to="/page-text" target="_blank") с политикой обработки персональных данных]
+				.form__text Отправляя форму, вы соглашаетесь #[nuxt-link(to="/page/politic" target="_blank") с политикой обработки персональных данных]
 </template>
 
 <script setup>
@@ -29,18 +31,103 @@ import maskPhone from "~/utils/maskPhone.js";
 
 const fileName = ref("");
 
+const currentFile = ref("");
+
 const previewFiles = (e) => {
    fileName.value = e.target.files[0].name;
+   currentFile.value = e.target.files[0];
 };
 
 const deleteFile = () => {
    fileName.value = "";
 };
 
+const formErrors = reactive({
+   fio: "",
+   phone: "",
+});
+
+const formData = reactive({
+   fio: "",
+   phone: "",
+   message: "",
+   resume: fileName.value,
+   webform_id: "vacancy_callback",
+});
+
+const runtimeConfig = useRuntimeConfig();
+
 const formSubmit = (e) => {
-   const formData = new FormData(e.target);
-   formData.append("data", e.target.name);
-   console.log(formData);
+   const buttonSubmit = e.target.querySelector('input[type="submit"]');
+   const buttonSubmitText = buttonSubmit.textContent;
+   buttonSubmit.setAttribute("disabled", "true");
+   buttonSubmit.textContent = "идет отправка...";
+   if (fileName.value) {
+      console.log(fileName.value);
+      fetch(`${runtimeConfig.public.apiBase}/session/token`)
+         .then(function (response) {
+            return response.text();
+         })
+         .then(function (token) {
+            fetch(
+               `${runtimeConfig.public.apiBase}/webform_rest/${formData.webform_id}/upload/resume?_format=json`,
+               {
+                  method: "POST",
+                  headers: {
+                     "Content-Type": "application/octet-stream",
+                     "Content-Disposition":
+                        `file; filename="` +
+                        encodeURIComponent(fileName.value) +
+                        `"; filename*=UTF-8''` +
+                        encodeURIComponent(fileName.value),
+                     "X-CSRF-Token": token,
+                  },
+                  body: JSON.stringify(formData),
+               }
+            )
+               .then((res) => console.log(res))
+               .then(function (res) {
+                  console.log(res);
+               });
+         });
+   } else {
+      fetch(`${runtimeConfig.public.apiBase}/session/token`)
+         .then(function (response) {
+            return response.text();
+         })
+         .then(function (token) {
+            fetch(
+               `${runtimeConfig.public.apiBase}/webform_rest/submit?_format_json`,
+               {
+                  method: "POST",
+                  headers: {
+                     Accept: "application/json, text/plain, */*",
+                     "Content-Type": "application/json",
+                     "X-CSRF-Token": token,
+                  },
+                  body: JSON.stringify(formData),
+               }
+            )
+               .then((res) => res.json())
+               .then(function (res) {
+                  console.log(res);
+                  if (res.sid) {
+                     formData.fio = "";
+                     formData.phone = "";
+                     formErrors.fio = "";
+                     formErrors.phone = "";
+                     alert("Форма успешно отправлена");
+                     buttonSubmit.removeAttribute("disabled");
+                     buttonSubmit.textContent = buttonSubmitText;
+                  } else {
+                     formErrors.fio = res.error.fio || "";
+                     formErrors.phone = res.error.phone || "";
+                     buttonSubmit.removeAttribute("disabled");
+                     buttonSubmit.textContent = buttonSubmitText;
+                  }
+               });
+         });
+   }
 };
 
 onMounted(() => {

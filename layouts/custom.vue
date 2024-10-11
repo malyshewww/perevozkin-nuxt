@@ -52,6 +52,9 @@ nuxtApp.hook("page:finish", () => {
    console.log("loading end");
    Preloader();
    const { bodyScrollBar } = initCustomScrollbar();
+   if (store.loading === false) {
+      bodyScrollBar.updatePluginOptions("lock", { lock: false });
+   }
    if (!window.location.hash) {
       bodyScrollBar.scrollTo(0, 0, 100);
    } else {

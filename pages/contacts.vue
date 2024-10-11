@@ -1,11 +1,11 @@
 <template lang="pug">
-	div
+	PageContainer(:status.sync="status" :error.sync="error")
 		BreadCrumbs(:nav-list="contactInfo.breadcrumbs")
 		main.main
 			.container
 				.main-header
 					.main-header__body
-						h1.main__title.page-title {{contactInfo.title}}
+						h1.main__title.page-title {{contactInfo.pageTitle}}
 				.contacts
 					.contacts__wrapper
 						SectionContactsInfo(:info="contactInfo.main")
@@ -13,10 +13,6 @@
 </template>
 
 <script setup>
-useHead({
-   title: "Контакты",
-});
-
 const runtimeConfig = useRuntimeConfig();
 const {
    data: contactInfo,
@@ -27,31 +23,27 @@ const {
    () => $fetch(`${runtimeConfig.public.apiBase}/contacts?_format=json`, {}),
    {
       transform: ({ breadcrumb, data, metatag }) => {
-         console.log(data);
+         const metadata = useGenerateMeta(metatag.html_head);
+         const { acc: meta, title } = metadata;
          return {
             breadcrumbs: breadcrumb,
-            title: data.title,
+            pageTitle: data.title,
             main: {
                address: data.field_address[0],
                email: data.field_email[0],
                image: data.field_image[0].markup,
             },
-            meta: metatag,
+            meta,
+            title,
          };
       },
    }
 );
 
-const breadcrumbs = [
-   {
-      text: "Главная",
-      href: "/",
-   },
-   {
-      text: "Контакты",
-      href: "/contacts",
-   },
-];
+useHead({
+   title: contactInfo.value.title,
+   meta: [...contactInfo.value.meta],
+});
 </script>
 <style lang="scss">
 .contacts {

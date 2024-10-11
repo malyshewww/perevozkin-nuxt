@@ -1,21 +1,18 @@
 <template lang="pug">
-   div
-      BreadCrumbs(:nav-list="vacancy.breadcrumbs")
-      main.main
-         .container
-            .main-header
-               .main-header__body
-                  h1.main__title.page-title {{vacancy.title}}
-            .vacancy
-               .vacancy__wrapper
-                  SectionVacancyContent(:vacancyList="vacancy.main.list")
-                  SectionVacancyForm
+	PageContainer(:status.sync="status" :error.sync="error")
+		BreadCrumbs(:nav-list="vacancy.breadcrumbs")
+		main.main
+			.container
+				.main-header
+					.main-header__body
+						h1.main__title.page-title {{vacancy.pageTitle}}
+				.vacancy
+					.vacancy__wrapper
+						SectionVacancyContent(:vacancyList="vacancy.main.list")
+						SectionVacancyForm
 </template>
 
 <script setup>
-useHead({
-   title: "Вакансии",
-});
 const runtimeConfig = useRuntimeConfig();
 
 const {
@@ -27,18 +24,25 @@ const {
    () => $fetch(`${runtimeConfig.public.apiBase}/vacancy?_format=json`, {}),
    {
       transform: ({ data, breadcrumb, metatag }) => {
-         console.log(breadcrumb);
+         const metadata = useGenerateMeta(metatag.html_head);
+         const { acc: meta, title } = metadata;
          return {
             breadcrumbs: breadcrumb,
-            title: data.title,
+            pageTitle: data.title,
             main: {
                list: data.field_vacancies,
             },
-            meta: metatag,
+            meta,
+            title,
          };
       },
    }
 );
+
+useHead({
+   title: vacancy.value.title,
+   meta: [...vacancy.value.meta],
+});
 </script>
 
 <style lang="scss">

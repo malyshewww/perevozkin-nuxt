@@ -1,21 +1,17 @@
 <template lang="pug">
-	div
+	PageContainer(:status.sync="status" :error.sync="error")
 		BreadCrumbs(:nav-list="services.breadcrumbs")
 		main.main
 			.container
 				.main-header
 					.main-header__body
-						h1.main__title.page-title {{ services.title }}
+						h1.main__title.page-title {{ services.pageTitle }}
 				.services
 					.services__body
 						Card(:arr="services.main.list")
 </template>
 
 <script setup>
-useHead({
-   title: "Услуги",
-});
-
 const { catalog } = useRoute().params;
 
 const runtimeConfig = useRuntimeConfig();
@@ -33,18 +29,25 @@ const {
    {
       transform: ({ breadcrumb, data, metatag }) => {
          const currentPageTitle = useLastBreadcrumb(breadcrumb);
-         console.log(data);
+         const metadata = useGenerateMeta(metatag.html_head);
+         const { acc: meta, title } = metadata;
          return {
             breadcrumbs: breadcrumb,
-            title: currentPageTitle,
+            pageTitle: currentPageTitle,
             main: {
                list: data,
             },
-            meta: metatag,
+            meta,
+            title,
          };
       },
    }
 );
+
+useHead({
+   title: services.value.title,
+   meta: [...services.value.meta],
+});
 </script>
 
 <style lang="scss">

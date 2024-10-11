@@ -16,13 +16,6 @@ defineProps({
    },
 });
 
-useHead({
-   title: "Главная страница",
-   bodyAttrs: {
-      class: `page--home`,
-   },
-});
-
 definePageMeta({
    layout: "custom",
 });
@@ -41,8 +34,8 @@ const {
       ),
    {
       transform: ({ data, metatag }) => {
-         console.log(data);
-         console.log(data.services_front);
+         const metadata = useGenerateMeta(metatag.html_head);
+         const { acc: meta, title } = metadata;
          return {
             main: {
                advantages: data.advantages[0].field_advantages,
@@ -54,11 +47,20 @@ const {
                   stocks: data.front_info[0].field_stocks,
                },
             },
-            meta: metatag,
+            meta,
+            title,
          };
       },
    }
 );
+
+useHead({
+   title: front.value.title,
+   meta: [...front.value.meta],
+   bodyAttrs: {
+      class: `page--home`,
+   },
+});
 
 onMounted(() => {
    const { bodyScrollBar } = initCustomScrollbar();
@@ -78,20 +80,6 @@ onMounted(() => {
          // );
       }
    }
-});
-
-onUnmounted(() => {
-   // const { bodyScrollBar, scroller } = initCustomScrollbar();
-   // ScrollTrigger.scrollerProxy(".scroller", {
-   //    scrollTop(value) {
-   //       if (arguments.length) {
-   //          bodyScrollBar.scrollTop = value;
-   //       }
-   //       return bodyScrollBar.scrollTop;
-   //    },
-   // });
-   // bodyScrollBar.addListener(ScrollTrigger.update);
-   // ScrollTrigger.defaults({ scroller });
 });
 </script>
 

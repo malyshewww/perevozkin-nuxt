@@ -19,13 +19,6 @@
 import SplitType from "split-type";
 const { $gsap: gsap } = useNuxtApp();
 
-useHead({
-   title: "Карточка услуги",
-   bodyAttrs: {
-      class: "page--service",
-   },
-});
-
 const tl = ref("");
 const mainDescr = ref("");
 const splitting = () => {
@@ -59,10 +52,11 @@ const {
       ),
    {
       transform: ({ breadcrumb, data, metatag }) => {
+         const metadata = useGenerateMeta(metatag.html_head);
+         const { acc: meta, title } = metadata;
          return {
             breadcrumbs: breadcrumb,
             main: {
-               data: data,
                top: {
                   title: data.title,
                   subtitle: data.field_subtitle[0],
@@ -77,30 +71,21 @@ const {
                otherServices: data.services_same,
                content: data.body[0],
             },
-            meta: metatag,
+            meta,
+            title,
          };
       },
    }
 );
 
-const breadcrumbs = [
-   {
-      text: "Главная",
-      href: "/",
+useHead({
+   title: serviceDetail.value.title,
+   meta: [...serviceDetail.value.meta],
+   bodyAttrs: {
+      class: "page--service",
    },
-   {
-      text: "Услуги",
-      href: "/services",
-   },
-   {
-      text: "Газель NEXT",
-      href: "/services",
-   },
-   {
-      text: "Ремонт подвески Газель NEXT в Нижнем Новгороде",
-      href: "/services/1",
-   },
-];
+});
+
 onMounted(() => {
    splitting();
 });
