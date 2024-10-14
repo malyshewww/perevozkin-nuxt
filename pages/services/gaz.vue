@@ -7,15 +7,14 @@
 						.main__top-inner
 							BreadCrumbs(:nav-list="serviceGaz.breadcrumbs")
 							h1.main__title(v-if="serviceGaz.main.top.title") {{serviceGaz.main.top.title}}
-							.main__description(ref="mainDescrGaz" v-if="serviceDetail.main.top.subtitle" v-html="serviceDetail.main.top.subtitle")
+							.main__description(ref="mainDescrGaz" v-if="serviceGaz.main.top.subtitle" v-html="serviceGaz.main.top.subtitle")
 							.main__image.ibg(v-html="serviceGaz.main.top.image.markup")
-								//- img(:src="`/images/service-card/service-img.png`", alt="изображение")
 			SectionServiceCardAdvantages(v-if="serviceGaz.main.advantages" :advantages="serviceGaz.main.advantages")
 			SectionServiceCardForm
 			SectionServiceCardContent(v-if="serviceGaz.main.content" :content="serviceGaz.main.content")
 			SectionServiceCardOtherServices(v-if="serviceGaz.main.otherServices" :services="serviceGaz.main.otherServices")
 </template>
-<script setup>
+<script setup scope>
 import SplitType from "split-type";
 const { $gsap: gsap } = useNuxtApp();
 
@@ -83,10 +82,10 @@ useHead({
 });
 
 onMounted(() => {
-   // splittingGaz();
+   splittingGaz();
 });
 onUnmounted(() => {
-   // destroyAnimations();
+   destroyAnimations();
 });
 </script>
 

@@ -19,11 +19,11 @@ const storePopup = usePopupNoticeStore();
 
 const props = defineProps({
    main: {
-      required: true,
+      required: false,
    },
    links: {
       type: Object,
-      required: true,
+      required: false,
    },
 });
 

@@ -14,7 +14,6 @@
 <script setup>
 defineProps({
    arr: {
-      type: Array,
       required: true,
    },
 });

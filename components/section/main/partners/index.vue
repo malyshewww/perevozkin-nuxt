@@ -181,7 +181,7 @@ onBeforeUnmount(() => {
       place-items: center;
       & img {
          width: 100%;
-         height: 100px;
+         height: 100%;
       }
       @media screen and (max-width: $xl) {
          width: 80px;
