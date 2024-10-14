@@ -10,6 +10,8 @@
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
 
+const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
+
 defineProps({
    main: {
       required: true,
@@ -36,7 +38,6 @@ const {
       transform: ({ data, metatag }) => {
          const metadata = useGenerateMeta(metatag.html_head);
          const { acc: meta, title } = metadata;
-         console.log(data);
          return {
             main: {
                advantages: data.advantages[0].field_advantages,
@@ -63,6 +64,8 @@ useHead({
    },
 });
 
+const isMounted = ref(false);
+
 onMounted(() => {
    const { bodyScrollBar } = initCustomScrollbar();
    if (!window.location.hash) {
@@ -81,6 +84,7 @@ onMounted(() => {
       }
    }
 });
+onUnmounted(() => {});
 </script>
 
 <style lang="scss"></style>

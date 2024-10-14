@@ -380,6 +380,7 @@ onMounted(() => {
       @media screen and (max-width: $xl) {
          order: -1;
          place-items: end;
+         height: 300px;
          &::before {
             width: 100%;
          }
@@ -392,18 +393,19 @@ onMounted(() => {
       width: 100%;
       z-index: 2;
       padding-bottom: calc(416 / 600 * 100%);
+      & img {
+         object-fit: contain;
+      }
       @media screen and (max-width: $xl) {
          transform: translateX(30px);
-         padding-bottom: calc(187 / 270 * 100%);
          // padding-bottom: calc(187 / 270 * 100%);
+         padding: 0;
+         height: 100%;
       }
       @media screen and (max-width: $xs) {
          padding: 0;
          position: absolute;
          inset: 0;
-         & img {
-            position: static;
-         }
       }
    }
 }

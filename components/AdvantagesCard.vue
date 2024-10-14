@@ -18,6 +18,8 @@ defineProps({
    },
 });
 
+onMounted(() => {});
+
 // const advantages = [
 //    {
 //       title: "Опыт мастеров более 7 лет",

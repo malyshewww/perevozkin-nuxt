@@ -6,13 +6,13 @@
 			.service-item__header
 				.service-item__title(v-if="item.title || item.name") {{ item.name || item.title }}
 				.service-item__sub-title(v-if="item.descr") {{ item.descr }}
-				.service-item__price(v-if="item.field_price") #[span от] {{ item.field_price }} ₽
+				.service-item__price(v-if="item.field_price") #[span от] {{ new Intl.NumberFormat("ru").format(item.field_price) }} ₽
 			.service-item__image(v-html="item.field_image[0].markup")
 				//- img(:src="`/images${item.img}.png`" :alt="item.title")
 </template>
 
 <script setup>
-defineProps({
+const props = defineProps({
    arr: {
       required: true,
    },

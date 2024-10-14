@@ -16,16 +16,16 @@ const positionY = ref(0);
 onMounted(() => {
    if (window.innerWidth > 1024) {
       const { bodyScrollBar, scroller } = initCustomScrollbar();
-      ScrollTrigger.scrollerProxy(".scroller", {
-         scrollTop(value) {
-            if (arguments.length) {
-               bodyScrollBar.scrollTop = value;
-            }
-            return bodyScrollBar.scrollTop;
-         },
-      });
-      bodyScrollBar.addListener(ScrollTrigger.update);
-      ScrollTrigger.defaults({ scroller: scroller });
+      // ScrollTrigger.scrollerProxy(".scroller", {
+      //    scrollTop(value) {
+      //       if (arguments.length) {
+      //          bodyScrollBar.scrollTop = value;
+      //       }
+      //       return bodyScrollBar.scrollTop;
+      //    },
+      // });
+      // bodyScrollBar.addListener(ScrollTrigger.update);
+      // ScrollTrigger.defaults({ scroller: scroller });
       bodyScrollBar.addListener(({ offset }) => {
          positionY.value = offset.y;
       });

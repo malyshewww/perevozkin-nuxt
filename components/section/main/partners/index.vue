@@ -31,16 +31,16 @@ const tl = ref(null);
 
 const animation = () => {
    const { bodyScrollBar, scroller } = initCustomScrollbar();
-   ScrollTrigger.scrollerProxy(".scroller", {
-      scrollTop(value) {
-         if (arguments.length) {
-            bodyScrollBar.scrollTop = value;
-         }
-         return bodyScrollBar.scrollTop;
-      },
-   });
-   bodyScrollBar.addListener(ScrollTrigger.update);
-   ScrollTrigger.defaults({ scroller });
+   // ScrollTrigger.scrollerProxy(".scroller", {
+   //    scrollTop(value) {
+   //       if (arguments.length) {
+   //          bodyScrollBar.scrollTop = value;
+   //       }
+   //       return bodyScrollBar.scrollTop;
+   //    },
+   // });
+   // bodyScrollBar.addListener(ScrollTrigger.update);
+   // ScrollTrigger.defaults({ scroller });
    tl.value = gsap
       .timeline({
          scrollTrigger: {

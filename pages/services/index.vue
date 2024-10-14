@@ -9,6 +9,7 @@
 				.services
 					.services__body
 						Card(:arr="servicesPage.main.list")
+						Card(:arr="servicesPage.main.servicesFront")
 </template>
 
 <script setup>
@@ -25,14 +26,14 @@ const {
    "servicesPage",
    () => $fetch(`${runtimeConfig.public.apiBase}/services?_format=json`, {}),
    {
-      transform: ({ breadcrumb, data, metatag }) => {
-         // console.log(data);
+      transform: ({ breadcrumb, data, services_front, metatag }) => {
          const metadata = useGenerateMeta(metatag.html_head);
          const { acc: meta, title } = metadata;
          return {
             breadcrumbs: breadcrumb,
             main: {
                list: data,
+               servicesFront: services_front,
             },
             meta,
             title,

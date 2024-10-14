@@ -29,10 +29,10 @@ defineProps({
 
 const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 
-const sectionAdvantages = ref("");
-const AdvantagesTitle = ref("");
-const AdvantagesContent = ref("");
-const advantagesCards = ref("");
+const sectionAdvantages = ref(null);
+const AdvantagesTitle = ref(null);
+const AdvantagesContent = ref(null);
+const advantagesCards = ref(null);
 
 const advantagesBody = ref("");
 const progress = ref(0);
@@ -42,18 +42,18 @@ const tlContent = ref(null);
 const timeln = ref(null);
 
 const animationCards = (triggerSelector, startPosition) => {
-   const { bodyScrollBar, scroller } = initCustomScrollbar();
-   ScrollTrigger.scrollerProxy(".scroller", {
-      scrollTop(value) {
-         if (arguments.length) {
-            bodyScrollBar.scrollTop = value;
-         }
-         return bodyScrollBar.scrollTop;
-      },
-   });
-   bodyScrollBar.addListener(ScrollTrigger.update);
-   ScrollTrigger.defaults({ scroller });
-   const cards = gsap.utils.toArray(".page--home .card-advantages");
+   // const { bodyScrollBar, scroller } = initCustomScrollbar();
+   // ScrollTrigger.scrollerProxy(".scroller", {
+   //    scrollTop(value) {
+   //       if (arguments.length) {
+   //          bodyScrollBar.scrollTop = value;
+   //       }
+   //       return bodyScrollBar.scrollTop;
+   //    },
+   // });
+   // bodyScrollBar.addListener(ScrollTrigger.update);
+   // ScrollTrigger.defaults({ scroller });
+   const cards = document.querySelectorAll(".page--home .card-advantages");
    if (cards.length) {
       timeln.value = gsap
          .timeline({
@@ -136,18 +136,18 @@ const animationCards = (triggerSelector, startPosition) => {
 };
 
 const animation = () => {
-   const { bodyScrollBar, scroller } = initCustomScrollbar();
-   gsap.registerPlugin(ScrollTrigger);
-   ScrollTrigger.scrollerProxy(".scroller", {
-      scrollTop(value) {
-         if (arguments.length) {
-            bodyScrollBar.scrollTop = value;
-         }
-         return bodyScrollBar.scrollTop;
-      },
-   });
-   bodyScrollBar.addListener(ScrollTrigger.update);
-   ScrollTrigger.defaults({ scroller });
+   // const { bodyScrollBar, scroller } = initCustomScrollbar();
+   // gsap.registerPlugin(ScrollTrigger);
+   // ScrollTrigger.scrollerProxy(".scroller", {
+   //    scrollTop(value) {
+   //       if (arguments.length) {
+   //          bodyScrollBar.scrollTop = value;
+   //       }
+   //       return bodyScrollBar.scrollTop;
+   //    },
+   // });
+   // bodyScrollBar.addListener(ScrollTrigger.update);
+   // ScrollTrigger.defaults({ scroller });
    const splitTitle = new SplitType(AdvantagesTitle.value, {
       types: "lines",
    });
@@ -210,12 +210,46 @@ const destroyAnimations = () => {
    tlContent.value.pause().kill();
 };
 
+const animationMobile = () => {
+   const { bodyScrollBar, scroller } = initCustomScrollbar();
+   ScrollTrigger.scrollerProxy(".scroller", {
+      scrollTop(value) {
+         if (arguments.length) {
+            bodyScrollBar.scrollTop = value;
+         }
+         return bodyScrollBar.scrollTop;
+      },
+   });
+   bodyScrollBar.addListener(ScrollTrigger.update);
+   ScrollTrigger.defaults({ scroller });
+   gsap.defaults({ ease: "power3" });
+   gsap.set(".page--home .card-advantages", { y: 100, opacity: 0 });
+   ScrollTrigger.batch(".page--home .card-advantages", {
+      interval: 0.1,
+      batchMax: 3,
+      onEnter: (batch) =>
+         gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            stagger: { each: 0.15, grid: [1, 3] },
+            overwrite: true,
+         }),
+      onEnterBack: (batch) =>
+         gsap.to(batch, { opacity: 1, y: 0, stagger: 0.15, overwrite: true }),
+      start: "20px bottom",
+      end: "top top",
+   });
+   ScrollTrigger.addEventListener("refreshInit", () =>
+      gsap.set(".page--home .card-advantages", { y: 0 })
+   );
+};
+
 onMounted(() => {
-   if (window.matchMedia("(min-width: 1024px)").matches) {
+   if (window.innerWidth > 1024) {
       animation();
    }
-   if (window.matchMedia("(max-width: 1024px)").matches) {
-      animationCards(advantagesCards.value, "top 2%");
+   if (window.innerWidth < 1024) {
+      animationMobile();
    }
 });
 
@@ -292,16 +326,20 @@ onUnmounted(() => {
          grid-column: 1 / -1;
          grid-row: none;
          max-width: 100%;
+         grid-template-columns: 100%;
+         grid-template-rows: auto;
+         grid-column: initial;
+         gap: 20px;
       }
-      @media screen and (max-width: $md) {
-         height: auto;
-         grid-column: unset;
-         grid-row: unset;
-         grid-template-columns: repeat(12, minmax(0, 1fr));
-         grid-template-rows: repeat(3, 40px) auto;
-         justify-self: center;
-         gap: 0 20px;
-      }
+      // @media screen and (max-width: $md) {
+      //    height: auto;
+      //    grid-column: unset;
+      //    grid-row: unset;
+      //    grid-template-columns: repeat(12, minmax(0, 1fr));
+      //    grid-template-rows: repeat(3, 40px) auto;
+      //    justify-self: center;
+      //    gap: 0 20px;
+      // }
       @media screen and (max-width: 374.98px) {
          width: 100%;
       }
@@ -324,17 +362,18 @@ onUnmounted(() => {
       @media screen and (max-width: $xl) {
          position: static;
          min-width: 300px;
+         grid-column: initial;
       }
       @media screen and (max-width: $md) {
          height: 400px;
-         grid-column: 2 / 12;
+         // grid-column: 2 / 12;
       }
       @media screen and (max-width: 400px) {
          min-width: auto;
-         max-width: 300px;
+         // max-width: 300px;
       }
       @media screen and (max-width: 374.98px) {
-         grid-column: 1 / 13;
+         // grid-column: 1 / 13;
       }
       &__body {
          @media screen and (max-width: $md) {
@@ -345,35 +384,47 @@ onUnmounted(() => {
          top: 0;
          margin: auto;
          z-index: 1;
+         @media screen and (max-width: $xl) {
+            grid-column: initial;
+         }
       }
       &:nth-child(2) {
          top: 10%;
          right: 0;
          z-index: 2;
          grid-column: 3 / 7;
-         @media screen and (max-width: $md) {
-            grid-column: 3 / 13;
+         @media screen and (max-width: $xl) {
+            grid-column: initial;
          }
-         @media screen and (max-width: 374.98px) {
-            grid-column: 1 / 13;
-         }
+         // @media screen and (max-width: $md) {
+         //    grid-column: 3 / 13;
+         // }
+         // @media screen and (max-width: 374.98px) {
+         //    grid-column: 1 / 13;
+         // }
       }
       &:nth-child(3) {
          top: 21%;
          left: 0;
          z-index: 3;
          grid-column: 1 / 5;
-         @media screen and (max-width: $md) {
-            grid-column: 1 / 11;
+         @media screen and (max-width: $xl) {
+            grid-column: initial;
          }
-         @media screen and (max-width: 374.98px) {
-            grid-column: 1 / 13;
-         }
+         // @media screen and (max-width: $md) {
+         //    grid-column: 1 / 11;
+         // }
+         // @media screen and (max-width: 374.98px) {
+         //    grid-column: 1 / 13;
+         // }
       }
       &:nth-child(4) {
          z-index: 4;
          bottom: 0%;
          margin: auto;
+         @media screen and (max-width: $xl) {
+            grid-column: initial;
+         }
       }
       &__bg {
          display: block;

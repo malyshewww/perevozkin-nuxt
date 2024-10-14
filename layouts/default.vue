@@ -43,7 +43,17 @@ nuxtApp.hook("page:finish", () => {
 });
 
 onMounted(() => {
-   initCustomScrollbar();
+   const { bodyScrollBar, scroller } = initCustomScrollbar();
+   ScrollTrigger.scrollerProxy(".scroller", {
+      scrollTop(value) {
+         if (arguments.length) {
+            bodyScrollBar.scrollTop = value;
+         }
+         return bodyScrollBar.scrollTop;
+      },
+   });
+   bodyScrollBar.addListener(ScrollTrigger.update);
+   ScrollTrigger.defaults({ scroller: scroller });
 });
 </script>
 

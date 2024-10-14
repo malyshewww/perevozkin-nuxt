@@ -2,7 +2,7 @@
 	header.header(ref="header" :class="{ active: isMenuActive }")
 		.container
 			.header__body
-				nuxt-link.header__logo(to="/" @click="menuClose")
+				nuxt-link(to="/" @click="menuClose").header__logo
 					picture
 						source(srcset="/images/logo.svg" media="(min-width: 767.98px)")
 						source(srcset="/images/logo-touch.svg" media="(min-width: 300px)")
@@ -65,16 +65,16 @@ const goToSection = () => {
 };
 
 onMounted(() => {
-   const { bodyScrollBar } = initCustomScrollbar();
-   ScrollTrigger.scrollerProxy(".scroller", {
-      scrollTop(value) {
-         if (arguments.length) {
-            bodyScrollBar.scrollTop = value;
-         }
-         return bodyScrollBar.scrollTop;
-      },
-   });
-   bodyScrollBar.addListener(ScrollTrigger.update);
+   // const { bodyScrollBar } = initCustomScrollbar();
+   // ScrollTrigger.scrollerProxy(".scroller", {
+   //    scrollTop(value) {
+   //       if (arguments.length) {
+   //          bodyScrollBar.scrollTop = value;
+   //       }
+   //       return bodyScrollBar.scrollTop;
+   //    },
+   // });
+   // bodyScrollBar.addListener(ScrollTrigger.update);
 });
 
 onMounted(() => {});

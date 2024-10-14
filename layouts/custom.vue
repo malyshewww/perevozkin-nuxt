@@ -15,6 +15,8 @@ import { ref } from "vue";
 import { usePreloaderStore } from "@/stores/preloader";
 import initCustomScrollbar from "~/utils/customScrollbar";
 
+const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
+
 const props = defineProps({
    main: {},
    links: {
@@ -86,7 +88,17 @@ const mobileAnimation = () => {
 };
 
 onMounted(() => {
-   initCustomScrollbar();
+   const { bodyScrollBar, scroller } = initCustomScrollbar();
+   ScrollTrigger.scrollerProxy(".scroller", {
+      scrollTop(value) {
+         if (arguments.length) {
+            bodyScrollBar.scrollTop = value;
+         }
+         return bodyScrollBar.scrollTop;
+      },
+   });
+   bodyScrollBar.addListener(ScrollTrigger.update);
+   ScrollTrigger.defaults({ scroller: scroller });
    if (window.matchMedia("(max-width: 1024px)").matches) {
       mobileAnimation();
    }

@@ -10,7 +10,7 @@
 						p #[span Новгороде]
 				.main-screen__video-wrap(ref="mainVideoWrap")
 					.main-screen__video.ibg(ref="mainVideo" data-type="video" @click="switchVideoSound($event)")
-						video(ref="video" autoplay loop :muted="videoMuted")
+						video(ref="video" id="video" loop :muted="videoMuted")
 							source(:src="`/images/video.mp4`" type="video/mp4")
 				.spin
 					img(:src="`/images/icons/spin.svg`" alt="spin")
@@ -107,19 +107,19 @@ const firstAnimation = () => {
 
 const animation = () => {
    const { bodyScrollBar, scroller } = initCustomScrollbar();
-   ScrollTrigger.scrollerProxy(".scroller", {
-      scrollTop(value) {
-         if (arguments.length) {
-            bodyScrollBar.scrollTop = value;
-         }
-         return bodyScrollBar.scrollTop;
-      },
-   });
-   bodyScrollBar.addListener(ScrollTrigger.update);
-   ScrollTrigger.defaults({ scroller: scroller });
-   // bodyScrollBar.addListener((status) => {
-   //    window.dispatchEvent(new Event("scroll"));
+   // ScrollTrigger.scrollerProxy(".scroller", {
+   //    scrollTop(value) {
+   //       if (arguments.length) {
+   //          bodyScrollBar.scrollTop = value;
+   //       }
+   //       return bodyScrollBar.scrollTop;
+   //    },
    // });
+   // bodyScrollBar.addListener(ScrollTrigger.update);
+   // ScrollTrigger.defaults({ scroller: scroller });
+   bodyScrollBar.addListener((status) => {
+      window.dispatchEvent(new Event("scroll"));
+   });
    const header = document.querySelector(".header");
    const headerMenu = header.querySelector(".menu__list");
    const headerLogo = header.querySelector(".header__logo");
@@ -250,22 +250,23 @@ const animation = () => {
 };
 
 const mobileAnimation = () => {
-   const mediaAnimation = gsap.matchMedia();
-   mediaAnimation.add("(max-width: 1024px)", () => {
-      tlVideo.value = gsap
+   if (window.innerWidth < 1024) {
+      (tlVideo.value = gsap
          .timeline({
             opacity: 1,
             scrollTrigger: {
                trigger: mainVideo.value,
                start: "top",
-               end: "bottom",
+               end: () => "50%",
                scrub: 0.3,
             },
          })
-         .to(mainVideo.value, {
-            opacity: 0.3,
-         });
-   });
+         .from(mainVideo.value, {
+            opacity: 1,
+         })).to(mainVideo.value, {
+         opacity: 0.3,
+      });
+   }
 };
 
 const destroyAnimations = () => {
@@ -277,12 +278,40 @@ const destroyAnimations = () => {
    tlVideo.value.pause().kill();
 };
 
+const viewVideo = () => {
+   const optionsObserverVideo = {
+      rootMargin: "0px",
+      threshold: 0,
+   };
+   const callbackVideo = (entries) => {
+      entries.forEach((entry) => {
+         if (entry.target.id === "video") {
+            if (entry.isIntersecting) {
+               entry.target.play();
+            }
+            // else {
+            //    entry.target.pause();
+            // }
+         }
+      });
+   };
+   const observerVideo = new IntersectionObserver(
+      callbackVideo,
+      optionsObserverVideo
+   );
+   const videos = document.querySelectorAll("video");
+   videos.forEach((video) => {
+      observerVideo.observe(video);
+   });
+};
+
 onMounted(() => {
    if (window.matchMedia("(min-width: 1024px)").matches) {
       animation();
    }
    mobileAnimation();
    firstAnimation();
+   viewVideo();
 });
 
 onBeforeUnmount(() => {
