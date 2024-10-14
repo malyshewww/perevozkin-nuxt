@@ -3,8 +3,8 @@
 		SectionMainScreen(:menu="main.menu")
 		SectionMainServices(:catalogList="front.main.catalogFront" :serviceList="front.main.serviceFront")
 		SectionMainAdvantages(:text="front.main.frontInfo.advantageText" :advantages="front.main.advantages")
-		SectionMainSale(:stocks="front.main.frontInfo.stocks")
-		SectionMainPartners(:partners="front.main.frontInfo.partners")
+		SectionMainSale(v-if="front.main.frontInfo.stocks && front.main.frontInfo.stocks.length" :stocks="front.main.frontInfo.stocks")
+		SectionMainPartners(v-if="front.main.frontInfo.partners && front.main.frontInfo.partners.length" :partners="front.main.frontInfo.partners")
 </template>
 
 <script setup>
@@ -70,7 +70,6 @@ onMounted(() => {
       const sectionSale = document.querySelector(".main-sale");
       if (sectionSale) {
          let itemY = sectionSale.offsetTop + 100;
-         console.log(itemY);
          bodyScrollBar.scrollTo(0, itemY, 600);
          // const scrollToHere = sectionSale.offsetTop + bodyScrollBar.offset.y;
          // bodyScrollBar.scrollTo(

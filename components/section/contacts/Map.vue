@@ -13,8 +13,6 @@ const props = defineProps({
    },
 });
 
-console.log(props.image);
-
 import json from "~/static/geo.json";
 
 const { isDesktop } = useDevice();

@@ -130,6 +130,9 @@ body.lock {
 	letter-spacing: 0.01em;
 	text-transform: uppercase;
 	color: $gray;
+	.page--text & {
+		hyphens: auto;
+	}
 	@media screen and (max-width: $xl) {
 		font-size: 48px;
 		line-height: 60px;

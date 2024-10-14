@@ -22,6 +22,10 @@
 <script setup>
 import maskPhone from "~/utils/maskPhone.js";
 
+import { usePopupNoticeStore } from "~/stores/popup/notice";
+
+const storePopup = usePopupNoticeStore();
+
 const formData = reactive({
    name: "",
    phone: "",
@@ -60,15 +64,17 @@ const submitForm = async (e) => {
          )
             .then((res) => res.json())
             .then(function (res) {
-               console.log(res);
                if (res.sid) {
                   formData.name = "";
                   formData.phone = "";
                   formErrors.name = "";
                   formErrors.phone = "";
-                  alert("Форма успешно отправлена");
                   buttonSubmit.removeAttribute("disabled");
                   buttonSubmit.textContent = buttonSubmitText;
+                  storePopup.openPopupNotice();
+                  setTimeout(() => {
+                     storePopup.closePopupNotice();
+                  }, 3000);
                } else {
                   formErrors.name = res.error.name || "";
                   formErrors.phone = res.error.phone || "";

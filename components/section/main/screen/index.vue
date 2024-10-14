@@ -62,7 +62,6 @@ const switchVideoSound = (e) => {
    if (window.innerWidth > 1024) {
       if (e.target.closest("video")) {
          const cursor = document.querySelector(".cursor");
-         console.log(e);
          videoMuted.value = !videoMuted.value;
          if (cursor) {
             cursor.classList[videoMuted.value ? "remove" : "add"]("no-sound");
@@ -159,9 +158,7 @@ const animation = () => {
                //       break;
                // }
             },
-            onComplete: function (self) {
-               console.log(1);
-            },
+            onComplete: function (self) {},
          },
       })
       //  .to(mainVideoWrap.value, {

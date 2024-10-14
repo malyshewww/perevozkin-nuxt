@@ -39,7 +39,7 @@ defineProps({
 .article-page {
    &__content {
       max-width: 995px;
-      & h2 {
+      & > h2 {
          margin-bottom: 60px;
          @media screen and (max-width: $xl) {
             margin-bottom: 40px;
@@ -56,6 +56,22 @@ defineProps({
    display: grid;
    gap: 40px;
    margin-top: 80px;
+   & .content {
+      & h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+         margin-bottom: 24px;
+         margin-top: 40px;
+      }
+      & > *:first-child {
+         margin-top: 0;
+      }
+      & > *:last-child {
+         margin-bottom: 0;
+      }
+   }
    @media screen and (max-width: $xl) {
       margin-top: 40px;
    }

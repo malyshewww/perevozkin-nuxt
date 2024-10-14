@@ -18,6 +18,7 @@ defineProps({
 <style lang="scss">
 .contacts {
    &__image {
+      height: 100%;
       padding-bottom: calc(480 / 705 * 100%);
    }
 }

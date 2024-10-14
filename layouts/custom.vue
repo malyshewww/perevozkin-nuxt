@@ -45,11 +45,11 @@ const Preloader = () => {
 const nuxtApp = useNuxtApp();
 nuxtApp.hook("page:start", () => {
    // loading.value = true;
-   console.log("loading start");
+   // console.log("loading start");
 });
 nuxtApp.hook("page:finish", () => {
    // loading.value = false;
-   console.log("loading end");
+   // console.log("loading end");
    Preloader();
    const { bodyScrollBar } = initCustomScrollbar();
    if (store.loading === false) {
