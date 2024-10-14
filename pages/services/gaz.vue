@@ -7,8 +7,7 @@
 						.main__top-inner
 							BreadCrumbs(:nav-list="serviceGaz.breadcrumbs")
 							h1.main__title(v-if="serviceGaz.main.top.title") {{serviceGaz.main.top.title}}
-							.main__description(ref="mainDescr" v-if="serviceGaz.main.top.subtitle")
-								p(v-for="(p, i) in serviceGaz.main.top.subtitle" :key="i") {{p}}
+							.main__description(ref="mainDescrGaz" v-if="serviceDetail.main.top.subtitle" v-html="serviceDetail.main.top.subtitle")
 							.main__image.ibg(v-html="serviceGaz.main.top.image.markup")
 								//- img(:src="`/images/service-card/service-img.png`", alt="изображение")
 			SectionServiceCardAdvantages(v-if="serviceGaz.main.advantages" :advantages="serviceGaz.main.advantages")
@@ -16,14 +15,14 @@
 			SectionServiceCardContent(v-if="serviceGaz.main.content" :content="serviceGaz.main.content")
 			SectionServiceCardOtherServices(v-if="serviceGaz.main.otherServices" :services="serviceGaz.main.otherServices")
 </template>
-<script setup scope>
+<script setup>
 import SplitType from "split-type";
 const { $gsap: gsap } = useNuxtApp();
 
 const tl = ref("");
-const mainDescr = ref("");
-const splitting = () => {
-   const splitDescr = new SplitType(mainDescr.value, {
+const mainDescrGaz = ref("");
+const splittingGaz = () => {
+   const splitDescr = new SplitType(mainDescrGaz.value, {
       types: "lines",
    });
    tl.value = gsap
@@ -84,10 +83,10 @@ useHead({
 });
 
 onMounted(() => {
-   splitting();
+   // splittingGaz();
 });
 onUnmounted(() => {
-   destroyAnimations();
+   // destroyAnimations();
 });
 </script>
 
@@ -167,25 +166,6 @@ onUnmounted(() => {
       }
       & .line {
          opacity: 0;
-      }
-   }
-   &__image {
-      grid-area: pic;
-      padding-bottom: calc(504 / 705 * 100%);
-      position: absolute;
-      right: 0;
-      width: 100%;
-      top: 57%;
-      transform: translateY(-50%);
-      & img {
-         object-fit: contain;
-      }
-      @media screen and (max-width: $xl) {
-         // display: none;
-         padding-bottom: 45%;
-         position: relative;
-         inset: 0;
-         transform: none;
       }
    }
 }

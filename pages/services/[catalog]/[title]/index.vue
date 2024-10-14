@@ -93,7 +93,7 @@ onUnmounted(() => {
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .main {
    &__top {
       padding: 120px 0 173px;
@@ -163,34 +163,15 @@ onUnmounted(() => {
       line-height: 32px;
       color: $bg-white;
       overflow: hidden;
+      @media screen and (max-width: $xl) {
+         grid-column: span 2;
+      }
       @media screen and (max-width: $md) {
          font-size: 20px;
          line-height: 24px;
       }
       & .line {
          opacity: 0;
-      }
-   }
-   &__image {
-      grid-area: pic;
-      padding-bottom: calc(504 / 705 * 100%);
-      position: absolute;
-      right: 0;
-      width: 100%;
-      top: 57%;
-      transform: translateY(-50%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      & img {
-         object-fit: contain;
-      }
-      @media screen and (max-width: $xl) {
-         // display: none;
-         padding-bottom: 45%;
-         position: relative;
-         inset: 0;
-         transform: none;
       }
    }
 }

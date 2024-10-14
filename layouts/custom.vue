@@ -19,7 +19,7 @@ const props = defineProps({
    main: {},
    links: {
       type: Object,
-      required: true,
+      required: false,
    },
 });
 
