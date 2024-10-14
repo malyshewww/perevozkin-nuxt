@@ -26,6 +26,7 @@ const {
    () => $fetch(`${runtimeConfig.public.apiBase}/services?_format=json`, {}),
    {
       transform: ({ breadcrumb, data, metatag }) => {
+         // console.log(data);
          const metadata = useGenerateMeta(metatag.html_head);
          const { acc: meta, title } = metadata;
          return {
