@@ -36,6 +36,7 @@ const {
       transform: ({ data, metatag }) => {
          const metadata = useGenerateMeta(metatag.html_head);
          const { acc: meta, title } = metadata;
+         console.log(data);
          return {
             main: {
                advantages: data.advantages[0].field_advantages,
