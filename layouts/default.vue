@@ -7,10 +7,15 @@
 				slot
 				Footer(:menu="main.menu")
 		#rotate-device
+		PopupNotice(:is-active="storePopup.isActivePopupNotice" @close-popup="storePopup.closePopupNotice")
 </template>
 
 <script setup>
+import { usePopupNoticeStore } from "~/stores/popup/notice";
+
 import initCustomScrollbar from "~/utils/customScrollbar";
+
+const storePopup = usePopupNoticeStore();
 
 const props = defineProps({
    main: {

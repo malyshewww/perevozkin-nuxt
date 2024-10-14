@@ -29,6 +29,9 @@
 <script setup>
 import maskPhone from "~/utils/maskPhone.js";
 
+import { usePopupNoticeStore } from "~/stores/popup/notice";
+const storePopup = usePopupNoticeStore();
+
 const fileName = ref("");
 
 const currentFile = ref("");
@@ -63,7 +66,7 @@ const formSubmit = (e) => {
    buttonSubmit.setAttribute("disabled", "true");
    buttonSubmit.textContent = "идет отправка...";
    if (fileName.value) {
-      console.log(fileName.value);
+      // console.log(fileName.value);
       fetch(`${runtimeConfig.public.apiBase}/session/token`)
          .then(function (response) {
             return response.text();
@@ -89,7 +92,6 @@ const formSubmit = (e) => {
                .then(function (res) {
                   if (res.fid[0]) {
                      let fid = res.fid[0].value;
-                     console.log(fid);
                      fileName.value = "";
                      buttonSubmit.removeAttribute("disabled");
                      buttonSubmit.textContent = buttonSubmitText;
@@ -97,10 +99,6 @@ const formSubmit = (e) => {
                      buttonSubmit.removeAttribute("disabled");
                      buttonSubmit.textContent = buttonSubmitText;
                   }
-                  // if (res.sid[0]) {
-                  //    let fid = res.data.fid[0].value;
-                  //    console.log(fid);
-                  // }
                });
          });
    } else {
@@ -123,13 +121,15 @@ const formSubmit = (e) => {
             )
                .then((res) => res.json())
                .then(function (res) {
-                  console.log(res);
                   if (res.sid) {
                      formData.fio = "";
                      formData.phone = "";
                      formErrors.fio = "";
                      formErrors.phone = "";
-                     alert("Форма успешно отправлена");
+                     storePopup.openPopupNotice();
+                     setTimeout(() => {
+                        storePopup.closePopupNotice();
+                     }, 3000);
                      buttonSubmit.removeAttribute("disabled");
                      buttonSubmit.textContent = buttonSubmitText;
                   } else {

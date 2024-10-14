@@ -177,6 +177,9 @@ onUnmounted(() => {
       width: 100%;
       top: 57%;
       transform: translateY(-50%);
+      & img {
+         object-fit: contain;
+      }
       @media screen and (max-width: $xl) {
          // display: none;
          padding-bottom: 45%;

@@ -26,8 +26,6 @@ const newArrCatalog = ref([]);
 
 const listBottom = ref([]);
 
-console.log("list", listBottom);
-
 const newCatalogList = props.catalogList.map((el, index) => {
    if (index <= 2) {
       newArrCatalog.value.push(el);

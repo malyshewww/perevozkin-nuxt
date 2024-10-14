@@ -39,8 +39,6 @@ const props = defineProps({
    },
 });
 
-console.log(props.stocks);
-
 const { $gsap: gsap } = useNuxtApp();
 
 const slider = ref(null);

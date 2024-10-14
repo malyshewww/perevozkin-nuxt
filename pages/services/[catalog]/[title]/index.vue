@@ -6,14 +6,13 @@
 					.main__top-inner
 						BreadCrumbs(:nav-list="serviceDetail.breadcrumbs")
 						h1.main__title(v-if="serviceDetail.main.top.title") {{serviceDetail.main.top.title}}
-						.main__description(ref="mainDescr" v-if="serviceDetail.main.top.subtitle")
-							p(v-for="(p, i) in serviceDetail.main.top.subtitle" :key="i") {{p}}
+						.main__description(ref="mainDescr" v-if="serviceDetail.main.top.subtitle" v-html="serviceDetail.main.top.subtitle")
 						.main__image.ibg(v-html="serviceDetail.main.top.image.markup")
 							//- img(:src="`/images/service-card/service-img.png`", alt="изображение")
 		SectionServiceCardAdvantages(v-if="serviceDetail.main.advantages" :advantages="serviceDetail.main.advantages")
 		SectionServiceCardForm
 		SectionServiceCardContent(v-if="serviceDetail.main.content" :content="serviceDetail.main.content")
-		SectionServiceCardOtherServices(v-if="serviceDetail.main.otherServices" :services="serviceDetail.main.otherServices")
+		SectionServiceCardOtherServices(v-if="serviceDetail.main.otherServices && serviceDetail.main.otherServices.length" :services="serviceDetail.main.otherServices")
 </template>
 <script setup>
 import SplitType from "split-type";
@@ -94,7 +93,7 @@ onUnmounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .main {
    &__top {
       padding: 120px 0 173px;
@@ -180,6 +179,12 @@ onUnmounted(() => {
       width: 100%;
       top: 57%;
       transform: translateY(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      & img {
+         object-fit: contain;
+      }
       @media screen and (max-width: $xl) {
          // display: none;
          padding-bottom: 45%;

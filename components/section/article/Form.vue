@@ -21,6 +21,9 @@
 <script setup>
 import maskPhone from "~/utils/maskPhone.js";
 
+import { usePopupNoticeStore } from "~/stores/popup/notice";
+const storePopup = usePopupNoticeStore();
+
 const props = defineProps({
    title: {
       type: String,
@@ -44,7 +47,6 @@ const runtimeConfig = useRuntimeConfig();
 
 // eslint-disable-next-line
 const submitForm = async (e) => {
-   console.log(formData);
    const buttonSubmit = e.target.querySelector('input[type="submit"]');
    const buttonSubmitText = buttonSubmit.textContent;
    buttonSubmit.setAttribute("disabled", "true");
@@ -73,9 +75,12 @@ const submitForm = async (e) => {
                   formData.phone = "";
                   formErrors.name = "";
                   formErrors.phone = "";
-                  alert("Форма успешно отправлена");
                   buttonSubmit.removeAttribute("disabled");
                   buttonSubmit.textContent = buttonSubmitText;
+                  storePopup.openPopupNotice();
+                  setTimeout(() => {
+                     storePopup.closePopupNotice();
+                  }, 3000);
                } else {
                   formErrors.name = res.error.name || "";
                   formErrors.phone = res.error.phone || "";

@@ -28,8 +28,8 @@ const props = defineProps({
    display: grid;
    place-items: center;
    height: 100%;
-   min-height: inherit;
-   z-index: 10;
+   min-height: 100vh;
+   z-index: 20;
    background-color: #ffffff;
 }
 .loader-11 {

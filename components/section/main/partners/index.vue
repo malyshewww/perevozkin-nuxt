@@ -174,6 +174,19 @@ onBeforeUnmount(() => {
       }
    }
    &__image {
+      width: 170px;
+      height: 170px;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      & img {
+         width: 100%;
+         height: 100px;
+      }
+      @media screen and (max-width: $xl) {
+         width: 80px;
+         height: 80px;
+      }
    }
 }
 </style>

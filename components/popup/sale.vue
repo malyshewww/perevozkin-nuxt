@@ -18,10 +18,6 @@ const props = defineProps({
    },
 });
 
-onMounted(() => {
-   console.log(props.data);
-});
-
 const emit = defineEmits(["closePopup"]);
 const closePopup = () => {
    emit("closePopup");
