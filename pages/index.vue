@@ -1,10 +1,11 @@
 <template lang="pug">
-	main.main
-		SectionMainScreen(:menu="main.menu")
-		SectionMainServices(:catalogList="front.main.catalogFront" :serviceList="front.main.serviceFront")
-		SectionMainAdvantages(:text="front.main.frontInfo.advantageText" :advantages="front.main.advantages")
-		SectionMainSale(v-if="front.main.frontInfo.stocks && front.main.frontInfo.stocks.length" :stocks="front.main.frontInfo.stocks")
-		SectionMainPartners(v-if="front.main.frontInfo.partners && front.main.frontInfo.partners.length" :partners="front.main.frontInfo.partners")
+	PageContainer(:status.sync="status" :error.sync="error")
+		main.main
+			SectionMainScreen(:menu="main.menu")
+			SectionMainServices(:catalogList="front.main.catalogFront" :serviceList="front.main.serviceFront")
+			SectionMainAdvantages(v-if="status === 'success'" :text="front.main.frontInfo.advantageText" :advantages="front.main.advantages")
+			SectionMainSale(v-if="front.main.frontInfo.stocks && front.main.frontInfo.stocks.length" :stocks="front.main.frontInfo.stocks")
+			SectionMainPartners(v-if="front.main.frontInfo.partners && front.main.frontInfo.partners.length" :partners="front.main.frontInfo.partners")
 </template>
 
 <script setup>
@@ -87,4 +88,16 @@ onMounted(() => {
 onUnmounted(() => {});
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.page--home {
+   & .main-services__bottom {
+      & .service-item {
+         &__image {
+            & img {
+               object-fit: cover;
+            }
+         }
+      }
+   }
+}
+</style>

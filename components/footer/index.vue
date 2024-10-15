@@ -29,7 +29,7 @@
 				.footer__bottom.bottom-footer
 					.bottom-footer__item © 2024 ООО «Перевозов-Сервис»
 					.bottom-footer__item
-						button.bottom-footer__link(type="button" @click="openPoliticPopup()") Политика обработки конфиденциальных данных
+						nuxt-link.bottom-footer__link(to="/page/politic" target="_blank") Политика обработки конфиденциальных данных
 					.bottom-footer__item
 						button.button-up(type="button" @click="scrollTop($event)") Наверх
 							svg.button-up__icon
@@ -37,9 +37,8 @@
 					.bottom-footer__item
 						.company
 							.company__caption Создание сайта:
-							nuxt-link.company__link(to="https://webshop.ru/" target="_blank")
+							a(href="https://webshop.ru" target="_blank").company__link
 								img(:src="`/images/company-logo.svg`" alt="логотип")
-	PopupPolitic(:is-active="isPoliticPopupActive" @close-popup="closePoliticPopup")
 </template>
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
@@ -72,19 +71,19 @@ const scrollTop = () => {
    //    });
    // }
 };
-const isPoliticPopupActive = ref(false);
-const openPoliticPopup = () => {
-   isPoliticPopupActive.value = !isPoliticPopupActive.value;
-   document.body.classList.toggle("lock");
-   const { bodyScrollBar } = initCustomScrollbar();
-   bodyScrollBar.updatePluginOptions("modal", { open: true });
-};
-const closePoliticPopup = () => {
-   isPoliticPopupActive.value = !isPoliticPopupActive.value;
-   document.body.classList.toggle("lock");
-   const { bodyScrollBar } = initCustomScrollbar();
-   bodyScrollBar.updatePluginOptions("modal", { open: false });
-};
+// const isPoliticPopupActive = ref(false);
+// const openPoliticPopup = () => {
+//    isPoliticPopupActive.value = !isPoliticPopupActive.value;
+//    document.body.classList.toggle("lock");
+//    const { bodyScrollBar } = initCustomScrollbar();
+//    bodyScrollBar.updatePluginOptions("modal", { open: true });
+// };
+// const closePoliticPopup = () => {
+//    isPoliticPopupActive.value = !isPoliticPopupActive.value;
+//    document.body.classList.toggle("lock");
+//    const { bodyScrollBar } = initCustomScrollbar();
+//    bodyScrollBar.updatePluginOptions("modal", { open: false });
+// };
 
 onMounted(() => {
    scrollTop();

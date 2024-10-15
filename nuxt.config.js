@@ -133,7 +133,6 @@ export default defineNuxtConfig({
    //    },
    // },
    ssr: true,
-   defaultLocale: "ru",
    // build: {
    //    postcss: {
    //       preset: {

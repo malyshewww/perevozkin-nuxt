@@ -5,7 +5,7 @@
 				.container
 					.main__top-inner
 						BreadCrumbs(:nav-list="serviceDetail.breadcrumbs")
-						h1.main__title(v-if="serviceDetail.main.top.title") {{serviceDetail.main.top.title}}
+						h1.main__title(v-if="serviceDetail.main.top.title" v-html="serviceDetail.main.top.title")
 						.main__description(ref="mainDescr" v-if="serviceDetail.main.top.subtitle" v-html="serviceDetail.main.top.subtitle")
 						.main__image.ibg(v-html="serviceDetail.main.top.image.markup")
 							//- img(:src="`/images/service-card/service-img.png`", alt="изображение")
@@ -53,11 +53,12 @@ const {
       transform: ({ breadcrumb, data, metatag }) => {
          const metadata = useGenerateMeta(metatag.html_head);
          const { acc: meta, title } = metadata;
+         console.log(data);
          return {
             breadcrumbs: breadcrumb,
             main: {
                top: {
-                  title: data.title,
+                  title: data.field_title_page[0],
                   subtitle: data.field_subtitle[0],
                   image: data.field_image[0],
                },

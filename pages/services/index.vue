@@ -45,6 +45,9 @@ const {
 useHead({
    title: servicesPage.value.title,
    meta: [...servicesPage.value.meta],
+   bodyAttrs: {
+      class: "page--services",
+   },
 });
 </script>
 
@@ -58,6 +61,13 @@ useHead({
    }
    @media screen and (max-width: $md) {
       grid-template-columns: 1fr;
+   }
+}
+.page--services {
+   & .service-item {
+      &__image img {
+         object-fit: cover;
+      }
    }
 }
 </style>

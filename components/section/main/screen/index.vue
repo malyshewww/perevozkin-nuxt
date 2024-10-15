@@ -10,7 +10,7 @@
 						p #[span Новгороде]
 				.main-screen__video-wrap(ref="mainVideoWrap")
 					.main-screen__video.ibg(ref="mainVideo" data-type="video" @click="switchVideoSound($event)")
-						video(ref="video" id="video" loop :muted="videoMuted")
+						video(ref="video" id="video" playsinline loop :muted="videoMuted")
 							source(:src="`/images/video.mp4`" type="video/mp4")
 				.spin
 					img(:src="`/images/icons/spin.svg`" alt="spin")

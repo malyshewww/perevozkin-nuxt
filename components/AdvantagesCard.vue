@@ -1,5 +1,5 @@
 <template lang="pug">
-	div(v-for="(card, index) in advantages" :key="index" :class="`main-advantages__card card-advantages card-advantages--${index + 1}`")
+	div(v-for="(card, index) in advantages" :key="index" :ref="'card' + index" :class="`main-advantages__card card-advantages card-advantages--${index + 1}`")
 		.card-advantages__bg
 		.card-advantages__body
 			.card-advantages__icon
@@ -17,9 +17,6 @@ defineProps({
       required: true,
    },
 });
-
-onMounted(() => {});
-
 // const advantages = [
 //    {
 //       title: "Опыт мастеров более 7 лет",

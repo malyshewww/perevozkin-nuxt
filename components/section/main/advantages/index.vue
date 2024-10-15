@@ -54,7 +54,7 @@ const animationCards = (triggerSelector, startPosition) => {
    // bodyScrollBar.addListener(ScrollTrigger.update);
    // ScrollTrigger.defaults({ scroller });
    const cards = document.querySelectorAll(".page--home .card-advantages");
-   if (cards.length) {
+   if (cards.length > 0) {
       timeln.value = gsap
          .timeline({
             scrollTrigger: {
@@ -77,7 +77,7 @@ const animationCards = (triggerSelector, startPosition) => {
                ? 1
                : 0,
          })
-         .addLabel("card1")
+         // .addLabel("card1")
          .to(".card-advantages--1", {
             yPercent: 0,
             "--opacity": 0.6,
@@ -87,7 +87,7 @@ const animationCards = (triggerSelector, startPosition) => {
             // opacity: 1,
             "--opacity": 1,
          })
-         .addLabel("card2")
+         // .addLabel("card2")
          .to(
             ".card-advantages--1",
             {
@@ -102,10 +102,9 @@ const animationCards = (triggerSelector, startPosition) => {
          })
          .from(".card-advantages--3", {
             y: "130vh",
-
             "--opacity": 1,
          })
-         .addLabel("card3")
+         // .addLabel("card3")
          .to(
             ".card-advantages--2",
             {
@@ -123,7 +122,7 @@ const animationCards = (triggerSelector, startPosition) => {
          .from(".card-advantages--4", {
             y: "130vh",
          })
-         .addLabel("card4")
+         // .addLabel("card4")
          .to(
             ".card-advantages--4",
             {
@@ -152,10 +151,6 @@ const animation = () => {
       types: "lines",
    });
    const lines = splitTitle.lines;
-   // const splitContent = new SplitType(AdvantagesContent.value, {
-   //    types: "lines",
-   // });
-   // const linesContent = splitContent.lines;
    tl.value = gsap
       .timeline({
          scrollTrigger: {
@@ -205,9 +200,15 @@ const animation = () => {
 };
 
 const destroyAnimations = () => {
-   tl.value.pause().kill();
-   timeln.value.pause().kill();
-   tlContent.value.pause().kill();
+   if (tl.value != null) {
+      tl.value.pause().kill();
+   }
+   if (timeln.value != null) {
+      timeln.value.pause().kill();
+   }
+   if (tlContent.value != null) {
+      tlContent.value.pause().kill();
+   }
 };
 
 const animationMobile = () => {
@@ -245,7 +246,7 @@ const animationMobile = () => {
 };
 
 onMounted(() => {
-   if (window.innerWidth > 1024) {
+   if (window.innerWidth >= 1024) {
       animation();
    }
    if (window.innerWidth < 1024) {
@@ -253,7 +254,7 @@ onMounted(() => {
    }
 });
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
    destroyAnimations();
 });
 </script>

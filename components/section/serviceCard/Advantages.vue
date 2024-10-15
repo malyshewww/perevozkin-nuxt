@@ -3,7 +3,7 @@
 		.container
 			.heading
 				.heading__sub-title Преимущества
-				h2.heading__title Мы #[span знаем причины всех поломок] и оптимальные варианты их устранения
+				h2(ref="headingAdvantagesTitle").heading__title Мы #[span знаем причины всех поломок] и оптимальные варианты их устранения
 				.heading__description(v-if="advantages.description")
 					p {{advantages.description}}
 					.heading__number(v-if="advantages.strongText") {{advantages.strongText}}
@@ -42,8 +42,6 @@ const buttonNext = ref("");
 const sliderInstance = ref(null);
 
 const positionY = ref(0);
-
-const tlCards = ref(null);
 
 const showTrailer = () => {
    const trailer = document.querySelector(".trailer");
@@ -114,6 +112,11 @@ function initSlider() {
    });
 }
 
+const tlTitle = ref(null);
+const tlCards = ref(null);
+
+const headingAdvantagesTitle = ref(null);
+
 const animation = () => {
    const advantagesCards = [
       ...document.querySelectorAll(
@@ -121,8 +124,8 @@ const animation = () => {
       ),
    ];
    if (advantagesCards.length > 0) {
-      tlCards.value = gsap.fromTo(
-         ".heading__title",
+      tlTitle.value = gsap.fromTo(
+         headingAdvantagesTitle.value,
          { y: 70, opacity: 0 },
          {
             y: 0,
@@ -182,8 +185,14 @@ const animation = () => {
 };
 
 const destroyAnimations = () => {
-   tlCards.value.pause().kill();
-   tlCards.value = null;
+   if (tlCards.value != null) {
+      tlCards.value.pause().kill();
+      tlCards.value = null;
+   }
+   if (tlTitle.value != null) {
+      tlTitle.value.pause().kill();
+      tlTitle.value = null;
+   }
 };
 
 onMounted(() => {
@@ -191,7 +200,7 @@ onMounted(() => {
    animation();
 });
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
    destroyAnimations();
 });
 
