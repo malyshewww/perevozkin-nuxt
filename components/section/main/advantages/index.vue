@@ -42,17 +42,6 @@ const tlContent = ref(null);
 const timeln = ref(null);
 
 const animationCards = (triggerSelector, startPosition) => {
-   // const { bodyScrollBar, scroller } = initCustomScrollbar();
-   // ScrollTrigger.scrollerProxy(".scroller", {
-   //    scrollTop(value) {
-   //       if (arguments.length) {
-   //          bodyScrollBar.scrollTop = value;
-   //       }
-   //       return bodyScrollBar.scrollTop;
-   //    },
-   // });
-   // bodyScrollBar.addListener(ScrollTrigger.update);
-   // ScrollTrigger.defaults({ scroller });
    const cards = document.querySelectorAll(".page--home .card-advantages");
    if (cards.length > 0) {
       timeln.value = gsap
@@ -135,18 +124,6 @@ const animationCards = (triggerSelector, startPosition) => {
 };
 
 const animation = () => {
-   // const { bodyScrollBar, scroller } = initCustomScrollbar();
-   // gsap.registerPlugin(ScrollTrigger);
-   // ScrollTrigger.scrollerProxy(".scroller", {
-   //    scrollTop(value) {
-   //       if (arguments.length) {
-   //          bodyScrollBar.scrollTop = value;
-   //       }
-   //       return bodyScrollBar.scrollTop;
-   //    },
-   // });
-   // bodyScrollBar.addListener(ScrollTrigger.update);
-   // ScrollTrigger.defaults({ scroller });
    const splitTitle = new SplitType(AdvantagesTitle.value, {
       types: "lines",
    });
@@ -196,7 +173,9 @@ const animation = () => {
             ease: "power4.out",
          }
       );
-   animationCards(advantagesBody.value, "top 2%");
+   setTimeout(() => {
+      animationCards(advantagesBody.value, "top 2%");
+   }, 500);
 };
 
 const destroyAnimations = () => {
@@ -212,17 +191,6 @@ const destroyAnimations = () => {
 };
 
 const animationMobile = () => {
-   const { bodyScrollBar, scroller } = initCustomScrollbar();
-   ScrollTrigger.scrollerProxy(".scroller", {
-      scrollTop(value) {
-         if (arguments.length) {
-            bodyScrollBar.scrollTop = value;
-         }
-         return bodyScrollBar.scrollTop;
-      },
-   });
-   bodyScrollBar.addListener(ScrollTrigger.update);
-   ScrollTrigger.defaults({ scroller });
    gsap.defaults({ ease: "power3" });
    gsap.set(".page--home .card-advantages", { y: 100, opacity: 0 });
    ScrollTrigger.batch(".page--home .card-advantages", {
@@ -246,11 +214,24 @@ const animationMobile = () => {
 };
 
 onMounted(() => {
+   // const { bodyScrollBar, scroller } = initCustomScrollbar();
+   // ScrollTrigger.scrollerProxy(".scroller", {
+   //    scrollTop(value) {
+   //       if (arguments.length) {
+   //          bodyScrollBar.scrollTop = value;
+   //       }
+   //       return bodyScrollBar.scrollTop;
+   //    },
+   // });
+   // bodyScrollBar.addListener(ScrollTrigger.update);
+   // ScrollTrigger.defaults({ scroller: scroller });
    if (window.innerWidth >= 1024) {
       animation();
    }
    if (window.innerWidth < 1024) {
-      animationMobile();
+      setTimeout(() => {
+         animationMobile();
+      }, 500);
    }
 });
 

@@ -3,7 +3,7 @@
 		main.main
 			SectionMainScreen(:menu="main.menu")
 			SectionMainServices(:catalogList="front.main.catalogFront" :serviceList="front.main.serviceFront")
-			SectionMainAdvantages(v-if="status === 'success'" :text="front.main.frontInfo.advantageText" :advantages="front.main.advantages")
+			SectionMainAdvantages(:text="front.main.frontInfo.advantageText" :advantages="front.main.advantages")
 			SectionMainSale(v-if="front.main.frontInfo.stocks && front.main.frontInfo.stocks.length" :stocks="front.main.frontInfo.stocks")
 			SectionMainPartners(v-if="front.main.frontInfo.partners && front.main.frontInfo.partners.length" :partners="front.main.frontInfo.partners")
 </template>
@@ -70,7 +70,7 @@ const isMounted = ref(false);
 onMounted(() => {
    const { bodyScrollBar } = initCustomScrollbar();
    if (!window.location.hash) {
-      bodyScrollBar.scrollTo(0, 0, 100);
+      // bodyScrollBar.scrollTo(0, 0, 100);
    } else {
       const sectionSale = document.querySelector(".main-sale");
       if (sectionSale) {
