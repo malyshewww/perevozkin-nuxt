@@ -57,6 +57,10 @@ const goToSection = () => {
    const sectionSale = document.querySelector(".main-sale");
    if (sectionSale) {
       const scrollToHere = sectionSale.offsetTop;
+      // const scrollToHere =
+      //    bodyScrollBar.offset.y +
+      //    section.getBoundingClientRect().top +
+      //    sectionSale.offsetTop;
       bodyScrollBar.scrollTo(0, scrollToHere, 400);
       if (window.matchMedia("(max-width: 1024px)").matches) {
          menuClose();

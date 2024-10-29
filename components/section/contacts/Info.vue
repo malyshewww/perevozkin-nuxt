@@ -9,7 +9,7 @@
 		.info-contacts__item
 			.info-contacts__caption Телефон
 			.info-contacts__values
-				a.info-contacts__link(href="tel:+78311380880") + 7 (831) 138-08-80
+				a.info-contacts__link(:href="`tel:${formatPhone}`" v-if="phone") {{phone}}
 				ul.social-list(v-if="telegram || whatsapp || viber")
 					li.social-item(v-if="telegram")
 						a.social-link(:href="telegram" target="_blank")
@@ -52,7 +52,13 @@ const props = defineProps({
    },
 });
 
-const { telegram, viber, whatsapp } = inject("links");
+const { telegram, viber, whatsapp, phone } = inject("links");
+
+const formatPhone = computed(() => {
+   if (phone) {
+      return phone.replace(/[^\d\+]/g, "");
+   }
+});
 </script>
 
 <style lang="scss">

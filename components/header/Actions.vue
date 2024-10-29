@@ -2,7 +2,7 @@
    .header__actions(:class="[device === 'pc' ? '' : 'header__actions--mobile']")
       .header__phone-wrap
          a.header__phone(:href="`tel:${formatPhone}`") {{phone}}
-      nuxt-link.header__button(:to="{ hash: '#sale', path: '/' }" @click="goToSection")
+      nuxt-link(:to="{ hash: '#sale', path: '/' }" @click.prevent="goToSection").header__button
          span.header__button-text Акции
 </template>
 

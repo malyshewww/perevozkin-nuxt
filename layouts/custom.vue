@@ -15,7 +15,12 @@ import { ref } from "vue";
 import { usePreloaderStore } from "@/stores/preloader";
 import initCustomScrollbar from "~/utils/customScrollbar";
 
-const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
+const {
+   $gsap: gsap,
+   $ScrollTrigger: ScrollTrigger,
+   $Scrollbar: Scrollbar,
+   $ScrollbarPlugin: ScrollbarPlugin,
+} = useNuxtApp();
 
 const props = defineProps({
    main: {},
@@ -63,6 +68,8 @@ nuxtApp.hook("page:finish", () => {
       const sectionSale = document.querySelector(".main-sale");
       if (sectionSale) {
          const scrollToHere = sectionSale.offsetTop;
+         // const scrollToHere =
+         //    bodyScrollBar.offset.y + sectionSale.getBoundingClientRect().top;
          bodyScrollBar.scrollTo(0, scrollToHere, 400);
       }
    }

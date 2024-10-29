@@ -29,7 +29,7 @@ export default defineNuxtPlugin((nuxtApp) => {
          if (target.tagName !== "A") {
             return;
          }
-         const hash = target.getAttribute("href");
+         const hash = target.getAttribute("href").replace("/", "");
          if (!hash || hash.charAt(0) !== "#") {
             return;
          }
@@ -41,17 +41,18 @@ export default defineNuxtPlugin((nuxtApp) => {
          let offset = 0;
          let itemY = 0;
          if (!hash) {
-            console.log("not hash sale");
+            // console.log("not hash sale");
             return;
          }
          if (hash === "#sale") {
+            // console.log("sale");
             itemY =
                scrollbar.offset.y +
                document?.querySelector(hash).getBoundingClientRect().top -
                scrollbar.scrollTop;
             // scrollbar.offset.y - document.querySelector(hash).clientHeight;
             // scrollbar.setMomentum(0, -scrollbar.scrollTop);
-            console.log("hash sale");
+            // console.log("hash sale");
          }
          // else {
          //    console.log("scrollTop:", scrollbar.containerEl.scrollTop);
@@ -61,32 +62,32 @@ export default defineNuxtPlugin((nuxtApp) => {
          //    scrollbar.containerEl.scrollTop = 0;
          // }
          // // reset scrollTop
-         // scrollbar.containerEl.scrollTop = 0;
-         if (document?.querySelector(hash).getBoundingClientRect().top > 0) {
-            if (
-               window
-                  .getComputedStyle(document?.querySelector(hash), null)
-                  .paddingTop.replace("px", "") < 100
-            ) {
-               // window.scrollTo(0, itemY - offset);
-               scrollbar.scrollTo(0, itemY - offset, 600);
-            } else {
-               // window.scrollTo(0, itemY + offset);
-               scrollbar.scrollTo(0, itemY + offset, 600);
-            }
-         } else {
-            if (
-               window
-                  .getComputedStyle(document?.querySelector(hash), null)
-                  .paddingTop.replace("px", "") < 100
-            ) {
-               // window.scrollTo(0, itemY - headerHeight - offset);
-               scrollbar.scrollTo(0, itemY - offset, 600);
-            } else {
-               // window.scrollTo(0, itemY - headerHeight + offset);
-               scrollbar.scrollTo(0, itemY + offset, 600);
-            }
-         }
+         scrollbar.containerEl.scrollTop = 0;
+         // if (document?.querySelector(hash).getBoundingClientRect().top > 0) {
+         //    if (
+         //       window
+         //          .getComputedStyle(document?.querySelector(hash), null)
+         //          .paddingTop.replace("px", "") < 100
+         //    ) {
+         //       // window.scrollTo(0, itemY - offset);
+         //       scrollbar.scrollTo(0, itemY - offset, 600);
+         //    } else {
+         //       // window.scrollTo(0, itemY + offset);
+         //       scrollbar.scrollTo(0, itemY + offset, 600);
+         //    }
+         // } else {
+         //    if (
+         //       window
+         //          .getComputedStyle(document?.querySelector(hash), null)
+         //          .paddingTop.replace("px", "") < 100
+         //    ) {
+         //       // window.scrollTo(0, itemY - headerHeight - offset);
+         //       scrollbar.scrollTo(0, itemY - offset, 600);
+         //    } else {
+         //       // window.scrollTo(0, itemY - headerHeight + offset);
+         //       scrollbar.scrollTo(0, itemY + offset, 600);
+         //    }
+         // }
       };
       onInit() {
          this.jumpToHash(window.location.hash);
