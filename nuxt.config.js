@@ -25,6 +25,11 @@ export default defineNuxtConfig({
          apiKey: process.env.NUXT_PUBLIC_API_KEY,
       },
    },
+   router: {
+      options: {
+         scrollBehaviorType: "smooth",
+      },
+   },
    app: {
       head: {
          htmlAttrs: {

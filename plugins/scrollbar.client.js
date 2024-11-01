@@ -48,8 +48,8 @@ export default defineNuxtPlugin((nuxtApp) => {
             // console.log("sale");
             itemY =
                scrollbar.offset.y +
-               document?.querySelector(hash).getBoundingClientRect().top -
-               scrollbar.scrollTop;
+               document?.querySelector(hash).getBoundingClientRect().top;
+            // scrollbar.scrollTop;
             // scrollbar.offset.y - document.querySelector(hash).clientHeight;
             // scrollbar.setMomentum(0, -scrollbar.scrollTop);
             // console.log("hash sale");
@@ -62,32 +62,32 @@ export default defineNuxtPlugin((nuxtApp) => {
          //    scrollbar.containerEl.scrollTop = 0;
          // }
          // // reset scrollTop
-         scrollbar.containerEl.scrollTop = 0;
-         // if (document?.querySelector(hash).getBoundingClientRect().top > 0) {
-         //    if (
-         //       window
-         //          .getComputedStyle(document?.querySelector(hash), null)
-         //          .paddingTop.replace("px", "") < 100
-         //    ) {
-         //       // window.scrollTo(0, itemY - offset);
-         //       scrollbar.scrollTo(0, itemY - offset, 600);
-         //    } else {
-         //       // window.scrollTo(0, itemY + offset);
-         //       scrollbar.scrollTo(0, itemY + offset, 600);
-         //    }
-         // } else {
-         //    if (
-         //       window
-         //          .getComputedStyle(document?.querySelector(hash), null)
-         //          .paddingTop.replace("px", "") < 100
-         //    ) {
-         //       // window.scrollTo(0, itemY - headerHeight - offset);
-         //       scrollbar.scrollTo(0, itemY - offset, 600);
-         //    } else {
-         //       // window.scrollTo(0, itemY - headerHeight + offset);
-         //       scrollbar.scrollTo(0, itemY + offset, 600);
-         //    }
-         // }
+         // scrollbar.containerEl.scrollTop = 0;
+         if (document?.querySelector(hash).getBoundingClientRect().top > 0) {
+            if (
+               window
+                  .getComputedStyle(document?.querySelector(hash), null)
+                  .paddingTop.replace("px", "") < 100
+            ) {
+               // window.scrollTo(0, itemY - offset);
+               scrollbar.scrollTo(0, itemY - offset, 600);
+            } else {
+               // window.scrollTo(0, itemY + offset);
+               scrollbar.scrollTo(0, itemY + offset, 600);
+            }
+         } else {
+            if (
+               window
+                  .getComputedStyle(document?.querySelector(hash), null)
+                  .paddingTop.replace("px", "") < 100
+            ) {
+               // window.scrollTo(0, itemY - headerHeight - offset);
+               scrollbar.scrollTo(0, itemY - offset, 600);
+            } else {
+               // window.scrollTo(0, itemY - headerHeight + offset);
+               scrollbar.scrollTo(0, itemY + offset, 600);
+            }
+         }
       };
       onInit() {
          this.jumpToHash(window.location.hash);

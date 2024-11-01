@@ -60,7 +60,7 @@ onMounted(() => {
       const marker = new YMapMarker(
          {
             coordinates: [43.932217, 56.266512],
-            draggable: true,
+            draggable: false,
          },
          content
       );

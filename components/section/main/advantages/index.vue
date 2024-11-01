@@ -225,8 +225,13 @@ onMounted(() => {
    // });
    // bodyScrollBar.addListener(ScrollTrigger.update);
    // ScrollTrigger.defaults({ scroller: scroller });
+   if (window.location.hash) {
+      return;
+   }
    if (window.innerWidth >= 1024) {
-      animation();
+      setTimeout(() => {
+         animation();
+      }, 1000);
    }
    if (window.innerWidth < 1024) {
       setTimeout(() => {

@@ -53,14 +53,13 @@ const menuClose = () => {
 };
 
 const goToSection = () => {
+   navigateTo("/#sale", { replace: true });
    const { bodyScrollBar } = initCustomScrollbar();
    const sectionSale = document.querySelector(".main-sale");
    if (sectionSale) {
-      const scrollToHere = sectionSale.offsetTop;
+      const scrollToHere = bodyScrollBar.offset.y + sectionSale.offsetTop;
       // const scrollToHere =
-      //    bodyScrollBar.offset.y +
-      //    section.getBoundingClientRect().top +
-      //    sectionSale.offsetTop;
+      //    bodyScrollBar.offset.y + sectionSale.getBoundingClientRect().top;
       bodyScrollBar.scrollTo(0, scrollToHere, 400);
       if (window.matchMedia("(max-width: 1024px)").matches) {
          menuClose();
