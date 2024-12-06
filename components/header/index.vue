@@ -149,6 +149,7 @@ onMounted(() => {});
       display: flex;
       align-items: center;
       gap: 52px;
+      flex-shrink: 0;
       @media screen and (max-width: $xl) {
          display: none;
          flex-direction: column;
@@ -401,7 +402,6 @@ onMounted(() => {});
       display: flex;
       align-items: center;
       gap: 52px;
-      flex-wrap: wrap;
       // flex: 0 1 44.488372%;
       @media screen and (max-width: 1919px) {
          justify-content: flex-end;
@@ -414,6 +414,7 @@ onMounted(() => {});
          flex-direction: column;
          justify-content: center;
          margin-left: 0;
+         flex-wrap: wrap;
       }
    }
    &__item {
