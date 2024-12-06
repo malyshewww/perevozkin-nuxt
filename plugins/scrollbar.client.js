@@ -44,11 +44,11 @@ export default defineNuxtPlugin((nuxtApp) => {
             // console.log("not hash sale");
             return;
          }
-         if (hash === "#sale") {
+         if (hash == "#sale") {
             // console.log("sale");
             itemY =
                scrollbar.offset.y +
-               document?.querySelector(hash).getBoundingClientRect().top;
+               document.querySelector(hash)?.getBoundingClientRect().top;
             // scrollbar.scrollTop;
             // scrollbar.offset.y - document.querySelector(hash).clientHeight;
             // scrollbar.setMomentum(0, -scrollbar.scrollTop);

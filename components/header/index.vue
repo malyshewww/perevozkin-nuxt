@@ -53,9 +53,9 @@ const menuClose = () => {
 };
 
 const goToSection = () => {
-   // navigateTo("/#sale", { replace: true });
    const { bodyScrollBar } = initCustomScrollbar();
-   const sectionSale = document.querySelector(".main-sale");
+   const sectionSale = document.querySelector("#sale");
+   console.log(sectionSale);
    if (sectionSale) {
       const scrollToHere = bodyScrollBar.offset.y + sectionSale.offsetTop;
       // const scrollToHere =
