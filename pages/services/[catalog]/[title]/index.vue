@@ -53,7 +53,6 @@ const {
       transform: ({ breadcrumb, data, metatag }) => {
          const metadata = useGenerateMeta(metatag.html_head);
          const { acc: meta, title } = metadata;
-         console.log(data);
          return {
             breadcrumbs: breadcrumb,
             main: {

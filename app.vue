@@ -18,7 +18,6 @@ const {
       ),
    {
       transform: ({ data, metatag }) => {
-         console.log(data);
          return {
             main: {
                menu: data.menu_main,

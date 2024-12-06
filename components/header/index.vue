@@ -53,7 +53,7 @@ const menuClose = () => {
 };
 
 const goToSection = () => {
-   navigateTo("/#sale", { replace: true });
+   // navigateTo("/#sale", { replace: true });
    const { bodyScrollBar } = initCustomScrollbar();
    const sectionSale = document.querySelector(".main-sale");
    if (sectionSale) {

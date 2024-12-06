@@ -36,7 +36,7 @@ export default defineNuxtPlugin((nuxtApp) => {
          this.jumpToHash(hash);
       };
       jumpToHash = (hash) => {
-         console.log("hash:", hash);
+         // console.log("hash:", hash);
          const { scrollbar } = this;
          let offset = 0;
          let itemY = 0;
