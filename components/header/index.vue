@@ -1,7 +1,7 @@
 <template lang="pug">
 	header.header(ref="header" :class="{ active: isMenuActive }")
 		.container
-			.header__body
+			.header__body(:class="`${!isStocks ? 'no-stocks' : ''}`")
 				nuxt-link(to="/" @click="menuClose").header__logo
 					picture
 						source(srcset="/images/logo.svg" media="(min-width: 767.98px)")
@@ -26,6 +26,8 @@ defineProps({
       required: true,
    },
 });
+
+const { isStocks } = inject("links");
 
 const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 
@@ -123,6 +125,9 @@ onMounted(() => {});
       @media screen and (max-width: $xl) {
          padding-right: 0;
          padding: 16px 0;
+      }
+      &.no-stocks {
+         padding-right: 0;
       }
    }
    &__logo {

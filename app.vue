@@ -17,11 +17,14 @@ const {
          {}
       ),
    {
-      transform: ({ data, metatag }) => {
+      transform: (res) => {
+         console.log(res);
+         const { data, metatag } = res;
          return {
             main: {
                menu: data.menu_main,
                links: {
+                  isStocks: data.actions_exists,
                   telegram: data.site_info[0].field_link_telegram,
                   vk: data.site_info[0].field_link_vk,
                   youtube: data.site_info[0].field_link_youtube,
