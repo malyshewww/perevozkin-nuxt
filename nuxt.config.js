@@ -104,10 +104,6 @@ export default defineNuxtConfig({
                name: "format-detection",
                content: "date=no",
             },
-            {
-               name: "robots",
-               content: "noindex,follow",
-            },
          ],
       },
    },
