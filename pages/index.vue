@@ -1,7 +1,7 @@
 <template lang="pug">
 	PageContainer(:status.sync="status" :error.sync="error")
 		main.main
-			SectionMainScreen(:menu="main.menu")
+			SectionMainScreen
 			SectionMainServices(:catalogList="front.main.catalogFront" :serviceList="front.main.serviceFront")
 			SectionMainAdvantages(:text="front.main.frontInfo.advantageText" :advantages="front.main.advantages")
 			SectionMainSale(v-if="front.main.frontInfo.stocks && front.main.frontInfo.stocks.length" :stocks="front.main.frontInfo.stocks")
@@ -12,12 +12,6 @@
 import initCustomScrollbar from "~/utils/customScrollbar";
 
 const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
-
-defineProps({
-   main: {
-      required: true,
-   },
-});
 
 definePageMeta({
    layout: "custom",

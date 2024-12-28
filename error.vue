@@ -1,14 +1,9 @@
 <template lang="pug">
-	NuxtLayout
-		div
-			h1 {{ error.statusCode }}
-			nuxt-link(to="/") Go back home
+	NuxtLayout(name="error")
 </template>
 
-<script setup lang="ts">
-import type { NuxtError } from "#app";
-
-const props = defineProps({
-   error: Object as () => NuxtError,
+<script setup>
+definePageMeta({
+   layout: "error",
 });
 </script>

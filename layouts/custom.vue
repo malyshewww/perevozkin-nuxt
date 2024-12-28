@@ -2,11 +2,11 @@
    UiPreloader(:is-loading="loading")
    .scroller(ref="scroller")
       .wrapper(:class="{ active: !isLoaded }")
-         Header(v-if="isMobile" :menu="main.menu")
+         Header(v-if="isMobile")
          UiTrailer
          UiButtonSound
          slot
-         Footer(:menu="main.menu")
+         Footer
    #rotate-device
 </template>
 
@@ -21,16 +21,6 @@ const {
    $Scrollbar: Scrollbar,
    $ScrollbarPlugin: ScrollbarPlugin,
 } = useNuxtApp();
-
-const props = defineProps({
-   main: {},
-   links: {
-      type: Object,
-      required: false,
-   },
-});
-
-provide("links", props.links);
 
 const { isMobile } = useDevice();
 

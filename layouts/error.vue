@@ -1,44 +1,31 @@
 <template lang="pug">
-	div
-		.scroller
-			.wrapper.wrapper-default
-				UiTrailer
-				Header
-				slot
-				Footer
-		#rotate-device
-		PopupNotice(:is-active="storePopup.isActivePopupNotice" @close-popup="storePopup.closePopupNotice")
+	.scroller
+		.wrapper
+			Header
+			NotFound
+			Footer
+	#rotate-device
 </template>
 
 <script setup>
-import { usePopupNoticeStore } from "~/stores/popup/notice";
-
 import initCustomScrollbar from "~/utils/customScrollbar";
 
-const storePopup = usePopupNoticeStore();
-
-// const props = defineProps({
-//    main: {
-//       required: true,
-//    },
-//    links: {
-//       type: Object,
-//       required: true,
-//    },
-// });
-
-// provide("links", props.links);
+import { useMainInfoStore } from "~/stores/maininfo.js";
 
 const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 
-const nuxtApp = useNuxtApp();
-nuxtApp.hook("page:start", () => {
-   /* your code goes here */
-});
-nuxtApp.hook("page:finish", () => {
-   if (!window.location.hash) {
-      const { bodyScrollBar } = initCustomScrollbar();
-      bodyScrollBar.scrollTo(0, 0, 100);
+const mainInfoStore = useMainInfoStore();
+
+const runtimeConfig = useRuntimeConfig();
+const url = `${runtimeConfig.public.apiBase}/wsapi/packs/site_info?_format=json`;
+
+const { data: mainInfoData } = await useFetch(url);
+
+onServerPrefetch(async () => {
+   try {
+      await mainInfoStore.setData(mainInfoData.value);
+   } catch (error) {
+      console.log("Error", error);
    }
 });
 

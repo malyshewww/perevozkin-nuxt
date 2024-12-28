@@ -1,44 +1,61 @@
 <template lang="pug">
-	NuxtLayout(:main="mainInfo.main" :links="mainInfo.main.links")
+	NuxtLayout
 		NuxtErrorBoundary
-			NuxtPage(:main="mainInfo.main")
+			NuxtPage
 </template>
+
 <script setup>
+import { useMainInfoStore } from "~/stores/maininfo.js";
+
+const mainInfoStore = useMainInfoStore();
+
 const runtimeConfig = useRuntimeConfig();
-const {
-   data: mainInfo,
-   status,
-   error,
-} = await useAsyncData(
-   "mainInfo",
-   () =>
-      $fetch(
-         `${runtimeConfig.public.apiBase}/wsapi/packs/site_info?_format=json`,
-         {}
-      ),
-   {
-      transform: (res) => {
-         console.log(res);
-         const { data, metatag } = res;
-         return {
-            main: {
-               menu: data.menu_main,
-               links: {
-                  isStocks: data.actions_exists,
-                  telegram: data.site_info[0].field_link_telegram,
-                  vk: data.site_info[0].field_link_vk,
-                  youtube: data.site_info[0].field_link_youtube,
-                  phone: data.site_info[0].field_phone,
-                  email: data.site_info[0].field_email,
-                  viber: data.site_info[0].field_viber,
-                  whatsapp: data.site_info[0].field_whatsapp,
-               },
-            },
-            meta: metatag,
-         };
-      },
+const url = `${runtimeConfig.public.apiBase}/wsapi/packs/site_info?_format=json`;
+
+const { data: mainInfoData } = await useFetch(url);
+
+onServerPrefetch(async () => {
+   try {
+      await mainInfoStore.setData(mainInfoData.value);
+   } catch (error) {
+      console.log("Error", error);
    }
-);
+});
+
+// const {
+//    data: mainInfo,
+//    status,
+//    error,
+// } = await useAsyncData(
+//    "mainInfo",
+//    () =>
+//       $fetch(
+//          `${runtimeConfig.public.apiBase}/wsapi/packs/site_info?_format=json`,
+//          {}
+//       ),
+//    {
+//       transform: (res) => {
+//          console.log(res);
+//          const { data, metatag } = res;
+//          return {
+//             main: {
+//                menu: data.menu_main,
+//                links: {
+//                   isStocks: data.actions_exists,
+//                   telegram: data.site_info[0].field_link_telegram,
+//                   vk: data.site_info[0].field_link_vk,
+//                   youtube: data.site_info[0].field_link_youtube,
+//                   phone: data.site_info[0].field_phone,
+//                   email: data.site_info[0].field_email,
+//                   viber: data.site_info[0].field_viber,
+//                   whatsapp: data.site_info[0].field_whatsapp,
+//                },
+//             },
+//             meta: metatag,
+//          };
+//       },
+//    }
+// );
 useHead({
    meta: [
       { name: "yandex-verification", content: "ff8ee76b22e080bb" },

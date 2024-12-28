@@ -42,13 +42,16 @@
 </template>
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
-defineProps({
-   menu: {
-      retuired: false,
-   },
-});
 
-const { phone, email, telegram, youtube, vk } = inject("links");
+import { useMainInfoStore } from "~/stores/maininfo";
+
+const mainInfoStore = useMainInfoStore();
+
+const { menu, links } = mainInfoStore;
+
+const { phone, email, telegram, youtube, vk } = links;
+
+console.log(phone, email, telegram, youtube, vk);
 
 const formatPhone = computed(() => {
    if (phone) {

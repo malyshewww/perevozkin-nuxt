@@ -21,13 +21,11 @@
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
 
-defineProps({
-   menu: {
-      required: true,
-   },
-});
+import { useMainInfoStore } from "~/stores/maininfo";
 
-const { isStocks } = inject("links");
+const mainInfoStore = useMainInfoStore();
+
+const { menu, isStocks } = mainInfoStore;
 
 const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 

@@ -7,8 +7,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
          if (response.redirected) {
             let url = response.url.split("?", 2);
             let urlArr = url[0].split("/");
-            console.log(response.url);
-            console.log("arr", urlArr);
             return navigateTo("/" + urlArr.slice(3).join("/"), {
                redirectCode: 301,
             });

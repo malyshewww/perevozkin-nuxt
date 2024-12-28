@@ -7,17 +7,21 @@
 </template>
 
 <script setup>
-const emit = defineEmits(["goToSection"]);
+import { useMainInfoStore } from "~/stores/maininfo";
 
-const { phone } = inject("links");
+const mainInfoStore = useMainInfoStore();
+
+const { isStocks, links } = mainInfoStore;
+
+const { phone } = links;
+
+const emit = defineEmits(["goToSection"]);
 
 const formatPhone = computed(() => {
    if (phone) {
       return phone.replace(/[^\d\+]/g, "");
    }
 });
-
-const { isStocks } = inject("links");
 
 defineProps({
    device: {

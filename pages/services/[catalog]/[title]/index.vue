@@ -1,18 +1,19 @@
 <template lang="pug">
-	main.main
-		.service-card
-			.main__top
-				.container
-					.main__top-inner
-						BreadCrumbs(:nav-list="serviceDetail.breadcrumbs")
-						h1.main__title(v-if="serviceDetail.main.top.title" v-html="serviceDetail.main.top.title")
-						.main__description(ref="mainDescr" v-if="serviceDetail.main.top.subtitle" v-html="serviceDetail.main.top.subtitle")
-						.main__image.ibg(v-html="serviceDetail.main.top.image.markup")
-							//- img(:src="`/images/service-card/service-img.png`", alt="изображение")
-		SectionServiceCardAdvantages(v-if="serviceDetail.main.advantages" :advantages="serviceDetail.main.advantages")
-		SectionServiceCardForm
-		SectionServiceCardContent(v-if="serviceDetail.main.content" :content="serviceDetail.main.content")
-		SectionServiceCardOtherServices(v-if="serviceDetail.main.otherServices && serviceDetail.main.otherServices.length" :services="serviceDetail.main.otherServices")
+	PageContainer(:status.sync="status" :error.sync="error")
+		main.main
+			.service-card
+				.main__top
+					.container
+						.main__top-inner
+							BreadCrumbs(:nav-list="serviceDetail.breadcrumbs")
+							h1.main__title(v-if="serviceDetail.main.top.title" v-html="serviceDetail.main.top.title")
+							.main__description(ref="mainDescr" v-if="serviceDetail.main.top.subtitle" v-html="serviceDetail.main.top.subtitle")
+							.main__image.ibg(v-html="serviceDetail.main.top.image.markup")
+								//- img(:src="`/images/service-card/service-img.png`", alt="изображение")
+			SectionServiceCardAdvantages(v-if="serviceDetail.main.advantages" :advantages="serviceDetail.main.advantages")
+			SectionServiceCardForm
+			SectionServiceCardContent(v-if="serviceDetail.main.content" :content="serviceDetail.main.content")
+			SectionServiceCardOtherServices(v-if="serviceDetail.main.otherServices && serviceDetail.main.otherServices.length" :services="serviceDetail.main.otherServices")
 </template>
 <script setup>
 import SplitType from "split-type";
