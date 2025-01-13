@@ -15,46 +15,46 @@
 <script setup>
 const runtimeConfig = useRuntimeConfig();
 const {
-   data: contactInfo,
-   status,
-   error,
+  data: contactInfo,
+  status,
+  error,
 } = await useAsyncData(
-   "contactInfo",
-   () => $fetch(`${runtimeConfig.public.apiBase}/contacts?_format=json`, {}),
-   {
-      transform: ({ breadcrumb, data, metatag }) => {
-         const metadata = useGenerateMeta(metatag.html_head);
-         const { acc: meta, title } = metadata;
-         return {
-            breadcrumbs: breadcrumb,
-            pageTitle: data.title,
-            main: {
-               address: data.field_address[0],
-               email: data.field_email[0],
-               image: data.field_image[0].markup,
-            },
-            meta,
-            title,
-         };
-      },
-   }
+  "contactInfo",
+  () => $fetch(`${runtimeConfig.public.apiBase}/contacts?_format=json`, {}),
+  {
+    transform: ({ breadcrumb, data, metatag }) => {
+      const metadata = useGenerateMeta(metatag.html_head);
+      const { acc: meta, title } = metadata;
+      return {
+        breadcrumbs: breadcrumb,
+        pageTitle: data.title,
+        main: {
+          address: data.field_address[0],
+          email: data.field_email[0],
+          image: data.field_image[0].markup,
+        },
+        meta,
+        title,
+      };
+    },
+  }
 );
 
 useHead({
-   title: contactInfo.value.title,
-   meta: [...contactInfo.value.meta],
+  title: contactInfo.value.title,
+  meta: [...contactInfo.value.meta],
 });
 </script>
 <style lang="scss">
 .contacts {
-   &__wrapper {
-      display: grid;
-      grid-template-columns: 1fr;
-      align-items: start;
-      gap: 100px;
-      @media screen and (max-width: $xl) {
-         gap: 50px;
-      }
-   }
+  &__wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 100px;
+    @media screen and (max-width: $xl) {
+      gap: 50px;
+    }
+  }
 }
 </style>

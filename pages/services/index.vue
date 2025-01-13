@@ -14,60 +14,60 @@
 
 <script setup>
 definePageMeta({
-   layout: "default",
+  layout: "default",
 });
 
 const runtimeConfig = useRuntimeConfig();
 const {
-   data: servicesPage,
-   status,
-   error,
+  data: servicesPage,
+  status,
+  error,
 } = await useAsyncData(
-   "servicesPage",
-   () => $fetch(`${runtimeConfig.public.apiBase}/services?_format=json`, {}),
-   {
-      transform: ({ breadcrumb, data, services_front, metatag }) => {
-         const metadata = useGenerateMeta(metatag.html_head);
-         const { acc: meta, title } = metadata;
-         return {
-            breadcrumbs: breadcrumb,
-            main: {
-               list: data,
-               servicesFront: services_front,
-            },
-            meta,
-            title,
-         };
-      },
-   }
+  "servicesPage",
+  () => $fetch(`${runtimeConfig.public.apiBase}/services?_format=json`, {}),
+  {
+    transform: ({ breadcrumb, data, services_front, metatag }) => {
+      const metadata = useGenerateMeta(metatag.html_head);
+      const { acc: meta, title } = metadata;
+      return {
+        breadcrumbs: breadcrumb,
+        main: {
+          list: data,
+          servicesFront: services_front,
+        },
+        meta,
+        title,
+      };
+    },
+  }
 );
 
 useHead({
-   title: servicesPage.value.title,
-   meta: [...servicesPage.value.meta],
-   bodyAttrs: {
-      class: "page--services",
-   },
+  title: servicesPage.value.title,
+  meta: [...servicesPage.value.meta],
+  bodyAttrs: {
+    class: "page--services",
+  },
 });
 </script>
 
 <style lang="scss">
 .services__body {
-   display: grid;
-   grid-template-columns: repeat(3, 1fr);
-   gap: 20px;
-   @media screen and (max-width: $xxl) {
-      grid-template-columns: repeat(2, 1fr);
-   }
-   @media screen and (max-width: $md) {
-      grid-template-columns: 1fr;
-   }
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  @media screen and (max-width: $xxl) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: $md) {
+    grid-template-columns: 1fr;
+  }
 }
 .page--services {
-   & .service-item {
-      &__image img {
-         object-fit: cover;
-      }
-   }
+  & .service-item {
+    &__image img {
+      object-fit: cover;
+    }
+  }
 }
 </style>

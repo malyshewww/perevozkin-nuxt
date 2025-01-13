@@ -43,95 +43,101 @@
 </template>
 
 <script setup>
+import { useMainInfoStore } from "~/stores/maininfo";
+
+const mainInfoStore = useMainInfoStore();
+
+const { links } = mainInfoStore;
+
+const { telegram, viber, whatsapp, phone } = links;
+
 const { isMobile } = useDevice();
 
 const props = defineProps({
-   info: {
-      type: Object,
-      required: true,
-   },
+  info: {
+    type: Object,
+    required: true,
+  },
 });
 
-const { telegram, viber, whatsapp, phone } = inject("links");
-
 const formatPhone = computed(() => {
-   if (phone) {
-      return phone.replace(/[^\d\+]/g, "");
-   }
+  if (phone) {
+    return phone.replace(/[^\d\+]/g, "");
+  }
 });
 </script>
 
 <style lang="scss">
 .info-contacts {
-   display: flex;
-   flex-direction: column;
-   justify-content: end;
-   width: 60%;
-   margin-left: auto;
-   gap: 40px;
-   @media screen and (max-width: $xl) {
-      width: 100%;
-      gap: 20px;
-   }
-   &__item {
-      padding-bottom: 40px;
-      border-bottom: 1px solid $bg-asphalt;
-      display: grid;
-      align-items: start;
-      grid-template-columns: 27% 1fr;
-      justify-content: space-between;
-      gap: 20px;
-      @media screen and (max-width: $xl) {
-         grid-template-columns: 1fr;
-         padding-bottom: 30px;
-         gap: 15px;
-      }
-   }
-   &__caption {
-      padding: 4px 0;
-      font-size: 16px;
-      line-height: 24px;
-      color: $gray;
-   }
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  width: 60%;
+  margin-left: auto;
+  gap: 40px;
+  @media screen and (max-width: $xl) {
+    width: 100%;
+    gap: 20px;
+  }
+  &__item {
+    padding-bottom: 40px;
+    border-bottom: 1px solid $bg-asphalt;
+    display: grid;
+    align-items: start;
+    grid-template-columns: 27% 1fr;
+    justify-content: space-between;
+    gap: 20px;
+    @media screen and (max-width: $xl) {
+      grid-template-columns: 1fr;
+      padding-bottom: 30px;
+      gap: 15px;
+    }
+  }
+  &__caption {
+    padding: 4px 0;
+    font-size: 16px;
+    line-height: 24px;
+    color: $gray;
+  }
 
-   &__values {
-      font-size: 24px;
-      line-height: 32px;
-      color: $bg-white;
-      display: flex;
-      align-items: center;
-      gap: 20px 31px;
-      flex-wrap: wrap;
-      @media screen and (max-width: $md) {
-         font-size: 20px;
-         line-height: 24px;
+  &__values {
+    font-size: 24px;
+    line-height: 32px;
+    color: $bg-white;
+    display: flex;
+    align-items: center;
+    gap: 20px 31px;
+    flex-wrap: wrap;
+    @media screen and (max-width: $md) {
+      font-size: 20px;
+      line-height: 24px;
+    }
+  }
+  &__link {
+    @include transition(color $time);
+    @media (any-hover: hover) {
+      &:hover {
+        color: $state-hover;
       }
-   }
-   &__link {
-      @include transition(color $time);
-      @media (any-hover: hover) {
-         &:hover {
-            color: $state-hover;
-         }
-      }
-   }
+    }
+  }
 }
 .social-list {
-   @include reset-list;
-   display: flex;
-   align-items: center;
-   flex-wrap: wrap;
-   gap: 12px;
+  @include reset-list;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 .social-link {
-   display: block;
-   width: 32px;
-   height: 32px;
-   flex-shrink: 0;
-   border-radius: 50%;
-   & svg {
-      width: 100%;
-      height: 100%;
-   }
+  display: block;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  & svg {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
