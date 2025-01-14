@@ -112,4 +112,10 @@ useHead({
 .wrapper-default {
   opacity: 1;
 }
+
+body.page--not-found {
+  & .main {
+    padding-top: 80px;
+  }
+}
 </style>
