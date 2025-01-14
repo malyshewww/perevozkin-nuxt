@@ -51,28 +51,26 @@ const { menu, links } = mainInfoStore;
 
 const { phone, email, telegram, youtube, vk } = links;
 
-console.log(phone, email, telegram, youtube, vk);
-
 const formatPhone = computed(() => {
-   if (phone) {
-      return phone.replace(/[^\d\+]/g, "");
-   }
+  if (phone) {
+    return phone.replace(/[^\d\+]/g, "");
+  }
 });
 
 const scrollTop = () => {
-   const wrapper = document.querySelector(".wrapper");
-   if (wrapper) {
-      const { bodyScrollBar } = initCustomScrollbar();
-      bodyScrollBar.scrollIntoView(wrapper);
-   }
-   // if (window.innerWidth > 1024) {
-   //    bodyScrollBar.scrollIntoView(document.querySelector(".wrapper"));
-   // } else {
-   //    window.scrollTo({
-   //       top: 0,
-   //       behavior: "smooth",
-   //    });
-   // }
+  const wrapper = document.querySelector(".wrapper");
+  if (wrapper) {
+    const { bodyScrollBar } = initCustomScrollbar();
+    bodyScrollBar.scrollIntoView(wrapper);
+  }
+  // if (window.innerWidth > 1024) {
+  //    bodyScrollBar.scrollIntoView(document.querySelector(".wrapper"));
+  // } else {
+  //    window.scrollTo({
+  //       top: 0,
+  //       behavior: "smooth",
+  //    });
+  // }
 };
 // const isPoliticPopupActive = ref(false);
 // const openPoliticPopup = () => {
@@ -89,277 +87,277 @@ const scrollTop = () => {
 // };
 
 onMounted(() => {
-   scrollTop();
+  scrollTop();
 });
 </script>
 
 <style lang="scss">
 .footer {
-   &__body {
-   }
-   &__main {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 90px 40px;
-      padding: 59px 0 52px;
-      border-top: 1px solid $bg-asphalt;
-      border-bottom: 1px solid $bg-asphalt;
-      @media screen and (max-width: $xxl) {
-         grid-template-columns: 41% 1fr;
-      }
-      @media screen and (max-width: $xl) {
-         grid-template-columns: 1fr;
-         gap: 32px;
-         justify-content: center;
-         padding: 20px 0 32px;
-      }
-   }
-   &__logo {
-      width: 364px;
-      @media screen and (max-width: $xl) {
-         order: 1;
-         margin: auto;
-      }
-      @media screen and (max-width: $md) {
-         width: 240px;
-      }
-   }
-   &__contacts {
-   }
-   &__menu {
-   }
-   &__social {
-   }
-   &__bottom {
-   }
+  &__body {
+  }
+  &__main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 90px 40px;
+    padding: 59px 0 52px;
+    border-top: 1px solid $bg-asphalt;
+    border-bottom: 1px solid $bg-asphalt;
+    @media screen and (max-width: $xxl) {
+      grid-template-columns: 41% 1fr;
+    }
+    @media screen and (max-width: $xl) {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      justify-content: center;
+      padding: 20px 0 32px;
+    }
+  }
+  &__logo {
+    width: 364px;
+    @media screen and (max-width: $xl) {
+      order: 1;
+      margin: auto;
+    }
+    @media screen and (max-width: $md) {
+      width: 240px;
+    }
+  }
+  &__contacts {
+  }
+  &__menu {
+  }
+  &__social {
+  }
+  &__bottom {
+  }
 }
 .contacts-footer {
-   display: grid;
-   justify-content: end;
-   gap: 16px;
-   font-family: $third-family;
-   font-weight: 700;
-   color: $bg-white;
-   padding-top: 15px;
-   @media screen and (max-width: $xl) {
-      order: 3;
-      justify-items: center;
-      justify-content: center;
-      padding-top: 0;
-   }
-   &__phone {
-      font-size: 40px;
-      line-height: 52px;
-      text-transform: uppercase;
-      text-align: right;
-      background: linear-gradient(to left, $bg-white 55%, $gray 45%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-size: 200% auto;
-      background-position: 45% 0;
-      transition: background-position $time;
-      @media (any-hover: hover) {
-         &:hover {
-            background-position: 100% 0;
-         }
+  display: grid;
+  justify-content: end;
+  gap: 16px;
+  font-family: $third-family;
+  font-weight: 700;
+  color: $bg-white;
+  padding-top: 15px;
+  @media screen and (max-width: $xl) {
+    order: 3;
+    justify-items: center;
+    justify-content: center;
+    padding-top: 0;
+  }
+  &__phone {
+    font-size: 40px;
+    line-height: 52px;
+    text-transform: uppercase;
+    text-align: right;
+    background: linear-gradient(to left, $bg-white 55%, $gray 45%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    background-position: 45% 0;
+    transition: background-position $time;
+    @media (any-hover: hover) {
+      &:hover {
+        background-position: 100% 0;
       }
-      @media screen and (max-width: $md) {
-         font-size: 24px;
-         line-height: 29px;
-      }
-      @media screen and (max-width: 374.98px) {
-         font-size: 20px;
-         line-height: 28px;
-      }
-   }
-   &__email {
+    }
+    @media screen and (max-width: $md) {
       font-size: 24px;
+      line-height: 29px;
+    }
+    @media screen and (max-width: 374.98px) {
+      font-size: 20px;
+      line-height: 28px;
+    }
+  }
+  &__email {
+    font-size: 24px;
+    line-height: 22px;
+    text-align: right;
+    transition: color $time;
+    @media (any-hover: hover) {
+      &:hover {
+        color: $state-hover;
+      }
+    }
+    @media screen and (max-width: $xl) {
+      text-align: center;
+    }
+    @media screen and (max-width: $md) {
+      font-size: 16px;
       line-height: 22px;
-      text-align: right;
-      transition: color $time;
-      @media (any-hover: hover) {
-         &:hover {
-            color: $state-hover;
-         }
-      }
-      @media screen and (max-width: $xl) {
-         text-align: center;
-      }
-      @media screen and (max-width: $md) {
-         font-size: 16px;
-         line-height: 22px;
-      }
-   }
+    }
+  }
 }
 .menu-footer {
-   align-self: center;
-   justify-content: center;
-   @media screen and (max-width: $xl) {
-      order: 2;
-   }
-   &__list {
-      @include reset-list;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px 52px;
-      @media screen and (max-width: $xl) {
-         justify-content: center;
+  align-self: center;
+  justify-content: center;
+  @media screen and (max-width: $xl) {
+    order: 2;
+  }
+  &__list {
+    @include reset-list;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px 52px;
+    @media screen and (max-width: $xl) {
+      justify-content: center;
+    }
+    @media screen and (max-width: $md) {
+      flex-direction: column;
+    }
+  }
+  &__item {
+  }
+  &__link {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    transition: color $time;
+    @media (any-hover: hover) {
+      &:hover {
+        color: $state-hover;
       }
-      @media screen and (max-width: $md) {
-         flex-direction: column;
-      }
-   }
-   &__item {
-   }
-   &__link {
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 24px;
-      transition: color $time;
-      @media (any-hover: hover) {
-         &:hover {
-            color: $state-hover;
-         }
-      }
-   }
+    }
+  }
 }
 .social-footer {
-   display: grid;
-   place-content: end;
-   @media screen and (max-width: $xl) {
-      order: 4;
-      place-content: center;
-   }
-   &__list {
-      @include reset-list;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-   }
-   &__item {
-   }
-   &__link {
-      display: grid;
-      place-items: center;
-      border: 1px solid $bg-asphalt;
-      width: 80px;
-      height: 80px;
-      flex-shrink: 0;
-      border-radius: 50%;
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
-      &::before {
-         content: "";
-         inset: 0;
-         position: absolute;
-         background: $greenGradient;
-         z-index: -1;
-         transform: scale(0);
-         clip-path: circle(50%);
-         transform-origin: center center;
-         transition: transform $time;
+  display: grid;
+  place-content: end;
+  @media screen and (max-width: $xl) {
+    order: 4;
+    place-content: center;
+  }
+  &__list {
+    @include reset-list;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  &__item {
+  }
+  &__link {
+    display: grid;
+    place-items: center;
+    border: 1px solid $bg-asphalt;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    &::before {
+      content: "";
+      inset: 0;
+      position: absolute;
+      background: $greenGradient;
+      z-index: -1;
+      transform: scale(0);
+      clip-path: circle(50%);
+      transform-origin: center center;
+      transition: transform $time;
+    }
+    @media (any-hover: hover) {
+      &:hover {
+        &::before {
+          transform: scale(1);
+        }
+        & .social-footer__icon {
+          fill: $bg-white;
+        }
       }
-      @media (any-hover: hover) {
-         &:hover {
-            &::before {
-               transform: scale(1);
-            }
-            & .social-footer__icon {
-               fill: $bg-white;
-            }
-         }
-      }
-      @media screen and (max-width: $md) {
-         width: 60px;
-         height: 60px;
-      }
-   }
-   &__icon {
-      width: 28px;
-      height: 28px;
-      fill: $gray;
-      transition: fill $time;
-      & path {
-         fill: inherit;
-         stroke: inherit;
-      }
-   }
+    }
+    @media screen and (max-width: $md) {
+      width: 60px;
+      height: 60px;
+    }
+  }
+  &__icon {
+    width: 28px;
+    height: 28px;
+    fill: $gray;
+    transition: fill $time;
+    & path {
+      fill: inherit;
+      stroke: inherit;
+    }
+  }
 }
 .bottom-footer {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   gap: 8px 20px;
-   font-size: 14px;
-   line-height: 18px;
-   color: $gray;
-   padding: 40px 0;
-   flex-wrap: wrap;
-   @media screen and (max-width: $xl) {
-      flex-direction: column;
-      padding: 20px 0;
-   }
-   &__item {
-      @media screen and (max-width: $xl) {
-         &:nth-child(3) {
-            order: 1;
-         }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 20px;
+  font-size: 14px;
+  line-height: 18px;
+  color: $gray;
+  padding: 40px 0;
+  flex-wrap: wrap;
+  @media screen and (max-width: $xl) {
+    flex-direction: column;
+    padding: 20px 0;
+  }
+  &__item {
+    @media screen and (max-width: $xl) {
+      &:nth-child(3) {
+        order: 1;
       }
-   }
-   &__link {
-      transition: color $time;
-      @media (any-hover: hover) {
-         &:hover {
-            color: $bg-white;
-         }
+    }
+  }
+  &__link {
+    transition: color $time;
+    @media (any-hover: hover) {
+      &:hover {
+        color: $bg-white;
       }
-   }
+    }
+  }
 }
 .button-up {
-   font-weight: 600;
-   font-size: 14px;
-   line-height: 18px;
-   color: $bg-white;
-   display: flex;
-   align-items: center;
-   gap: 8px;
-   transition: color $time;
-   &__icon {
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-      fill: $bg-green-lime;
-      transition: transform $time;
-      pointer-events: none;
-   }
-   @media (any-hover: hover) {
-      &:hover {
-         color: $state-hover;
-      }
-   }
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  color: $bg-white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color $time;
+  &__icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    fill: $bg-green-lime;
+    transition: transform $time;
+    pointer-events: none;
+  }
+  @media (any-hover: hover) {
+    &:hover {
+      color: $state-hover;
+    }
+  }
 }
 .company {
-   display: flex;
-   align-items: center;
-   gap: 4px;
-   &__caption {
-      font-size: 14px;
-      line-height: 18px;
-      color: $gray;
-   }
-   &__link {
-      display: block;
-      transition: filter $time;
-      @media (any-hover: hover) {
-         &:hover {
-            filter: opacity(0.5);
-         }
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  &__caption {
+    font-size: 14px;
+    line-height: 18px;
+    color: $gray;
+  }
+  &__link {
+    display: block;
+    transition: filter $time;
+    @media (any-hover: hover) {
+      &:hover {
+        filter: opacity(0.5);
       }
-   }
+    }
+  }
 }
 </style>
