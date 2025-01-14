@@ -57,6 +57,7 @@ const props = defineProps({
   }
   // .not-found__image
   &__image {
+    justify-self: center;
   }
   // .not-found__title
   &__title {
@@ -121,6 +122,7 @@ const props = defineProps({
     flex-direction: column;
     align-items: flex-start;
     gap: 18px;
+    text-align: left;
   }
   // .not-found-menu__item
   &__item {
