@@ -280,6 +280,7 @@ onMounted(() => {
   @media screen and (max-width: $xl) {
     flex-direction: column;
     padding: 20px 0;
+    text-align: center;
   }
   &__item {
     @media screen and (max-width: $xl) {
