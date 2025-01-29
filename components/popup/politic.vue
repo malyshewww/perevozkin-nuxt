@@ -12,13 +12,13 @@
 
 <script setup>
 defineProps({
-   isActive: {
-      type: Boolean,
-      required: true,
-   },
+  isActive: {
+    type: Boolean,
+    required: true,
+  },
 });
 const emit = defineEmits(["closePopup"]);
 const closePopup = () => {
-   emit("closePopup");
+  emit("closePopup");
 };
 </script>

@@ -16,103 +16,103 @@ const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 const positionY = ref(0);
 
 onMounted(() => {
-   if (window.matchMedia("(min-wdith: 1024px)")) {
-      const { bodyScrollBar, scroller } = initCustomScrollbar();
-      // ScrollTrigger.scrollerProxy(".scroller", {
-      //    scrollTop(value) {
-      //       if (arguments.length) {
-      //          bodyScrollBar.scrollTop = value;
-      //       }
-      //       return bodyScrollBar.scrollTop;
-      //    },
-      // });
-      // bodyScrollBar.addListener(ScrollTrigger.update);
-      // ScrollTrigger.defaults({ scroller: scroller });
-      bodyScrollBar.addListener(({ offset }) => {
-         positionY.value = offset.y;
-      });
+  if (window.matchMedia("(min-wdith: 1024px)")) {
+    const { bodyScrollBar, scroller } = initCustomScrollbar();
+    // ScrollTrigger.scrollerProxy(".scroller", {
+    //    scrollTop(value) {
+    //       if (arguments.length) {
+    //          bodyScrollBar.scrollTop = value;
+    //       }
+    //       return bodyScrollBar.scrollTop;
+    //    },
+    // });
+    // bodyScrollBar.addListener(ScrollTrigger.update);
+    // ScrollTrigger.defaults({ scroller: scroller });
+    bodyScrollBar.addListener(({ offset }) => {
+      positionY.value = offset.y;
+    });
 
-      const trailer = document.querySelector(".trailer");
-      if (trailer) {
-         window.addEventListener("mousemove", (event) => {
-            if (event.target.closest(".item-sale__button")) {
-               trailer.classList.remove("active");
-            }
-            const style = window.getComputedStyle(
-               document.querySelector(".scroller")
-            );
-            const matrix = new WebKitCSSMatrix(style.transform);
-            gsap.to(trailer, {
-               x: event.clientX,
-               y: event.clientY + positionY.value - matrix.m42,
-               yPercent: -50,
-               xPercent: -50,
-               duration: 0.1,
-            });
-         });
-      }
-   }
+    const trailer = document.querySelector(".trailer");
+    if (trailer) {
+      window.addEventListener("mousemove", (event) => {
+        if (event.target.closest(".item-sale__button")) {
+          trailer.classList.remove("active");
+        }
+        const style = window.getComputedStyle(
+          document.querySelector(".scroller")
+        );
+        const matrix = new WebKitCSSMatrix(style.transform);
+        gsap.to(trailer, {
+          x: event.clientX,
+          y: event.clientY + positionY.value - matrix.m42,
+          yPercent: -50,
+          xPercent: -50,
+          duration: 0.1,
+        });
+      });
+    }
+  }
 });
 </script>
 
 <style lang="scss">
 .trailer {
-   width: 134px;
-   height: 134px;
-   position: fixed;
-   background-color: transparent;
-   left: 0px;
-   top: 0px;
-   z-index: 1000;
-   pointer-events: none;
-   opacity: 0;
-   transition: opacity $time;
-   color: $bg-white;
-   pointer-events: none;
-   &::before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      border: 1px solid $bg-white;
-      border-radius: 50%;
-      transform: scale(0.5);
-      transform-origin: center;
-      transition: transform $time;
-   }
-   @media screen and (max-width: $xl) {
-      display: none;
-   }
-   &.active {
-      opacity: 1;
-      &::before {
-         transform: scale(1);
-      }
-   }
-   &.scalling {
-      &::before {
-         transform: scale(0.7);
-      }
-   }
-   &__content {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 4px;
-      width: 100%;
-      height: 100%;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 18px;
-      color: currentColor;
-   }
-   & svg {
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-      fill: currentColor;
-   }
+  width: 134px;
+  height: 134px;
+  position: fixed;
+  background-color: transparent;
+  left: 0px;
+  top: 0px;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity $time;
+  color: $bg-white;
+  pointer-events: none;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border: 1px solid $bg-white;
+    border-radius: 50%;
+    transform: scale(0.5);
+    transform-origin: center;
+    transition: transform $time;
+  }
+  @media screen and (max-width: $xl) {
+    display: none;
+  }
+  &.active {
+    opacity: 1;
+    &::before {
+      transform: scale(1);
+    }
+  }
+  &.scalling {
+    &::before {
+      transform: scale(0.7);
+    }
+  }
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    height: 100%;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    color: currentColor;
+  }
+  & svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    fill: currentColor;
+  }
 }
 </style>

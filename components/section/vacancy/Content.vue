@@ -28,106 +28,106 @@
 
 <script setup>
 const props = defineProps({
-   vacancyList: {
-      type: Object,
-      required: true,
-   },
+  vacancyList: {
+    type: Object,
+    required: true,
+  },
 });
 
 const modifiedVacancyList = ref([]);
 modifiedVacancyList.value = props.vacancyList.map((item) => {
-   const filedContacts = item.field_contacts;
-   const field_contacts_new = [];
-   if (filedContacts.length) {
-      filedContacts.forEach((field) => {
-         const phone = field.replace(/[^\d\+]/g, "");
-         field_contacts_new.push(phone);
-      });
-   }
-   return {
-      ...item,
-      field_contacts_new,
-   };
+  const filedContacts = item.field_contacts;
+  const field_contacts_new = [];
+  if (filedContacts.length) {
+    filedContacts.forEach((field) => {
+      const phone = field.replace(/[^\d\+]/g, "");
+      field_contacts_new.push(phone);
+    });
+  }
+  return {
+    ...item,
+    field_contacts_new,
+  };
 });
 </script>
 
 <style lang="scss">
 .vacancy {
-   &__content {
-      display: grid;
-      gap: 60px;
-      max-width: 995px;
-      @media screen and (max-width: $xl) {
-         max-width: 100%;
-         gap: 40px;
-      }
-   }
-   &__item {
-   }
+  &__content {
+    display: grid;
+    gap: 60px;
+    max-width: 995px;
+    @media screen and (max-width: $xl) {
+      max-width: 100%;
+      gap: 40px;
+    }
+  }
+  &__item {
+  }
 }
 .item-vacancy {
-   &:not(:last-child) {
-      padding-bottom: 52px;
-      border-bottom: 1px solid $bg-asphalt;
-      @media screen and (max-width: $xl) {
-         padding-bottom: 30px;
-      }
-   }
-   h3 {
-      margin-bottom: 32px;
-      @media screen and (max-width: $md) {
-         margin-bottom: 30px;
-      }
-   }
-   &__main {
-   }
-   &__groups {
-      display: grid;
-      gap: 40px;
-      @media screen and (max-width: $xl) {
-         gap: 30px;
-      }
-   }
-   &__group {
-   }
-   &__label {
-      font-size: 20px;
-      line-height: 28px;
-      font-weight: 600;
-   }
+  &:not(:last-child) {
+    padding-bottom: 52px;
+    border-bottom: 1px solid $bg-asphalt;
+    @media screen and (max-width: $xl) {
+      padding-bottom: 30px;
+    }
+  }
+  h3 {
+    margin-bottom: 32px;
+    @media screen and (max-width: $md) {
+      margin-bottom: 30px;
+    }
+  }
+  &__main {
+  }
+  &__groups {
+    display: grid;
+    gap: 40px;
+    @media screen and (max-width: $xl) {
+      gap: 30px;
+    }
+  }
+  &__group {
+  }
+  &__label {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
+  }
 }
 .main-info {
-   display: grid;
-   gap: 12px;
-   &__inner {
-      display: inline-flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px 17px;
-      font-size: 20px;
-      line-height: 28px;
-      @media screen and (max-width: $md) {
-         font-size: 18px;
-         line-height: 24px;
+  display: grid;
+  gap: 12px;
+  &__inner {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 17px;
+    font-size: 20px;
+    line-height: 28px;
+    @media screen and (max-width: $md) {
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+  &__label {
+    color: $gray;
+  }
+  &__values {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    font-weight: 600;
+    color: $bg-white;
+    &[data-attr] {
+      gap: 8px;
+      &::before {
+        content: attr(data-attr);
+        font-weight: 400;
       }
-   }
-   &__label {
-      color: $gray;
-   }
-   &__values {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px 16px;
-      font-weight: 600;
-      color: $bg-white;
-      &[data-attr] {
-         gap: 8px;
-         &::before {
-            content: attr(data-attr);
-            font-weight: 400;
-         }
-      }
-   }
+    }
+  }
 }
 </style>

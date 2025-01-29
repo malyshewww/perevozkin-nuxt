@@ -16,50 +16,50 @@ const { catalog } = useRoute().params;
 
 const runtimeConfig = useRuntimeConfig();
 const {
-   data: services,
-   status,
-   error,
+  data: services,
+  status,
+  error,
 } = await useAsyncData(
-   "services",
-   () =>
-      $fetch(
-         `${runtimeConfig.public.apiBase}/services/${catalog}?_format=json`,
-         {}
-      ),
-   {
-      transform: ({ breadcrumb, data, metatag }) => {
-         const currentPageTitle = useLastBreadcrumb(breadcrumb);
-         const metadata = useGenerateMeta(metatag.html_head);
-         const { acc: meta, title } = metadata;
-         return {
-            breadcrumbs: breadcrumb,
-            pageTitle: currentPageTitle,
-            main: {
-               list: data,
-            },
-            meta,
-            title,
-         };
-      },
-   }
+  "services",
+  () =>
+    $fetch(
+      `${runtimeConfig.public.apiBase}/services/${catalog}?_format=json`,
+      {}
+    ),
+  {
+    transform: ({ breadcrumb, data, metatag }) => {
+      const currentPageTitle = useLastBreadcrumb(breadcrumb);
+      const metadata = useGenerateMeta(metatag.html_head);
+      const { acc: meta, title } = metadata;
+      return {
+        breadcrumbs: breadcrumb,
+        pageTitle: currentPageTitle,
+        main: {
+          list: data,
+        },
+        meta,
+        title,
+      };
+    },
+  }
 );
 
 useHead({
-   title: services.value.title,
-   meta: [...services.value.meta],
+  title: services.value.title,
+  meta: [...services.value.meta],
 });
 </script>
 
 <style lang="scss">
 .services__body {
-   display: grid;
-   grid-template-columns: repeat(3, 1fr);
-   gap: 20px;
-   @media screen and (max-width: $xxl) {
-      grid-template-columns: repeat(2, 1fr);
-   }
-   @media screen and (max-width: $md) {
-      grid-template-columns: 1fr;
-   }
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  @media screen and (max-width: $xxl) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: $md) {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

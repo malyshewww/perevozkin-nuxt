@@ -37,152 +37,152 @@ const fileName = ref("");
 const currentFile = ref("");
 
 const previewFiles = (e) => {
-   fileName.value = e.target.files[0].name;
-   currentFile.value = e.target.files[0];
+  fileName.value = e.target.files[0].name;
+  currentFile.value = e.target.files[0];
 };
 
 const deleteFile = () => {
-   fileName.value = "";
+  fileName.value = "";
 };
 
 const formErrors = reactive({
-   fio: "",
-   phone: "",
+  fio: "",
+  phone: "",
 });
 
 const formData = reactive({
-   fio: "",
-   phone: "",
-   message: "",
-   resume: fileName.value,
-   webform_id: "vacancy_callback",
+  fio: "",
+  phone: "",
+  message: "",
+  resume: fileName.value,
+  webform_id: "vacancy_callback",
 });
 
 const runtimeConfig = useRuntimeConfig();
 
 const formSubmit = (e) => {
-   const buttonSubmit = e.target.querySelector('input[type="submit"]');
-   const buttonSubmitText = buttonSubmit.textContent;
-   buttonSubmit.setAttribute("disabled", "true");
-   buttonSubmit.textContent = "идет отправка...";
-   if (fileName.value) {
-      // console.log(fileName.value);
-      fetch(`${runtimeConfig.public.apiBase}/session/token`)
-         .then(function (response) {
-            return response.text();
-         })
-         .then(function (token) {
-            fetch(
-               `${runtimeConfig.public.apiBase}/webform_rest/${formData.webform_id}/upload/resume?_format=json`,
-               {
-                  method: "POST",
-                  headers: {
-                     "Content-Type": "application/octet-stream",
-                     "Content-Disposition":
-                        `file; filename="` +
-                        encodeURIComponent(fileName.value) +
-                        `"; filename*=UTF-8''` +
-                        encodeURIComponent(fileName.value),
-                     "X-CSRF-Token": token,
-                  },
-                  body: JSON.stringify(formData),
-               }
-            )
-               .then((res) => res.json())
-               .then(function (res) {
-                  if (res.fid[0]) {
-                     let fid = res.fid[0].value;
-                     fileName.value = "";
-                     buttonSubmit.removeAttribute("disabled");
-                     buttonSubmit.textContent = buttonSubmitText;
-                  } else {
-                     buttonSubmit.removeAttribute("disabled");
-                     buttonSubmit.textContent = buttonSubmitText;
-                  }
-               });
-         });
-   } else {
-      fetch(`${runtimeConfig.public.apiBase}/session/token`)
-         .then(function (response) {
-            return response.text();
-         })
-         .then(function (token) {
-            fetch(
-               `${runtimeConfig.public.apiBase}/webform_rest/submit?_format_json`,
-               {
-                  method: "POST",
-                  headers: {
-                     Accept: "application/json, text/plain, */*",
-                     "Content-Type": "application/json",
-                     "X-CSRF-Token": token,
-                  },
-                  body: JSON.stringify(formData),
-               }
-            )
-               .then((res) => res.json())
-               .then(function (res) {
-                  if (res.sid) {
-                     formData.fio = "";
-                     formData.phone = "";
-                     formErrors.fio = "";
-                     formErrors.phone = "";
-                     storePopup.openPopupNotice();
-                     setTimeout(() => {
-                        storePopup.closePopupNotice();
-                     }, 3000);
-                     buttonSubmit.removeAttribute("disabled");
-                     buttonSubmit.textContent = buttonSubmitText;
-                  } else {
-                     formErrors.fio = res.error.fio || "";
-                     formErrors.phone = res.error.phone || "";
-                     buttonSubmit.removeAttribute("disabled");
-                     buttonSubmit.textContent = buttonSubmitText;
-                  }
-               });
-         });
-   }
+  const buttonSubmit = e.target.querySelector('input[type="submit"]');
+  const buttonSubmitText = buttonSubmit.textContent;
+  buttonSubmit.setAttribute("disabled", "true");
+  buttonSubmit.textContent = "идет отправка...";
+  if (fileName.value) {
+    // console.log(fileName.value);
+    fetch(`${runtimeConfig.public.apiBase}/session/token`)
+      .then(function (response) {
+        return response.text();
+      })
+      .then(function (token) {
+        fetch(
+          `${runtimeConfig.public.apiBase}/webform_rest/${formData.webform_id}/upload/resume?_format=json`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/octet-stream",
+              "Content-Disposition":
+                `file; filename="` +
+                encodeURIComponent(fileName.value) +
+                `"; filename*=UTF-8''` +
+                encodeURIComponent(fileName.value),
+              "X-CSRF-Token": token,
+            },
+            body: JSON.stringify(formData),
+          }
+        )
+          .then((res) => res.json())
+          .then(function (res) {
+            if (res.fid[0]) {
+              let fid = res.fid[0].value;
+              fileName.value = "";
+              buttonSubmit.removeAttribute("disabled");
+              buttonSubmit.textContent = buttonSubmitText;
+            } else {
+              buttonSubmit.removeAttribute("disabled");
+              buttonSubmit.textContent = buttonSubmitText;
+            }
+          });
+      });
+  } else {
+    fetch(`${runtimeConfig.public.apiBase}/session/token`)
+      .then(function (response) {
+        return response.text();
+      })
+      .then(function (token) {
+        fetch(
+          `${runtimeConfig.public.apiBase}/webform_rest/submit?_format_json`,
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json, text/plain, */*",
+              "Content-Type": "application/json",
+              "X-CSRF-Token": token,
+            },
+            body: JSON.stringify(formData),
+          }
+        )
+          .then((res) => res.json())
+          .then(function (res) {
+            if (res.sid) {
+              formData.fio = "";
+              formData.phone = "";
+              formErrors.fio = "";
+              formErrors.phone = "";
+              storePopup.openPopupNotice();
+              setTimeout(() => {
+                storePopup.closePopupNotice();
+              }, 3000);
+              buttonSubmit.removeAttribute("disabled");
+              buttonSubmit.textContent = buttonSubmitText;
+            } else {
+              formErrors.fio = res.error.fio || "";
+              formErrors.phone = res.error.phone || "";
+              buttonSubmit.removeAttribute("disabled");
+              buttonSubmit.textContent = buttonSubmitText;
+            }
+          });
+      });
+  }
 };
 
 onMounted(() => {
-   maskPhone();
+  maskPhone();
 });
 </script>
 
 <style lang="scss">
 .aside {
-   position: sticky;
-   top: 20px;
+  position: sticky;
+  top: 20px;
 }
 .form-file {
-   display: inline-flex;
-   align-items: center;
-   gap: 8px;
-   font-family: $font-family;
-   overflow: hidden;
-   &__text {
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 22px;
-      color: $bg-white;
-      width: fit-content;
-      max-width: 70%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-   }
-   &__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: $font-family;
+  overflow: hidden;
+  &__text {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: $bg-white;
+    width: fit-content;
+    max-width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__button {
+    width: 20px;
+    height: 20px;
+    &::before {
+      content: "";
+      display: block;
       width: 20px;
       height: 20px;
-      &::before {
-         content: "";
-         display: block;
-         width: 20px;
-         height: 20px;
-         mask-image: url("/images/icons/icon-close.svg");
-         mask-repeat: no-repeat;
-         mask-position: center;
-         background-color: $system-alert;
-      }
-   }
+      mask-image: url("/images/icons/icon-close.svg");
+      mask-repeat: no-repeat;
+      mask-position: center;
+      background-color: $system-alert;
+    }
+  }
 }
 </style>

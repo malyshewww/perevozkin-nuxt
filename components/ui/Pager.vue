@@ -26,113 +26,113 @@
 const emit = defineEmits(["changePage"]);
 
 const props = defineProps({
-   pagination: {
-      type: Object,
-      required: true,
-   },
+  pagination: {
+    type: Object,
+    required: true,
+  },
 });
 
 // const pagination = ref(props.pagination);
 
 const changePage = (num) => {
-   emit("changePage", num);
+  emit("changePage", num);
 };
 
 const pager = computed(() => {
-   let nav = [];
-   if (props.pagination.totalItems > 5) {
-      let leftEllipsis = true;
-      let rightEllipsis = true;
-      for (let i = 0; i < props.pagination.totalItems; i++) {
-         if (i < 2) {
-            nav.push(i + 1);
-         } else if (i >= props.pagination.totalItems - 2) {
-            nav.push(i + 1);
-         } else if (i == props.pagination.currPage) {
-            nav.push(i + 1);
-         } else if (leftEllipsis && i > 1 && i < props.pagination.currPage) {
-            leftEllipsis = false;
-            nav.push("...");
-         } else if (
-            rightEllipsis &&
-            i < props.pagination.totalItems - 2 &&
-            i > props.pagination.currPage
-         ) {
-            rightEllipsis = false;
-            nav.push("...");
-         }
+  let nav = [];
+  if (props.pagination.totalItems > 5) {
+    let leftEllipsis = true;
+    let rightEllipsis = true;
+    for (let i = 0; i < props.pagination.totalItems; i++) {
+      if (i < 2) {
+        nav.push(i + 1);
+      } else if (i >= props.pagination.totalItems - 2) {
+        nav.push(i + 1);
+      } else if (i == props.pagination.currPage) {
+        nav.push(i + 1);
+      } else if (leftEllipsis && i > 1 && i < props.pagination.currPage) {
+        leftEllipsis = false;
+        nav.push("...");
+      } else if (
+        rightEllipsis &&
+        i < props.pagination.totalItems - 2 &&
+        i > props.pagination.currPage
+      ) {
+        rightEllipsis = false;
+        nav.push("...");
       }
-   } else {
-      for (let i = 1; i <= props.pagination.totalItems; i++) {
-         nav.push(i);
-      }
-   }
-   return nav;
+    }
+  } else {
+    for (let i = 1; i <= props.pagination.totalItems; i++) {
+      nav.push(i);
+    }
+  }
+  return nav;
 });
 </script>
 
 <style lang="scss">
 .pager {
-   &__list {
-      @include reset-list;
-      display: flex;
-      gap: 5px;
-      align-items: center;
-      justify-content: center;
-   }
-   &__link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      position: relative;
-      color: $bg-white;
-      @include transition(color $time, background-color $time);
-      cursor: pointer;
-      @media (any-hover: hover) {
-         &:hover {
-            color: $state-hover;
-            & svg {
-               fill: $state-hover;
-            }
-         }
+  &__list {
+    @include reset-list;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+  }
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    color: $bg-white;
+    @include transition(color $time, background-color $time);
+    cursor: pointer;
+    @media (any-hover: hover) {
+      &:hover {
+        color: $state-hover;
+        & svg {
+          fill: $state-hover;
+        }
       }
-   }
-   &__item {
-      position: relative;
-      width: 40px;
-      height: 40px;
-      flex-shrink: 0;
-      &--first,
-      &--last,
-      &--next,
-      &--previous {
-         svg {
-            display: block;
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-            @include transition(fill $time);
-         }
+    }
+  }
+  &__item {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    &--first,
+    &--last,
+    &--next,
+    &--previous {
+      svg {
+        display: block;
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+        @include transition(fill $time);
       }
-      @media screen and (max-width: $md) {
-         width: 30px;
-         height: 30px;
+    }
+    @media screen and (max-width: $md) {
+      width: 30px;
+      height: 30px;
+    }
+    &.is-active {
+      .pager__link {
+        background-color: $bg-asphalt;
+        pointer-events: none;
       }
-      &.is-active {
-         .pager__link {
-            background-color: $bg-asphalt;
-            pointer-events: none;
-         }
+    }
+    &[disabled],
+    &.disabled {
+      .pager__link {
+        pointer-events: none;
+        color: $dark-gray;
       }
-      &[disabled],
-      &.disabled {
-         .pager__link {
-            pointer-events: none;
-            color: $dark-gray;
-         }
-      }
-   }
+    }
+  }
 }
 </style>

@@ -33,57 +33,57 @@ const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 
 const nuxtApp = useNuxtApp();
 nuxtApp.hook("page:start", () => {
-   /* your code goes here */
+  /* your code goes here */
 });
 nuxtApp.hook("page:finish", () => {
-   if (!window.location.hash) {
-      const { bodyScrollBar } = initCustomScrollbar();
-      bodyScrollBar.scrollTo(0, 0, 100);
-   }
+  if (!window.location.hash) {
+    const { bodyScrollBar } = initCustomScrollbar();
+    bodyScrollBar.scrollTo(0, 0, 100);
+  }
 });
 
 onMounted(() => {
-   const { bodyScrollBar, scroller } = initCustomScrollbar();
-   ScrollTrigger.scrollerProxy(".scroller", {
-      scrollTop(value) {
-         if (arguments.length) {
-            bodyScrollBar.scrollTop = value;
-         }
-         return bodyScrollBar.scrollTop;
-      },
-   });
-   bodyScrollBar.addListener(ScrollTrigger.update);
-   ScrollTrigger.defaults({ scroller: scroller });
+  const { bodyScrollBar, scroller } = initCustomScrollbar();
+  ScrollTrigger.scrollerProxy(".scroller", {
+    scrollTop(value) {
+      if (arguments.length) {
+        bodyScrollBar.scrollTop = value;
+      }
+      return bodyScrollBar.scrollTop;
+    },
+  });
+  bodyScrollBar.addListener(ScrollTrigger.update);
+  ScrollTrigger.defaults({ scroller: scroller });
 });
 </script>
 
 <style lang="scss">
 .scroller {
-   height: 100vh;
-   width: 100vw;
-   overflow: auto;
-   & .scrollbar-track {
-      width: 6px;
-      background: rgba($bg-anthracite, 0.5);
-   }
-   & .scrollbar-thumb {
-      background: rgba($bg-green-lime, 0.8);
-   }
-   & .scrollbar-track-x,
-   & .scrollbar-thumb-x {
-      display: none;
-   }
+  height: 100vh;
+  width: 100vw;
+  overflow: auto;
+  & .scrollbar-track {
+    width: 6px;
+    background: rgba($bg-anthracite, 0.5);
+  }
+  & .scrollbar-thumb {
+    background: rgba($bg-green-lime, 0.8);
+  }
+  & .scrollbar-track-x,
+  & .scrollbar-thumb-x {
+    display: none;
+  }
 }
 @media screen and (max-width: 1024px) {
-   .scroller {
-      // overflow: unset;
-      // height: auto;
-      & .scrollbar-track {
-         width: 0;
-      }
-   }
+  .scroller {
+    // overflow: unset;
+    // height: auto;
+    & .scrollbar-track {
+      width: 0;
+    }
+  }
 }
 .wrapper-default {
-   opacity: 1;
+  opacity: 1;
 }
 </style>

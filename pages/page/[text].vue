@@ -16,55 +16,54 @@ const { text } = useRoute().params;
 
 const runtimeConfig = useRuntimeConfig();
 const {
-   data: pageText,
-   status,
-   error,
+  data: pageText,
+  status,
+  error,
 } = await useAsyncData(
-   "pageText",
-   () =>
-      $fetch(`${runtimeConfig.public.apiBase}/page/${text}?_format=json`, {}),
-   {
-      transform: ({ breadcrumb, data, metatag }) => {
-         const metadata = useGenerateMeta(metatag.html_head);
-         const { acc: meta, title } = metadata;
-         return {
-            breadcrumbs: breadcrumb,
-            pageTitle: data.title,
-            main: {
-               content: data.body[0],
-               gallery: data.field_gallery,
-            },
-            meta,
-            title,
-         };
-      },
-   }
+  "pageText",
+  () => $fetch(`${runtimeConfig.public.apiBase}/page/${text}?_format=json`, {}),
+  {
+    transform: ({ breadcrumb, data, metatag }) => {
+      const metadata = useGenerateMeta(metatag.html_head);
+      const { acc: meta, title } = metadata;
+      return {
+        breadcrumbs: breadcrumb,
+        pageTitle: data.title,
+        main: {
+          content: data.body[0],
+          gallery: data.field_gallery,
+        },
+        meta,
+        title,
+      };
+    },
+  }
 );
 
 useHead({
-   title: pageText.value.title,
-   meta: [...pageText.value.meta],
-   bodyAttrs: {
-      class: "page--text",
-   },
+  title: pageText.value.title,
+  meta: [...pageText.value.meta],
+  bodyAttrs: {
+    class: "page--text",
+  },
 });
 
 onMounted(() => {
-   // wrapTable();
+  // wrapTable();
 });
 </script>
 
 <style lang="scss">
 .page-content {
-   & .content {
-      max-width: 1280px;
-      &.container {
-         max-width: 1720px;
-      }
-   }
-   & > *:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-   }
+  & .content {
+    max-width: 1280px;
+    &.container {
+      max-width: 1720px;
+    }
+  }
+  & > *:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
 }
 </style>

@@ -6,21 +6,21 @@
 
 <script setup>
 defineProps({
-   isActive: {
-      type: Boolean,
-      required: true,
-   },
+  isActive: {
+    type: Boolean,
+    required: true,
+  },
 });
 const emit = defineEmits(["closePopup"]);
 const closePopup = () => {
-   emit("closePopup");
+  emit("closePopup");
 };
 </script>
 
 <style lang="scss">
 .popup {
-   &__title {
-      max-width: 100%;
-   }
+  &__title {
+    max-width: 100%;
+  }
 }
 </style>

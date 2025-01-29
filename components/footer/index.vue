@@ -63,28 +63,7 @@ const scrollTop = () => {
     const { bodyScrollBar } = initCustomScrollbar();
     bodyScrollBar.scrollIntoView(wrapper);
   }
-  // if (window.innerWidth > 1024) {
-  //    bodyScrollBar.scrollIntoView(document.querySelector(".wrapper"));
-  // } else {
-  //    window.scrollTo({
-  //       top: 0,
-  //       behavior: "smooth",
-  //    });
-  // }
 };
-// const isPoliticPopupActive = ref(false);
-// const openPoliticPopup = () => {
-//    isPoliticPopupActive.value = !isPoliticPopupActive.value;
-//    document.body.classList.toggle("lock");
-//    const { bodyScrollBar } = initCustomScrollbar();
-//    bodyScrollBar.updatePluginOptions("modal", { open: true });
-// };
-// const closePoliticPopup = () => {
-//    isPoliticPopupActive.value = !isPoliticPopupActive.value;
-//    document.body.classList.toggle("lock");
-//    const { bodyScrollBar } = initCustomScrollbar();
-//    bodyScrollBar.updatePluginOptions("modal", { open: false });
-// };
 
 onMounted(() => {
   scrollTop();

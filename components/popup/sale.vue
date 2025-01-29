@@ -8,18 +8,19 @@
 
 <script setup>
 const props = defineProps({
-   isActive: {
-      type: Boolean,
-      required: true,
-   },
-   data: {
-      type: Object,
-      required: false,
-   },
+  isActive: {
+    type: Boolean,
+    required: true,
+  },
+  data: {
+    type: Object,
+    required: false,
+  },
 });
 
 const emit = defineEmits(["closePopup"]);
+
 const closePopup = () => {
-   emit("closePopup");
+  emit("closePopup");
 };
 </script>
