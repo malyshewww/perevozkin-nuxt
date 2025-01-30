@@ -4,10 +4,10 @@
 		.container
 			.main-screen__body
 				.main-screen__heading.anim-heading
-					.main-screen__title.anim-title(ref="mainTitle")
-						p Сервис автомобилей
-						p ГАЗ #[span №1 в Нижнем]
-						p #[span Новгороде]
+					h1.main-screen__title.anim-title(ref="mainTitle")
+						span Сервис автомобилей
+						span ГАЗ #[span №1 в Нижнем]
+						span #[span Новгороде]
 				.main-screen__video-wrap(ref="mainVideoWrap")
 					.main-screen__video.ibg(ref="mainVideo" data-type="video" @click="switchVideoSound($event)")
 						video(ref="video" id="video" playsinline loop :muted="videoMuted")
@@ -68,7 +68,11 @@ const firstAnimation = () => {
   const headerLogo = header.querySelector(".header__logo");
   const splitTitle = new SplitType(mainTitle.value, {
     types: "lines",
+    tagName: "span",
+    // settings: {
+    // },
   });
+  console.log(splitTitle);
   tl2.value = gsap
     .timeline({})
     .from(headerLogo, {
@@ -414,6 +418,9 @@ onBeforeUnmount(() => {
     max-width: 59%;
     overflow: hidden;
     pointer-events: none;
+    @media screen and (max-width: $xxl) {
+      max-width: 70%;
+    }
     @media screen and (max-width: $xl) {
       position: static;
       max-width: 100%;
@@ -442,7 +449,13 @@ onBeforeUnmount(() => {
       line-height: 120%;
     }
     & span {
+      display: inline-block;
+    }
+    & span + span {
       color: $bg-green-lime;
+      @media screen and (max-width: $xl) {
+        display: block !important;
+      }
     }
     @media screen and (max-width: $xl) {
       // transform: none;

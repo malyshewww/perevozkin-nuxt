@@ -39,7 +39,7 @@
 		.info-contacts__item(v-if="info.email")
 			.info-contacts__caption E-mail
 			.info-contacts__values
-				a.info-contacts__link(:href="`${info.email}`") {{info.email}}
+				a.info-contacts__link(:href="`mailto:${info.email}`") {{info.email}}
 </template>
 
 <script setup>
