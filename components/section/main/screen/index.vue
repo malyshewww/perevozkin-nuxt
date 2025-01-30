@@ -451,8 +451,19 @@ onBeforeUnmount(() => {
     & span {
       display: inline-block;
     }
-    & span + span {
+    & > span:first-child {
+      color: $bg-white;
+    }
+    & > span:nth-child(2) {
+      color: $bg-white;
+      & span span {
+        color: $bg-green-lime;
+      }
+    }
+    & > span:last-child {
       color: $bg-green-lime;
+    }
+    & span + span {
       @media screen and (max-width: $xl) {
         display: block !important;
       }
