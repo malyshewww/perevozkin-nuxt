@@ -72,7 +72,6 @@ const firstAnimation = () => {
     // settings: {
     // },
   });
-  console.log(splitTitle);
   tl2.value = gsap
     .timeline({})
     .from(headerLogo, {
