@@ -2,6 +2,12 @@
 	.loading(v-if="isLoading")
 		.loading__image
 			img(:src="setPreloaderPath()" alt="прелодер")
+			//- video
+			//- 	source(:src="`/images/preloader.mp4`" type="video/mp4")
+			//- 	source(:src="`/images/preloader.webm`" type="video/webm")
+			//- 	p
+			//- 		| Ваш браузер не поддерживает HTML5 видео. Вот
+			//- 		| #[a(:href="`/images/preloader.mp4`") ссылка на видео] взамен.
 </template>
 
 <script setup>
@@ -9,7 +15,7 @@ const props = defineProps(["isLoading"]);
 
 const setPreloaderPath = () => {
   if (props.isLoading) {
-    return "/images/preloader2.gif";
+    return "/images/preloader2-optimize.gif";
   } else {
     return "";
   }
@@ -51,7 +57,8 @@ const setPreloaderPath = () => {
     height: 100%;
     left: 50%;
     transform: translateX(-50%);
-    & img {
+    & img,
+    & video {
       animation: opacityZero 2.15s both;
     }
   }

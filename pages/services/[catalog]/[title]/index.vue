@@ -155,6 +155,7 @@ onUnmounted(() => {
     @media screen and (max-width: $md) {
       font-size: 24px;
       line-height: 32px;
+      hyphens: auto;
     }
   }
   &__description {
