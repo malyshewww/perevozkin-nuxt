@@ -9,7 +9,14 @@
 				.services
 					.services__body
 						Card(:arr="services.main.list")
-					.content(v-if="services.main.content" v-html="services.main.content")
+					//- .content(v-if="services.main.content" v-html="services.main.content")
+					.content
+						ol  
+							li 123
+							li 123
+							li 123
+							li 123
+							li 123
 </template>
 
 <script setup>

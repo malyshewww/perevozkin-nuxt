@@ -441,6 +441,46 @@ body.lock {
       }
     }
   }
+  ol {
+    @include reset-list;
+    display: flex;
+    flex-direction: column;
+    counter-reset: numbers;
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+    & p {
+      display: inline-block;
+      &:not(:last-child) {
+        margin-bottom: 12px;
+      }
+    }
+    & > li {
+      position: relative;
+      &:not(:last-child) {
+        margin-bottom: 12px;
+      }
+      & > ol {
+        margin-top: 12px;
+      }
+      &::before {
+        counter-increment: numbers;
+        content: counters(numbers, ".") ". ";
+        display: inline-block;
+        font-weight: 600;
+        text-align: left;
+        color: $bg-green-lime;
+        margin-right: 6px;
+        width: 22px;
+      }
+      &:not(:last-child) {
+        margin-bottom: 8px;
+      }
+      & > ol {
+        margin-bottom: 0;
+      }
+    }
+  }
   & table {
     border: 1px solid $bg-asphalt;
     border-collapse: collapse;
