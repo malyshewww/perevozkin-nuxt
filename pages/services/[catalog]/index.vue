@@ -9,6 +9,7 @@
 				.services
 					.services__body
 						Card(:arr="services.main.list")
+					.content(v-if="services.main.content" v-html="services.main.content")
 </template>
 
 <script setup>
@@ -27,7 +28,9 @@ const {
       {}
     ),
   {
-    transform: ({ breadcrumb, data, metatag }) => {
+    transform: (res) => {
+      console.log(res);
+      const { breadcrumb, data, metatag } = res;
       const currentPageTitle = useLastBreadcrumb(breadcrumb);
       const metadata = useGenerateMeta(metatag.html_head);
       const { acc: meta, title } = metadata;
@@ -36,6 +39,7 @@ const {
         pageTitle: currentPageTitle,
         main: {
           list: data,
+          content: res.taxonomy_term.description[0],
         },
         meta,
         title,
@@ -50,7 +54,7 @@ useHead({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .services__body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -60,6 +64,11 @@ useHead({
   }
   @media screen and (max-width: $md) {
     grid-template-columns: 1fr;
+  }
+}
+.services {
+  & .content {
+    margin-top: 56px;
   }
 }
 </style>

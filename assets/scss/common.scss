@@ -471,6 +471,21 @@ body.lock {
       font-weight: 600;
     }
   }
+  a {
+    border-bottom: 1px solid currentColor;
+    transition: color $time, border-color $time;
+    @media (any-hover: hover) {
+      &:hover,
+      &:hover:not(:visited) {
+        color: #6de754;
+        border-color: #6de754;
+      }
+      // &:active {
+      //   color: #b854e7;
+      //   border-color: #b854e7;
+      // }
+    }
+  }
 }
 
 .table-wrap {
