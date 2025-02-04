@@ -28,6 +28,7 @@ const props = defineProps({
   title: {
     type: String,
     required: false,
+    default: () => "",
   },
 });
 

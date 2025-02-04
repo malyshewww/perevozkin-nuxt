@@ -9,13 +9,11 @@
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
 
-const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
-
 const positionY = ref(0);
 
 onMounted(() => {
   if (window.innerWidth > 1024) {
-    const { bodyScrollBar, scroller } = initCustomScrollbar();
+    const { bodyScrollBar } = initCustomScrollbar();
     // ScrollTrigger.scrollerProxy(".scroller", {
     //    scrollTop(value) {
     //       if (arguments.length) {
@@ -54,7 +52,6 @@ onMounted(() => {
       });
     }
     if (cursor) {
-      const cursorLabel = cursor.querySelector(".cursor__label");
       window.addEventListener("mousemove", (e) => {
         const interactable = e.target.closest(".main-screen__video"),
           interacting = interactable !== null;

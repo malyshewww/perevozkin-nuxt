@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   services: {
     type: Array,
     required: false,

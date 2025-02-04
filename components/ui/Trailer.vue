@@ -11,13 +11,13 @@
 <script setup>
 import initCustomScrollbar from "~/utils/customScrollbar";
 
-const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
+const { $gsap: gsap } = useNuxtApp();
 
 const positionY = ref(0);
 
 onMounted(() => {
   if (window.matchMedia("(min-wdith: 1024px)")) {
-    const { bodyScrollBar, scroller } = initCustomScrollbar();
+    const { bodyScrollBar } = initCustomScrollbar();
     // ScrollTrigger.scrollerProxy(".scroller", {
     //    scrollTop(value) {
     //       if (arguments.length) {

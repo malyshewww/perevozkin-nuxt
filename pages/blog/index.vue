@@ -21,14 +21,14 @@ const route = useRoute();
 const router = useRouter();
 const currentPage = ref(route.query.page ? route.query.page : 0);
 
-const internalCurrentPage = computed({
-  get() {
-    return currentPage.value === 0 ? 1 : currentPage.value + 1; // Возвращаем 1 при currentPage 0
-  },
-  set(value) {
-    currentPage.value = value - 1; // Устанавливаем хранимое значение, вычитая 1
-  },
-});
+// const internalCurrentPage = computed({
+//   get() {
+//     return currentPage.value === 0 ? 1 : currentPage.value + 1;
+//   },
+//   set(value) {
+//     currentPage.value = value - 1;
+//   },
+// });
 
 const runtimeConfig = useRuntimeConfig();
 const {

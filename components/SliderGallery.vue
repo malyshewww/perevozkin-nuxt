@@ -22,6 +22,7 @@ defineProps({
   gallerySlider: {
     type: Array,
     required: false,
+    default: () => [],
   },
 });
 

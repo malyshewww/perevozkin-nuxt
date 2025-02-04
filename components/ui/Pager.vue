@@ -39,7 +39,7 @@ const changePage = (num) => {
 };
 
 const pager = computed(() => {
-  let nav = [];
+  const nav = [];
   if (props.pagination.totalItems > 5) {
     let leftEllipsis = true;
     let rightEllipsis = true;

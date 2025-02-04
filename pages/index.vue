@@ -57,8 +57,6 @@ useHead({
   },
 });
 
-const isMounted = ref(false);
-
 onMounted(() => {
   const { bodyScrollBar } = initCustomScrollbar();
   if (!window.location.hash) {
@@ -66,7 +64,7 @@ onMounted(() => {
   } else {
     const sectionSale = document.querySelector(".main-sale");
     if (sectionSale) {
-      let itemY = sectionSale.offsetTop + 100;
+      const itemY = sectionSale.offsetTop + 100;
       bodyScrollBar.scrollTo(0, itemY, 600);
       // const scrollToHere = sectionSale.offsetTop + bodyScrollBar.offset.y;
       // bodyScrollBar.scrollTo(

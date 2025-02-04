@@ -15,12 +15,7 @@ import { ref } from "vue";
 import { usePreloaderStore } from "@/stores/preloader";
 import initCustomScrollbar from "~/utils/customScrollbar";
 
-const {
-  $gsap: gsap,
-  $ScrollTrigger: ScrollTrigger,
-  $Scrollbar: Scrollbar,
-  $ScrollbarPlugin: ScrollbarPlugin,
-} = useNuxtApp();
+const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
 
 const { isMobile } = useDevice();
 

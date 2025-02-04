@@ -14,6 +14,7 @@ defineProps({
   },
 });
 const emit = defineEmits(["closePopup", "openPopup"]);
+
 const closePopup = () => {
   emit("closePopup");
 };
