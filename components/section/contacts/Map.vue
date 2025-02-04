@@ -6,14 +6,14 @@
 </template>
 
 <script setup>
-const props = defineProps({
+import json from "~/static/geo.json";
+
+defineProps({
   info: {
     type: Object,
     required: true,
   },
 });
-
-import json from "~/static/geo.json";
 
 const { isDesktop } = useDevice();
 const runtimeConfig = useRuntimeConfig();

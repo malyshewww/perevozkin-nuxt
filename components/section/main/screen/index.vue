@@ -26,7 +26,7 @@ const { isDesktop } = useDevice();
 
 const store = usePreloaderStore();
 
-const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
+const { $gsap: gsap } = useNuxtApp();
 
 const mainScreen = ref("");
 const mainVideo = ref("");
@@ -154,7 +154,6 @@ const animation = () => {
           //       break;
           // }
         },
-        onComplete: function (self) {},
       },
     })
     //  .to(mainVideoWrap.value, {

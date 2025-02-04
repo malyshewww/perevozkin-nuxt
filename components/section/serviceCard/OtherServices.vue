@@ -19,6 +19,7 @@ defineProps({
   services: {
     type: Array,
     required: false,
+    default: () => [],
   },
 });
 

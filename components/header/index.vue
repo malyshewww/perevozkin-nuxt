@@ -27,8 +27,6 @@ const mainInfoStore = useMainInfoStore();
 
 const { menu, isStocks } = mainInfoStore;
 
-const { $ScrollTrigger: ScrollTrigger } = useNuxtApp();
-
 const isMenuActive = ref(false);
 
 const header = ref("");

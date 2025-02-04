@@ -27,12 +27,13 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { Navigation, FreeMode } from "swiper/modules";
 
-const props = defineProps({
+defineProps({
   advantages: {
     type: Object,
     required: true,
   },
 });
+
 const { $gsap: gsap } = useNuxtApp();
 
 const slider = ref("");
@@ -200,21 +201,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   destroyAnimations();
 });
-
-const serviceSlider = [
-  {
-    img: "slide-1",
-  },
-  {
-    img: "slide-2",
-  },
-  {
-    img: "slide-3",
-  },
-  {
-    img: "slide-3",
-  },
-];
 </script>
 <style lang="scss">
 .service-card {

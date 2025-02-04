@@ -12,7 +12,7 @@ export default defineNuxtConfig({
       pathPrefix: true,
     },
     // Импорт компонентов из других директорий, помимо components
-    { path: "~/sections", pathPrefix: true },
+    // { path: "~/sections", pathPrefix: true },
     // { path: "~/user-module/components", pathPrefix: false },
     // { path: "~/components/special-components", prefix: "Special" },
   ],

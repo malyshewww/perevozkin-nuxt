@@ -17,7 +17,7 @@ defineProps({
   },
 });
 
-const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp();
+const { $gsap: gsap } = useNuxtApp();
 
 const animTitle = ref("");
 const sectionPartners = ref("");

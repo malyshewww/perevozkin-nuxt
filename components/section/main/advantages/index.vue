@@ -7,7 +7,7 @@
 						.heading__sub-title Преимущества
 						h2.heading__title.anim-title(ref="AdvantagesTitle") Мы знаем #[span причины всех поломок] и оптимальные #[br] варианты #[br] их устранения
 					.main-advantages__content.anim-content(ref="AdvantagesContent" v-if="text")
-						p {{text}}
+						p {{ text }}
 				.main-advantages__cards(ref="advantagesCards")
 					AdvantagesCard(:advantages="advantages")
 </template>
@@ -19,6 +19,7 @@ defineProps({
   text: {
     type: String,
     required: false,
+    default: () => "",
   },
   advantages: {
     type: Array,
@@ -34,7 +35,6 @@ const AdvantagesContent = ref(null);
 const advantagesCards = ref(null);
 
 const advantagesBody = ref("");
-const progress = ref(0);
 
 const tl = ref(null);
 const tlContent = ref(null);

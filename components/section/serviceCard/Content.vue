@@ -11,6 +11,7 @@ defineProps({
   content: {
     type: String,
     required: false,
+    default: () => "",
   },
 });
 </script>

@@ -10,6 +10,7 @@ defineProps({
   image: {
     type: String,
     required: true,
+    default: () => "",
   },
 });
 </script>
