@@ -5,6 +5,11 @@ import postCssSortMediaQueries from "postcss-sort-media-queries";
 export default defineNuxtConfig({
   devtools: { enabled: false },
   loading: false,
+  routeRules: {
+    // This makes sure that images are not ignored
+    "/sites/**": { prerender: true },
+    // Your other hybrid rendering rules are expected here
+  },
   components: [
     // импорт компонентов, основываясь только на их имени, а не на пути (pathPrefix: false)
     {
@@ -120,6 +125,15 @@ export default defineNuxtConfig({
   // Подключение файлов как строк
   // css: ["animate.css"],
   vite: {
+    // build: {
+    //   filenames: {
+    //     app: ({ isDev }) => (isDev ? "js/[name].js" : "js/[name].[hash].js"),
+    //     chunk: ({ isDev }) => (isDev ? "js/[name].js" : "js/[name].[hash].js"),
+    //     css: ({ isDev }) =>
+    //       isDev ? "css/[name].css" : "css/[name].[hash].css",
+    //     vendor: ({ isDev }) => (isDev ? "js/[name].js" : "js/[name].[hash].js"),
+    //   },
+    // },
     css: {
       postcss: {
         plugins: [

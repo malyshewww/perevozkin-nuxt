@@ -76,6 +76,8 @@ onMounted(() => {
   }
 });
 onUnmounted(() => {});
+
+await preloadComponents("MyTest");
 </script>
 
 <style lang="scss">
