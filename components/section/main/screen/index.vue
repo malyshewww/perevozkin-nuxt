@@ -15,7 +15,11 @@
 				.spin
 					img(:src="`/images/icons/spin.svg`" alt="spin")
 		.main-parallax(ref="mainParallax")
-			NuxtPicture(:src="`/images/main-screen/parallax.png`" alt="parallax")
+			picture
+				source(:srcset="`/images/main-screen/parallax.webp`" type="image/webp")
+				source(:srcset="`/images/main-screen/parallax.png`" type="image/png")
+				img(:src="`/images/main-screen/parallax.png`" alt="логотип")
+			//- NuxtPicture(:src="`/images/main-screen/parallax.png`" alt="parallax")
 </template>
 
 <script setup>
