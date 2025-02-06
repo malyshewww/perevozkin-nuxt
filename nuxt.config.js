@@ -21,7 +21,13 @@ export default defineNuxtConfig({
     // { path: "~/user-module/components", pathPrefix: false },
     // { path: "~/components/special-components", prefix: "Special" },
   ],
-  modules: ["@nuxt/eslint", "@pinia/nuxt", "@nuxtjs/device", "@nuxt/image"],
+  modules: [
+    "nuxt-lazy-hydrate",
+    "@nuxt/eslint",
+    "@pinia/nuxt",
+    "@nuxtjs/device",
+    "@nuxt/image",
+  ],
   // plugins: [{ src: "~/plugins/scrollbar.js", mode: "client" }],
   // Возможность подключения сторонних ресурсов и дополнительных мета тегов непосредственно в head
   runtimeConfig: {
