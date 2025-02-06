@@ -2,14 +2,10 @@
 	PageContainer(:status.sync="status" :error.sync="error")
 		main.main
 			SectionMainScreen
-			NuxtLazyHydrate(when-visible)
-				SectionMainServices(:catalogList="front.main.catalogFront" :serviceList="front.main.serviceFront")
-			NuxtLazyHydrate(when-visible)
-				SectionMainAdvantages(:text="front.main.frontInfo.advantageText" :advantages="front.main.advantages")
-			NuxtLazyHydrate(when-visible)
-				SectionMainSale(v-if="front.main.frontInfo.stocks && front.main.frontInfo.stocks.length" :stocks="front.main.frontInfo.stocks")
-			NuxtLazyHydrate(when-visible)
-				SectionMainPartners(v-if="front.main.frontInfo.partners && front.main.frontInfo.partners.length" :partners="front.main.frontInfo.partners")
+			SectionMainServices(:catalogList="front.main.catalogFront" :serviceList="front.main.serviceFront")
+			SectionMainAdvantages(:text="front.main.frontInfo.advantageText" :advantages="front.main.advantages")
+			SectionMainSale(v-if="front.main.frontInfo.stocks && front.main.frontInfo.stocks.length" :stocks="front.main.frontInfo.stocks")
+			SectionMainPartners(v-if="front.main.frontInfo.partners && front.main.frontInfo.partners.length" :partners="front.main.frontInfo.partners")
 </template>
 
 <script setup>
