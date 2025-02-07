@@ -1,5 +1,7 @@
 <template lang="pug">
-	.contacts__image.ibg(:class="classNames" :style="{ backgroundImage: `url(${image.raw})` }")
+	//- .contacts__image.ibg(:class="classNames" :style="{ backgroundImage: `url(${image.raw})` }")
+	.contacts__image.ibg(:class="classNames")
+		nuxt-img(:src="`${useRuntimeConfig().public.apiBase}${image.raw}`")
 </template>
 
 <script setup>
