@@ -80,6 +80,12 @@ onMounted(() => {
   }, observerOptions);
   observer.observe(mapElem);
 });
+
+await preloadComponents([
+  "SectionContactsImageGlobal",
+  "SectionContactsInfoGlobal",
+  "SectionContactsMapGlobal",
+]);
 </script>
 
 <style lang="scss">
