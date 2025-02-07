@@ -1,15 +1,16 @@
 <template lang="pug">
 	PageContainer(:status.sync="status" :error.sync="error")
-		BreadCrumbs(:nav-list="contactInfo.breadcrumbs")
-		main.main
-			.container
-				.main-header
-					.main-header__body
-						h1.main__title.page-title {{contactInfo.pageTitle}}
-				.contacts
-					.contacts__wrapper
-						SectionContactsInfo(:info="contactInfo.main")
-						SectionContactsMap(:info="contactInfo.main")
+		DelayHydration
+			BreadCrumbs(:nav-list="contactInfo.breadcrumbs")
+			main.main
+				.container
+					.main-header
+						.main-header__body
+							h1.main__title.page-title {{contactInfo.pageTitle}}
+					.contacts
+						.contacts__wrapper
+							SectionContactsInfo(:info="contactInfo.main")
+							SectionContactsMap(:info="contactInfo.main")
 </template>
 
 <script setup>
@@ -23,7 +24,6 @@ const {
   () => $fetch(`${runtimeConfig.public.apiBase}/contacts?_format=json`, {}),
   {
     transform: (res) => {
-      console.log(res);
       const { breadcrumb, data, metatag } = res;
       const metadata = useGenerateMeta(metatag.html_head);
       const { acc: meta, title } = metadata;

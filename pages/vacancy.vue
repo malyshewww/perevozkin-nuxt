@@ -7,10 +7,9 @@
 					.main-header__body
 						h1.main__title.page-title {{vacancy.pageTitle}}
 				.vacancy
-					DelayHydration
-						.vacancy__wrapper
-							SectionVacancyContent(:vacancyList="vacancy.main.list")
-							SectionVacancyForm
+					.vacancy__wrapper
+						SectionVacancyContent(:vacancyList="vacancy.main.list")
+						SectionVacancyForm
 </template>
 
 <script setup>

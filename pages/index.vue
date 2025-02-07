@@ -1,8 +1,8 @@
 <template lang="pug">
 	PageContainer(:status.sync="status" :error.sync="error")
 		main.main
-			SectionMainScreen
 			DelayHydration
+				SectionMainScreen
 				SectionMainServices(:catalogList="front.main.catalogFront" :serviceList="front.main.serviceFront")
 				SectionMainAdvantages(:text="front.main.frontInfo.advantageText" :advantages="front.main.advantages")
 				SectionMainSale(v-if="front.main.frontInfo.stocks && front.main.frontInfo.stocks.length" :stocks="front.main.frontInfo.stocks")
