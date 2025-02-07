@@ -1,11 +1,11 @@
 <template lang="pug">
 	PageContainer(:status.sync="status" :error.sync="error")
 		main.main
-			SectionGlobalMainScreen
-			SectionGlobalMainServices(:catalogList="front.main.catalogFront" :serviceList="front.main.serviceFront")
-			SectionGlobalMainAdvantages(:text="front.main.frontInfo.advantageText" :advantages="front.main.advantages")
-			SectionGlobalMainSale(v-if="front.main.frontInfo.stocks && front.main.frontInfo.stocks.length" :stocks="front.main.frontInfo.stocks")
-			SectionGlobalMainPartners(v-if="front.main.frontInfo.partners && front.main.frontInfo.partners.length" :partners="front.main.frontInfo.partners")
+			SectionMainScreen
+			SectionMainServices(:catalogList="front.main.catalogFront" :serviceList="front.main.serviceFront")
+			SectionMainAdvantages(:text="front.main.frontInfo.advantageText" :advantages="front.main.advantages")
+			SectionMainSale(v-if="front.main.frontInfo.stocks && front.main.frontInfo.stocks.length" :stocks="front.main.frontInfo.stocks")
+			SectionMainPartners(v-if="front.main.frontInfo.partners && front.main.frontInfo.partners.length" :partners="front.main.frontInfo.partners")
 </template>
 
 <script setup>
@@ -76,13 +76,13 @@ onMounted(() => {
   }
 });
 
-await preloadComponents([
-  "SectionGlobalMainScreen",
-  "SectionGlobalMainServices",
-  "SectionGlobalMainAdvantages",
-  "SectionGlobalMainSale",
-  "SectionGlobalMainPartners",
-]);
+// await preloadComponents([
+//   "SectionGlobalMainScreen",
+//   "SectionGlobalMainServices",
+//   "SectionGlobalMainAdvantages",
+//   "SectionGlobalMainSale",
+//   "SectionGlobalMainPartners",
+// ]);
 onUnmounted(() => {});
 </script>
 
