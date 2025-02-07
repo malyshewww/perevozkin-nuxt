@@ -13,9 +13,10 @@
 </template>
 
 <script setup>
+const runtimeConfig = useRuntimeConfig();
+
 const { catalog } = useRoute().params;
 
-const runtimeConfig = useRuntimeConfig();
 const {
   data: services,
   status,
@@ -29,7 +30,6 @@ const {
     ),
   {
     transform: (res) => {
-      console.log(res);
       const { breadcrumb, data, metatag } = res;
       const currentPageTitle = useLastBreadcrumb(breadcrumb);
       const metadata = useGenerateMeta(metatag.html_head);

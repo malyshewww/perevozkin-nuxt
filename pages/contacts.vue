@@ -22,7 +22,9 @@ const {
   "contactInfo",
   () => $fetch(`${runtimeConfig.public.apiBase}/contacts?_format=json`, {}),
   {
-    transform: ({ breadcrumb, data, metatag }) => {
+    transform: (res) => {
+      console.log(res);
+      const { breadcrumb, data, metatag } = res;
       const metadata = useGenerateMeta(metatag.html_head);
       const { acc: meta, title } = metadata;
       return {
@@ -31,7 +33,7 @@ const {
         main: {
           address: data.field_address[0],
           email: data.field_email[0],
-          image: data.field_image[0].markup,
+          image: data.field_image[0],
         },
         meta,
         title,

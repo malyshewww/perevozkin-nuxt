@@ -1,5 +1,5 @@
 <template lang="pug">
-	.contacts__image.ibg(:class="classNames" v-html="image")
+	.contacts__image.ibg(:class="classNames" :style="{ backgroundImage: `url(${image.raw})` }")
 </template>
 
 <script setup>
@@ -8,9 +8,9 @@ defineProps({
     type: String,
   },
   image: {
-    type: String,
+    type: Object,
     required: true,
-    default: () => "",
+    default: () => {},
   },
 });
 </script>
@@ -20,6 +20,8 @@ defineProps({
   &__image {
     height: 100%;
     padding-bottom: calc(480 / 705 * 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 }
 </style>

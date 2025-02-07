@@ -5,11 +5,9 @@ import postCssSortMediaQueries from "postcss-sort-media-queries";
 export default defineNuxtConfig({
   devtools: { enabled: false },
   loading: false,
-  routeRules: {
-    // This makes sure that images are not ignored
-    "/sites/**": { prerender: true },
-    // Your other hybrid rendering rules are expected here
-  },
+  // routeRules: {
+  //   "/sites/**": { prerender: true },
+  // },
   components: [
     // импорт компонентов, основываясь только на их имени, а не на пути (pathPrefix: false)
     {
@@ -21,13 +19,7 @@ export default defineNuxtConfig({
     // { path: "~/user-module/components", pathPrefix: false },
     // { path: "~/components/special-components", prefix: "Special" },
   ],
-  modules: [
-    "nuxt-lazy-hydrate",
-    "@nuxt/eslint",
-    "@pinia/nuxt",
-    "@nuxtjs/device",
-    "@nuxt/image",
-  ],
+  modules: ["@nuxt/eslint", "@pinia/nuxt", "@nuxtjs/device", "@nuxt/image"],
   // plugins: [{ src: "~/plugins/scrollbar.js", mode: "client" }],
   // Возможность подключения сторонних ресурсов и дополнительных мета тегов непосредственно в head
   runtimeConfig: {
