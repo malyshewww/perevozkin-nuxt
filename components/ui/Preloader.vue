@@ -2,12 +2,6 @@
 	.loading(v-if="isLoading")
 		.loading__image
 			img(:src="setPreloaderPath()" alt="прелодер")
-			//- video
-			//- 	source(:src="`/images/preloader.mp4`" type="video/mp4")
-			//- 	source(:src="`/images/preloader.webm`" type="video/webm")
-			//- 	p
-			//- 		| Ваш браузер не поддерживает HTML5 видео. Вот
-			//- 		| #[a(:href="`/images/preloader.mp4`") ссылка на видео] взамен.
 </template>
 
 <script setup>
@@ -56,6 +50,7 @@ const setPreloaderPath = () => {
     left: 0;
     height: 100%;
     left: 50%;
+    z-index: 10;
     transform: translateX(-50%);
     & img,
     & video {
