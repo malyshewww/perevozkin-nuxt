@@ -68,6 +68,25 @@ useHead({
     },
   ],
 });
+
+useHead({
+  link: [
+    {
+      rel: "preload",
+      type: "font/woff2",
+      href: "/fonts/Xolonium.woff2",
+      as: "font",
+      crossorigin: "anonymous",
+    },
+    {
+      rel: "preload",
+      type: "font/woff2",
+      href: "/fonts/GolosText-Regular.woff2",
+      as: "font",
+      crossorigin: "anonymous",
+    },
+  ],
+});
 </script>
 
 <style lang="scss">

@@ -2,11 +2,11 @@
 	div(v-if="isMobile")
 		SectionContactsImage(:image="info.image")
 	.contacts__info.info-contacts
-		.info-contacts__item
+		.info-contacts__item(v-if="info.address")
 			.info-contacts__caption Адрес
 			.info-contacts__values
 				address {{info.address}}
-		.info-contacts__item
+		.info-contacts__item(v-if="phone")
 			.info-contacts__caption Телефон
 			.info-contacts__values
 				a.info-contacts__link(:href="`tel:${formatPhone}`" v-if="phone") {{phone}}
@@ -36,10 +36,10 @@
 						a.social-link(:href="viber" target="_blank")
 							svg
 								use(href="/images/icons/sprite.svg#icon-viber")
-		.info-contacts__item(v-if="info.email")
+		.info-contacts__item(v-if="email")
 			.info-contacts__caption E-mail
 			.info-contacts__values
-				a.info-contacts__link(:href="`mailto:${info.email}`") {{info.email}}
+				a.info-contacts__link(:href="`mailto:${email}`") {{email}}
 </template>
 
 <script setup>
@@ -49,7 +49,7 @@ const mainInfoStore = useMainInfoStore();
 
 const { links } = mainInfoStore;
 
-const { telegram, viber, whatsapp, phone } = links;
+const { telegram, viber, whatsapp, phone, email } = links;
 
 const { isMobile } = useDevice();
 

@@ -5,9 +5,10 @@ import postCssSortMediaQueries from "postcss-sort-media-queries";
 export default defineNuxtConfig({
   devtools: { enabled: false },
   loading: false,
-  // routeRules: {
-  //   "/sites/**": { prerender: true },
-  // },
+  routeRules: {
+    "/": { prerender: true },
+    "/contacts": { prerender: true },
+  },
   components: [
     // импорт компонентов, основываясь только на их имени, а не на пути (pathPrefix: false)
     {
@@ -28,7 +29,7 @@ export default defineNuxtConfig({
   ],
   delayHydration: {
     debug: process.env.NODE_ENV === "development",
-    mode: "mount",
+    mode: "init",
   },
   // plugins: [{ src: "~/plugins/scrollbar.js", mode: "client" }],
   // Возможность подключения сторонних ресурсов и дополнительных мета тегов непосредственно в head
