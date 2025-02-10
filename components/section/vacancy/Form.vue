@@ -58,87 +58,78 @@ const formData = reactive({
   webform_id: "vacancy_callback",
 });
 
+watch(
+  () => fileName.value,
+  (val) => {
+    formData.resume = val;
+  }
+);
+
 const runtimeConfig = useRuntimeConfig();
 
+const successForm = () => {
+  formData.fio = "";
+  formData.phone = "";
+  formErrors.fio = "";
+  formErrors.phone = "";
+  fileName.value = "";
+  currentFile.value = null;
+  storePopup.openPopupNotice();
+  setTimeout(() => {
+    storePopup.closePopupNotice();
+  }, 3000);
+};
+
+const errorForm = (res) => {
+  formErrors.fio = res.error.fio || "";
+  formErrors.phone = res.error.phone || "";
+};
+
 const formSubmit = (e) => {
-  const buttonSubmit = e.target.querySelector('input[type="submit"]');
-  const buttonSubmitText = buttonSubmit.textContent;
-  buttonSubmit.setAttribute("disabled", "true");
-  buttonSubmit.textContent = "идет отправка...";
+  // const buttonSubmit = e.target.querySelector('input[type="submit"]');
+  // const buttonSubmitText = buttonSubmit.textContent;
+  // buttonSubmit.setAttribute("disabled", "true");
+  // buttonSubmit.textContent = "идет отправка...";
   if (fileName.value) {
-    // console.log(fileName.value);
-    fetch(`${runtimeConfig.public.apiBase}/session/token`)
-      .then(function (response) {
-        return response.text();
+    usePostFileData(currentFile.value, formData["webform_id"])
+      .then((res) => {
+        if (res.data.fid[0]) {
+          let fid = res.data.fid[0].value;
+          // console.log("fid", fid);
+          formData.resume = fid;
+          usePostFormData(formData)
+            .then((res) => {
+              if (res) {
+                successForm();
+                // console.log("success");
+              } else {
+                errorForm(res);
+                // console.log("Не получилось отправить файл");
+              }
+            })
+            .catch((e) => {
+              errorForm(e.response.data);
+              // console.log("usePostFormData after File", e.message);
+            });
+        } else {
+          console.log("Не получилось отправить файл");
+        }
       })
-      .then(function (token) {
-        fetch(
-          `${runtimeConfig.public.apiBase}/webform_rest/${formData.webform_id}/upload/resume?_format=json`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/octet-stream",
-              "Content-Disposition":
-                `file; filename="` +
-                encodeURIComponent(fileName.value) +
-                `"; filename*=UTF-8''` +
-                encodeURIComponent(fileName.value),
-              "X-CSRF-Token": token,
-            },
-            body: JSON.stringify(formData),
-          }
-        )
-          .then((res) => res.json())
-          .then(function (res) {
-            if (res.fid[0]) {
-              let fid = res.fid[0].value;
-              fileName.value = "";
-              buttonSubmit.removeAttribute("disabled");
-              buttonSubmit.textContent = buttonSubmitText;
-            } else {
-              buttonSubmit.removeAttribute("disabled");
-              buttonSubmit.textContent = buttonSubmitText;
-            }
-          });
+      .catch((e) => {
+        errorForm(e.response.data);
+        // console.log("usePostFileData: " + e.message);
       });
   } else {
-    fetch(`${runtimeConfig.public.apiBase}/session/token`)
-      .then(function (response) {
-        return response.text();
+    usePostFormData(formData)
+      .then((res) => {
+        if (res.data.sid) {
+          successForm();
+        } else {
+          errorForm(res);
+        }
       })
-      .then(function (token) {
-        fetch(
-          `${runtimeConfig.public.apiBase}/webform_rest/submit?_format_json`,
-          {
-            method: "POST",
-            headers: {
-              Accept: "application/json, text/plain, */*",
-              "Content-Type": "application/json",
-              "X-CSRF-Token": token,
-            },
-            body: JSON.stringify(formData),
-          }
-        )
-          .then((res) => res.json())
-          .then(function (res) {
-            if (res.sid) {
-              formData.fio = "";
-              formData.phone = "";
-              formErrors.fio = "";
-              formErrors.phone = "";
-              storePopup.openPopupNotice();
-              setTimeout(() => {
-                storePopup.closePopupNotice();
-              }, 3000);
-              buttonSubmit.removeAttribute("disabled");
-              buttonSubmit.textContent = buttonSubmitText;
-            } else {
-              formErrors.fio = res.error.fio || "";
-              formErrors.phone = res.error.phone || "";
-              buttonSubmit.removeAttribute("disabled");
-              buttonSubmit.textContent = buttonSubmitText;
-            }
-          });
+      .catch((e) => {
+        errorForm(e.response.data);
       });
   }
 };

@@ -10,6 +10,20 @@ export default defineNuxtConfig({
   //   "/": { prerender: true },
   //   "/contacts": { prerender: true },
   // },
+  // routeRules: {
+  //   "/": {
+  //     swr: true,
+  //     cache: {
+  //       maxAge: 60,
+  //     },
+  //   },
+  //   "/services": {
+  //     swr: 3600,
+  //   },
+  //   "/contacts": {
+  //     swr: true,
+  //   },
+  // },
   components: [
     // импорт компонентов, основываясь только на их имени, а не на пути (pathPrefix: false)
     {
@@ -22,6 +36,7 @@ export default defineNuxtConfig({
     // { path: "~/components/special-components", prefix: "Special" },
   ],
   modules: [
+    "nuxt-multi-cache",
     "nuxt-delay-hydration",
     "@nuxt/eslint",
     "@pinia/nuxt",
@@ -61,13 +76,6 @@ export default defineNuxtConfig({
         lang: "ru",
       },
       link: [
-        // {
-        //    rel: "preload",
-        //    href: "/fonts/GolosText-Regular.woff2",
-        //    as: "font",
-        //    type: "font/woff2",
-        //    crossorigin: "anonymous",
-        // },
         { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
         { rel: "shortcut icon", href: "/favicon.ico" },
         {

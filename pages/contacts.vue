@@ -13,11 +13,13 @@
 </template>
 
 <script setup>
+const nuxtApp = useNuxtApp();
 const runtimeConfig = useRuntimeConfig();
 const {
   data: contactInfo,
   status,
   error,
+  refresh: refresh_contacts,
 } = await useAsyncData(
   "contactInfo",
   () => $fetch(`${runtimeConfig.public.apiBase}/contacts?_format=json`, {}),
@@ -36,10 +38,30 @@ const {
         },
         meta,
         title,
+        fetchedAt: new Date(),
       };
+    },
+    getCachedData: (key) => {
+      const data = nuxtApp.payload.data[key] || nuxtApp.static.data[key];
+      if (!data) {
+        console.log("no data, fetch again");
+        return;
+      }
+      const expDate = new Date(data.fetchedAt);
+      expDate.setTime(expDate.getTime() + 10 * 1000);
+      const isExpired = expDate.getTime() < Date.now();
+      if (isExpired) {
+        console.log("data is expired, fetch again");
+        return;
+      }
+      return data;
     },
   }
 );
+
+if (!contactInfo.value) {
+  await refresh_contacts();
+}
 
 useHead({
   title: contactInfo.value.title,
