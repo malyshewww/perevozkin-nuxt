@@ -70,6 +70,7 @@ const runtimeConfig = useRuntimeConfig();
 const successForm = () => {
   formData.fio = "";
   formData.phone = "";
+  formData.message = "";
   formErrors.fio = "";
   formErrors.phone = "";
   fileName.value = "";
