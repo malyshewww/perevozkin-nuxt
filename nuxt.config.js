@@ -5,6 +5,7 @@ import postCssSortMediaQueries from "postcss-sort-media-queries";
 export default defineNuxtConfig({
   devtools: { enabled: false },
   loading: false,
+  // route rules
   // routeRules: {
   //   "/": { prerender: true },
   //   "/contacts": { prerender: true },
