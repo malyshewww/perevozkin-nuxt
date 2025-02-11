@@ -110,26 +110,15 @@ $system-alert: #ff4949;
 $focus: #6e9bde;
 
 $greenGradient: linear-gradient(135deg, #6de754 0%, #129465 100%);
-$time: .25s;
+$time: 0.25s;
 
 $linearDark: linear-gradient(162deg, #2f3740 0%, #264947 100%);
 $linearLight: linear-gradient(135deg, #6de754 0%, #129465 100%);
 $linearPromo: linear-gradient(135deg, #e77754 0%, #d3126f 100%);
 
-
 :root {
-	--gap: 48px;
-	--duration: 60s;
-	--scroll-start: 0;
-	--scroll-end: calc(-100% - var(--gap));
+  --gap: 48px;
+  --duration: 60s;
+  --scroll-start: 0;
+  --scroll-end: calc(-100% - var(--gap));
 }
-
-
-// @import "~bootstrap/scss/functions";
-// @import "~bootstrap/scss/variables";
-// @import "~bootstrap/scss/variables-dark";
-// @import "~bootstrap/scss/maps";
-// @import "~bootstrap/scss/mixins";
-// @import "~bootstrap/scss/utilities";
-
-// $navbar-dark-color: rgba($white, .7);

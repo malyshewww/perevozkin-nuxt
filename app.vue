@@ -35,18 +35,18 @@ useHead({
     {
       type: "text/javascript",
       innerHTML: `
-				(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-				m[i].l=1*new Date();
-				for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-				k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-				(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-				ym(99261061, "init", {
-					clickmap:true,
-					trackLinks:true,
-					accurateTrackBounce:true,
-					webvisor:true
-				});
-			`,
+  			(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  			m[i].l=1*new Date();
+  			for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+  			k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  			(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+  			ym(99261061, "init", {
+  				clickmap:true,
+  				trackLinks:true,
+  				accurateTrackBounce:true,
+  				webvisor:true
+  			});
+  		`,
     },
     {
       async: true,
@@ -54,11 +54,11 @@ useHead({
     },
     {
       innerHTML: `
-				window.dataLayer = window.dataLayer || []; 
-				function gtag(){dataLayer.push(arguments);} 
-				gtag('js', new Date()); 
-				gtag('config', 'G-W22JVRRYD8');
-			`,
+  			window.dataLayer = window.dataLayer || [];
+  			function gtag(){dataLayer.push(arguments);}
+  			gtag('js', new Date());
+  			gtag('config', 'G-W22JVRRYD8');
+  		`,
     },
   ],
   noscript: [
@@ -69,30 +69,30 @@ useHead({
   ],
 });
 
-useHead({
-  link: [
-    {
-      rel: "preload",
-      type: "font/woff2",
-      href: "/fonts/Xolonium.woff2",
-      as: "font",
-      crossorigin: "anonymous",
-    },
-    {
-      rel: "preload",
-      type: "font/woff2",
-      href: "/fonts/GolosText-Regular.woff2",
-      as: "font",
-      crossorigin: "anonymous",
-    },
-  ],
-});
+// useHead({
+//   link: [
+//     {
+//       rel: "preload",
+//       type: "font/woff2",
+//       href: "/fonts/Xolonium.woff2",
+//       as: "font",
+//       crossorigin: "anonymous",
+//     },
+//     {
+//       rel: "preload",
+//       type: "font/woff2",
+//       href: "/fonts/GolosText-Regular.woff2",
+//       as: "font",
+//       crossorigin: "anonymous",
+//     },
+//   ],
+// });
 </script>
 
 <style lang="scss">
 @import "~/assets/scss/base/nullstyle.scss";
+@import "~/assets/scss/fonts.scss";
 @import "~/assets/scss/base/extends.scss";
 @import "~/assets/scss/base/keyframes.scss";
-@import "~/assets/scss/fonts.scss";
 @import "~/assets/scss/common.scss";
 </style>

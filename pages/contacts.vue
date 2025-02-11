@@ -20,7 +20,7 @@ const {
   status,
   error,
   refresh: refresh_contacts,
-} = await useAsyncData(
+} = await useLazyAsyncData(
   "contactInfo",
   () => $fetch(`${runtimeConfig.public.apiBase}/contacts?_format=json`, {}),
   {

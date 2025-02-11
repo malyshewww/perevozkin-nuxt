@@ -5,6 +5,7 @@ import postCssSortMediaQueries from "postcss-sort-media-queries";
 export default defineNuxtConfig({
   devtools: { enabled: false },
   loading: false,
+
   // route rules
   // routeRules: {
   //   "/": { prerender: true },
@@ -35,18 +36,105 @@ export default defineNuxtConfig({
     // { path: "~/user-module/components", pathPrefix: false },
     // { path: "~/components/special-components", prefix: "Special" },
   ],
+
   modules: [
-    "nuxt-multi-cache",
     "nuxt-delay-hydration",
+    "nuxt-booster",
     "@nuxt/eslint",
     "@pinia/nuxt",
     "@nuxtjs/device",
     "@nuxt/image",
   ],
+
+  booster: {
+    // optimizeSSR: {
+    //   cleanPreloads: true,
+    //   cleanPrefetches: true,
+    //   inlineStyles: true,
+    // },
+    detection: {
+      performance: true,
+      browserSupport: true,
+    },
+    performanceMetrics: {
+      device: {
+        hardwareConcurrency: { min: 2, max: 48 },
+        deviceMemory: { min: 2 },
+      },
+      timing: {
+        fcp: 800,
+        dcl: 1200,
+      },
+    },
+    fonts: [
+      {
+        family: "Font A",
+        locals: ["Font A"],
+        fallback: ["Arial", "sans-serif"],
+        variances: [
+          {
+            style: "normal",
+            weight: 400,
+            sources: [
+              { src: "@/assets/fonts/Xolonium.woff", type: "woff" },
+              { src: "@/assets/fonts/Xolonium.woff2", type: "woff2" },
+            ],
+          },
+          {
+            style: "normal",
+            weight: 400,
+            sources: [
+              { src: "@/assets/fonts/GolosText-Regular.woff", type: "woff" },
+              { src: "@/assets/fonts/GolosText-Regular.woff2", type: "woff2" },
+            ],
+          },
+          {
+            style: "normal",
+            weight: 600,
+            sources: [
+              { src: "@/assets/fonts/GolosText-DemiBold.woff", type: "woff" },
+              { src: "@/assets/fonts/GolosText-DemiBold.woff2", type: "woff2" },
+            ],
+          },
+          {
+            style: "normal",
+            weight: 700,
+            sources: [
+              { src: "@/assets/fonts/Xolonium-Bold.woff", type: "woff" },
+              { src: "@/assets/fonts/Xolonium-Bold.woff2", type: "woff2" },
+            ],
+          },
+        ],
+      },
+    ],
+    targetFormats: ["webp", "avif", "jpg|jpeg|png|gif"],
+    componentAutoImport: false,
+    componentPrefix: undefined,
+    lazyOffset: {
+      component: "0%",
+      asset: "0%",
+    },
+  },
+
+  image: {
+    screens: {
+      default: 320,
+      xxs: 480,
+      xs: 576,
+      sm: 768,
+      md: 996,
+      lg: 1200,
+      xl: 1367,
+      xxl: 1600,
+      "4k": 1921,
+    },
+  },
+
   delayHydration: {
     debug: process.env.NODE_ENV === "development",
     mode: "init",
   },
+
   // plugins: [{ src: "~/plugins/scrollbar.js", mode: "client" }],
   // Возможность подключения сторонних ресурсов и дополнительных мета тегов непосредственно в head
   runtimeConfig: {
@@ -55,14 +143,17 @@ export default defineNuxtConfig({
       apiKey: process.env.NUXT_PUBLIC_API_KEY,
     },
   },
+
   router: {
     options: {
       scrollBehaviorType: "smooth",
     },
   },
+
   image: {
     format: ["webp", "png", "jpg"],
   },
+
   nitro: {
     publicAssets: [
       {
@@ -70,6 +161,7 @@ export default defineNuxtConfig({
       },
     ],
   },
+
   app: {
     head: {
       htmlAttrs: {
@@ -140,8 +232,13 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   // Подключение файлов как строк
   // css: ["animate.css"],
+  build: {
+    extractCSS: true,
+  },
+
   vite: {
     // build: {
     //   filenames: {
@@ -169,5 +266,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   ssr: true,
+  compatibilityDate: "2025-02-11",
 });

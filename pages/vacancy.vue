@@ -22,7 +22,7 @@ const {
   status,
   error,
   refresh: refresh_vacancy,
-} = await useAsyncData(
+} = await useLazyAsyncData(
   "vacancy",
   () => $fetch(`${runtimeConfig.public.apiBase}/vacancy?_format=json`, {}),
   {
