@@ -9,7 +9,7 @@
 		.info-contacts__item(v-if="phone")
 			.info-contacts__caption Телефон
 			.info-contacts__values
-				a.info-contacts__link(:href="`tel:${formatPhone}`" v-if="phone") {{phone}}
+				a.info-contacts__link(:href="`tel:${formatPhone(phone)}`" v-if="phone") {{ regexPhone(phone) }}
 				ul.social-list(v-if="telegram || whatsapp || viber")
 					li.social-item(v-if="telegram")
 						a.social-link(:href="telegram" target="_blank")
@@ -58,12 +58,6 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-});
-
-const formatPhone = computed(() => {
-  if (phone) {
-    return phone.replace(/[^\d\+]/g, "");
-  }
 });
 </script>
 

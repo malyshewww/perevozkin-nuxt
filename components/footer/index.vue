@@ -6,7 +6,7 @@
 					nuxt-link.footer__logo(to="/")
 						img(src="/images/logo.svg" alt="логотип")
 					.footer__contacts.contacts-footer
-						a.contacts-footer__phone(:href="`tel:${formatPhone}`" v-if="phone") {{phone}}
+						a.contacts-footer__phone(:href="`tel:${formatPhone(phone)}`" v-if="phone") {{ regexPhone(phone) }}
 						a.contacts-footer__email(href="mailto:perevozov-service@mail.ru" v-if="email") {{email}}
 					.footer__menu.menu-footer
 						ul.menu-footer__list
@@ -50,12 +50,6 @@ const mainInfoStore = useMainInfoStore();
 const { menu, links } = mainInfoStore;
 
 const { phone, email, telegram, youtube, vk } = links;
-
-const formatPhone = computed(() => {
-  if (phone) {
-    return phone.replace(/[^\d\+]/g, "");
-  }
-});
 
 const scrollTop = () => {
   const wrapper = document.querySelector(".wrapper");
@@ -131,7 +125,7 @@ onMounted(() => {
     line-height: 52px;
     text-transform: uppercase;
     text-align: right;
-    background: linear-gradient(to left, $bg-white 55%, $gray 45%);
+    background: linear-gradient(to left, $bg-white 57%, $gray 45%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 200% auto;
@@ -145,6 +139,7 @@ onMounted(() => {
     @media screen and (max-width: $md) {
       font-size: 24px;
       line-height: 29px;
+      text-align: center;
     }
     @media screen and (max-width: 374.98px) {
       font-size: 20px;

@@ -1,7 +1,7 @@
 <template lang="pug">
 	.header__actions(:class="[device === 'pc' ? '' : 'header__actions--mobile']")
 		.header__phone-wrap
-			a.header__phone(:href="`tel:${formatPhone}`") {{phone}}
+			a.header__phone(:href="`tel:${formatPhone(phone)}`") {{ regexPhone(phone) }}
 		nuxt-link(v-if="isStocks" :to="{ path: '/', hash: '#sale' }" @click.prevent="goToSection").header__button
 			span.header__button-text Акции
 </template>
@@ -16,12 +16,6 @@ const { isStocks, links } = mainInfoStore;
 const { phone } = links;
 
 const emit = defineEmits(["goToSection"]);
-
-const formatPhone = computed(() => {
-  if (phone) {
-    return phone.replace(/[^\d\+]/g, "");
-  }
-});
 
 defineProps({
   device: {
