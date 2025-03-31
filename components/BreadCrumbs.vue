@@ -2,9 +2,12 @@
 	.breadcrumbs
 		.container
 			nav.breadcrumbs__nav
-				ul.breadcrumbs__list
-					li.breadcrumbs__item(v-for="(item, index) in navList" :key="index")
-						nuxt-link(:to="item.url" :class="{ disabled: index == navList.length - 1 }").breadcrumbs__link {{ item.text }}
+				ul(itemscope itemtype="http://schema.org/BreadcrumbList").breadcrumbs__list
+					li(itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" v-for="(item, index) in navList" :key="index").breadcrumbs__item
+						nuxt-link(itemprop="item" :to="item.url" :class="{ disabled: index == navList.length - 1 }").breadcrumbs__link
+							span(itemprop="name") {{ item.text }}
+						meta(itemprop="position" content="1")
+
 </template>
 
 <script setup>

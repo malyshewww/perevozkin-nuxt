@@ -7,6 +7,14 @@
 					.article-page__wrapper
 						SectionArticleContent(:content="blogDetail.main.content")
 						SectionArticleForm(:title="blogDetail.title")
+	div(itemscope itemtype="https://schema.org/Article" style="display: none;")
+		meta(itemscope itemprop="mainEntityOfPage" itemType="https://schema.org/WebPage" itemid="https://perevozov-service.ru/blog/obsluzhivanie-i-diagnostika-tormoznoy-sistemy")
+		link(itemprop="image" :href="blogDetail.main.content.field_image[0].raw")
+		meta(itemprop="headline" :content="blogDetail.main.content.title")
+		meta(itemprop="description" :content="blogDetail.descr")
+		span(itemprop="datePublished" :content="blogDetail.main.content.created[0].date + '+03:00'") {{ blogDetail.main.content.created[0].date }}+03:00
+		span(itemprop="author" itemscope itemtype="https://schema.org/Person")
+			span(itemprop="name") Перевозов сервис
 </template>
 
 <script setup>
@@ -24,30 +32,29 @@ const {
   data: blogDetail,
   status,
   error,
-} = await useAsyncData(
-  "blogDetail",
-  () => $fetch(`${runtimeConfig.public.apiBase}/blog/${id}?_format=json`, {}),
-  {
-    transform: ({ breadcrumb, data, metatag }) => {
-      const metadata = useGenerateMeta(metatag.html_head);
-      const { acc: meta, title } = metadata;
-      return {
-        breadcrumbs: breadcrumb,
-        title: data.title,
-        main: {
-          content: data,
-        },
-        meta,
-        title,
-      };
-    },
-  }
-);
+} = await useAsyncData("blogDetail", () => $fetch(`${runtimeConfig.public.apiBase}/blog/${id}?_format=json`, {}), {
+  transform: (res) => {
+    const { breadcrumb, data, metatag } = res;
+    const metadata = useGenerateMeta(metatag.html_head);
+    const { acc: meta, title, descr } = metadata;
+    return {
+      breadcrumbs: breadcrumb,
+      title: data.title,
+      main: {
+        content: data,
+      },
+      meta,
+      title,
+      descr,
+    };
+  },
+});
 
 useHead({
   title: blogDetail.value.title,
   meta: [...blogDetail.value.meta],
 });
+console.log(blogDetail.value);
 </script>
 
 <style lang="scss">

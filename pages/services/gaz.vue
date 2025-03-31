@@ -13,7 +13,19 @@
 			SectionServiceCardForm
 			SectionServiceCardContent(v-if="serviceGaz.main.content" :content="serviceGaz.main.content")
 			SectionServiceCardOtherServices(v-if="serviceGaz.main.otherServices" :services="serviceGaz.main.otherServices")
+	div(itemscope itemtype="https://schema.org/Product" style="display: none;")
+		span(itemprop="name") {{ processedTitle }}
+		img(itemprop="image" :src="serviceGaz.main.top.image.raw" :alt="serviceGaz.main.top.image.alt")
+		span(itemprop="description") {{ serviceGaz.descr || serviceGaz.main.content }}
+		link(itemprop="url" :href="$route.fullPath")
+		div(itemprop="offers" itemscope itemtype="https://schema.org/Offer")
+			link(itemprop="availability" href="https://schema.org/InStock")
+			div(itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification")
+				meta(itemprop="minPrice" :content="serviceGaz.main.price")
+				meta(itemprop="priceCurrency" content="RUB")
+				| Цена от #[span(itemprop="price") {{ serviceGaz.main.price }} ] ₽
 </template>
+
 <script setup scope>
 import SplitType from "split-type";
 const { $gsap: gsap } = useNuxtApp();
@@ -24,10 +36,7 @@ const splittingGaz = () => {
   const splitDescr = new SplitType(mainDescrGaz.value, {
     types: "lines",
   });
-  tl.value = gsap
-    .timeline({})
-    .from(splitDescr.lines, { y: 100, opacity: 0, stagger: 0.1 })
-    .to(splitDescr.lines, { y: 0, opacity: 1, stagger: 0.1 });
+  tl.value = gsap.timeline({}).from(splitDescr.lines, { y: 100, opacity: 0, stagger: 0.1 }).to(splitDescr.lines, { y: 0, opacity: 1, stagger: 0.1 });
 };
 
 const destroyAnimations = () => {
@@ -41,36 +50,39 @@ const {
   data: serviceGaz,
   status,
   error,
-} = await useAsyncData(
-  "serviceGaz",
-  () => $fetch(`${runtimeConfig.public.apiBase}/services/gaz?_format=json`, {}),
-  {
-    transform: ({ breadcrumb, data, metatag }) => {
-      const metadata = useGenerateMeta(metatag.html_head);
-      const { acc: meta, title } = metadata;
-      return {
-        breadcrumbs: breadcrumb,
-        main: {
-          top: {
-            title: data.title,
-            subtitle: data.field_subtitle[0],
-            image: data.field_image[0],
-          },
-          advantages: {
-            list: data.advantages[0].field_advantages,
-            description: data.field_dvantage_description[0],
-            strongText: data.field_advantages_strong_text[0],
-            images: data.field_advantages_images,
-          },
-          otherServices: data.services_same,
-          content: data.body[0],
+} = await useAsyncData("serviceGaz", () => $fetch(`${runtimeConfig.public.apiBase}/services/gaz?_format=json`, {}), {
+  transform: (res) => {
+    const { breadcrumb, data, metatag } = res;
+    const metadata = useGenerateMeta(metatag.html_head);
+    const { acc: meta, title, descr } = metadata;
+    return {
+      breadcrumbs: breadcrumb,
+      main: {
+        price: data.field_price[0],
+        top: {
+          title: data.title,
+          subtitle: data.field_subtitle[0],
+          image: data.field_image[0],
         },
-        meta,
-        title,
-      };
-    },
-  }
-);
+        advantages: {
+          list: data.advantages[0].field_advantages,
+          description: data.field_dvantage_description[0],
+          strongText: data.field_advantages_strong_text[0],
+          images: data.field_advantages_images,
+        },
+        otherServices: data.services_same,
+        content: data.body[0],
+      },
+      meta,
+      title,
+      descr,
+    };
+  },
+});
+
+const processedTitle = computed(() => {
+  return serviceGaz.value.main.top.title.trim().replace(/<[^>]*>/g, "");
+});
 
 useHead({
   title: serviceGaz.value.title,
