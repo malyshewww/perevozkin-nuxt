@@ -6,7 +6,7 @@
 					li(itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" v-for="(item, index) in navList" :key="index").breadcrumbs__item
 						nuxt-link(itemprop="item" :to="item.url" :class="{ disabled: index == navList.length - 1 }").breadcrumbs__link
 							span(itemprop="name") {{ item.text }}
-						meta(itemprop="position" content="1")
+						meta(itemprop="position" :content="index+1")
 
 </template>
 
