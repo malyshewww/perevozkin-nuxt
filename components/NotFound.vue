@@ -12,9 +12,9 @@
 					.not-found-menu__caption Услуги
 					ul.not-found-menu__list
 						li(v-for="(service, index) in services" :key="index").not-found-menu__item
-							nuxt-link(:to="service.url").not-found-menu__link {{service.name}}
-						li.not-found-menu__item
-							nuxt-link(:to="serviceFront[0].url").not-found-menu__link {{serviceFront[0].title}}
+							nuxt-link(:to="service.url").not-found-menu__link {{ service.title }}
+						//- li.not-found-menu__item
+						//- 	nuxt-link(:to="serviceFront[0].url").not-found-menu__link {{serviceFront[0].title}}
 </template>
 
 <script setup>

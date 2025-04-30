@@ -5,7 +5,13 @@ import postCssSortMediaQueries from "postcss-sort-media-queries";
 export default defineNuxtConfig({
   devtools: { enabled: false },
   loading: false,
-
+  // hooks: {
+  //   "render:route": (url, result) => {
+  //     if (url === "/404" || url.startsWith("/404/")) {
+  //       result.statusCode = 404;
+  //     }
+  //   },
+  // },
   // route rules
   // routeRules: {
   //   "/": { prerender: true },
@@ -37,14 +43,7 @@ export default defineNuxtConfig({
     // { path: "~/components/special-components", prefix: "Special" },
   ],
 
-  modules: [
-    "nuxt-delay-hydration",
-    "nuxt-booster",
-    "@nuxt/eslint",
-    "@pinia/nuxt",
-    "@nuxtjs/device",
-    "@nuxt/image",
-  ],
+  modules: ["nuxt-delay-hydration", "nuxt-booster", "@nuxt/eslint", "@pinia/nuxt", "@nuxtjs/device", "@nuxt/image"],
 
   booster: {
     // optimizeSSR: {
@@ -260,8 +259,7 @@ export default defineNuxtConfig({
       },
       preprocessorOptions: {
         scss: {
-          additionalData:
-            '@use "sass:math"; @use "~/assets/scss/base/mixins.scss" as *; @import "~/assets/scss/variables.scss";',
+          additionalData: '@use "sass:math"; @use "~/assets/scss/base/mixins.scss" as *; @import "~/assets/scss/variables.scss";',
         },
       },
     },

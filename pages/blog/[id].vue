@@ -54,7 +54,6 @@ useHead({
   title: blogDetail.value.title,
   meta: [...blogDetail.value.meta],
 });
-console.log(blogDetail.value);
 </script>
 
 <style lang="scss">

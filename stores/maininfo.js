@@ -12,11 +12,13 @@ export const useMainInfoStore = defineStore("mainInfoStore", {
       whatsapp: "",
     },
     isStocks: "",
+    services: "",
   }),
   actions: {
     async setData(res) {
       const { data } = res;
       try {
+        this.services = data.services_menu;
         this.menu = data.menu_main;
         this.links.telegram = data.site_info[0].field_link_telegram;
         this.links.vk = data.site_info[0].field_link_vk;
