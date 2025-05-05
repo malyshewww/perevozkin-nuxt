@@ -15,7 +15,7 @@ const url = `${runtimeConfig.public.apiBase}/wsapi/packs/site_info?_format=json`
 
 const { data: mainInfoData } = await useFetch(url);
 
-console.log(mainInfoData.value);
+// console.log(mainInfoData.value);
 
 onServerPrefetch(async () => {
   try {

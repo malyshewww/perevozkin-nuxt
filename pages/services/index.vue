@@ -22,25 +22,23 @@ const {
   data: servicesPage,
   status,
   error,
-} = await useAsyncData(
-  "servicesPage",
-  () => $fetch(`${runtimeConfig.public.apiBase}/services?_format=json`, {}),
-  {
-    transform: ({ breadcrumb, data, services_front, metatag }) => {
-      const metadata = useGenerateMeta(metatag.html_head);
-      const { acc: meta, title } = metadata;
-      return {
-        breadcrumbs: breadcrumb,
-        main: {
-          list: data,
-          servicesFront: services_front,
-        },
-        meta,
-        title,
-      };
-    },
-  }
-);
+} = await useAsyncData("servicesPage", () => $fetch(`${runtimeConfig.public.apiBase}/services?_format=json`, {}), {
+  transform: (res) => {
+    console.log(res);
+    const { breadcrumb, data, services_front, metatag } = res;
+    const metadata = useGenerateMeta(metatag.html_head);
+    const { acc: meta, title } = metadata;
+    return {
+      breadcrumbs: breadcrumb,
+      main: {
+        list: data,
+        servicesFront: services_front,
+      },
+      meta,
+      title,
+    };
+  },
+});
 
 useHead({
   title: servicesPage.value.title,
