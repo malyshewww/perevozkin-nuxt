@@ -3,7 +3,8 @@
 		Popup(:is-active="isActive" @close-popup="closePopup")
 			.popup__header
 				h2.popup__title {{data.title}}
-			.popup__description.content(v-html="data.descr")
+			ContainerContent(class-names="popup__description")
+				.content(v-html="data.descr")
 </template>
 
 <script setup>

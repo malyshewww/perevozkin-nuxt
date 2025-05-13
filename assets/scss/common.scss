@@ -330,7 +330,8 @@ body.lock {
       line-height: calc(80px / 1.5);
     }
     @media screen and (max-width: $md) {
-      font-size: 26px;
+      font-size: 28px;
+      line-height: 36px;
     }
   }
   & h2 {
@@ -343,6 +344,7 @@ body.lock {
     }
     @media screen and (max-width: $md) {
       font-size: 24px;
+      line-height: 32px;
     }
   }
   & h3 {
@@ -355,6 +357,7 @@ body.lock {
     }
     @media screen and (max-width: $md) {
       font-size: 22px;
+      line-height: 28px;
     }
   }
   & h4 {
@@ -375,6 +378,7 @@ body.lock {
     margin-bottom: 40px;
     @media screen and (max-width: $md) {
       font-size: 18px;
+      line-height: 22px;
     }
   }
   & h6 {
@@ -485,9 +489,14 @@ body.lock {
   & table {
     border: 1px solid $bg-asphalt;
     border-collapse: collapse;
+    width: 100%;
+    @media screen and (max-width: $md) {
+      width: 800px;
+    }
     & tr {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(200px, 1fr));
+      // display: grid;
+      // grid-template-columns: repeat(4, minmax(200px, 1fr));
+      // display: flex;
       &:not(:last-child) {
         border-bottom: 1px solid $bg-asphalt;
       }
@@ -499,11 +508,13 @@ body.lock {
     }
     & td,
     & th {
-      padding: 8px 24px;
+      padding: 9px 24px;
       text-align: left;
       min-height: 48px;
-      display: grid;
-      align-items: center;
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+      flex: 1 1 auto;
       &:not(:last-child) {
         border-right: 1px solid $bg-asphalt;
       }
@@ -526,6 +537,27 @@ body.lock {
       //   border-color: #b854e7;
       // }
     }
+  }
+}
+
+.title-h2 {
+  font-size: 48px;
+  line-height: 60px;
+  margin-bottom: 48px;
+  font-family: $third-family;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: $bg-white;
+  margin-bottom: 40px;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  @media screen and (max-width: $xl) {
+    font-size: calc(48px / 1.5);
+    line-height: calc(60px / 1.5);
+  }
+  @media screen and (max-width: $md) {
+    font-size: 24px;
+    line-height: 32px;
   }
 }
 

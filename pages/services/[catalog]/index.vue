@@ -9,7 +9,8 @@
 				.services
 					.services__body
 						Card(:arr="services.main.list")
-					.content(v-if="services.main.content" v-html="services.main.content")
+					ContainerContent(v-if="services.main.content")
+						.content(v-html="services.main.content")
 </template>
 
 <script setup>
@@ -21,32 +22,24 @@ const {
   data: services,
   status,
   error,
-} = await useAsyncData(
-  "services",
-  () =>
-    $fetch(
-      `${runtimeConfig.public.apiBase}/services/${catalog}?_format=json`,
-      {}
-    ),
-  {
-    transform: (res) => {
-      const { breadcrumb, data, metatag } = res;
-      const currentPageTitle = useLastBreadcrumb(breadcrumb);
-      const metadata = useGenerateMeta(metatag.html_head);
-      const { acc: meta, title } = metadata;
-      return {
-        breadcrumbs: breadcrumb,
-        pageTitle: currentPageTitle,
-        main: {
-          list: data,
-          content: res.taxonomy_term.description[0],
-        },
-        meta,
-        title,
-      };
-    },
-  }
-);
+} = await useAsyncData("services", () => $fetch(`${runtimeConfig.public.apiBase}/services/${catalog}?_format=json`, {}), {
+  transform: (res) => {
+    const { breadcrumb, data, metatag } = res;
+    const currentPageTitle = useLastBreadcrumb(breadcrumb);
+    const metadata = useGenerateMeta(metatag.html_head);
+    const { acc: meta, title } = metadata;
+    return {
+      breadcrumbs: breadcrumb,
+      pageTitle: currentPageTitle,
+      main: {
+        list: data,
+        content: res.taxonomy_term.description[0],
+      },
+      meta,
+      title,
+    };
+  },
+});
 
 useHead({
   title: services.value.title,

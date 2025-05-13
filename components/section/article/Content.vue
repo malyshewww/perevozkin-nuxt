@@ -1,10 +1,10 @@
 <template lang="pug">
-	.article-page__content.content
-		h2 {{ content.title }}
-		.content__image.ibg
-			div(v-html="content.field_image[0].markup")
-		.content-groups
-			.content(v-html="content.body")
+  ContainerContent(class-names="article-page__content")
+    h2.title-h2 {{ content.title }}
+    .content__image.ibg
+      div(v-html="content.field_image[0].markup")
+    .content-groups
+      .content(v-html="content.body")
 </template>
 
 <script setup>

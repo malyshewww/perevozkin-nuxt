@@ -1,29 +1,30 @@
 <template lang="pug">
-	.vacancy__content.content
-		.vacancy__item.item-vacancy(v-for="(vacancy, index) in modifiedVacancyList" :key="vacancy.id")
-			h3.item-vacancy__title {{ vacancy.field_name[0] }}
-			.item-vacancy__groups
-				.item-vacancy__group
-					.item-vacancy__main.main-info
-						.main-info__inner(v-if="vacancy.field_salary.length")
-							.main-info__label Заработная плата:
-							.main-info__values(data-attr="от") {{ vacancy.field_salary[0] }}
-						.main-info__inner(v-if="vacancy.field_contacts.length")
-							.main-info__label Контакты отдела персонала:
-							.main-info__values
-								a.main-info__value(v-for="(phone, phoneIndex) in vacancy.field_contacts" :key="phoneIndex" :href="`tel:${vacancy.field_contacts_new[phoneIndex]}`") {{ phone }}
-				.item-vacancy__group(v-if="vacancy.field_responsibilities.length")
-					.item-vacancy__label Обязанности
-					ul
-						li(v-for="(r, i) in vacancy.field_responsibilities" :key="i") {{ r }}
-				.item-vacancy__group(v-if="vacancy.field_requirements.length")
-					.item-vacancy__label Требования
-					ul
-						li(v-for="(r, i) in vacancy.field_requirements" :key="i") {{ r }}
-				.item-vacancy__group(v-if="vacancy.field_working_conditions.length")
-					.item-vacancy__label Условия работы
-					ul
-						li(v-for="(c, i) in vacancy.field_working_conditions" :key="i") {{ c }}
+	ContainerContent(class-names="vacancy__content")
+		.vacancy__content.content
+			.vacancy__item.item-vacancy(v-for="(vacancy, index) in modifiedVacancyList" :key="vacancy.id")
+				h3.item-vacancy__title {{ vacancy.field_name[0] }}
+				.item-vacancy__groups
+					.item-vacancy__group
+						.item-vacancy__main.main-info
+							.main-info__inner(v-if="vacancy.field_salary.length")
+								.main-info__label Заработная плата:
+								.main-info__values(data-attr="от") {{ vacancy.field_salary[0] }}
+							.main-info__inner(v-if="vacancy.field_contacts.length")
+								.main-info__label Контакты отдела персонала:
+								.main-info__values
+									a.main-info__value(v-for="(phone, phoneIndex) in vacancy.field_contacts" :key="phoneIndex" :href="`tel:${vacancy.field_contacts_new[phoneIndex]}`") {{ phone }}
+					.item-vacancy__group(v-if="vacancy.field_responsibilities.length")
+						.item-vacancy__label Обязанности
+						ul
+							li(v-for="(r, i) in vacancy.field_responsibilities" :key="i") {{ r }}
+					.item-vacancy__group(v-if="vacancy.field_requirements.length")
+						.item-vacancy__label Требования
+						ul
+							li(v-for="(r, i) in vacancy.field_requirements" :key="i") {{ r }}
+					.item-vacancy__group(v-if="vacancy.field_working_conditions.length")
+						.item-vacancy__label Условия работы
+						ul
+							li(v-for="(c, i) in vacancy.field_working_conditions" :key="i") {{ c }}
 </template>
 
 <script setup>

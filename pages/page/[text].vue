@@ -7,7 +7,8 @@
 					.main-header__body
 						h1.main__title.page-title {{ pageText.pageTitle }}
 				.page-content
-					.content(v-html="pageText.main.content")
+					ContainerContent
+						.content(v-html="pageText.main.content")
 					SliderGallery(v-if="pageText.main.gallery" :gallerySlider="pageText.main.gallery")
 </template>
 
@@ -19,26 +20,22 @@ const {
   data: pageText,
   status,
   error,
-} = await useAsyncData(
-  "pageText",
-  () => $fetch(`${runtimeConfig.public.apiBase}/page/${text}?_format=json`, {}),
-  {
-    transform: ({ breadcrumb, data, metatag }) => {
-      const metadata = useGenerateMeta(metatag.html_head);
-      const { acc: meta, title } = metadata;
-      return {
-        breadcrumbs: breadcrumb,
-        pageTitle: data.title,
-        main: {
-          content: data.body[0],
-          gallery: data.field_gallery,
-        },
-        meta,
-        title,
-      };
-    },
-  }
-);
+} = await useAsyncData("pageText", () => $fetch(`${runtimeConfig.public.apiBase}/page/${text}?_format=json`, {}), {
+  transform: ({ breadcrumb, data, metatag }) => {
+    const metadata = useGenerateMeta(metatag.html_head);
+    const { acc: meta, title } = metadata;
+    return {
+      breadcrumbs: breadcrumb,
+      pageTitle: data.title,
+      main: {
+        content: data.body[0],
+        gallery: data.field_gallery,
+      },
+      meta,
+      title,
+    };
+  },
+});
 
 useHead({
   title: pageText.value.title,
